@@ -1,27 +1,33 @@
 "use client";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-//import Logo from "/assets/images/decoded.svg"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import useSidebarContext from "@/hooks/useSidebarContext";
 import useUserContext from "@/hooks/useUserContext";
+import { MenuIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-//import { MobileSidebar } from "./mobile-sidebar";
 
 export const Navbar = () => {
   const { state } = useUserContext();
-  //console.log("state:", state);
+  const { toggleSidebar } = useSidebarContext();
   const { avatar, username } = state;
-  //console.log("avatar:", avatar);
+  console.log("navbar rendered");
   return (
     <div className="w-full border-b">
       <div className="px-20 py-2  h-full flex w-full items-center  z-30  justify-between">
         {/*<MobileSidebar />*/}
+        <div className="mr-4">
+          <MenuIcon
+            className="cursor-pointer"
+            onClick={toggleSidebar}
+            size={32}
+          />
+        </div>
         <div className="w-full">
           <Image
             alt="youtube-clone"

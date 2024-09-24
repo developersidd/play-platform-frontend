@@ -4,11 +4,17 @@ import { getAccessToken, refreshAccessToken } from "./auth.api";
 export const privateApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 export const publicApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 // Function to make an API request and handle 401 errors and token refresh
