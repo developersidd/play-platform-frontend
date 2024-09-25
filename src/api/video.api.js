@@ -1,7 +1,11 @@
 import { publicApi } from ".";
 const getAllVideos = async () => {
   try {
-    const res = await publicApi.get("/api/v1/videos");
+    const res = await publicApi.get("/api/v1/videos", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     console.log("res.data?.data:", res.data?.data);
     return res.data?.data;
   } catch (error) {
@@ -12,7 +16,6 @@ const getAllVideos = async () => {
 const getVideoById = async (id) => {
   try {
     const res = await publicApi.get(`/api/v1/videos/${id}`);
-    console.log("res:", res.data);
     return res.data?.data;
   } catch (error) {
     console.log(error);

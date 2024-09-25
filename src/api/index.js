@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAccessToken, refreshAccessToken } from "./auth.api";
+import { getAccessToken } from "./auth.api";
 
 export const privateApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -31,14 +31,16 @@ export async function fetchWithAuth(url, options = {}) {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    console.log("response:", response);
+    console.log("response:", response.data);
     return response.data;
   } catch (error) {
+    console.log("error in fetchwith:", error);
     if (error.response && error.response.status === 401 && !options._retry) {
       options._retry = true;
       // If we receive a 401, try refreshing the token
       try {
         const { data } = (await refreshAccessToken()) || {};
+        console.log("data:", data);
         const newAccessToken = data?.accessToken;
         // Retry the original request with the new token
         const retryResponse = await privateApi({

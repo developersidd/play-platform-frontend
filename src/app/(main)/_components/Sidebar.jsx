@@ -18,7 +18,6 @@ import {
   Video,
 } from "lucide-react";
 import Link from "next/link"; // Import Link for navigation in Next.js
-import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
   const { sidebarCollapsed } = useSidebarContext();
@@ -55,8 +54,6 @@ const Sidebar = () => {
       smHidden: true,
     },
   ];
-  const pathname = usePathname();
-  console.log("pathname:", pathname);
   return (
     <aside
       className={`fixed transition-all duration-500 inset-x-0 bottom-0 z-40 w-full shrink-0 border-t border-white bg-[#121212] px-2 py-2 sm:inset-y-0 sm:max-w-[80px] sm:border-r sm:border-t-0 sm:py-6 ${

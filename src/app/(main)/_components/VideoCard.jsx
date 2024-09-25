@@ -1,10 +1,13 @@
+import { formatViews } from "@/lib/utils";
+import moment from "moment/moment";
 import Link from "next/link";
 
 const VideoCard = ({ video }) => {
   const {
+    _id,
     title,
     views,
-    owner: { avatar, _id, username, fullName } = {},
+    owner: { avatar, _id: ownerId, username, fullName } = {},
     createdAt,
     thumbnail,
   } = video || {};
@@ -43,7 +46,7 @@ const VideoCard = ({ video }) => {
             <h6 className="mb-1 font-semibold">{title}</h6>
           </Link>
           <p className="flex text-sm text-gray-200">
-            14.5k&nbsp;Views · 7 hours ago
+            {formatViews(views)} Views · {moment(createdAt).fromNow()}
           </p>
 
           <p className="text-sm text-gray-200"> {fullName} </p>

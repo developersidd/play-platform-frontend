@@ -1,15 +1,24 @@
+"use server";
 import { fetchWithAuth } from ".";
+import { getAccessToken } from "./auth.api";
 
 const retrieveCurrentUser = async () => {
   try {
-    const res = await fetchWithAuth("/api/v1/users/current-user");
-    console.log("res:", res);
+    const accessToken = getAccessToken();
+    if (!accessToken) {
+      return {
+        error: "Unauthorized",
+      };
+    }
+    const res = await fetchWithAuth("/api/v1/users/current-user", {
+      method: "GET",
+    });
     return {
-      data: res,
+      user: res.data,
     };
   } catch (e) {
     return {
-      error: e,
+      error: e.message,
     };
   }
 };
