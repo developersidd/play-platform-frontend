@@ -7,7 +7,9 @@ import VideoPlayer from "../_components/VideoPlayer";
 
 const SingleVideoPage = async ({ params: { id } = {} }) => {
   const video = await getVideoById(id);
+
   const { user, error } = await retrieveCurrentUser();
+  console.log("error user:", error);
 
   return (
     <section className="w-full pb-[70px] sm:pb-0">

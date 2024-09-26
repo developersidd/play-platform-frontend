@@ -1,15 +1,19 @@
 "use server";
 import { publicApi } from ".";
 const getVideoLikes = async (videoId, userId) => {
-  console.log("videoId, userId:", videoId, userId);
   try {
-    const res = await publicApi.get(`/api/v1/likes/video/${videoId}/${userId}`);
+    let url = `/api/v1/likes/video/${videoId}`;
+    if (userId) {
+      url += `?userId=${userId}`;
+    }
+
+    const res = await publicApi.get(url);
     return {
       data: res.data?.data,
     };
   } catch (e) {
     return {
-      error: e.message,
+      error: e,
     };
   }
 };

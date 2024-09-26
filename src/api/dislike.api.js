@@ -2,9 +2,11 @@
 import { publicApi } from ".";
 const getVideoDisLikes = async (videoId, userId) => {
   try {
-    const res = await publicApi.get(
-      `/api/v1/dislikes/video/${videoId}/${userId}`
-    );
+    let url = `/api/v1/dislikes/video/${videoId}`;
+    if (userId) {
+      url += `?userId=${userId}`;
+    }
+    const res = await publicApi.get(url);
     return {
       data: res.data?.data,
     };

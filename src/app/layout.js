@@ -17,8 +17,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${openSans.variable} `}>
-        <Toaster richColors position="bottom-right" />
         {children}
+        <Toaster richColors position="bottom-right" />
       </body>
     </html>
   );

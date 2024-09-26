@@ -73,6 +73,7 @@ const VideoLikeDislike = ({ videoId, userId, likeData, dislikeData }) => {
   return (
     <div className="flex overflow-hidden rounded-lg border">
       <button
+        //disabled={!userId}
         onClick={handleLike}
         className="group/btn flex items-center gap-x-2 border-r border-gray-700 px-4 py-1.5 after:content-[attr(data-like)] hover:bg-white/10 focus:after:content-[attr(data-like-alt)]"
         data-like={likeCount || 0}
@@ -83,6 +84,7 @@ const VideoLikeDislike = ({ videoId, userId, likeData, dislikeData }) => {
         </span>
       </button>
       <button
+        //disabled={!userId}
         onClick={handleDisLike}
         className="group/btn flex items-center gap-x-2 px-4 py-1.5 after:content-[attr(data-like)] hover:bg-white/10 focus:after:content-[attr(data-like-alt)]"
         data-like={dislikeCount || 0}

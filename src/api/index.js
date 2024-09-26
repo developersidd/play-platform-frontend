@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAccessToken } from "./auth.api";
+import { getAccessToken, refreshAccessToken } from "./auth.api";
 
 export const privateApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -43,7 +43,7 @@ export async function fetchWithAuth(url, options = {}) {
         console.log("data:", data);
         const newAccessToken = data?.accessToken;
         // Retry the original request with the new token
-        const retryResponse = await privateApi({
+        await privateApi({
           ...options,
           url,
           headers: {
@@ -51,10 +51,11 @@ export async function fetchWithAuth(url, options = {}) {
             Authorization: `Bearer ${newAccessToken}`,
           },
         });
-        return retryResponse.data;
       } catch (refreshError) {
         // Token refresh failed, handle logout or redirect to login
-        throw new Error("Session expired. Please log in again.");
+        throw new Error(
+          "Session expired or there was error refreshing token. Please log in again."
+        );
       }
     }
     throw error; // If it's another error, rethrow it

@@ -1,4 +1,4 @@
-import { formatViews } from "@/lib/utils";
+import { formatCounting } from "@/lib/utils";
 import moment from "moment/moment";
 import Link from "next/link";
 
@@ -46,7 +46,7 @@ const VideoCard = ({ video }) => {
             <h6 className="mb-1 font-semibold">{title}</h6>
           </Link>
           <p className="flex text-sm text-gray-200">
-            {formatViews(views)} Views · {moment(createdAt).fromNow()}
+            {formatCounting(views)} Views · {moment(createdAt).fromNow()}
           </p>
 
           <p className="text-sm text-gray-200"> {fullName} </p>

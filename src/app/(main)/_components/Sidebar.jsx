@@ -75,7 +75,7 @@ const Sidebar = () => {
                   <Link
                     title={label}
                     href={link}
-                    className={`flex flex-col items-center justify-center border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black group-hover:justify-start group-hover:px-4 ${
+                    className={`flex flex-col items-center justify-center border-white py-1 focus:text-secondary sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-secondary sm:hover:text-black sm:focus:border-secondary sm:focus:bg-secondary sm:focus:text-black group-hover:justify-start group-hover:px-4 ${
                       sidebarCollapsed ? "" : "lg:justify-start"
                     } lg:px-4`}
                   >
