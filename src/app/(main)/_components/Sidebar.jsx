@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import Link from "next/link"; // Import Link for navigation in Next.js
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 // Sidebar items with link property
 const sidebarItems = [
@@ -56,12 +57,16 @@ const sidebarItems = [
 const Sidebar = () => {
   const { sidebarCollapsed, toggleSidebar } = useSidebarContext();
   const pathname = usePathname();
+  useEffect(() => {
+    if (pathname !== "/" && !sidebarCollapsed) {
+      toggleSidebar();
+    } else if (pathname === "/" && !sidebarCollapsed) {
+      toggleSidebar();
+    }
+  }, [pathname]);
   let navItemClasses;
   let classes = "";
   if (pathname === "/") {
-    navItemClasses = `
-      
-    `;
     classes = `
       px-3 border-r-2 transition-all duration-500
       ${sidebarCollapsed ? "w-[85px]" : "w-[230px]"}

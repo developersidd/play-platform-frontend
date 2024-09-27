@@ -2,7 +2,7 @@
 import { fetchWithAuth } from ".";
 
 const retrieveCurrentUser = async () => {
-  console.log("retrieveCurrentUser");
+  //console.log("retrieveCurrentUser");
   try {
     //const accessToken = getAccessToken();
     const res = await fetchWithAuth("/api/v1/users/current-user", {

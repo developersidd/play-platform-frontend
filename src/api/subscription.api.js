@@ -4,12 +4,12 @@ import { fetchWithAuth, publicApi } from ".";
 const getChannelSubscribers = async (channelId) => {
   try {
     const res = await publicApi.get(`/api/v1/subscriptions/u/${channelId}`);
-    console.log("res:", res);
+    //console.log("res:", res);
     return {
       data: res?.data?.data,
     };
   } catch (error) {
-    console.log("error from shannel subccfsdf:", error);
+    //console.log("error from shannel subccfsdf:", error);
     //console.error(error);
     return {
       error: error.message,
@@ -21,7 +21,7 @@ const getChannelSubscribers = async (channelId) => {
 const getUserSubscribedChannels = async (subscriberId) => {
   try {
     const res = await fetchWithAuth(`/api/v1/subscriptions/${subscriberId}`);
-    console.log("check:", res);
+    //console.log("check:", res);
     return {
       data: res.data,
     };
@@ -39,7 +39,7 @@ const checkUserSubscription = async (channelId) => {
     const res = await fetchWithAuth(
       `/api/v1/subscriptions/status/c/${channelId}`
     );
-    console.log("res:", res);
+    //console.log("res:", res);
     return {
       data: res.data,
     };

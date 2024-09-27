@@ -15,9 +15,9 @@ const VideoLikeDislike = ({ videoId, userId, likeData, dislikeData }) => {
   const likeApi = async () => {
     try {
       const res = await privateApi.post(`/api/v1/likes/toggle/v/${videoId}`);
-      console.log("res:", res);
+      //console.log("res:", res);
     } catch (error) {
-      console.log("error:", error);
+      //console.log("error:", error);
       console.error(error);
     }
   };
@@ -26,7 +26,7 @@ const VideoLikeDislike = ({ videoId, userId, likeData, dislikeData }) => {
   const dislikeApi = async () => {
     try {
       const res = await privateApi.post(`/api/v1/dislikes/toggle/v/${videoId}`);
-      console.log("res:", res);
+      //console.log("res:", res);
     } catch (error) {
       console.error(error);
     }

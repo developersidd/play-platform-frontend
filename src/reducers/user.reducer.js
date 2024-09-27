@@ -5,7 +5,7 @@ export const initialState = {};
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
-      console.log(action);
+      //console.log(action);
       return { ...state, ...action.payload };
     case LOGGED_OUT:
       return {};

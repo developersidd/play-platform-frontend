@@ -67,7 +67,7 @@ export const Navbar = () => {
                   <Link
                     href="#"
                     onClick={() => {
-                      console.log("Logout");
+                      //console.log("Logout");
                     }}
                   >
                     Logout

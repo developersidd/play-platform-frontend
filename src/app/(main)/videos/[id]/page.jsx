@@ -1,7 +1,7 @@
 import { retrieveCurrentUser } from "@/api/user.api";
 import { getVideoById } from "@/api/video.api";
 import RelatedVideoList from "../_components/RelatedVideoList";
-import VideoComments from "../_components/VideoComments";
+import VideoCommentSection from "../_components/VideoCommentSection";
 import VideoDescription from "../_components/VideoDescription";
 import VideoPlayer from "../_components/VideoPlayer";
 
@@ -9,7 +9,6 @@ const SingleVideoPage = async ({ params: { id } = {} }) => {
   const video = await getVideoById(id);
 
   const { user, error } = await retrieveCurrentUser();
-  console.log("error user:", error);
 
   return (
     <section className="w-full mx-20 pb-[70px] sm:pb-0">
@@ -20,7 +19,7 @@ const SingleVideoPage = async ({ params: { id } = {} }) => {
           {/* video description */}
           <VideoDescription video={video} userId={user?._id} />
           {/* comments */}
-          <VideoComments />
+          <VideoCommentSection videoId={id} userId={user?._id} />
         </div>
         {/* Realted videos */}
         <RelatedVideoList />

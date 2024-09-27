@@ -11,8 +11,8 @@ const VideoCard = ({ video }) => {
     createdAt,
     thumbnail,
   } = video || {};
-  console.log("avatar:", avatar);
-  //console.log("thumbnail:", thumbnail);
+  //console.log("avatar:", avatar);
+  ////console.log("thumbnail:", thumbnail);
   return (
     <div key={_id} className="w-full">
       <div className="relative mb-2 w-full pt-[56%]">

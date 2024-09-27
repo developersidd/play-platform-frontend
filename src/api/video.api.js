@@ -6,10 +6,10 @@ const getAllVideos = async () => {
         "Content-Type": "application/json",
       },
     });
-    console.log("res.data?.data:", res.data?.data);
+    //console.log("res.data?.data:", res.data?.data);
     return res.data?.data;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 
@@ -18,7 +18,7 @@ const getVideoById = async (id) => {
     const res = await publicApi.get(`/api/v1/videos/${id}`);
     return res.data?.data;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 

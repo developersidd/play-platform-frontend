@@ -16,7 +16,7 @@ const SubscribeChannel = ({ channelId, isSubscribed, userId }) => {
     setSubscribed((prev) => !prev);
     try {
       const res = await privateApi.post(`/api/v1/subscriptions/c/${channelId}`);
-      console.log("res:", res);
+      //console.log("res:", res);
       router.refresh();
     } catch (error) {
       // Revert the state if the request fails

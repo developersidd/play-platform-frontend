@@ -22,7 +22,7 @@ export async function fetchWithAuth(url, options = {}) {
   try {
     // Add the access token to the request headers
     const accessToken = getAccessToken(); // Get access token from cookies/session
-    console.log("accessToken:", accessToken);
+    //console.log("accessToken:", accessToken);
     const response = await privateApi({
       ...options,
       url,
@@ -31,16 +31,16 @@ export async function fetchWithAuth(url, options = {}) {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    console.log("response:", response.data);
+    //console.log("response:", response.data);
     return response.data;
   } catch (error) {
-    console.log("error in fetchwith:", error);
+    //console.log("error in fetchwith:", error);
     if (error.response && error.response.status === 401 && !options._retry) {
       options._retry = true;
       // If we receive a 401, try refreshing the token
       try {
         const { data } = (await refreshAccessToken()) || {};
-        console.log("data:", data);
+        //console.log("data:", data);
         const newAccessToken = data?.accessToken;
         // Retry the original request with the new token
         await privateApi({

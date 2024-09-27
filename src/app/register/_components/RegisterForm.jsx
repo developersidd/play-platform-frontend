@@ -29,10 +29,10 @@ import { z } from "zod";
 
 const MAX_FILE_SIZE = 5000000; // 5MB
 function checkFileType(file) {
-  console.log("file:", file);
+  //console.log("file:", file);
   if (file?.name) {
     const fileType = file?.name?.split(".")?.pop();
-    console.log("fileType:", fileType);
+    //console.log("fileType:", fileType);
     const allowedTypes = ["png", "jpg", "jpeg"];
     if (allowedTypes.includes(fileType)) return true;
   }
@@ -75,18 +75,18 @@ function RegisterForm() {
   });
   const { isSubmitting } = form.formState;
   async function onSubmit(data) {
-    console.log("data:", data);
+    //console.log("data:", data);
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value);
     });
-    console.log(Object.fromEntries(formData.entries()));
+    //console.log(Object.fromEntries(formData.entries()));
     try {
       const response = await publicApi.post("/api/v1/users/register", formData);
-      console.log("response:", response);
+      //console.log("response:", response);
       router.push("/login");
     } catch (e) {
-      console.log("e:", e);
+      //console.log("e:", e);
       toast.error("There was an error occurred!");
     }
   }

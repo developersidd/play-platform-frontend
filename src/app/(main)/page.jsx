@@ -4,7 +4,7 @@ import VideoList from "./_components/VideoList";
 
 const HomePage = async () => {
   const data = await getAllVideos();
-  console.log("home page rendered");
+  //console.log("home page rendered");
 
   return (
     <section className="w-full pb-[70px] px-4">

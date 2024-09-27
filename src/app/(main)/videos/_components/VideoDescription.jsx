@@ -18,13 +18,10 @@ const VideoDescription = async ({ video, userId, userPromise }) => {
     owner: { fullName, username, avatar, _id: ownerId } = {},
   } = video || {};
   const user = await userPromise;
-  console.log("user:", user);
-  console.log("ownerId:", ownerId);
   const { data, error } = await getVideoLikes(_id, userId);
-  console.log("error likes:", error);
   const { data: dislikes } = await getVideoDisLikes(_id, userId);
   const { data: { isSubscribed } = {} } =
-    (await checkUserSubscription(ownerId)) || {};
+    (userId && (await checkUserSubscription(ownerId))) || {};
   return (
     <div
       className="group mb-4 w-full rounded-lg border p-4 duration-200 hover:bg-white/5 focus:bg-white/5"
