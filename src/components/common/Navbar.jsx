@@ -18,7 +18,7 @@ export const Navbar = () => {
   const { avatar, username } = state;
   return (
     <div className="w-full border-b sticky top-0 z-50 bg-primary">
-      <div className="px-20 py-2  h-full flex w-full items-center  justify-between">
+      <div className="px-16 py-2  h-full flex w-full items-center  justify-between">
         {/*<MobileSidebar />*/}
         <div className="mr-4">
           <MenuIcon
@@ -27,7 +27,7 @@ export const Navbar = () => {
             size={32}
           />
         </div>
-        <div className="w-full">
+        <Link href="/" className="w-full">
           <Image
             alt="youtube-clone"
             className="size-16"
@@ -35,7 +35,7 @@ export const Navbar = () => {
             width={100}
             height={100}
           />
-        </div>
+        </Link>
         <div className="relative hidden w-full max-w-md overflow-hidden sm:block">
           <input
             className="w-full border bg-transparent py-1 pl-10 pr-3 placeholder-white outline-none sm:py-2"
