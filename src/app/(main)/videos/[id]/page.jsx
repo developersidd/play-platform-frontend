@@ -6,9 +6,9 @@ import VideoDescription from "../_components/VideoDescription";
 import VideoPlayer from "../_components/VideoPlayer";
 
 const SingleVideoPage = async ({ params: { id } = {} }) => {
-  const video = await getVideoById(id);
+  const { data: video, error: videoError } = await getVideoById(id);
 
-  const { user, error } = await retrieveCurrentUser();
+  const { user, error: userError } = await retrieveCurrentUser();
 
   return (
     <section className="w-full mx-20 pb-[70px] sm:pb-0">
@@ -22,7 +22,7 @@ const SingleVideoPage = async ({ params: { id } = {} }) => {
           <VideoCommentSection videoId={id} userId={user?._id} />
         </div>
         {/* Realted videos */}
-        <RelatedVideoList />
+        <RelatedVideoList videoId={id} />
       </div>
     </section>
   );

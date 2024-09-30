@@ -7,8 +7,14 @@ const getAllVideos = async () => {
       },
     });
     //console.log("res.data?.data:", res.data?.data);
-    return res.data?.data;
+    return {
+      data: res.data?.data,
+    };
   } catch (error) {
+    return {
+      error: error.message,
+    };
+
     //console.log(error);
   }
 };
@@ -16,10 +22,30 @@ const getAllVideos = async () => {
 const getVideoById = async (id) => {
   try {
     const res = await publicApi.get(`/api/v1/videos/${id}`);
-    return res.data?.data;
+    console.log("res.data?.data:", res.data?.data);
+    return {
+      data: res.data?.data,
+    };
   } catch (error) {
+    return {
+      error: error.message,
+    };
     //console.log(error);
   }
 };
 
-export { getAllVideos, getVideoById };
+const getRelatedVideos = async (videoId) => {
+  try {
+    const res = await publicApi.get(`/api/v1/videos/related/${videoId}`);
+    return {
+      data: res.data?.data,
+    };
+  } catch (error) {
+    console.log("error on getRelatedVideos:", error);
+    return {
+      error: error.message,
+    };
+  }
+};
+
+export { getAllVideos, getRelatedVideos, getVideoById };

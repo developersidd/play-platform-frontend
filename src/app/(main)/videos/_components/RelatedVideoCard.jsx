@@ -1,17 +1,30 @@
-const RelatedVideoCard = () => {
+import { formatCounting } from "@/lib/utils";
+import moment from "moment";
+import Link from "next/link";
+
+const RelatedVideoCard = ({ video }) => {
+  const {
+    title,
+    thumbnail,
+    duration,
+    channel,
+    views,
+    _id,
+    createdAt,
+    owner: { username, avatar, fullName, _id: ownerId } = {},
+  } = video;
   return (
-    <div className="w-full gap-x-2 border pr-2 md:flex">
+    <Link
+      href={`/videos/${_id}`}
+      className="w-full gap-x-2 border pr-2 md:flex"
+    >
       <div className="relative mb-2 w-full md:mb-0 md:w-5/12">
         <div className="w-full pt-[56%]">
           <div className="absolute inset-0">
-            <img
-              src="https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1"
-              alt="JavaScript Fundamentals: Variables and Data Types"
-              className="h-full w-full"
-            />
+            <img src={thumbnail?.url} alt={title} className="h-full w-full" />
           </div>
           <span className="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">
-            20:45
+            {duration}
           </span>
         </div>
       </div>
@@ -25,15 +38,15 @@ const RelatedVideoCard = () => {
         </div>
         <div className="w-full pt-1 md:pt-0">
           <h6 className="mb-1 text-sm font-semibold">
-            JavaScript Fundamentals: Variables and Data Types
+            {title.length > 50 ? `${title.slice(0, 50)}...` : title}
           </h6>
-          <p className="mb-0.5 mt-2 text-sm text-gray-200">Code Master</p>
+          <p className="mb-0.5 mt-2 text-sm text-gray-200"> {fullName} </p>
           <p className="flex text-sm text-gray-200">
-            10.3k&nbsp;Views · 44 minutes ago
+            {formatCounting(views)} Views · {moment(createdAt).fromNow()}
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
