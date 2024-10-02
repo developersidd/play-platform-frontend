@@ -1,12 +1,9 @@
+"use server";
 import { publicApi } from ".";
 const getAllVideos = async () => {
   try {
-    const res = await publicApi.get("/api/v1/videos", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    //console.log("res.data?.data:", res.data?.data);
+    const res = await publicApi.get("/api/v1/videos");
+    console.log("res.data?.data:", res.data?.data);
     return {
       data: res.data?.data,
     };
@@ -48,4 +45,19 @@ const getRelatedVideos = async (videoId) => {
   }
 };
 
-export { getAllVideos, getRelatedVideos, getVideoById };
+const getSearchedVideos = async (search) => {
+  try {
+    const res = await publicApi.get(
+      `/api/v1/videos?q=${encodeURIComponent(search)}`
+    );
+    return {
+      data: res.data?.data,
+    };
+  } catch (error) {
+    return {
+      error: error.message,
+    };
+  }
+};
+
+export { getAllVideos, getRelatedVideos, getVideoById, getSearchedVideos };

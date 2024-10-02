@@ -3,7 +3,7 @@ import NoVideosFound from "./_components/NotFoundVideos";
 import VideoList from "./_components/VideoList";
 
 const HomePage = async () => {
-  const data = await getAllVideos();
+  const { data } = await getAllVideos();
   //console.log("home page rendered");
 
   return (
@@ -11,7 +11,7 @@ const HomePage = async () => {
       {data?.videos?.length > 0 ? (
         <VideoList videos={data?.videos} />
       ) : (
-        <NoVideosFound search={true} />
+        <NoVideosFound />
       )}
     </section>
   );

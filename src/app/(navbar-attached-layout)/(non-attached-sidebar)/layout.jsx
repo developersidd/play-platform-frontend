@@ -1,10 +1,11 @@
-import { Navbar } from "@/components/common/Navbar";
+import { Navbar } from "@/components/common/navbar/Navbar";
 import UserInitializer from "@/components/User-initializer/UserInitializer";
 import { SidebarProvider } from "@/providers/SidebarProvider";
 import UserProvider from "@/providers/UserProvider";
-import Sidebar from "./_components/Sidebar";
+import NonAttachedSidebar from "./_components/NonAttachedSidebar";
 
-export default function MainLayout({ children }) {
+export default function OnAttachedSidebarLayout({ children }) {
+  console.log("With Non Attached Sidebar");
   return (
     <html lang="en">
       <body>
@@ -12,8 +13,8 @@ export default function MainLayout({ children }) {
           <SidebarProvider>
             <UserInitializer />
             <Navbar />
-            <div class="relative flex min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
-              <Sidebar />
+            <div className="relative flex min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
+              <NonAttachedSidebar />
               {children}
             </div>
           </SidebarProvider>

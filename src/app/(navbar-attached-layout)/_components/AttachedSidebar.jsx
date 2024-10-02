@@ -18,10 +18,8 @@ import {
   Video,
 } from "lucide-react";
 import Link from "next/link"; // Import Link for navigation in Next.js
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 
-// Sidebar items with link property
+// AttachedSidebar items with link property
 const sidebarItems = [
   { icon: <Home />, label: "Home", link: "/" },
   {
@@ -54,43 +52,17 @@ const sidebarItems = [
   },
 ];
 
-const Sidebar = () => {
-  const { sidebarCollapsed, toggleSidebar } = useSidebarContext();
-  const pathname = usePathname();
-  useEffect(() => {
-    if (pathname !== "/" && !sidebarCollapsed) {
-      toggleSidebar();
-    } else if (pathname === "/" && !sidebarCollapsed) {
-      toggleSidebar();
-    }
-  }, [pathname]);
-  let navItemClasses;
-  let classes = "";
-  if (pathname === "/") {
-    classes = `
-      px-3 border-r-2 transition-all duration-500
-      ${sidebarCollapsed ? "w-[85px]" : "w-[230px]"}
-    `;
-    navItemClasses = `
-    sm:hidden ${sidebarCollapsed ? "" : "lg:inline-block"}
-  `;
-  } else {
-    classes = `w-[230px] transition-all border-r-2 px-3 z-40 h-full bg-primary absolute top-0 left-0  ${
-      sidebarCollapsed ? "-translate-x-full hidden" : "translate-x-0 block"
-    } after:size-full `;
-    navItemClasses = `
-    sm:hidden lg:inline-block
-    `;
-  }
+const AttachedSidebar = () => {
+  const { sidebarCollapsed } = useSidebarContext();
+
   return (
     <>
-      <div
-        onClick={toggleSidebar}
-        className={`w-[calc(100vw-230px)] h-full bg-black/30 fixed top-0 right-0 z-30
-          ${pathname === "/" && "hidden"}
-          ${sidebarCollapsed ? "invisible" : "visible"}  `}
-      ></div>
-      <aside className={classes}>
+      <aside
+        className={`
+      px-3 border-r-2 transition-all duration-250
+      ${sidebarCollapsed ? "w-[85px]" : "w-[250px]"}
+    `}
+      >
         <ul className="flex justify-around gap-y-3 sm:sticky sm:top-[106px] sm:min-h-[calc(100vh-130px)] sm:flex-col">
           {sidebarItems.map(
             ({ icon, label, link, smHidden, mtAuto }, index) => (
@@ -115,7 +87,13 @@ const Sidebar = () => {
                         >
                           {icon}
                         </p>
-                        <p className={navItemClasses}>{label}</p>
+                        <p
+                          className={`sm:hidden ${
+                            sidebarCollapsed ? "" : "lg:inline-block"
+                          }`}
+                        >
+                          {label}
+                        </p>
                       </Link>
                     </TooltipTrigger>
                     <TooltipContent>
@@ -132,4 +110,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default AttachedSidebar;
