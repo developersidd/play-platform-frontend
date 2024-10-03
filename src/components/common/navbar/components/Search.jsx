@@ -45,6 +45,7 @@ const Search = () => {
         </button>
       )}
       <button
+        disabled={!search}
         onClick={gotToSearch}
         className="h-full border-l py-[10px] flex items-center justify-center w-[10%]"
       >

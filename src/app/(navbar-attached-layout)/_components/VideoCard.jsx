@@ -30,7 +30,7 @@ const VideoCard = ({ video }) => {
         </span>
       </div>
       <div className="flex gap-x-2">
-        <Link href={`/channels/${username}`}>
+        <Link href={`/${username}`}>
           <div className="h-10 w-10 shrink-0">
             <img
               width={40}
