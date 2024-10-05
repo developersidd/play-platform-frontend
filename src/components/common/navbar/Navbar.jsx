@@ -11,7 +11,7 @@ import useUserContext from "@/hooks/useUserContext";
 import { MenuIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import Search from "./components/Search";
+import Search from "./Search";
 
 export const Navbar = () => {
   const { state } = useUserContext();

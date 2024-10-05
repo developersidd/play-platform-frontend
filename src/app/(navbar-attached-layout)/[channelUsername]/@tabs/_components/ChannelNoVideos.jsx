@@ -1,3 +1,5 @@
+//"use server";
+//"use client";
 import { Play } from "lucide-react";
 
 const ChannelNoVideos = () => {

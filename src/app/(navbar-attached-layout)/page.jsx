@@ -1,18 +1,15 @@
-import { getAllVideos } from "@/api/video.api";
+import InfiniteVideoGrid from "@/components/common/InfiniteVideoGrid";
 import NoVideosFound from "./_components/NotFoundVideos";
-import VideoList from "./_components/VideoList";
 
 const HomePage = async () => {
-  const { data } = await getAllVideos();
-  //console.log("home page rendered");
-
   return (
-    <section className="w-full pb-[70px] px-4">
-      {data?.videos?.length > 0 ? (
-        <VideoList videos={data?.videos} />
-      ) : (
-        <NoVideosFound />
-      )}
+    <section className="w-full pb-[70px] px-4 flex items-center">
+      <InfiniteVideoGrid
+        NoVideosFound={<NoVideosFound />}
+        limit={25}
+        initialShow={10}
+        query={{ sortBy: "createdAt", sortType: "desc" }}
+      />
     </section>
   );
 };

@@ -6,7 +6,6 @@ const VideoHorizontalCard = ({ video }) => {
   const {
     title,
     views,
-    author,
     createdAt,
     description,
     thumbnail,
@@ -58,11 +57,13 @@ const VideoHorizontalCard = ({ video }) => {
             </div>
             <p class="text-sm text-gray-200"> {fullName} </p>
           </div>
-          <p class="mt-2 hidden text-sm md:block">
-            {description?.length > 100
-              ? `${description.slice(0, 100)}...`
-              : description}
-          </p>
+          {description?.length > 0 && (
+            <p class="mt-2 hidden text-sm md:block">
+              {description.length > 100
+                ? `${description.slice(0, 100)}...`
+                : description}
+            </p>
+          )}
         </div>
       </div>
     </div>

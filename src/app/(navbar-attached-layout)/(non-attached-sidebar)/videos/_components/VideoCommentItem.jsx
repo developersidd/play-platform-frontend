@@ -67,7 +67,6 @@ const VideoCommentItem = ({ item }) => {
       toast.error("Failed to Delete comment");
       setState((prev) => ({ ...prev, modalOpen: true }));
       setIsDeleted(false);
-      console.log(error);
     }
   };
 
