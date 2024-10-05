@@ -1,12 +1,15 @@
 "use server";
 import { publicApi } from ".";
-const getAllVideos = async (channelId) => {
+const getAllVideos = async (queries) => {
   let url = "/api/v1/videos";
-  if (channelId) {
-    url = `/api/v1/videos?userId=${channelId}`;
+  if (Object.keys(queries).length > 0) {
+    const searchParams = new URLSearchParams(queries);
+    console.log("searchParams.toString():", searchParams.toString());
+    url += `?${searchParams.toString()}`;
   }
   try {
     const res = await publicApi.get(url);
+    console.log("res:", res.data);
     return {
       data: res.data?.data,
     };

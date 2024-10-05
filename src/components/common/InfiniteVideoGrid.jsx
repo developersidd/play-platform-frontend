@@ -2,7 +2,6 @@
 import { publicApi } from "@/api";
 import VideoCard from "@/app/(navbar-attached-layout)/_components/VideoCard";
 import VideoHorizontalCard from "@/app/(navbar-attached-layout)/_components/VideoHorizontalCard";
-import { Loader } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { VirtuosoGrid } from "react-virtuoso";
 
@@ -10,13 +9,16 @@ const InfiniteVideoGrid = ({
   NoVideosFound,
   limit,
   query,
+  pageToLoad,
   initialShow,
   parentClasses,
+  initialVideos,
   isHorizontal = false,
 }) => {
-  const [videos, setVideos] = useState([]);
+  console.log("initialVideos:", initialVideos);
+  const [videos, setVideos] = useState(initialVideos);
   const [error, setError] = useState(null);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(pageToLoad);
   const isLoading = useRef(true);
   const [hasMore, setHasMore] = useState(true);
   const queries = new URLSearchParams({
@@ -45,15 +47,10 @@ const InfiniteVideoGrid = ({
   }, [hasMore, page]);
   // decide what to render
   let content;
-  if (isLoading.current) {
-    content = (
-      <div className="flex items-center justify-center">
-        <Loader size={50} className="animate-spin" />{" "}
-      </div>
-    );
-  } else if (videos?.length === 0 && error) {
+  if (videos?.length === 0 && error) {
     throw new Error("Not implemented");
-  } else if (videos?.length > 0) {
+  }
+  if (videos?.length > 0) {
     content = (
       <VirtuosoGrid
         listClassName={
@@ -77,10 +74,13 @@ const InfiniteVideoGrid = ({
         }
       />
     );
-  } else {
-    content = NoVideosFound;
   }
-  return <div className="py-7 w-full">{content}</div>;
+  return (
+    <div className="py-7 w-full">
+      {content}
+      {videos?.length === 0 && NoVideosFound}
+    </div>
+  );
 };
 
 export default InfiniteVideoGrid;
