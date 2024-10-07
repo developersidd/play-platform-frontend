@@ -1,8 +1,8 @@
 import { Users } from "lucide-react";
 
-const ChannelNoSubscribed = () => {
+const ChannelNoSubscribed = ({ search }) => {
   return (
-    <div class="flex justify-center p-4 items-center min-h-[42vh]">
+    <div class="flex justify-center mt-12 p-2">
       <div class="w-full max-w-sm text-center">
         <p class="mb-3 w-full">
           <span class="inline-flex rounded-full bg-[#E4D3FF] p-2 text-[#AE7AFF]">
@@ -13,7 +13,9 @@ const ChannelNoSubscribed = () => {
         </p>
         <h5 class="mb-2 font-semibold">No people subscribers</h5>
         <p>
-          This channel has yet to <strong>subscribe</strong> a new channel.
+          {search
+            ? `No channel found for "${search}"`
+            : "This channel has yet to subscribe a new channel."}
         </p>
       </div>
     </div>

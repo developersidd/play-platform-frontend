@@ -1,13 +1,17 @@
 "use client";
 import useAxios from "@/hooks/useAxios";
+import useUserContext from "@/hooks/useUserContext";
 import { UserRoundPlus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const SubscribeChannel = ({ channelId, isSubscribed, userId }) => {
+const SubscribeChannel = ({ channelId, isSubscribed, animation = false }) => {
   const [subscribed, setSubscribed] = useState(isSubscribed);
   const { privateApi } = useAxios();
+  const {
+    state: { _id: userId },
+  } = useUserContext();
   const router = useRouter();
   const subscribe = async () => {
     if (!userId) {
@@ -16,7 +20,6 @@ const SubscribeChannel = ({ channelId, isSubscribed, userId }) => {
     setSubscribed((prev) => !prev);
     try {
       const res = await privateApi.post(`/api/v1/subscriptions/c/${channelId}`);
-      //console.log("res:", res);
       router.refresh();
     } catch (error) {
       // Revert the state if the request fails
@@ -33,7 +36,10 @@ const SubscribeChannel = ({ channelId, isSubscribed, userId }) => {
     <div className="block">
       <button
         onClick={handleSubscribe}
-        className="mr-1 flex w-full items-center gap-x-2 bg-secondary px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
+        className={`mr-1 flex w-full items-center gap-x-2 bg-secondary px-3 py-2 text-center font-bold text-black sm:w-auto ${
+          animation &&
+          "shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e]"
+        } `}
       >
         <span className="inline-block w-5">
           <UserRoundPlus />

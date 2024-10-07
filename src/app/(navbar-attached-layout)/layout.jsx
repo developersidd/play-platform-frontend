@@ -12,7 +12,7 @@ export default function MainAttachedSidebarLayout({ children }) {
           <SidebarProvider>
             <UserInitializer />
             <Navbar />
-            <div className="relative flex min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
+            <div className="flex items-center min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
               <AttachedSidebar />
               {children}
             </div>

@@ -2,21 +2,26 @@
 import { retrieveCurrentUser } from "@/api/user.api";
 import { getAllVideos } from "@/api/video.api";
 import InfiniteVideoGrid from "../../../../components/common/InfiniteVideoGrid";
-import ChannelNoVideos from "./_components/ChannelNoVideos";
+import VideoList from "../../_components/VideoList";
 //import IntersectionObserver from "@/components/common/IntersectionObserver";
 
 const ChannelVideosPage = async ({ params: { channelUsername } }) => {
   const { data: user } = await retrieveCurrentUser();
-  const { data, error } = await getAllVideos(channelUsername);
+  const { data, error } = await getAllVideos({
+    limit: 10,
+    username: channelUsername,
+  });
   return (
-    <div className="h-[42vh] w-full grid place-items-center">
-      <InfiniteVideoGrid
-        initialVideos={data?.videos}
-        NoVideosFound={<ChannelNoVideos />}
-        limit={10}
-        initialShow={10}
-        query={{ username: channelUsername }}
-      />
+    <div className="w-full">
+      <VideoList videos={data?.videos} />
+      {data?.videos?.length > 0 && (
+        <InfiniteVideoGrid
+          limit={10}
+          initialShow={10}
+          pageToLoad={2}
+          query={{ username: channelUsername }}
+        />
+      )}
     </div>
   );
 };

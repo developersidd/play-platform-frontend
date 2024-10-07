@@ -4,17 +4,14 @@ const getAllVideos = async (queries) => {
   let url = "/api/v1/videos";
   if (Object.keys(queries).length > 0) {
     const searchParams = new URLSearchParams(queries);
-    console.log("searchParams.toString():", searchParams.toString());
     url += `?${searchParams.toString()}`;
   }
   try {
     const res = await publicApi.get(url);
-    console.log("res:", res.data);
     return {
       data: res.data?.data,
     };
   } catch (error) {
-    console.log("error:", error);
     return {
       error: error.message,
     };

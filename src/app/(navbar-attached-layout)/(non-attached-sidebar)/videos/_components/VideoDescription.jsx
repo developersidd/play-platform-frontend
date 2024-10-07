@@ -255,11 +255,7 @@ const VideoDescription = async ({ video, userId, userPromise }) => {
       <div className="mt-4 flex items-center justify-between">
         <DescriptionChannelInfo videoOwner={video?.owner} />
         {/* subscribe channel */}
-        <SubscribeChannel
-          isSubscribed={isSubscribed}
-          channelId={ownerId}
-          userId={userId}
-        />
+        <SubscribeChannel isSubscribed={isSubscribed} channelId={ownerId} />
       </div>
       <hr className="my-4 border-white" />
       <div className="h-5 overflow-hidden group-focus:h-auto">

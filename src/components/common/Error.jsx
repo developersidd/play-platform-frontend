@@ -4,7 +4,7 @@ import { MessageSquareWarning } from "lucide-react";
 
 const Error = ({ title, classes }) => {
   return (
-    <div class={`flex justify-center w-full p-4 items-center ${classes}`}>
+    <div class={`flex justify-center w-full  p-4 items-center ${classes}`}>
       <div class="w-full max-w-sm text-center">
         <p class="mb-3 w-full">
           <span class="inline-flex rounded-full bg-[#E4D3FF] p-2 text-[#AE7AFF]">

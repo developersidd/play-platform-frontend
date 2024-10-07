@@ -23,6 +23,9 @@ export async function fetchWithAuth(url, options = {}) {
     // Add the access token to the request headers
     const accessToken = getAccessToken(); // Get access token from cookies/session
     //console.log("accessToken:", accessToken);
+    if (!accessToken) {
+      throw new Error("Session expired");
+    }
     const response = await privateApi({
       ...options,
       url,

@@ -56,57 +56,54 @@ const AttachedSidebar = () => {
   const { sidebarCollapsed } = useSidebarContext();
 
   return (
-    <>
-      <aside
-        className={`
+    <aside
+      className={`
+      max-w-[250px] sticky h-[100dvh] top-0 left-0 bottom-0
       px-3 border-r-2 transition-all duration-250
       ${sidebarCollapsed ? "w-[85px]" : "w-[250px]"}
     `}
-      >
-        <ul className="flex justify-around gap-y-3 sm:sticky sm:top-[106px] sm:min-h-[calc(100vh-130px)] sm:flex-col">
-          {sidebarItems.map(
-            ({ icon, label, link, smHidden, mtAuto }, index) => (
-              <TooltipProvider delayDuration={120} key={index}>
-                <Tooltip>
-                  <li
-                    className={`${smHidden ? "hidden sm:block" : ""} ${
-                      mtAuto ? "mt-auto" : ""
-                    }`}
-                  >
-                    <TooltipTrigger className="w-full">
-                      <Link
-                        title={label}
-                        href={link}
-                        className={`flex h-[42px] flex-col items-center justify-center border-white py-1 focus:text-secondary sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-secondary sm:hover:text-black sm:focus:border-secondary sm:focus:bg-secondary sm:focus:text-black lg:justify-start
+    >
+      <ul className="flex  justify-around gap-y-3 sm:sticky sm:top-[106px]  sm:min-h-[calc(100vh-130px)] sm:flex-col">
+        {sidebarItems.map(({ icon, label, link, smHidden, mtAuto }, index) => (
+          <TooltipProvider delayDuration={120} key={index}>
+            <Tooltip>
+              <li
+                className={`${smHidden ? "hidden sm:block" : ""} ${
+                  mtAuto ? "mt-auto" : ""
+                }`}
+              >
+                <TooltipTrigger className="w-full">
+                  <Link
+                    title={label}
+                    href={link}
+                    className={`flex h-[42px] flex-col items-center justify-center border-white py-1 focus:text-secondary sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-secondary sm:hover:text-black sm:focus:border-secondary sm:focus:bg-secondary sm:focus:text-black lg:justify-start
                      lg:px-4`}
-                      >
-                        <p
-                          className={` 
+                  >
+                    <p
+                      className={` 
                         ${sidebarCollapsed ? "" : "lg:mr-4"}
                         }`}
-                        >
-                          {icon}
-                        </p>
-                        <p
-                          className={`sm:hidden ${
-                            sidebarCollapsed ? "" : "lg:inline-block"
-                          }`}
-                        >
-                          {label}
-                        </p>
-                      </Link>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p> {label} </p>
-                    </TooltipContent>
-                  </li>
-                </Tooltip>
-              </TooltipProvider>
-            )
-          )}
-        </ul>
-      </aside>
-    </>
+                    >
+                      {icon}
+                    </p>
+                    <p
+                      className={`sm:hidden ${
+                        sidebarCollapsed ? "" : "lg:inline-block"
+                      }`}
+                    >
+                      {label}
+                    </p>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p> {label} </p>
+                </TooltipContent>
+              </li>
+            </Tooltip>
+          </TooltipProvider>
+        ))}
+      </ul>
+    </aside>
   );
 };
 

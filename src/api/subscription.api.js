@@ -18,15 +18,19 @@ const getChannelSubscribers = async (channelId) => {
 };
 
 // Get user subscribed channels
-const getUserSubscribedChannels = async (subscriberId) => {
+const getUserSubscribedChannels = async (subscriberName, queries) => {
+  let url = `/api/v1/subscriptions/c/${subscriberName}`;
+  if (queries?.search) {
+    url += `?search=${queries?.search}`;
+  }
+  console.log("url:", url);
   try {
-    const res = await fetchWithAuth(`/api/v1/subscriptions/${subscriberId}`);
-    //console.log("check:", res);
+    const res = await publicApi.get(url);
+    console.log("res:", res.data?.data);
     return {
-      data: res.data,
+      data: res.data?.data,
     };
   } catch (error) {
-    console.error("check", error);
     return {
       error: error.message,
     };

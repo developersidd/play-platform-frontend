@@ -1,21 +1,22 @@
 import { getAllVideos } from "@/api/video.api";
 import InfiniteVideoGrid from "@/components/common/InfiniteVideoGrid";
-import NoVideosFound from "./_components/NotFoundVideos";
+import VideoList from "./_components/VideoList";
 
 const HomePage = async () => {
   const { data, error } = await getAllVideos({
-    limit: 25,
+    limit: 20,
   });
   return (
-    <section className="w-full pb-[70px] px-4 flex items-center">
-      <InfiniteVideoGrid
-        initialVideos={data?.videos}
-        NoVideosFound={<NoVideosFound />}
-        limit={25}
-        pageToLoad={2}
-        initialShow={10}
-        query={{ sortBy: "createdAt", sortType: "desc" }}
-      />
+    <section className="w-full pb-[70px] px-4 ">
+      <VideoList videos={data?.videos} />
+      {data?.videos.length > 0 && (
+        <InfiniteVideoGrid
+          limit={20}
+          pageToLoad={2}
+          initialShow={10}
+          query={{ sortBy: "createdAt", sortType: "desc" }}
+        />
+      )}
     </section>
   );
 };
