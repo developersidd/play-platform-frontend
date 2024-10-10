@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
+import UserProvider from "@/providers/UserProvider";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -14,10 +15,11 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  console.log("RootLayout");
   return (
     <html lang="en">
       <body className={`${openSans.variable} `}>
-        {children}
+        <UserProvider>{children}</UserProvider>
         <Toaster richColors position="bottom-right" />
       </body>
     </html>

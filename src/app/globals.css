@@ -90,3 +90,21 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Edit scroll bar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--foreground);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+}

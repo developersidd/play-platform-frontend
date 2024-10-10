@@ -4,9 +4,9 @@ import Image from "next/image";
 const VideoPlayer = ({ video }) => {
   const { title, thumbnail, video: { url } = {} } = video || {};
   return (
-    <div className="relative mb-4 w-full  pt-[56%]">
+    <div className="relative mb-4 w-full pt-[56%] min-h-max">
       <div className="absolute inset-0">
-        <Player src={url}>
+        <Player src={url} className="h-full">
           <Image
             slot="poster"
             width={1920}
