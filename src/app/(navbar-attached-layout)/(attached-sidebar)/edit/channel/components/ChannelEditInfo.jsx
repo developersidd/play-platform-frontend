@@ -1,22 +1,11 @@
-const ChannelEditInfo = ({ channelInfo, isMyChannel }) => {
-  const {
-    _id,
-    username,
-    subscribersCount,
-    isSubscribed,
-    subscribedChannelsCount,
-    fullName,
-    email,
-    avatar,
-  } = channelInfo || {};
+import Link from "next/link";
+
+const ChannelEditInfo = ({ channelInfo }) => {
+  const { _id, username, fullName, email, avatar } = channelInfo || {};
   return (
     <div class="flex flex-wrap gap-4 pb-4 pt-6">
       <div class="relative -mt-12 inline-block h-28 w-28 shrink-0 overflow-hidden rounded-full border-2">
-        <img
-          src="https://images.pexels.com/photos/1115816/pexels-photo-1115816.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1"
-          alt="Channel"
-          class="h-full w-full"
-        />
+        <img src={avatar?.url} alt={username} class="h-full w-full" />
         <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           <input type="file" id="profile-image" class="hidden" />
           <label
@@ -41,13 +30,16 @@ const ChannelEditInfo = ({ channelInfo, isMyChannel }) => {
         </div>
       </div>
       <div class="mr-auto inline-block">
-        <h1 class="font-bolg text-xl">React Patterns</h1>
-        <p class="text-sm text-gray-400">@reactpatterns</p>
+        <h1 class="font-bolg text-xl"> {fullName} </h1>
+        <p class="text-sm text-gray-400">@{username}</p>
       </div>
       <div class="inline-block">
-        <button class="group/btn mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto">
+        <Link
+          href={`/${username}`}
+          class="group/btn mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
+        >
           View channel
-        </button>
+        </Link>
       </div>
     </div>
   );
