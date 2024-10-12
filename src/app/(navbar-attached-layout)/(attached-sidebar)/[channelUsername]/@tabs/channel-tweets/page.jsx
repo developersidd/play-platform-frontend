@@ -1,21 +1,22 @@
 import { getUserTweets } from "@/api/tweets.api";
-import ChannelNoTweets from "./_components/ChannelNoTweets";
-import ChannelTweetItem from "./_components/ChannelTweetItem";
+import { retrieveCurrentUser } from "@/api/user.api";
+import ChannelTweetsWrapper from "./_components/ChannelTweetsWrapper";
 
 const ChannelTweetsPage = async ({ params: { channelUsername } }) => {
-  const { data: tweets, error } = await getUserTweets(channelUsername);
+  const { data: { username, _id } = {} } = await retrieveCurrentUser();
+  const { data: tweets = [], error } = await getUserTweets(
+    channelUsername,
+    _id
+  );
   if (error) {
     throw new Error(error);
   }
+  //console.log("tweets:", JSON.stringify(tweets, null, 2));
+  const isOwner = channelUsername === username;
+
   return (
     <div className="p-4">
-      {tweets?.length > 0 ? (
-        tweets.map((tweet) => (
-          <ChannelTweetItem key={tweet._id} tweet={tweet} />
-        ))
-      ) : (
-        <ChannelNoTweets />
-      )}
+      <ChannelTweetsWrapper isOwner={isOwner} tweets={tweets} />
     </div>
   );
 };

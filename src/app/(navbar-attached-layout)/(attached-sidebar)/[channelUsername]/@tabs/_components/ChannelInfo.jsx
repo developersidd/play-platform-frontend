@@ -2,6 +2,7 @@ import SubscribeChannel from "@/app/(navbar-attached-layout)/(non-attached-sideb
 import UploadVideoModal from "@/app/(navbar-attached-layout)/_components/UploadVideoModal";
 import { formatCounting } from "@/lib/utils";
 import { Pen } from "lucide-react";
+import Link from "next/link";
 
 const ChannelInfo = ({ channelInfo, loggedInUserId, isMyChannel }) => {
   const {
@@ -29,14 +30,17 @@ const ChannelInfo = ({ channelInfo, loggedInUserId, isMyChannel }) => {
       </div>
       <div className="inline-block">
         {isMyChannel ? (
-          <button className="group/btn mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto">
+          <Link
+            href={``}
+            className="group/btn mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
+          >
             <span className="inline-block w-5">
               <UploadVideoModal>
                 <Pen size={18} />
               </UploadVideoModal>
             </span>
             Edit
-          </button>
+          </Link>
         ) : (
           <SubscribeChannel
             animation
