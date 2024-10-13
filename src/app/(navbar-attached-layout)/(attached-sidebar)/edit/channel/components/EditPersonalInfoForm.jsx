@@ -72,7 +72,7 @@ const EditPersonalInfoForm = () => {
   }
 
   return (
-    <div className="w-full sm:w-1/2 md:w-2/3 lg:w-[58%]">
+    <div className="w-full sm:w-1/2 md:w-2/3 lg:w-[65%]">
       <div className="rounded-lg border">
         <Form {...form}>
           <form className="flex flex-wrap gap-y-4 p-4">

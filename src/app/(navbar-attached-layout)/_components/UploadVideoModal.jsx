@@ -39,7 +39,7 @@ const formSchema = z.object({
   videoFile: z
     .any()
     .refine((file) => file, "Video File is required")
-    .refine((file) => file.size < MAX_VIDEO_FILE_SIZE, "Max size is 50MB.")
+    .refine((file) => file?.size < MAX_VIDEO_FILE_SIZE, "Max size is 50MB.")
     .refine(
       (file) => checkFileType(file, "video"),
       "Only .mp3, .mp4 formats are supported."
