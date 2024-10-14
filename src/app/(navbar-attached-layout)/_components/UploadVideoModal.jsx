@@ -24,8 +24,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-const MAX_THUMBNAIL_FILE_SIZE = 5000000; // 5MB
-const MAX_VIDEO_FILE_SIZE = 50000000; // 50MB
+const MAX_THUMBNAIL_FILE_SIZE = 5242880; // 5MB
+const MAX_VIDEO_FILE_SIZE = 52428800; // 50MB
 function checkFileType(file, format) {
   if (file?.name) {
     const fileType = file?.name?.split(".")?.pop();
