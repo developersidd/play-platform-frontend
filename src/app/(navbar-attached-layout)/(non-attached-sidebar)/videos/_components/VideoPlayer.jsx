@@ -14,7 +14,7 @@ const VideoPlayer = ({ video }) => {
 
   const router = useRouter();
   const playerRef = useRef();
-  const videoSession = sessionStorage.getItem(`lastTime-${_id}`);
+  const videoSession = localStorage.getItem(`lastTime-${_id}`);
   const onReady = useCallback(() => {
     console.log("onReady");
     if (!started) {
@@ -56,7 +56,7 @@ const VideoPlayer = ({ video }) => {
 
   function handleOnProgress(state) {
     console.log("state:", state);
-    Number(sessionStorage.setItem(`lastTime-${_id}`, state.playedSeconds));
+    Number(localStorage.setItem(`lastTime-${_id}`, state.playedSeconds));
   }
 
   return (
@@ -66,7 +66,7 @@ const VideoPlayer = ({ video }) => {
           onReady={onReady}
           ref={playerRef}
           light={thumbnail?.url}
-          playing={sessionStorage.getItem("lastTime") ? true : false}
+          playing={localStorage.getItem("lastTime") ? true : false}
           url={url}
           width="100%"
           height="470px"

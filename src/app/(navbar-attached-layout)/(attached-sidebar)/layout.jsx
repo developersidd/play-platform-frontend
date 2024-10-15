@@ -5,7 +5,7 @@ import UserProvider from "@/providers/UserProvider";
 import AttachedSidebar from "../_components/AttachedSidebar";
 
 export default function MainAttachedSidebarLayout({ children }) {
-  console.log("NavbarSidebarAttachedLayout");
+  //console.log("NavbarSidebarAttachedLayout");
   return (
     <html lang="en">
       <body>

@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import useAxios from "@/hooks/useAxios";
+import useUserContext from "@/hooks/useUserContext";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -29,6 +30,7 @@ const FormSchema = z.object({
 });
 
 function VideoAddComment({ videoId }) {
+  const { state } = useUserContext();
   const { privateApi } = useAxios();
   const router = useRouter();
   const form = useForm({
@@ -39,6 +41,9 @@ function VideoAddComment({ videoId }) {
   });
   const { isSubmitting } = form.formState;
   async function onSubmit(data) {
+    if (!state?._id) {
+      return toast.error("You must be logged in to comment!");
+    }
     try {
       const { content } = data;
       await privateApi.post(`/api/v1/comments/add/v/${videoId}/`, {
@@ -73,7 +78,7 @@ function VideoAddComment({ videoId }) {
             </FormItem>
           )}
         />
-        <Button disabled={isSubmitting} type="submit">
+        <Button disabled={isSubmitting || !state?._id} type="submit">
           Submit
         </Button>
       </form>

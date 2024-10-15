@@ -1,5 +1,5 @@
 "use server";
-import { publicApi } from ".";
+import { fetchWithAuth, publicApi } from ".";
 const getAllVideos = async (queries) => {
   console.log("queries:", queries);
   let url = "/api/v1/videos";
@@ -50,4 +50,20 @@ const getRelatedVideos = async (videoId) => {
   }
 };
 
-export { getAllVideos, getRelatedVideos, getVideoById };
+const getLikedVideos = async () => {
+  try {
+    const res = await fetchWithAuth(`/api/v1/videos/liked`, {
+      method: "GET",
+    });
+    console.log("data", res);
+    return {
+      data: res?.data,
+    };
+  } catch (error) {
+    return {
+      error: error.message,
+    };
+  }
+};
+
+export { getAllVideos, getLikedVideos, getRelatedVideos, getVideoById };

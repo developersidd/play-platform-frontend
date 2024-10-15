@@ -1,6 +1,5 @@
 import { formatCounting } from "@/lib/utils";
 import moment from "moment";
-import Image from "next/image";
 import Link from "next/link";
 
 const VideoHorizontalCard = ({ video }) => {
@@ -19,7 +18,7 @@ const VideoHorizontalCard = ({ video }) => {
         <div className="relative mb-2 w-full md:mb-0 md:w-5/12">
           <div className="w-full pt-[56%]">
             <div className="absolute inset-0">
-              <Image
+              <img
                 width={450}
                 height={300}
                 src={thumbnail?.url}
@@ -34,7 +33,7 @@ const VideoHorizontalCard = ({ video }) => {
         </div>
         <div className="flex gap-x-2 md:w-7/12">
           <div className="h-10 w-10 shrink-0 md:hidden">
-            <Image
+            <img
               width={100}
               height={100}
               src={avatar?.url}
@@ -49,7 +48,7 @@ const VideoHorizontalCard = ({ video }) => {
             </p>
             <div className="flex items-center gap-x-4">
               <div className="mt-2 hidden h-10 w-10 shrink-0 md:block">
-                <Image
+                <img
                   width={100}
                   height={100}
                   src={avatar?.url}
