@@ -24,7 +24,7 @@ const VideoDescription = async ({ video, userId, userPromise }) => {
     (userId && (await checkUserSubscription(ownerId))) || {};
   return (
     <div
-      className="group mb-4 w-full rounded-lg border p-4 duration-200 hover:bg-white/5 focus:bg-white/5"
+      className="group mt-6 mb-4 w-full rounded-lg border p-4 duration-200 hover:bg-white/5 focus:bg-white/5"
       role="button"
       tabIndex="0"
     >
