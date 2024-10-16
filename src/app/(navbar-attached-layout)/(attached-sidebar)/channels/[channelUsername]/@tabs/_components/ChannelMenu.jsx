@@ -33,12 +33,16 @@ const ChannelMenu = () => {
         return (
           <li key={item.text} className="w-full text-center">
             <Link
-              href={`/${channelUsername}${item.href}`}
+              href={`/channels/${channelUsername}${item.href}`}
               className={` ${
-                pathname === `/${channelUsername}${item.href}` ? activeCls : ""
+                pathname === `/channels/${channelUsername}${item.href}`
+                  ? activeCls
+                  : ""
               }
               ${
-                pathname === `/${channelUsername}` && index === 0 && activeCls
+                pathname === `/channels/${channelUsername}` &&
+                index === 0 &&
+                activeCls
               }  w-full px-3 py-3 inline-block`}
             >
               {item.text}

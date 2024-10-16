@@ -1,5 +1,5 @@
-import NoVideosFound from "../../_components/NotFoundVideos";
-import VideoHorizontalCard from "../../_components/VideoHorizontalCard";
+import NoVideosFound from "@/app/(navbar-attached-layout)/_components/NotFoundVideos";
+import VideoHorizontalCard from "@/app/(navbar-attached-layout)/_components/VideoHorizontalCard";
 
 const SearchedVideos = ({ videos = [] }) => {
   return (
@@ -9,7 +9,7 @@ const SearchedVideos = ({ videos = [] }) => {
           <VideoHorizontalCard key={video._id} video={video} />
         ))
       ) : (
-        <NoVideosFound />
+        <NoVideosFound isSearch />
       )}
     </div>
   );

@@ -6,6 +6,7 @@ const getVideoDisLikes = async (videoId, userId) => {
     if (userId) {
       url += `?userId=${userId}`;
     }
+    console.log("url:", url);
     const res = await publicApi.get(url);
     return {
       data: res.data?.data,

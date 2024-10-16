@@ -28,15 +28,11 @@ const UploadCoverImage = ({ coverImage: coverImg, username }) => {
       try {
         const formData = new FormData();
         formData.append("coverImage", file);
-        const res = await privateApi.patch(
-          "/api/v1/users/cover-image",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        await privateApi.patch("/api/v1/users/cover-image", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         router.refresh();
         toast.success("Cover image uploaded successfully");
       } catch (error) {

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 const VideoLikeDislike = ({ videoId, userId, likeData, dislikeData }) => {
+  console.log("likeData:", likeData);
   const [{ isLiked, likes }, setLikeState] = useState({
     isLiked: likeData?.isLiked,
     likes: likeData?.likes,

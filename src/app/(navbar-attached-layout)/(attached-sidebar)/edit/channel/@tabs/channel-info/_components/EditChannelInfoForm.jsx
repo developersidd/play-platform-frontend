@@ -36,17 +36,19 @@ const formSchema = z.object({
 });
 
 const EditChannelInfoForm = () => {
-  const { state } = useUserContext();
-  console.log("state:", state);
+  const {
+    state: { username, description, email },
+  } = useUserContext();
   const router = useRouter();
-  useEffect(() => {
-    ["email", "username", "description"].forEach((key) => {
-      form.setValue(key, state[key]);
-    });
-  }, [state?._id]);
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
+
+  useEffect(() => {
+    form.setValue("username", username);
+    form.setValue("description", description);
+    form.setValue("email", email);
+  }, [username, description, email, form]);
 
   const { privateApi } = useAxios();
   const { isSubmitting } = form.formState;

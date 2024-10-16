@@ -1,8 +1,8 @@
 //"use server";
 import { retrieveCurrentUser } from "@/api/user.api";
 import { getAllVideos } from "@/api/video.api";
-import InfiniteVideoGrid from "../../../../../components/common/InfiniteVideoGrid";
-import VideoList from "../../../_components/VideoList";
+import InfiniteVideoGrid from "../../../../../../components/common/InfiniteVideoGrid";
+import VideoList from "../../../../_components/VideoList";
 //import IntersectionObserver from "@/components/common/IntersectionObserver";
 
 const ChannelVideosPage = async ({ params: { channelUsername } }) => {

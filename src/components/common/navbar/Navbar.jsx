@@ -6,17 +6,36 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import useAxios from "@/hooks/useAxios";
 import useSidebarContext from "@/hooks/useSidebarContext";
 import useUserContext from "@/hooks/useUserContext";
 import { MenuIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import Search from "./Search";
 
 export const Navbar = () => {
-  const { state } = useUserContext();
+  const { state, dispatch } = useUserContext();
+  const router = useRouter();
   const { setSidebarCollapsed, setShowSidebar } = useSidebarContext();
   const { avatar, username } = state;
+  const { privateApi } = useAxios();
+  async function handleLogout(e) {
+    console.log("handleLogout");
+    e.stopPropagation();
+    try {
+      const res = await privateApi.post("/api/v1/users/logout");
+      console.log("res:", res.data);
+      router.push("/");
+      localStorage.removeItem("loggedIn");
+      dispatch({ type: "LOGOUT" });
+    } catch (error) {
+      console.error("Failed to logout", error);
+      toast.error("Failed to logout");
+    }
+  }
   return (
     <div className="w-full border-b sticky top-0 z-50 bg-primary">
       <div className="px-12 py-2  h-full flex w-full items-center  justify-between">
@@ -43,6 +62,7 @@ export const Navbar = () => {
         {/* search*/}
         <Search />
         <div className="flex items-center justify-end  w-full">
+          <button onClick={handleLogout}>Logout</button>
           {username ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -55,14 +75,7 @@ export const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 mt-4">
                 <DropdownMenuItem className="cursor-pointer">
-                  <Link
-                    href="#"
-                    onClick={() => {
-                      //console.log("Logout");
-                    }}
-                  >
-                    Logout
-                  </Link>
+                  <button onClick={handleLogout}>Logout</button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

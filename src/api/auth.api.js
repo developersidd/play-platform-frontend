@@ -20,7 +20,6 @@ const logout = async () => {
     const data = await response.json();
     return { data };
   } catch (e) {
-    console.error("Failed to logout", e);
     return {
       error: e.message,
     };

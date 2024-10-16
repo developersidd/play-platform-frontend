@@ -1,13 +1,13 @@
 "use server";
 import { fetchWithAuth, publicApi } from ".";
 const getAllVideos = async (queries) => {
-  console.log("queries:", queries);
+  //console.log("queries:", queries);
   let url = "/api/v1/videos";
   if (Object.keys(queries).length > 0) {
     const searchParams = new URLSearchParams(queries);
     url += `?${searchParams.toString()}`;
   }
-  console.log("url:", url);
+  //console.log("url:", url);
   try {
     const res = await publicApi.get(url);
     return {

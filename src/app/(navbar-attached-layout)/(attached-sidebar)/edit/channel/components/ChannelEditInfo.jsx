@@ -2,7 +2,7 @@ import Link from "next/link";
 import UploadAvatar from "./UploadAvatar";
 
 const ChannelEditInfo = ({ channelInfo }) => {
-  const { _id, username, fullName, email, avatar } = channelInfo || {};
+  const { username, fullName, avatar } = channelInfo || {};
   return (
     <div class="flex flex-wrap gap-4 pb-4 pt-6">
       {/*  */}

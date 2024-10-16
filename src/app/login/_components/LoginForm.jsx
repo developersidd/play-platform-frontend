@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { publicApi } from "@/api";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import {
   Form,
@@ -47,6 +47,9 @@ function LoginForm() {
     },
   });
   const { isSubmitting } = form.formState;
+  const searchParams = useSearchParams();
+  const redirect = decodeURIComponent(searchParams.get("redirect") || "/");
+  console.log("redirect:", redirect);
   async function onSubmit(data) {
     const { email, password } = data;
     try {
@@ -55,7 +58,7 @@ function LoginForm() {
         password,
       });
       localStorage.setItem("loggedIn", true);
-      router.push("/");
+      router.push(redirect);
     } catch (e) {
       toast.error("There was an error occurred!");
     }

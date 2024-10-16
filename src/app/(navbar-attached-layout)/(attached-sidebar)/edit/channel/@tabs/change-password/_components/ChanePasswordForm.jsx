@@ -1,7 +1,6 @@
 "use client";
 import { Form } from "@/components/ui/form";
 import useAxios from "@/hooks/useAxios";
-import useUserContext from "@/hooks/useUserContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -54,7 +53,6 @@ const inputFields = [
 ];
 
 const ChangePasswordForm = () => {
-  const { state } = useUserContext();
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),

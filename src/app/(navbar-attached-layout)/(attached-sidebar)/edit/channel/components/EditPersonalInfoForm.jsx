@@ -44,16 +44,19 @@ const formSchema = z.object({
 });
 
 const EditPersonalInfoForm = () => {
-  const { state } = useUserContext();
+  const {
+    state: { username, fullName, email },
+  } = useUserContext();
   const router = useRouter();
-  useEffect(() => {
-    ["email", "username", "fullName"].forEach((key) => {
-      form.setValue(key, state[key]);
-    });
-  }, [state?._id]);
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
+
+  useEffect(() => {
+    form.setValue("username", username);
+    form.setValue("fullName", fullName);
+    form.setValue("email", email);
+  }, [username, fullName, email, form]);
 
   const { privateApi } = useAxios();
   const { isSubmitting } = form.formState;

@@ -32,15 +32,17 @@ const VideoHorizontalCard = ({ video }) => {
           </div>
         </div>
         <div className="flex gap-x-2 md:w-7/12">
-          <div className="h-10 w-10 shrink-0 md:hidden">
-            <img
-              width={100}
-              height={100}
-              src={avatar?.url}
-              alt={username}
-              className="h-full w-full rounded-full"
-            />
-          </div>
+          <Link href={`/channels/${username}`}>
+            <div className="h-10 w-10 shrink-0 md:hidden">
+              <img
+                width={100}
+                height={100}
+                src={avatar?.url}
+                alt={username}
+                className="h-full w-full rounded-full"
+              />
+            </div>
+          </Link>
           <div className="w-full">
             <h6 className="mb-1 font-semibold md:max-w-[75%]">{title}</h6>
             <p className="flex text-sm text-gray-200 sm:mt-3">

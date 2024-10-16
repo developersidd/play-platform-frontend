@@ -12,7 +12,7 @@ const SingleVideoPage = async ({ params: { id } = {} }) => {
 
   return (
     <section className="w-full mx-20 pb-[70px] sm:pb-0">
-      <div className="flex w-full flex-wrap gap-4 p-4 lg:flex-nowrap">
+      <div className="flex w-full flex-wrap gap-4 px-2 py-8 lg:flex-nowrap">
         <div className="col-span-12 w-full">
           {/* video Player */}
           <VideoPlayer video={video} />

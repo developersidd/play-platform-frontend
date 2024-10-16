@@ -9,7 +9,7 @@ import { toast } from "sonner";
 
 const UploadAvatar = ({ avatar, username }) => {
   const inputRef = useRef();
-  const { state, dispatch } = useUserContext();
+  const { dispatch } = useUserContext();
 
   const { privateApi } = useAxios();
   const [avatarImage, setAvatarImage] = useState(avatar);

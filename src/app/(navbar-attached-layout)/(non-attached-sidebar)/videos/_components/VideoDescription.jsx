@@ -7,7 +7,8 @@ import DescriptionChannelInfo from "./DescriptionChannelInfo";
 import SubscribeChannel from "./SubscribeChannel";
 import VideoLikeDislike from "./VideoLikeDislike";
 
-const VideoDescription = async ({ video, userId, userPromise }) => {
+const VideoDescription = async ({ video, userId }) => {
+  console.log("userId:", userId);
   //console.log("video.owner?._id:", video.owner?._id);
   const {
     title,
@@ -17,9 +18,9 @@ const VideoDescription = async ({ video, userId, userPromise }) => {
     _id,
     owner: { fullName, username, avatar, _id: ownerId } = {},
   } = video || {};
-  const user = await userPromise;
-  const { data, error } = await getVideoLikes(_id, userId);
+  const { data } = await getVideoLikes(_id, userId);
   const { data: dislikes } = await getVideoDisLikes(_id, userId);
+  console.log("dislikes:", dislikes);
   const { data: { isSubscribed } = {} } =
     (userId && (await checkUserSubscription(ownerId))) || {};
   return (
