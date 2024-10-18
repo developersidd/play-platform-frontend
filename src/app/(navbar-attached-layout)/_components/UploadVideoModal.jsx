@@ -105,7 +105,7 @@ const UploadVideoModal = ({ children }) => {
     try {
       // delay for 5 seconds
       /*await new Promise((resolve) => setTimeout(resolve, 3000));*/
-      const response = await privateApi.post("/api/v1/videos", formData, {
+      const response = await privateApi.post("/videos", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

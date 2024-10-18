@@ -1,4 +1,5 @@
 "use client";
+import { LOGGED_OUT } from "@/actions/user.acton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -13,6 +14,7 @@ import { MenuIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 import Search from "./Search";
 
@@ -22,15 +24,15 @@ export const Navbar = () => {
   const { setSidebarCollapsed, setShowSidebar } = useSidebarContext();
   const { avatar, username } = state;
   const { privateApi } = useAxios();
-  async function handleLogout(e) {
-    console.log("handleLogout");
-    e.stopPropagation();
+  const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef(null);
+  async function handleLogout() {
+    console.log("logout");
     try {
-      const res = await privateApi.post("/api/v1/users/logout");
-      console.log("res:", res.data);
+      await privateApi.post("/users/logout");
       router.push("/");
       localStorage.removeItem("loggedIn");
-      dispatch({ type: "LOGOUT" });
+      dispatch({ type: LOGGED_OUT });
     } catch (error) {
       console.error("Failed to logout", error);
       toast.error("Failed to logout");
@@ -61,8 +63,8 @@ export const Navbar = () => {
         </div>
         {/* search*/}
         <Search />
-        <div className="flex items-center justify-end  w-full">
-          <button onClick={handleLogout}>Logout</button>
+        <div className="flex items-center relative justify-end  w-full">
+          {/*<button onClick={handleLogout}>Logout</button>*/}
           {username ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -74,8 +76,14 @@ export const Navbar = () => {
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 mt-4">
+                <DropdownMenuItem
+                  onClick={handleLogout}
+                  className="cursor-pointer"
+                >
+                  <button>Logout</button>
+                </DropdownMenuItem>
                 <DropdownMenuItem className="cursor-pointer">
-                  <button onClick={handleLogout}>Logout</button>
+                  <Link href={`/channels/${username}`}>My Profile</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -13,7 +13,7 @@ const useAxios = () => {
       if (error?.response?.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
         try {
-          const response = await publicApi.post("/api/v1/users/refresh-token", {
+          const response = await publicApi.post("/users/refresh-token", {
             refreshToken,
           });
           //console.log("response:", response);

@@ -28,7 +28,7 @@ const UploadCoverImage = ({ coverImage: coverImg, username }) => {
       try {
         const formData = new FormData();
         formData.append("coverImage", file);
-        await privateApi.patch("/api/v1/users/cover-image", formData, {
+        await privateApi.patch("/users/cover-image", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

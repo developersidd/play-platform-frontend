@@ -1,5 +1,3 @@
-import { getVideoDisLikes } from "@/api/dislike.api";
-import { getVideoLikes } from "@/api/like.api";
 import { checkUserSubscription } from "@/api/subscription.api";
 import { FilePlus } from "lucide-react";
 import moment from "moment";
@@ -8,19 +6,21 @@ import SubscribeChannel from "./SubscribeChannel";
 import VideoLikeDislike from "./VideoLikeDislike";
 
 const VideoDescription = async ({ video, userId }) => {
-  console.log("userId:", userId);
-  //console.log("video.owner?._id:", video.owner?._id);
   const {
     title,
     description,
     views,
     createdAt,
+    likes,
+    dislikes,
+    isLiked,
+    isDisliked,
     _id,
-    owner: { fullName, username, avatar, _id: ownerId } = {},
+    owner: { _id: ownerId } = {},
   } = video || {};
-  const { data } = await getVideoLikes(_id, userId);
-  const { data: dislikes } = await getVideoDisLikes(_id, userId);
+  console.log("likes:", likes);
   console.log("dislikes:", dislikes);
+
   const { data: { isSubscribed } = {} } =
     (userId && (await checkUserSubscription(ownerId))) || {};
   return (
@@ -40,8 +40,14 @@ const VideoDescription = async ({ video, userId }) => {
           <div className="flex items-center justify-between gap-x-4 md:justify-end lg:justify-between xl:justify-end">
             {/* like  */}
             <VideoLikeDislike
-              dislikeData={dislikes}
-              likeData={data}
+              dislikeData={{
+                dislikes,
+                isDisliked,
+              }}
+              likeData={{
+                likes,
+                isLiked,
+              }}
               videoId={_id}
               userId={userId}
             />

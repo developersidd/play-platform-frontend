@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { privateApi } from ".";
 const refreshAccessToken = async () => {
   try {
-    const response = await privateApi.post("/api/v1/users/refresh-token");
+    const response = await privateApi.post("/users/refresh-token");
     const data = await response.json();
     return { data };
   } catch (e) {
@@ -16,7 +16,7 @@ const refreshAccessToken = async () => {
 
 const logout = async () => {
   try {
-    const response = await privateApi.post("/api/v1/users/logout");
+    const response = await privateApi.post("/users/logout");
     const data = await response.json();
     return { data };
   } catch (e) {

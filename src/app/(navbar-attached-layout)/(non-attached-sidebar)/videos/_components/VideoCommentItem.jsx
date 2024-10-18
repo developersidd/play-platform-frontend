@@ -47,7 +47,7 @@ const VideoCommentItem = ({ item }) => {
   const handleEditComment = async () => {
     closeModal();
     try {
-      await privateApi.patch(`/api/v1/comments/c/${item._id}`, {
+      await privateApi.patch(`/comments/c/${item._id}`, {
         content: comment,
       });
       toast.success("Comment Edited successfully");
@@ -61,7 +61,7 @@ const VideoCommentItem = ({ item }) => {
   const handleDelete = async () => {
     setIsDeleted(true);
     try {
-      await privateApi.delete(`/api/v1/comments/c/${item._id}`);
+      await privateApi.delete(`/comments/c/${item._id}`);
       toast.success("Comment Deleted successfully");
     } catch (error) {
       toast.error("Failed to Delete comment");

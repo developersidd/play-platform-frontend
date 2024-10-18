@@ -2,7 +2,7 @@
 import { publicApi } from ".";
 const getVideoDisLikes = async (videoId, userId) => {
   try {
-    let url = `/api/v1/dislikes/video/${videoId}`;
+    let url = `/dislikes/video/${videoId}`;
     if (userId) {
       url += `?userId=${userId}`;
     }

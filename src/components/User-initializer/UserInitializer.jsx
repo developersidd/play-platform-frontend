@@ -11,7 +11,7 @@ const UserInitializer = () => {
     const fetchUser = async () => {
       //console.log("fetchUser");
       try {
-        const res = await privateApi.get("/api/v1/users/current-user");
+        const res = await privateApi.get("/users/current-user");
         dispatch({ type: SET_USER, payload: res.data?.data });
         //hasFetchedUser.current = true;
       } catch (error) {

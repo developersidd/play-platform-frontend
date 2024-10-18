@@ -53,7 +53,7 @@ function LoginForm() {
   async function onSubmit(data) {
     const { email, password } = data;
     try {
-      const response = await publicApi.post("/api/v1/users/login", {
+      const response = await publicApi.post("/users/login", {
         email,
         password,
       });

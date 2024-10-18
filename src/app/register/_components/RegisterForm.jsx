@@ -82,7 +82,7 @@ function RegisterForm() {
     });
     //console.log(Object.fromEntries(formData.entries()));
     try {
-      const response = await publicApi.post("/api/v1/users/register", formData);
+      const response = await publicApi.post("/users/register", formData);
       //console.log("response:", response);
       router.push("/login");
     } catch (e) {

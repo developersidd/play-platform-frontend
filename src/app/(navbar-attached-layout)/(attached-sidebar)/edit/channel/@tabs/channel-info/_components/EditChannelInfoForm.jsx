@@ -55,10 +55,7 @@ const EditChannelInfoForm = () => {
   async function onSubmit(data) {
     console.log("data:", data);
     try {
-      const response = await privateApi.patch(
-        "/api/v1/users/update-account",
-        data
-      );
+      const response = await privateApi.patch("/users/update-account", data);
       toast.success("Channel updated successfully!");
       console.log("response:", response);
       router.refresh();

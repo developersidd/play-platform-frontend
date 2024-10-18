@@ -27,12 +27,14 @@ const ChangePassordField = ({ item, form }) => {
                 placeholder={item.placeholder}
               />
             </FormControl>
-            <div
-              onClick={() => setShowPassword(!showPassword)}
-              className="cursor-pointer absolute top-[32px] right-3"
-            >
-              {showPassword ? <EyeOff size={18} /> : <Eye size={19} />}
-            </div>
+            {field?.value && (
+              <div
+                onClick={() => setShowPassword(!showPassword)}
+                className="cursor-pointer absolute top-[32px] right-3"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={19} />}
+              </div>
+            )}
             <FormMessage />
           </FormItem>
         )}

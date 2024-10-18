@@ -4,8 +4,8 @@ import ChannelNoTweets from "./ChannelNoTweets";
 import ChannelTweetItem from "./ChannelTweetItem";
 import CreateTweet from "./CreateTweet";
 
-const ChannelTweetsWrapper = ({ isOwner, tweets, username }) => {
-  const [tweetToEdit, setTweetToEdit] = useState(null);
+const ChannelTweetsWrapper = ({ isOwner, tweets }) => {
+  const [tweetToEdit, setTweetToEdit] = useState({});
   return (
     <>
       {isOwner && (

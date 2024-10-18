@@ -46,7 +46,7 @@ function VideoAddComment({ videoId }) {
     }
     try {
       const { content } = data;
-      await privateApi.post(`/api/v1/comments/add/v/${videoId}/`, {
+      await privateApi.post(`/comments/add/v/${videoId}/`, {
         content,
       });
       router.refresh();

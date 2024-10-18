@@ -3,7 +3,7 @@ import { fetchWithAuth, publicApi } from ".";
 
 const getChannelSubscribers = async (channelId) => {
   try {
-    const res = await publicApi.get(`/api/v1/subscriptions/u/${channelId}`);
+    const res = await publicApi.get(`/subscriptions/u/${channelId}`);
     //console.log("res:", res);
     return {
       data: res?.data?.data,
@@ -19,7 +19,7 @@ const getChannelSubscribers = async (channelId) => {
 
 // Get user subscribed channels
 const getUserSubscribedChannels = async (subscriberName, queries) => {
-  let url = `/api/v1/subscriptions/c/${subscriberName}`;
+  let url = `/subscriptions/c/${subscriberName}`;
   if (queries?.search) {
     url += `?search=${queries?.search}`;
   }
@@ -40,9 +40,7 @@ const getUserSubscribedChannels = async (subscriberName, queries) => {
 // check if user is subscribed to a channel
 const checkUserSubscription = async (channelId) => {
   try {
-    const res = await fetchWithAuth(
-      `/api/v1/subscriptions/status/c/${channelId}`
-    );
+    const res = await fetchWithAuth(`/subscriptions/status/c/${channelId}`);
     //console.log("res:", res);
     return {
       data: res.data,

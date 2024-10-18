@@ -1,7 +1,7 @@
 import { publicApi } from ".";
 const getVideoComments = async (videoId) => {
   try {
-    const response = await publicApi.get(`/api/v1/comments/${videoId}`);
+    const response = await publicApi.get(`/comments/${videoId}`);
     //console.log("comment response:", response);
     return { data: response.data?.data };
   } catch (e) {

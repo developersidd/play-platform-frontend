@@ -15,7 +15,6 @@ const CreateTweet = ({ isOwner, tweetToEdit, setTweetToEdit }) => {
 
   const [tweet, setTweet] = useState(tweetToEdit?.content);
   const isEditing = Boolean(tweetToEdit?.tweetId);
-  console.log("isEditing:", isEditing);
   const [showPicker, setShowPicker] = useState(false);
   const router = useRouter();
   const EmojiPikerRef = useRef(null);
@@ -41,17 +40,14 @@ const CreateTweet = ({ isOwner, tweetToEdit, setTweetToEdit }) => {
     setIsSubmitting(true);
     try {
       if (isEditing) {
-        const res = await privateApi.patch(
-          `/api/v1/tweets/${tweetToEdit.tweetId}`,
-          {
-            content: tweet,
-          }
-        );
+        const res = await privateApi.patch(`/tweets/${tweetToEdit.tweetId}`, {
+          content: tweet,
+        });
         console.log("res:", res);
         setTweetToEdit(null);
         toast.success("Tweet updated successfully");
       } else {
-        const res = await privateApi.post(`/api/v1/tweets`, { content: tweet });
+        const res = await privateApi.post(`/tweets`, { content: tweet });
         toast.success("Tweet created successfully");
         console.log("res:", res);
       }
@@ -100,26 +96,20 @@ const CreateTweet = ({ isOwner, tweetToEdit, setTweetToEdit }) => {
         >
           <Smile />
         </button>
-        {/*<button class="inline-block h-5 w-5 hover:text-[#ae7aff]">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            aria-hidden="true"
+        {isEditing && (
+          <button
+            onClick={() => {
+              setTweetToEdit({});
+            }}
+            class="bg-white rounded px-2 py-2 font-semibold text-black"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-            ></path>
-          </svg>
-        </button>*/}
+            Cancel
+          </button>
+        )}
         <button
           disabled={isSubmitting}
           onClick={handleCreateTweet}
-          class="bg-[#ae7aff] px-2 py-2 font-semibold text-black"
+          class="rounded bg-[#ae7aff] px-2 py-2 font-semibold text-black"
         >
           <span className="align-middle inline-block mr-1.5">
             {isEditing ? <Edit size={18} /> : <Send size={18} />}

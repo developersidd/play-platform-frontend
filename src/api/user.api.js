@@ -11,7 +11,7 @@ const retrieveCurrentUser = async () => {
         error: "No access token found",
       };
     }
-    const res = await fetchWithAuth("/api/v1/users/current-user", {
+    const res = await fetchWithAuth("/users/current-user", {
       method: "GET",
     });
     return {
@@ -26,7 +26,7 @@ const retrieveCurrentUser = async () => {
 
 // Get Channel By Username
 const getChannelByUsername = async (username, loggedInUserId) => {
-  let url = `/api/v1/users/c/${username}`;
+  let url = `/users/c/${username}`;
   if (loggedInUserId) {
     url += `?loggedInUserId=${loggedInUserId}`;
   }

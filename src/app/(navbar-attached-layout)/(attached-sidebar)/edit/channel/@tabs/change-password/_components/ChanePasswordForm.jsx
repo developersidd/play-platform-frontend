@@ -75,7 +75,7 @@ const ChangePasswordForm = () => {
       return;
     }
     try {
-      const response = await privateApi.post("/api/v1/users/change-password", {
+      const response = await privateApi.post("/users/change-password", {
         currentPassword,
         newPassword,
       });

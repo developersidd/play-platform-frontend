@@ -33,7 +33,7 @@ const UploadAvatar = ({ avatar, username }) => {
       try {
         const formData = new FormData();
         formData.append("avatar", file);
-        await privateApi.patch("/api/v1/users/avatar", formData, {
+        await privateApi.patch("/users/avatar", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

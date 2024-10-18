@@ -33,9 +33,7 @@ const VideoPlayer = ({ video }) => {
   useEffect(() => {
     async function updateLessonWatch() {
       console.log("updateLessonWatch");
-      const response = await publicApi.patch(
-        `/api/v1/videos/update-views/${_id}`
-      );
+      const response = await publicApi.patch(`/videos/update-views/${_id}`);
       if (response.status === 200) {
         console.log("result:", response.data);
         router.refresh();

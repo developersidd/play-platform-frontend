@@ -2,7 +2,7 @@
 import { fetchWithAuth, publicApi } from ".";
 const getAllVideos = async (queries) => {
   //console.log("queries:", queries);
-  let url = "/api/v1/videos";
+  let url = "/videos";
   if (Object.keys(queries).length > 0) {
     const searchParams = new URLSearchParams(queries);
     url += `?${searchParams.toString()}`;
@@ -22,10 +22,14 @@ const getAllVideos = async (queries) => {
   }
 };
 
-const getVideoById = async (id) => {
+const getVideoById = async (id, userId) => {
   try {
-    const res = await publicApi.get(`/api/v1/videos/${id}`);
-    //console.log("res.data?.data:", res.data?.data);
+    let url = `/videos/${id}`;
+    if (userId) {
+      url += `?userId=${userId}`;
+    }
+    const res = await publicApi.get(url);
+    console.log("url", url);
     return {
       data: res.data?.data,
     };
@@ -39,7 +43,7 @@ const getVideoById = async (id) => {
 
 const getRelatedVideos = async (videoId) => {
   try {
-    const res = await publicApi.get(`/api/v1/videos/related/${videoId}`);
+    const res = await publicApi.get(`/videos/related/${videoId}`);
     return {
       data: res.data?.data,
     };
@@ -52,7 +56,7 @@ const getRelatedVideos = async (videoId) => {
 
 const getLikedVideos = async () => {
   try {
-    const res = await fetchWithAuth(`/api/v1/videos/liked`, {
+    const res = await fetchWithAuth(`/videos/liked`, {
       method: "GET",
     });
     console.log("data", res);

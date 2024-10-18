@@ -5,22 +5,15 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 const VideoLikeDislike = ({ videoId, userId, likeData, dislikeData }) => {
-  console.log("likeData:", likeData);
-  const [{ isLiked, likes }, setLikeState] = useState({
-    isLiked: likeData?.isLiked,
-    likes: likeData?.likes,
-  });
-  const [{ dislikes, isDisliked }, setDislikeState] = useState({
-    isDisliked: dislikeData?.isDisliked,
-    dislikes: dislikeData?.dislikes,
-  });
+  const [{ isLiked, likes }, setLikeState] = useState(likeData);
+  const [{ dislikes, isDisliked }, setDislikeState] = useState(dislikeData);
   const { privateApi } = useAxios();
 
   // Like Api
   const likeApi = async () => {
     try {
-      const res = await privateApi.post(`/api/v1/likes/toggle/v/${videoId}`);
-      //console.log("res:", res);
+      const res = await privateApi.post(`/likes/toggle/v/${videoId}`);
+      console.log("res:", res);
     } catch (error) {
       //console.log("error:", error);
       console.error(error);
@@ -30,7 +23,7 @@ const VideoLikeDislike = ({ videoId, userId, likeData, dislikeData }) => {
   // Dislike Api
   const dislikeApi = async () => {
     try {
-      const res = await privateApi.post(`/api/v1/dislikes/toggle/v/${videoId}`);
+      const res = await privateApi.post(`/dislikes/toggle/v/${videoId}`);
       //console.log("res:", res);
     } catch (error) {
       console.error(error);

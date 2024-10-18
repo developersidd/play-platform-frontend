@@ -3,7 +3,7 @@
 import { publicApi } from ".";
 const getUserTweets = async (username, loggedInUserId) => {
   if (!username) return null;
-  let url = `/api/v1/tweets/user/${username}`;
+  let url = `/tweets/user/${username}`;
   if (loggedInUserId) {
     url += `?loggedInUserId=${loggedInUserId}`;
   }
