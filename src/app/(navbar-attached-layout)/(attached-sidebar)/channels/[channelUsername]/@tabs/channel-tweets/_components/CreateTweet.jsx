@@ -1,18 +1,12 @@
 "use client";
 
 import useAxios from "@/hooks/useAxios";
-import useUserContext from "@/hooks/useUserContext";
 import Picker from "emoji-picker-react";
 import { Edit, Send, Smile } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 const CreateTweet = ({ isOwner, tweetToEdit, setTweetToEdit }) => {
-  console.log("tweetToEdit:", tweetToEdit);
-  const {
-    state: { username: loggedInUsername, _id },
-  } = useUserContext();
-
   const [tweet, setTweet] = useState(tweetToEdit?.content);
   const isEditing = Boolean(tweetToEdit?.tweetId);
   const [showPicker, setShowPicker] = useState(false);

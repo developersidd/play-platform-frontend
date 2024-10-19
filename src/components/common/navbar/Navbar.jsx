@@ -14,7 +14,6 @@ import { MenuIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
 import { toast } from "sonner";
 import Search from "./Search";
 
@@ -24,8 +23,7 @@ export const Navbar = () => {
   const { setSidebarCollapsed, setShowSidebar } = useSidebarContext();
   const { avatar, username } = state;
   const { privateApi } = useAxios();
-  const [showMenu, setShowMenu] = useState(false);
-  const menuRef = useRef(null);
+
   async function handleLogout() {
     console.log("logout");
     try {

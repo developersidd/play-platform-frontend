@@ -7,11 +7,11 @@ const RelatedVideoCard = ({ video }) => {
     title,
     thumbnail,
     duration,
-    channel,
+
     views,
     _id,
     createdAt,
-    owner: { username, avatar, fullName, _id: ownerId } = {},
+    owner: { fullName } = {},
   } = video;
   return (
     <Link

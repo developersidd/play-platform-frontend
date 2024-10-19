@@ -34,7 +34,7 @@ const VideoCommentItem = ({ item }) => {
   const [isDeleted, setIsDeleted] = useState(false);
   useEffect(() => {
     setState((prev) => ({ ...prev, showDots: _id === commentBy }));
-  }, [_id]);
+  }, [_id, commentBy]);
   const [comment, setComment] = useState(item?.content);
   const { privateApi } = useAxios();
   const closeModal = () =>

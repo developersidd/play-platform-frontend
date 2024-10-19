@@ -79,7 +79,7 @@ const UploadVideoModal = ({ children }) => {
   const [videoFile, setVideoFile] = useState({});
   const { privateApi } = useAxios();
   const {
-    state: { _id, username },
+    state: { _id },
   } = useUserContext();
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -263,6 +263,7 @@ const UploadVideoModal = ({ children }) => {
                           className="group/btn mt-4 inline-flex w-auto cursor-pointer items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e]"
                         >
                           <input
+                            value={value}
                             onChange={(e) => {
                               setVideoFile(e.target.files[0]);
                               console.log("e:", e.target.files[0]);
@@ -293,6 +294,7 @@ const UploadVideoModal = ({ children }) => {
                           Thumbnail<sup>*</sup>
                         </label>
                         <input
+                          value={value}
                           {...fieldProps}
                           onChange={(e) => {
                             onChange(e.target?.files && e.target.files[0]);

@@ -12,10 +12,9 @@ const VideoLikeDislike = ({ videoId, userId, likeData, dislikeData }) => {
   // Like Api
   const likeApi = async () => {
     try {
-      const res = await privateApi.post(`/likes/toggle/v/${videoId}`);
-      console.log("res:", res);
+      await privateApi.post(`/likes/toggle/v/${videoId}`);
     } catch (error) {
-      //console.log("error:", error);
+      toast.error("Failed to like the video");
       console.error(error);
     }
   };
@@ -23,10 +22,9 @@ const VideoLikeDislike = ({ videoId, userId, likeData, dislikeData }) => {
   // Dislike Api
   const dislikeApi = async () => {
     try {
-      const res = await privateApi.post(`/dislikes/toggle/v/${videoId}`);
-      //console.log("res:", res);
+      await privateApi.post(`/dislikes/toggle/v/${videoId}`);
     } catch (error) {
-      console.error(error);
+      toast.error("Failed to dislike the video");
     }
   };
   // Handle Like

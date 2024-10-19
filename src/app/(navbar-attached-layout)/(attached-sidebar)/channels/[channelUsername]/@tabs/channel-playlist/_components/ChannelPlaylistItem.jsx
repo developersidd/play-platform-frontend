@@ -3,9 +3,9 @@ import moment from "moment";
 import Link from "next/link";
 
 const ChannelPlaylistItem = ({ playlist }) => {
-  const { name, description, videos, owner, totalVideos, createdAt, _id } =
+  const { name, description, videos, totalVideos, createdAt, _id } =
     playlist || {};
-  const [{ thumbnail, duration, createdAt: videoCreatedAt }] = videos || [];
+  const [{ thumbnail }] = videos || [];
   return (
     <Link href={`/playlists/${_id}`} className="w-full">
       <div className="relative mb-2 w-full pt-[56%]">

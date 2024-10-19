@@ -4,8 +4,7 @@ import ChannelPlaylistList from "./_components/ChannelPlaylistList";
 
 const ChannelPlaylistPage = async ({ params: { channelUsername } }) => {
   console.log("channelUsername:", channelUsername);
-  const { data, error } = await getUserPlaylists(channelUsername);
-  //console.log("data:", data);
+  const { data } = await getUserPlaylists(channelUsername);
   return (
     <div>
       {data?.length > 0 ? (

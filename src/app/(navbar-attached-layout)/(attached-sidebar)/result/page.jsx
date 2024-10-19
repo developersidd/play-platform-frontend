@@ -4,7 +4,7 @@ import SearchedVideos from "./_components/SearchedVideos";
 
 const SearchResultPage = async ({ searchParams }) => {
   const searchVal = decodeURI(searchParams?.q);
-  const { data, error } = await getAllVideos({ q: searchVal });
+  const { data } = await getAllVideos({ q: searchVal });
   return (
     <section className="w-full pb-[70px] px-3 sm:ml-[70px] sm:pb-0 lg:ml-0">
       <SearchedVideos videos={data?.videos} />

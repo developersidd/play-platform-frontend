@@ -1,6 +1,5 @@
 "use client";
 import { getAllVideos } from "@/api/video.api";
-import NoVideosFound from "@/app/(navbar-attached-layout)/_components/NotFoundVideos";
 import VideoCard from "@/app/(navbar-attached-layout)/_components/VideoCard";
 import VideoHorizontalCard from "@/app/(navbar-attached-layout)/_components/VideoHorizontalCard";
 import { Loader } from "lucide-react";
@@ -20,12 +19,13 @@ const InfiniteVideoGrid = ({
   const [page, setPage] = useState(pageToLoad);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
-  const queries = {
-    page,
-    limit,
-    ...query,
-  };
   useEffect(() => {
+    const queries = {
+      page,
+      limit,
+      ...query,
+    };
+
     const fetchData = async () => {
       setIsLoading(true);
       const { data, error } = await getAllVideos(queries);
@@ -40,7 +40,7 @@ const InfiniteVideoGrid = ({
       setIsLoading(false);
     };
     fetchData();
-  }, [hasMore, page]);
+  }, [hasMore, page, limit]);
   if (videos?.length === 0 && error) {
     throw new Error("Not implemented");
   }
@@ -53,28 +53,28 @@ const InfiniteVideoGrid = ({
   }
   return (
     <div className="py-7 w-full">
-        <VirtuosoGrid
-          listClassName={
-            parentClasses ||
-            "grid 2xl:grid-cols-5 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-4 p-4 w-full"
+      <VirtuosoGrid
+        listClassName={
+          parentClasses ||
+          "grid 2xl:grid-cols-5 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-4 p-4 w-full"
+        }
+        useWindowScroll
+        endReached={() => {
+          if (hasMore) {
+            setPage((prevPage) => prevPage + 1);
           }
-          useWindowScroll
-          endReached={() => {
-            if (hasMore) {
-              setPage((prevPage) => prevPage + 1);
-            }
-          }}
-          data={videos}
-          overscan={10}
-          initialItemCount={initialShow}
-          itemContent={(index) =>
-            isSearching ? (
-              <VideoHorizontalCard video={videos[index]} />
-            ) : (
-              <VideoCard video={videos[index]} />
-            )
-          }
-        />
+        }}
+        data={videos}
+        overscan={10}
+        initialItemCount={initialShow}
+        itemContent={(index) =>
+          isSearching ? (
+            <VideoHorizontalCard video={videos[index]} />
+          ) : (
+            <VideoCard video={videos[index]} />
+          )
+        }
+      />
     </div>
   );
 };

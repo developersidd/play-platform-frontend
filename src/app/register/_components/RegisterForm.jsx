@@ -73,7 +73,7 @@ function RegisterForm() {
       avatar: undefined,
     },
   });
-  const { isSubmitting } = form.formState;
+  //const { isSubmitting } = form.formState;
   async function onSubmit(data) {
     //console.log("data:", data);
     const formData = new FormData();
@@ -82,7 +82,7 @@ function RegisterForm() {
     });
     //console.log(Object.fromEntries(formData.entries()));
     try {
-      const response = await publicApi.post("/users/register", formData);
+      await publicApi.post("/users/register", formData);
       //console.log("response:", response);
       router.push("/login");
     } catch (e) {
@@ -172,6 +172,7 @@ function RegisterForm() {
                   <FormLabel>Avatar </FormLabel>
                   <FormControl>
                     <Input
+                      value={value}
                       {...fieldProps}
                       placeholder="Picture"
                       type="file"

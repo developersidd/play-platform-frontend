@@ -2,7 +2,6 @@ import { getChannelSubscribers } from "@/api/subscription.api";
 import { formatCounting } from "@/lib/utils";
 
 const DescriptionChannelInfo = async ({ videoOwner }) => {
-  //console.log("videoOwner:", videoOwner);
   const { avatar, fullName, username, _id } = videoOwner || {};
   const { data: { subscribers } = {} } =
     (await getChannelSubscribers(_id)) || {};

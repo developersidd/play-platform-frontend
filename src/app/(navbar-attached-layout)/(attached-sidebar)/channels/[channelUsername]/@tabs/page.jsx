@@ -7,7 +7,7 @@ import VideoList from "../../../../_components/VideoList";
 
 const ChannelVideosPage = async ({ params: { channelUsername } }) => {
   const { data: user } = await retrieveCurrentUser();
-  const { data, error } = await getAllVideos({
+  const { data } = await getAllVideos({
     limit: 10,
     username: channelUsername,
   });

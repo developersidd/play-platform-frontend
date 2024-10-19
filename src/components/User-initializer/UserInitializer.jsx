@@ -5,7 +5,7 @@ import useUserContext from "@/hooks/useUserContext";
 import { useEffect } from "react";
 
 const UserInitializer = () => {
-  const { dispatch, state } = useUserContext();
+  const { dispatch } = useUserContext();
   const { privateApi } = useAxios();
   useEffect(() => {
     const fetchUser = async () => {

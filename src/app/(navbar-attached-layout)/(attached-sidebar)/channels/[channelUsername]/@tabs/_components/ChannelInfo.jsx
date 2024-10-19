@@ -1,10 +1,9 @@
 import SubscribeChannel from "@/app/(navbar-attached-layout)/(non-attached-sidebar)/videos/_components/SubscribeChannel";
-import UploadVideoModal from "@/app/(navbar-attached-layout)/_components/UploadVideoModal";
 import { formatCounting } from "@/lib/utils";
 import { Pen } from "lucide-react";
 import Link from "next/link";
 
-const ChannelInfo = ({ channelInfo, loggedInUserId, isMyChannel }) => {
+const ChannelInfo = ({ channelInfo, isMyChannel }) => {
   const {
     _id,
     username,
@@ -12,7 +11,7 @@ const ChannelInfo = ({ channelInfo, loggedInUserId, isMyChannel }) => {
     isSubscribed,
     subscribedChannelsCount,
     fullName,
-    email,
+
     avatar,
   } = channelInfo || {};
   return (

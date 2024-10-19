@@ -6,11 +6,10 @@ import ReactPlayer from "react-player";
 
 import { publicApi } from "@/api";
 const VideoPlayer = ({ video }) => {
-  const { _id, title, thumbnail, video: { url } = {} } = video || {}; //console.log("lesson:", lesson);
+  const { _id, thumbnail, video: { url } = {} } = video || {}; //console.log("lesson:", lesson);
   const [hasWindow, setHasWindow] = useState(false);
   const [started, setStarted] = useState(false);
-  const [ended, setEnded] = useState(false);
-  const [duration, setDuration] = useState(0);
+  //const [duration, setDuration] = useState(0);
 
   const router = useRouter();
   const playerRef = useRef();
@@ -46,11 +45,11 @@ const VideoPlayer = ({ video }) => {
     console.log("handleOnStart");
     setStarted(true);
   }
-
+  /*
   function handleOnDuration(duration) {
     console.log("handleOnDuration", duration);
     setDuration(duration);
-  }
+  }*/
 
   function handleOnProgress(state) {
     console.log("state:", state);
@@ -76,7 +75,7 @@ const VideoPlayer = ({ video }) => {
           height="720px"
           controls={true}
           onStart={handleOnStart}
-          onDuration={handleOnDuration}
+          //onDuration={handleOnDuration}
           onProgress={handleOnProgress}
         />
       )}

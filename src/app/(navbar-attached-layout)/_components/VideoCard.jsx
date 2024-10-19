@@ -7,7 +7,7 @@ const VideoCard = ({ video }) => {
     _id,
     title,
     views,
-    owner: { avatar, _id: ownerId, username, fullName } = {},
+    owner: { avatar, username, fullName } = {},
     createdAt,
     thumbnail,
   } = video || {};
