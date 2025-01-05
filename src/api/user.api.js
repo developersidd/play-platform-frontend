@@ -36,11 +36,25 @@ const getChannelByUsername = async (username, loggedInUserId) => {
       data: res.data?.data,
     };
   } catch (e) {
-    console.log("channel:", e);
     return {
       error: e.message,
     };
   }
 };
 
-export { getChannelByUsername, retrieveCurrentUser };
+const getUserHistory = async () => {
+  try {
+    const res = await fetchWithAuth(`/users/history`, {
+      method: "GET",
+    });
+    return {
+      data: res?.data,
+    };
+  } catch (e) {
+    return {
+      error: e.message,
+    };
+  }
+};
+
+export { getChannelByUsername, getUserHistory, retrieveCurrentUser };

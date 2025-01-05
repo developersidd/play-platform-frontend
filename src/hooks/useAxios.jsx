@@ -5,7 +5,9 @@ import { useEffect } from "react";
 import useUserContext from "./useUserContext";
 
 const useAxios = () => {
-  const { refreshToken } = useUserContext();
+  const {
+    state: { refreshToken },
+  } = useUserContext();
   useEffect(() => {
     privateApi.interceptors.response.use(undefined, async (error) => {
       //console.log("error:", error);

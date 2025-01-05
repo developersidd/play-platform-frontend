@@ -30,8 +30,7 @@ const VideoPlayer = ({ video }) => {
   }, []);
 
   useEffect(() => {
-    async function updateLessonWatch() {
-      console.log("updateLessonWatch");
+    async function updateVideoViews() {
       const response = await publicApi.patch(`/videos/update-views/${_id}`);
       if (response.status === 200) {
         console.log("result:", response.data);
@@ -39,7 +38,7 @@ const VideoPlayer = ({ video }) => {
         setStarted(false);
       }
     }
-    started && !videoSession && updateLessonWatch();
+    started && !videoSession && updateVideoViews();
   }, [started]);
   function handleOnStart() {
     console.log("handleOnStart");

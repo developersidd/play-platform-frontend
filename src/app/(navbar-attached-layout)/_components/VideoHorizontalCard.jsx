@@ -1,5 +1,6 @@
 import { formatCounting } from "@/lib/utils";
 import moment from "moment";
+import Image from "next/image";
 import Link from "next/link";
 
 const VideoHorizontalCard = ({ video }) => {
@@ -13,17 +14,17 @@ const VideoHorizontalCard = ({ video }) => {
     owner: { avatar, username, fullName } = {},
   } = video || {};
   return (
-    <Link href={`/videos/${video._id}`}>
-      <div className="w-full max-w-3xl gap-x-4 md:flex">
+    <Link href={`/videos/${video._id}`} className="block">
+      <div className=" gap-x-4 md:flex">
         <div className="relative mb-2 w-full md:mb-0 md:w-5/12">
           <div className="w-full pt-[56%]">
             <div className="absolute inset-0">
-              <img
+              <Image
                 width={450}
                 height={300}
                 src={thumbnail?.url}
                 alt={title}
-                className="h-full w-full"
+                className="md:h-[200px] w-full rounded-md"
               />
             </div>
             <span className="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">

@@ -4,11 +4,8 @@ const PUBLIC_ROUTES = {
 };
 export default async function middleware(req) {
   const { nextUrl } = req;
-  //console.log("nextUrl:", JSON.stringify(req, null, 2));
   const { pathname, search } = nextUrl;
-  console.log("search:", search);
   const token = req?.cookies?.get("accessToken")?.value;
-  //console.log("token:", token);
   const isPublicRoute =
     PUBLIC_ROUTES[pathname] ||
     nextUrl.pathname === "/" ||
