@@ -7,12 +7,12 @@ import { toast } from "sonner";
 const VideoLikeDislike = ({ videoId, userId, likeData, dislikeData }) => {
   const [{ isLiked, likes }, setLikeState] = useState(likeData);
   const [{ dislikes, isDisliked }, setDislikeState] = useState(dislikeData);
-  const { privateApi } = useAxios();
+  const { apiClient } = useAxios();
 
   // Like Api
   const likeApi = async () => {
     try {
-      await privateApi.post(`/likes/toggle/v/${videoId}`);
+      await apiClient.post(`/likes/toggle/v/${videoId}`);
     } catch (error) {
       toast.error("Failed to like the video");
       console.error(error);
@@ -22,7 +22,7 @@ const VideoLikeDislike = ({ videoId, userId, likeData, dislikeData }) => {
   // Dislike Api
   const dislikeApi = async () => {
     try {
-      await privateApi.post(`/dislikes/toggle/v/${videoId}`);
+      await apiClient.post(`/dislikes/toggle/v/${videoId}`);
     } catch (error) {
       toast.error("Failed to dislike the video");
     }

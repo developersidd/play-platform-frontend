@@ -1,6 +1,6 @@
 "use server";
 
-import { publicApi } from ".";
+import { apiClient } from ".";
 const getUserTweets = async (username, loggedInUserId) => {
   if (!username) return null;
   let url = `/tweets/user/${username}`;
@@ -8,7 +8,7 @@ const getUserTweets = async (username, loggedInUserId) => {
     url += `?loggedInUserId=${loggedInUserId}`;
   }
   try {
-    const res = await publicApi.get(url);
+    const res = await apiClient.get(url);
     return {
       data: res.data?.data,
     };

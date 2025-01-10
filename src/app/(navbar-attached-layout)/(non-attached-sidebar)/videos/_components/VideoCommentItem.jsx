@@ -36,7 +36,7 @@ const VideoCommentItem = ({ item }) => {
     setState((prev) => ({ ...prev, showDots: _id === commentBy }));
   }, [_id, commentBy]);
   const [comment, setComment] = useState(item?.content);
-  const { privateApi } = useAxios();
+  const { apiClient } = useAxios();
   const closeModal = () =>
     setState((prev) => ({
       ...prev,
@@ -47,7 +47,7 @@ const VideoCommentItem = ({ item }) => {
   const handleEditComment = async () => {
     closeModal();
     try {
-      await privateApi.patch(`/comments/c/${item._id}`, {
+      await apiClient.patch(`/comments/c/${item._id}`, {
         content: comment,
       });
       toast.success("Comment Edited successfully");
@@ -61,7 +61,7 @@ const VideoCommentItem = ({ item }) => {
   const handleDelete = async () => {
     setIsDeleted(true);
     try {
-      await privateApi.delete(`/comments/c/${item._id}`);
+      await apiClient.delete(`/comments/c/${item._id}`);
       toast.success("Comment Deleted successfully");
     } catch (error) {
       toast.error("Failed to Delete comment");

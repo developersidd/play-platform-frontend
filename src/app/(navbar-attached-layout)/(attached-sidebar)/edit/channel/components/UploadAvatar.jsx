@@ -11,7 +11,7 @@ const UploadAvatar = ({ avatar, username }) => {
   const inputRef = useRef();
   const { dispatch } = useUserContext();
 
-  const { privateApi } = useAxios();
+  const { apiClient } = useAxios();
   const [avatarImage, setAvatarImage] = useState(avatar);
   const router = useRouter();
   const handleUpload = () => {
@@ -33,7 +33,7 @@ const UploadAvatar = ({ avatar, username }) => {
       try {
         const formData = new FormData();
         formData.append("avatar", file);
-        await privateApi.patch("/users/avatar", formData, {
+        await apiClient.patch("/users/avatar", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

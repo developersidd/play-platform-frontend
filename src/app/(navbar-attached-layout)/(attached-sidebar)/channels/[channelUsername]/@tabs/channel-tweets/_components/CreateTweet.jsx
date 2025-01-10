@@ -12,7 +12,7 @@ const CreateTweet = ({ isOwner, tweetToEdit, setTweetToEdit }) => {
   const [showPicker, setShowPicker] = useState(false);
   const router = useRouter();
   const EmojiPikerRef = useRef(null);
-  const { privateApi } = useAxios();
+  const { apiClient } = useAxios();
   const [isSubmitting, setIsSubmitting] = useState(false);
   // handle emoji click
   const onEmojiClick = (emojiObject) => {
@@ -34,14 +34,14 @@ const CreateTweet = ({ isOwner, tweetToEdit, setTweetToEdit }) => {
     setIsSubmitting(true);
     try {
       if (isEditing) {
-        const res = await privateApi.patch(`/tweets/${tweetToEdit.tweetId}`, {
+        const res = await apiClient.patch(`/tweets/${tweetToEdit.tweetId}`, {
           content: tweet,
         });
         console.log("res:", res);
         setTweetToEdit(null);
         toast.success("Tweet updated successfully");
       } else {
-        const res = await privateApi.post(`/tweets`, { content: tweet });
+        const res = await apiClient.post(`/tweets`, { content: tweet });
         toast.success("Tweet created successfully");
         console.log("res:", res);
       }

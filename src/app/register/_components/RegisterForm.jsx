@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-import { publicApi } from "@/api";
+import { apiClient } from "@/api";
 import {
   Form,
   FormControl,
@@ -82,7 +82,7 @@ function RegisterForm() {
     });
     //console.log(Object.fromEntries(formData.entries()));
     try {
-      await publicApi.post("/users/register", formData);
+      await apiClient.post("/users/register", formData);
       //console.log("response:", response);
       router.push("/login");
     } catch (e) {

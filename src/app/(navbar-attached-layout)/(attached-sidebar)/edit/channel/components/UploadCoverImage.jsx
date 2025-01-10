@@ -7,7 +7,7 @@ import { toast } from "sonner";
 
 const UploadCoverImage = ({ coverImage: coverImg, username }) => {
   const inputRef = useRef();
-  const { privateApi } = useAxios();
+  const { apiClient } = useAxios();
   const [coverImage, setCoverImage] = useState(coverImg);
   const router = useRouter();
   const handleUpload = () => {
@@ -28,7 +28,7 @@ const UploadCoverImage = ({ coverImage: coverImg, username }) => {
       try {
         const formData = new FormData();
         formData.append("coverImage", file);
-        await privateApi.patch("/users/cover-image", formData, {
+        await apiClient.patch("/users/cover-image", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

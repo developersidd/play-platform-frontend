@@ -63,7 +63,7 @@ const ChangePasswordForm = () => {
     },
   });
 
-  const { privateApi } = useAxios();
+  const { apiClient } = useAxios();
   const { isSubmitting } = form.formState;
   async function onSubmit(data) {
     const { currentPassword, newPassword, confirmPassword } = data || {};
@@ -75,7 +75,7 @@ const ChangePasswordForm = () => {
       return;
     }
     try {
-      const response = await privateApi.post("/users/change-password", {
+      const response = await apiClient.post("/users/change-password", {
         currentPassword,
         newPassword,
       });

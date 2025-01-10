@@ -1,5 +1,5 @@
 "use server";
-import { fetchWithAuth, publicApi } from ".";
+import { apiClient, fetchWithAuth } from ".";
 import { getAccessToken } from "./auth.api";
 
 const retrieveCurrentUser = async () => {
@@ -31,7 +31,7 @@ const getChannelByUsername = async (username, loggedInUserId) => {
     url += `?loggedInUserId=${loggedInUserId}`;
   }
   try {
-    const res = await publicApi.get(url);
+    const res = await apiClient.get(url);
     return {
       data: res.data?.data,
     };
@@ -42,11 +42,15 @@ const getChannelByUsername = async (username, loggedInUserId) => {
   }
 };
 
-const getUserHistory = async () => {
+// get user history
+const getUserHistory = async (search = "") => {
   try {
-    const res = await fetchWithAuth(`/users/history`, {
-      method: "GET",
-    });
+    const res = await fetchWithAuth(
+      `/users/history?q=${encodeURIComponent(search)}`,
+      {
+        method: "GET",
+      }
+    );
     return {
       data: res?.data,
     };

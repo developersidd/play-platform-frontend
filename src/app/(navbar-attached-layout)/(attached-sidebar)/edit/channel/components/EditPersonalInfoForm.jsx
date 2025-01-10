@@ -58,11 +58,11 @@ const EditPersonalInfoForm = () => {
     form.setValue("email", email);
   }, [username, fullName, email, form]);
 
-  const { privateApi } = useAxios();
+  const { apiClient } = useAxios();
   const { isSubmitting } = form.formState;
   async function onSubmit(data) {
     try {
-      const response = await privateApi.patch("/users/update-account", data);
+      const response = await apiClient.patch("/users/update-account", data);
       toast.success("Account updated successfully!");
       console.log("response:", response);
       router.refresh();

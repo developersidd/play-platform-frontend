@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 
-import { publicApi } from "@/api";
+import { apiClient } from "@/api";
 const VideoPlayer = ({ video }) => {
   const { _id, thumbnail, video: { url } = {} } = video || {}; //console.log("lesson:", lesson);
   const [hasWindow, setHasWindow] = useState(false);
@@ -31,7 +31,7 @@ const VideoPlayer = ({ video }) => {
 
   useEffect(() => {
     async function updateVideoViews() {
-      const response = await publicApi.patch(`/videos/update-views/${_id}`);
+      const response = await apiClient.patch(`/videos/update-views/${_id}`);
       if (response.status === 200) {
         console.log("result:", response.data);
         router.refresh();

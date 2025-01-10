@@ -17,12 +17,12 @@ const TweetLikeDislike = ({ tweetId, likeData, dislikeData }) => {
   //  console.log("likes:", likes);
   const [{ dislikes, isDisliked }, setDislikeState] = useState(dislikeData);
 
-  const { privateApi } = useAxios();
+  const { apiClient } = useAxios();
 
   // Like Api
   const likeApi = async () => {
     try {
-      const res = await privateApi.post(`/likes/toggle/t/${tweetId}`);
+      const res = await apiClient.post(`/likes/toggle/t/${tweetId}`);
       //console.log("res:", res);
       console.log("res:", res);
       router.refresh();
@@ -35,7 +35,7 @@ const TweetLikeDislike = ({ tweetId, likeData, dislikeData }) => {
   // Dislike Api
   const dislikeApi = async () => {
     try {
-      const res = await privateApi.post(`/dislikes/toggle/t/${tweetId}`);
+      const res = await apiClient.post(`/dislikes/toggle/t/${tweetId}`);
       router.refresh();
       console.log("res:", res);
     } catch (error) {

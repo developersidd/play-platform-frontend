@@ -22,12 +22,12 @@ export const Navbar = () => {
   const router = useRouter();
   const { setSidebarCollapsed, setShowSidebar } = useSidebarContext();
   const { avatar, username } = state;
-  const { privateApi } = useAxios();
+  const { apiClient } = useAxios();
 
   async function handleLogout() {
     console.log("logout");
     try {
-      await privateApi.post("/users/logout");
+      await apiClient.post("/users/logout");
       router.push("/");
       localStorage.removeItem("loggedIn");
       dispatch({ type: LOGGED_OUT });

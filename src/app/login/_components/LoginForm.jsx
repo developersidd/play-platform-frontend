@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-import { publicApi } from "@/api";
+import { apiClient } from "@/api";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import {
@@ -53,7 +53,7 @@ function LoginForm() {
   async function onSubmit(data) {
     const { email, password } = data;
     try {
-      await publicApi.post("/users/login", {
+      await apiClient.post("/users/login", {
         email,
         password,
       });

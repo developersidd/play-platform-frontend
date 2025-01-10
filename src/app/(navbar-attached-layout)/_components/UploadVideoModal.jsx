@@ -77,7 +77,7 @@ const UploadVideoModal = ({ children }) => {
 
   const [uploading, setUploading] = useState(false);
   const [videoFile, setVideoFile] = useState({});
-  const { privateApi } = useAxios();
+  const { apiClient } = useAxios();
   const {
     state: { _id },
   } = useUserContext();
@@ -105,7 +105,7 @@ const UploadVideoModal = ({ children }) => {
     try {
       // delay for 5 seconds
       /*await new Promise((resolve) => setTimeout(resolve, 3000));*/
-      const response = await privateApi.post("/videos", formData, {
+      const response = await apiClient.post("/videos", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

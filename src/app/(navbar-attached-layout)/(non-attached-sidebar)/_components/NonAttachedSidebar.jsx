@@ -6,6 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useLockBody } from "@/hooks/use-lock-body";
 import useSidebarContext from "@/hooks/useSidebarContext";
 import {
   BadgeHelp,
@@ -18,6 +19,7 @@ import {
   Video,
 } from "lucide-react";
 import Link from "next/link"; // Import Link for navigation in Next.js
+import { useLayoutEffect } from "react";
 
 // NonAttachedSidebar items with link property
 const sidebarItems = [
@@ -53,8 +55,16 @@ const sidebarItems = [
 ];
 
 const NonAttachedSidebar = () => {
+  useLockBody();
   const { showSidebar, setShowSidebar } = useSidebarContext();
-
+  // Lock body scroll when sidebar is open
+  useLayoutEffect(() => {
+    if (showSidebar) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [showSidebar]);
   return (
     <>
       {/* NonAttachedSidebar overlay */}
@@ -64,7 +74,7 @@ const NonAttachedSidebar = () => {
           ${showSidebar ? "visible" : "invisible"}  `}
       ></div>
       <aside
-        className={`w-[230px] transition-all border-r-2 px-3 z-40 h-full bg-primary absolute top-0 left-0  ${
+        className={`w-[230px] fixed transition-all border-r-2 px-3 z-40 h-full bg-primary  top-0 left-0  ${
           showSidebar ? "translate-x-0 block" : "-translate-x-full hidden"
         }`}
       >

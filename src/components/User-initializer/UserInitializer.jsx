@@ -6,12 +6,12 @@ import { useEffect } from "react";
 
 const UserInitializer = () => {
   const { dispatch } = useUserContext();
-  const { privateApi } = useAxios();
+  const { apiClient } = useAxios();
   useEffect(() => {
     const fetchUser = async () => {
       //console.log("fetchUser");
       try {
-        const res = await privateApi.get("/users/current-user");
+        const res = await apiClient.get("/users/current-user");
         dispatch({ type: SET_USER, payload: res.data?.data });
         //hasFetchedUser.current = true;
       } catch (error) {
@@ -21,7 +21,7 @@ const UserInitializer = () => {
     if (localStorage.getItem("loggedIn")) {
       fetchUser();
     }
-  }, [privateApi, dispatch]);
+  }, [apiClient, dispatch]);
   return null;
 };
 export default UserInitializer;

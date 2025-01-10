@@ -37,14 +37,14 @@ const ChannelTweetItem = ({ tweet, isOwner, setTweetToEdit }) => {
 
   //console.log("isOwner:", isOwner);
   const [showModal, setShowModal] = useState(false);
-  const { privateApi } = useAxios();
+  const { apiClient } = useAxios();
   //const menuRef = useRef(null);
   //const menuTriggerRef = useRef(null);
   const handleDelete = async () => {
     if (!isOwner) return;
     setIsDeleted(true);
     try {
-      const res = await privateApi.delete(`/tweets/${_id}`);
+      const res = await apiClient.delete(`/tweets/${_id}`);
       toast.success("Tweet Deleted successfully");
       console.log("res:", res);
     } catch (error) {

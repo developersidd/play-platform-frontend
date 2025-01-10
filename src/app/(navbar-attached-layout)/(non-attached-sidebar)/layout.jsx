@@ -13,7 +13,7 @@ export default function NonAttachedSidebarLayout({ children }) {
           <SidebarProvider>
             <UserInitializer />
             <Navbar />
-            <div className=" flex fixed w-full min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
+            <div className="flex items-start  w-full min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
               <NonAttachedSidebar />
               {children}
             </div>

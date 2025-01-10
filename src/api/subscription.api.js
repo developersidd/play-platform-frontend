@@ -1,9 +1,9 @@
 "use server";
-import { fetchWithAuth, publicApi } from ".";
+import { apiClient, fetchWithAuth } from ".";
 
 const getChannelSubscribers = async (channelId) => {
   try {
-    const res = await publicApi.get(`/subscriptions/u/${channelId}`);
+    const res = await apiClient.get(`/subscriptions/u/${channelId}`);
     //console.log("res:", res);
     return {
       data: res?.data?.data,
@@ -25,7 +25,7 @@ const getUserSubscribedChannels = async (subscriberName, queries) => {
   }
   console.log("url:", url);
   try {
-    const res = await publicApi.get(url);
+    const res = await apiClient.get(url);
     console.log("res:", res.data?.data);
     return {
       data: res.data?.data,

@@ -8,7 +8,7 @@ import { toast } from "sonner";
 
 const SubscribeChannel = ({ channelId, isSubscribed, animation = false }) => {
   const [subscribed, setSubscribed] = useState(isSubscribed);
-  const { privateApi } = useAxios();
+  const { apiClient } = useAxios();
   const {
     state: { _id: userId },
   } = useUserContext();
@@ -19,7 +19,7 @@ const SubscribeChannel = ({ channelId, isSubscribed, animation = false }) => {
     }
     setSubscribed((prev) => !prev);
     try {
-      const res = await privateApi.post(`/subscriptions/c/${channelId}`);
+      const res = await apiClient.post(`/subscriptions/c/${channelId}`);
       router.refresh();
       console.log("res:", res);
     } catch (error) {

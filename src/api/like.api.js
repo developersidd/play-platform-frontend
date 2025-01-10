@@ -1,5 +1,5 @@
 "use server";
-import { publicApi } from ".";
+import { apiClient } from ".";
 const getVideoLikes = async (videoId, userId) => {
   try {
     let url = `/likes/video/${videoId}`;
@@ -7,7 +7,7 @@ const getVideoLikes = async (videoId, userId) => {
       url += `?userId=${userId}`;
     }
 
-    const res = await publicApi.get(url);
+    const res = await apiClient.get(url);
     return {
       data: res.data?.data,
     };

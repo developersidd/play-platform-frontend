@@ -1,5 +1,5 @@
 "use client";
-import { privateApi, publicApi } from "@/api/";
+import { apiClient } from "@/api/";
 import axios from "axios";
 import { useEffect } from "react";
 import useUserContext from "./useUserContext";
@@ -9,13 +9,13 @@ const useAxios = () => {
     state: { refreshToken },
   } = useUserContext();
   useEffect(() => {
-    privateApi.interceptors.response.use(undefined, async (error) => {
+    apiClient.interceptors.response.use(undefined, async (error) => {
       //console.log("error:", error);
       const originalRequest = error?.config;
       if (error?.response?.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
         try {
-          const response = await publicApi.post("/users/refresh-token", {
+          const response = await apiClient.post("/users/refresh-token", {
             refreshToken,
           });
           //console.log("response:", response);
@@ -37,7 +37,7 @@ const useAxios = () => {
     });
   }, []);
 
-  return { privateApi };
+  return { apiClient };
 };
 
 export default useAxios;

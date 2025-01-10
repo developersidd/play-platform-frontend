@@ -1,9 +1,9 @@
-import { publicApi } from ".";
+import { apiClient } from ".";
 
 // get playlist by id
 const getPlaylistById = async (id) => {
   try {
-    const res = await publicApi.get(`/playlist/${id}`);
+    const res = await apiClient.get(`/playlist/${id}`);
     return {
       data: res.data?.data,
     };
@@ -17,7 +17,7 @@ const getPlaylistById = async (id) => {
 // get user playlists
 const getUserPlaylists = async (username) => {
   try {
-    const res = await publicApi.get(`/playlist/user/${username}`);
+    const res = await apiClient.get(`/playlist/user/${username}`);
     console.log("playlist:", res.data);
     return {
       data: res.data?.data,

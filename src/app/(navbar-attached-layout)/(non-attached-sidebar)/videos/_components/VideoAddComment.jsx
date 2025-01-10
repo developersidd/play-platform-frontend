@@ -31,7 +31,7 @@ const FormSchema = z.object({
 
 function VideoAddComment({ videoId }) {
   const { state } = useUserContext();
-  const { privateApi } = useAxios();
+  const { apiClient } = useAxios();
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(FormSchema),
@@ -46,7 +46,7 @@ function VideoAddComment({ videoId }) {
     }
     try {
       const { content } = data;
-      await privateApi.post(`/comments/add/v/${videoId}/`, {
+      await apiClient.post(`/comments/add/v/${videoId}/`, {
         content,
       });
       router.refresh();

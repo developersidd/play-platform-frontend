@@ -1,15 +1,7 @@
 import axios from "axios";
 import { getAccessToken, refreshAccessToken } from "./auth.api";
 
-export const privateApi = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-export const publicApi = axios.create({
+export const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
   headers: {
@@ -26,7 +18,7 @@ export async function fetchWithAuth(url, options = {}) {
     if (!accessToken) {
       throw new Error("Session expired");
     }
-    const response = await privateApi({
+    const response = await apiClient({
       ...options,
       url,
       headers: {
@@ -46,7 +38,7 @@ export async function fetchWithAuth(url, options = {}) {
         //console.log("data:", data);
         const newAccessToken = data?.accessToken;
         // Retry the original request with the new token
-        await privateApi({
+        await apiClient({
           ...options,
           url,
           headers: {

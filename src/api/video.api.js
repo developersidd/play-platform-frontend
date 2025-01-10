@@ -1,5 +1,5 @@
 "use server";
-import { fetchWithAuth, publicApi } from ".";
+import { apiClient, fetchWithAuth } from ".";
 const getAllVideos = async (queries) => {
   //console.log("queries:", queries);
   let url = "/videos";
@@ -9,7 +9,7 @@ const getAllVideos = async (queries) => {
   }
   //console.log("url:", url);
   try {
-    const res = await publicApi.get(url);
+    const res = await apiClient.get(url);
     return {
       data: res.data?.data,
     };
@@ -28,7 +28,7 @@ const getVideoById = async (id, userId) => {
     if (userId) {
       url += `?userId=${userId}`;
     }
-    const res = await publicApi.get(url);
+    const res = await apiClient.get(url);
     console.log("url", url);
     return {
       data: res.data?.data,
@@ -43,7 +43,7 @@ const getVideoById = async (id, userId) => {
 
 const getRelatedVideos = async (videoId) => {
   try {
-    const res = await publicApi.get(`/videos/related/${videoId}`);
+    const res = await apiClient.get(`/videos/related/${videoId}`);
     return {
       data: res.data?.data,
     };
