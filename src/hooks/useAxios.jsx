@@ -1,4 +1,5 @@
 "use client";
+import { TOKEN_REFRESHED } from "@/actions/user.acton";
 import { apiClient } from "@/api/";
 import axios from "axios";
 import { useEffect } from "react";
@@ -6,28 +7,53 @@ import useUserContext from "./useUserContext";
 
 const useAxios = () => {
   const {
-    state: { refreshToken },
+    state: { refreshToken, accessToken },
+    dispatch,
   } = useUserContext();
   useEffect(() => {
+    // request interceptor
+    apiClient.interceptors.request.use(
+      (config) => {
+        if (accessToken) {
+          config.headers.Authorization = `Bearer ${accessToken}`;
+        }
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+    // response interceptor
     apiClient.interceptors.response.use(undefined, async (error) => {
       //console.log("error:", error);
       const originalRequest = error?.config;
       if (error?.response?.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
         try {
-          const response = await apiClient.post("/users/refresh-token", {
-            refreshToken,
-          });
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/users/refresh-token`,
+            {
+              method: "POST",
+              body: JSON.stringify({ refreshToken }),
+            }
+          );
+          console.log("response:", response);
           //console.log("response:", response);
-          if (response.status === 200) {
+          const data = await response.json();
+          console.log("data:", data);
+          if (data?.statusCode === 200) {
+            console.log("Access Token Refreshed");
             //console.log("response.data.data.accessToken:", response.data);
             //console.log(response.data.data.accessToken);
+            const newTokens = response.data || {};
             originalRequest.headers[
               "Authorization"
-            ] = `Bearer ${response.data.data.accessToken}`;
+            ] = `Bearer ${newTokens?.accessToken}`;
+            dispatch({ type: TOKEN_REFRESHED, payload: newTokens });
             return axios(originalRequest);
           }
         } catch (error) {
+          console.log("error in refresh token:", error);
           //console.log("error:", error);
           return Promise.reject(error);
         }
@@ -35,7 +61,7 @@ const useAxios = () => {
         return Promise.reject(error);
       }
     });
-  }, []);
+  }, [refreshToken]);
 
   return { apiClient };
 };

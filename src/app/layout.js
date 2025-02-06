@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import UserProvider from "@/providers/UserProvider";
 import { Open_Sans } from "next/font/google";
@@ -18,8 +19,17 @@ export default function RootLayout({ children }) {
   console.log("RootLayout");
   return (
     <html lang="en">
-      <body className={`${openSans.variable} `}>
-        <UserProvider>{children}</UserProvider>
+      <body className={`${openSans.variable}`}>
+        <UserProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </UserProvider>
         <Toaster richColors position="bottom-right" />
       </body>
     </html>

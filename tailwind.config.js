@@ -47,8 +47,8 @@ module.exports = {
           5: "hsl(var(--chart-5))",
         },
         secondary: "#AE7AFF",
-        "light-gray": "#3F3F3F",
-        "dark-gray": "#212121",
+        "light-bg": "hsl(var(--light-bg))",
+        "dark-bg": "hsl(var(--dark-bg))",
       },
       fontFamily: {
         opensans: "var(--font-opensans)",

@@ -26,14 +26,12 @@ const sidebarItems = [
     icon: <ThumbsUp />,
     label: "Liked Videos",
     link: "/liked-videos",
-    smHidden: true,
   },
   { icon: <History />, label: "History", link: "/history" },
   {
     icon: <Video />,
     label: "My Content",
     link: "/my-content",
-    smHidden: true,
   },
   { icon: <Combine />, label: "Collections", link: "/collections" },
   { icon: <UserCheck />, label: "Subscribers", link: "/subscribers" },
@@ -41,14 +39,13 @@ const sidebarItems = [
     icon: <BadgeHelp />,
     label: "Support",
     link: "/support",
-    smHidden: true,
+
     mtAuto: true,
   },
   {
     icon: <Settings />,
     label: "Settings",
     link: "/settings",
-    smHidden: true,
   },
 ];
 
@@ -58,20 +55,18 @@ const AttachedSidebar = () => {
   return (
     <aside
       className={`
-      max-w-[250px] sticky h-[100dvh] top-0 left-0 bottom-0
-      px-3 border-r-2 transition-all duration-250
-      ${sidebarCollapsed ? "w-[85px]" : "w-[250px]"}
+       border-r-2 top-[106px] left-0 
+       transition-all duration-250 
+      fixed inset-x-0  z-40  shrink-0 border-t border-white   py-2 sm:border-r sm:border-t-0 sm:py-6 lg:sticky       ${
+        sidebarCollapsed ? "w-[85px]" : "w-[240px]"
+      }
     `}
     >
-      <ul className="flex  justify-around gap-y-3 sm:sticky sm:top-[106px]  sm:min-h-[calc(100vh-130px)] sm:flex-col">
-        {sidebarItems.map(({ icon, label, link, smHidden, mtAuto }, index) => (
+      <ul className="flex px-3   justify-around gap-y-3 sm:sticky sm:top-[106px] w-full sm:min-h-[calc(100vh-130px)] sm:flex-col">
+        {sidebarItems.map(({ icon, label, link, mtAuto }, index) => (
           <TooltipProvider delayDuration={120} key={index}>
             <Tooltip>
-              <li
-                className={`${smHidden ? "hidden sm:block" : ""} ${
-                  mtAuto ? "mt-auto" : ""
-                }`}
-              >
+              <li className={` ${mtAuto ? "mt-auto" : ""}`}>
                 <TooltipTrigger className="w-full">
                   <Link
                     title={label}

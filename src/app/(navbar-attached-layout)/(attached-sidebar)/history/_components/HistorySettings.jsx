@@ -44,7 +44,7 @@ const HistorySettings = () => {
     <>
       {/* Pause History Modal */}
       <Dialog open={openSettingDialog} onOpenChange={setOpenSettingDialog}>
-        <DialogContent className="sm:max-w-[34%] block bg-dark-gray border-0">
+        <DialogContent className="sm:max-w-[34%] block bg-dark-bg border-0">
           <div className="flex flex-col h-full">
             <div className="space-y-4">
               <h4 className="text-lg">
@@ -61,7 +61,7 @@ const HistorySettings = () => {
             </div>
             <div className="flex items-center gap-x-2 align-bottom pt-4 justify-end">
               <DialogClose
-                className="py-1.5 px-3 rounded-full hover:bg-light-gray"
+                className="py-1.5 px-3 rounded-full hover:bg-light-bg"
                 type="button"
               >
                 Cancel
@@ -84,7 +84,7 @@ const HistorySettings = () => {
           <ClearHistory />
           <button
             onClick={() => setOpenSettingDialog(true)}
-            className="flex items-center gap-x-2 py-1.5 px-3 hover:bg-light-gray rounded-full"
+            className="flex items-center gap-x-2 py-1.5 px-3 hover:bg-light-bg rounded-full"
           >
             {isPaused ? <Play size={18} /> : <PauseIcon size={18} />}
             <h4 className="font-bold">
