@@ -1,29 +1,22 @@
 "use client";
 import { getAllVideos } from "@/api/video.api";
 import VideoCard from "@/app/(navbar-attached-layout)/_components/VideoCard";
-import VideoHorizontalCard from "@/app/(navbar-attached-layout)/_components/VideoHorizontalCard";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { VirtuosoGrid } from "react-virtuoso";
 
-const InfiniteVideoGrid = ({
-  limit,
-  query,
-  pageToLoad,
-  initialShow,
-  isSearching,
-  parentClasses,
-}) => {
+const HomeVideoGrid = () => {
   const [videos, setVideos] = useState([]);
   const [error, setError] = useState(null);
-  const [page, setPage] = useState(pageToLoad);
+  const [page, setPage] = useState(2);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   useEffect(() => {
     const queries = {
       page,
-      limit,
-      ...query,
+      limit: 20,
+      sortBy: "createdAt",
+      sortType: "desc",
     };
 
     const fetchData = async () => {
@@ -40,7 +33,7 @@ const InfiniteVideoGrid = ({
       setIsLoading(false);
     };
     fetchData();
-  }, [hasMore, page, limit]);
+  }, [hasMore, page]);
   if (videos?.length === 0 && error) {
     throw new Error("Not implemented");
   }
@@ -56,10 +49,9 @@ const InfiniteVideoGrid = ({
     <div className="py-7 w-full">
       <VirtuosoGrid
         listClassName={
-          parentClasses ||
           "grid 2xl:grid-cols-5 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-4 p-4 w-full"
         }
-        //useWindowScroll
+        useWindowScroll
         endReached={() => {
           if (hasMore) {
             setPage((prevPage) => prevPage + 1);
@@ -67,17 +59,11 @@ const InfiniteVideoGrid = ({
         }}
         data={videos}
         overscan={10}
-        initialItemCount={initialShow}
-        itemContent={(index) =>
-          isSearching ? (
-            <VideoHorizontalCard video={videos[index]} />
-          ) : (
-            <VideoCard video={videos[index]} />
-          )
-        }
+        initialItemCount={10}
+        itemContent={(index) => <VideoCard video={videos[index]} />}
       />
     </div>
   );
 };
 
-export default InfiniteVideoGrid;
+export default HomeVideoGrid;

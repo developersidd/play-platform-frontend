@@ -57,7 +57,7 @@ const AttachedSidebar = () => {
       className={`
        border-r-2 top-[106px] left-0 
        transition-all duration-250 
-      fixed inset-x-0  z-40  shrink-0 border-t border-white   py-2 sm:border-r sm:border-t-0 sm:py-6 lg:sticky       ${
+      fixed inset-x-0  z-40  shrink-0 border-t border-gray-300 dark:border-white   py-2 sm:border-r sm:border-t-0 sm:py-6 lg:sticky       ${
         sidebarCollapsed ? "w-[85px]" : "w-[240px]"
       }
     `}
@@ -71,7 +71,7 @@ const AttachedSidebar = () => {
                   <Link
                     title={label}
                     href={link}
-                    className={`flex h-[42px] flex-col items-center justify-center border-white py-1 focus:text-secondary sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-secondary sm:hover:text-black sm:focus:border-secondary sm:focus:bg-secondary sm:focus:text-black lg:justify-start
+                    className={`flex h-[42px] flex-col items-center justify-center border-gray-300 dark:border-white py-1 focus:text-secondary sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-secondary sm:hover:text-black sm:focus:border-secondary sm:focus:bg-secondary sm:focus:text-black lg:justify-start
                      lg:px-4`}
                   >
                     <p

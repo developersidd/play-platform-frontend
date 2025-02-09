@@ -15,7 +15,7 @@ const getAllVideos = async (queries) => {
     };
   } catch (error) {
     return {
-      error: error.message,
+      error: error?.message,
     };
 
     //console.log(error);

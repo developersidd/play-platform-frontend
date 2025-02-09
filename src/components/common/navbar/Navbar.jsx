@@ -1,5 +1,6 @@
 "use client";
 import { LOGGED_OUT } from "@/actions/user.acton";
+import { ModeToggle } from "@/components/ThemeToggler";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -37,7 +38,7 @@ export const Navbar = () => {
     }
   }
   return (
-    <div className="w-full bg-background border-b sticky top-0 z-50 ">
+    <div className="w-full bg-background border-b border-gray-300 dark:border-white sticky top-0 z-50 ">
       <div className="px-12 py-2  h-full flex w-full items-center  justify-between">
         {/*<MobileSidebar />*/}
         <div className="w-full flex items-center gap-2">
@@ -61,7 +62,7 @@ export const Navbar = () => {
         </div>
         {/* search*/}
         <Search />
-        <div className="flex items-center relative justify-end  w-full">
+        <div className="flex items-center relative justify-end  w-full gap-5">
           {/*<button onClick={handleLogout}>Logout</button>*/}
           {username ? (
             <DropdownMenu>
@@ -101,6 +102,7 @@ export const Navbar = () => {
               </Link>
             </div>
           )}
+          <ModeToggle />
         </div>
       </div>
     </div>
