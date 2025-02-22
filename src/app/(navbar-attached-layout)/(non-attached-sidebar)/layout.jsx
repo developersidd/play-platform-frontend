@@ -5,7 +5,6 @@ import UserProvider from "@/providers/UserProvider";
 import NonAttachedSidebar from "./_components/NonAttachedSidebar";
 
 export default function NonAttachedSidebarLayout({ children }) {
-  console.log("NonAttachedSidebarLayout:", NonAttachedSidebarLayout);
   return (
     <html lang="en">
       <body>

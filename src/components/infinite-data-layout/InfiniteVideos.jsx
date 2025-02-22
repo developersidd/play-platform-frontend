@@ -1,28 +1,37 @@
 "use client";
 import { getAllVideos } from "@/api/video.api";
 import VideoCard from "@/app/(navbar-attached-layout)/_components/VideoCard";
+import VideoHorizontalCard from "@/app/(navbar-attached-layout)/_components/VideoHorizontalCard";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { VirtuosoGrid } from "react-virtuoso";
+import Error from "../common/Error";
 
-const HomeVideoGrid = ({ initialVideos }) => {
+const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {
+  console.log(" initialVideos:", initialVideos);
+  const { page: pageNum = 2, limit, ...restQueries } = queries || {};
   const [videos, setVideos] = useState(initialVideos);
   const [error, setError] = useState(null);
-  const [page, setPage] = useState(2);
-  const [initialLoading, setInitialLoading] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(pageNum);
   const [hasMore, setHasMore] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const layoutClass =
+    layout === "grid"
+      ? "grid 2xl:grid-cols-5 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))]"
+      : "flex flex-col";
+  const Item = layout == "grid" ? VideoCard : VideoHorizontalCard;
   useEffect(() => {
-    const queries = {
+    const queryObj = {
       page,
-      limit: 20,
+      limit: limit || 20,
       sortBy: "createdAt",
       sortType: "desc",
+      ...restQueries,
     };
 
     const fetchData = async () => {
       setIsLoading(true);
-      const { data, error } = await getAllVideos(queries);
+      const { data, error } = await getAllVideos(queryObj);
       if (error) {
         setError(error);
       }
@@ -31,27 +40,15 @@ const HomeVideoGrid = ({ initialVideos }) => {
       if (!hasNextPage) {
         setHasMore(false);
       }
-      setInitialLoading(false);
       setIsLoading(false);
     };
     fetchData();
   }, [hasMore, page]);
-  if (videos?.length === 0 && error) {
-    throw new Error("Not implemented");
-  }
-  if (initialLoading) {
-    return (
-      <div className="flex py-4 items-center justify-center h-full">
-        <Loader size={40} className="animate-spin" />
-      </div>
-    );
-  }
+
   return (
     <div className="py-7 w-full">
       <VirtuosoGrid
-        listClassName={
-          "grid 2xl:grid-cols-5 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-4 p-4 w-full"
-        }
+        listClassName={`${layoutClass} gap-10 p-4 w-full`}
         useWindowScroll
         endReached={() => {
           if (hasMore) {
@@ -59,17 +56,17 @@ const HomeVideoGrid = ({ initialVideos }) => {
           }
         }}
         data={videos}
-        overscan={10}
-        initialItemCount={10}
-        itemContent={(index) => <VideoCard video={videos[index]} />}
+        initialItemCount={20}
+        itemContent={(index) => <Item video={videos[index]} />}
       />
       {isLoading && (
         <div className="flex py-8 items-center justify-center ">
           <Loader size={40} className="animate-spin" />
         </div>
       )}
+      {error && !isLoading && <Error />}
     </div>
   );
 };
 
-export default HomeVideoGrid;
+export default InfiniteVideos;

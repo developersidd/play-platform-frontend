@@ -38,7 +38,7 @@ export const Navbar = () => {
     }
   }
   return (
-    <div className="w-full bg-background border-b border-gray-300 dark:border-white sticky top-0 z-50 ">
+    <div className="w-full bg-background border-b border-gray-300 dark:border-white  sticky top-0 z-50 ">
       <div className="px-12 py-2  h-full flex w-full items-center  justify-between">
         {/*<MobileSidebar />*/}
         <div className="w-full flex items-center gap-2">

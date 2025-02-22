@@ -1,5 +1,3 @@
-//"use server";
-//"use client";
 import { MessageSquareWarning } from "lucide-react";
 
 const Error = ({ title, classes }) => {

@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Tooltip,
   TooltipContent,
@@ -7,6 +6,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import useSidebarContext from "@/hooks/useSidebarContext";
+import useUserContext from "@/hooks/useUserContext";
 import {
   BadgeHelp,
   Combine,
@@ -31,7 +31,7 @@ const sidebarItems = [
   {
     icon: <Video />,
     label: "My Content",
-    link: "/my-content",
+    link: "/channels/",
   },
   { icon: <Combine />, label: "Collections", link: "/collections" },
   { icon: <UserCheck />, label: "Subscribers", link: "/subscribers" },
@@ -51,7 +51,8 @@ const sidebarItems = [
 
 const AttachedSidebar = () => {
   const { sidebarCollapsed } = useSidebarContext();
-
+  const { state } = useUserContext() || {};
+  const { avatar, username } = state || {};
   return (
     <aside
       className={`
@@ -70,7 +71,7 @@ const AttachedSidebar = () => {
                 <TooltipTrigger className="w-full">
                   <Link
                     title={label}
-                    href={link}
+                    href={link === "/channels/" ? `${link}${username}` : link}
                     className={`flex h-[42px] flex-col items-center justify-center border-gray-300 dark:border-white py-1 focus:text-secondary sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-secondary sm:hover:text-black sm:focus:border-secondary sm:focus:bg-secondary sm:focus:text-black lg:justify-start
                      lg:px-4`}
                   >

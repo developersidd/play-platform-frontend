@@ -1,13 +1,11 @@
 "use server";
 import { apiClient, fetchWithAuth } from ".";
 const getAllVideos = async (queries) => {
-  //console.log("queries:", queries);
   let url = "/videos";
   if (Object.keys(queries).length > 0) {
     const searchParams = new URLSearchParams(queries);
     url += `?${searchParams.toString()}`;
   }
-  //console.log("url:", url);
   try {
     const res = await apiClient.get(url);
     return {
@@ -15,10 +13,11 @@ const getAllVideos = async (queries) => {
     };
   } catch (error) {
     return {
-      error: error?.message,
+      error:
+        error?.response?.data?.message ||
+        error?.message ||
+        "API request failed",
     };
-
-    //console.log(error);
   }
 };
 
@@ -29,15 +28,26 @@ const getVideoById = async (id, userId) => {
       url += `?userId=${userId}`;
     }
     const res = await apiClient.get(url);
-    console.log("url", url);
     return {
       data: res.data?.data,
     };
   } catch (error) {
+    // Handle connection-related errors
+    let errorMessage;
+    if (error.response) {
+      // Server responded with non-2xx status
+      errorMessage = error.response.data?.message || "API request failed";
+    } else if (error.request) {
+      // Request was made but no response received
+      errorMessage = error.message || "Network connection failed";
+    } else {
+      // Other errors (e.g., in request setup)
+      errorMessage = error.message || "Unknown error occurred";
+    }
+
     return {
-      error: error.message,
+      error: errorMessage,
     };
-    //console.log(error);
   }
 };
 
