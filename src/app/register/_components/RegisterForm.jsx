@@ -76,18 +76,22 @@ function RegisterForm() {
   });
   //const { isSubmitting } = form.formState;
   async function onSubmit(data) {
-    //console.log("data:", data);
+    console.log("data:", data);
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value);
     });
     //console.log(Object.fromEntries(formData.entries()));
     try {
-      await apiClient.post("/users/register", formData);
+      await apiClient.post("/users/register", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       //console.log("response:", response);
       router.push("/login");
     } catch (e) {
-      //console.log("e:", e);
+      console.log("e:", e);
       toast.error("There was an error occurred!");
     }
   }
@@ -173,7 +177,7 @@ function RegisterForm() {
                   <FormLabel>Avatar </FormLabel>
                   <FormControl>
                     <Input
-                      value={value}
+                      //value={value}
                       {...fieldProps}
                       placeholder="Picture"
                       type="file"

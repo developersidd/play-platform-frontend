@@ -9,7 +9,6 @@ const HomePage = async () => {
   const { data, error } = await getAllVideos({
     limit: 20,
   });
-  console.log(" errorsss:", error);
   if (error) {
     return <Error title={"Error while getting videos"} />;
   }

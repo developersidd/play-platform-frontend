@@ -27,7 +27,11 @@ const useAxios = () => {
     apiClient.interceptors.response.use(undefined, async (error) => {
       //console.log("error:", error);
       const originalRequest = error?.config;
-      if (error?.response?.status === 401 && !originalRequest._retry) {
+      if (
+        accessToken &&
+        error?.response?.status === 401 &&
+        !originalRequest._retry
+      ) {
         originalRequest._retry = true;
         try {
           const response = await fetch(
@@ -41,7 +45,7 @@ const useAxios = () => {
           //console.log("response:", response);
           const data = await response.json();
           console.log("data:", data);
-          if (data?.statusCode === 200) {
+          if (data?.statusCode === 200 || !data?.success) {
             console.log("Access Token Refreshed");
             //console.log("response.data.data.accessToken:", response.data);
             //console.log(response.data.data.accessToken);
@@ -51,6 +55,8 @@ const useAxios = () => {
             ] = `Bearer ${newTokens?.accessToken}`;
             dispatch({ type: TOKEN_REFRESHED, payload: newTokens });
             return axios(originalRequest);
+          } else {
+            return Promise.reject(error);
           }
         } catch (error) {
           console.log("error in refresh token:", error);

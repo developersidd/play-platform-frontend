@@ -1,6 +1,7 @@
 "use client";
 import { LOGGED_OUT } from "@/actions/user.acton";
-import { ModeToggle } from "@/components/ThemeToggler";
+import { ModeToggle } from "@/components/theme/ThemeToggler";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -16,8 +17,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+//import Notification from "./notification/Notification";
+import dynamic from "next/dynamic";
 import Search from "./Search";
-
+const NoSSRNotification = dynamic(() => import("./notification/Notification"), {
+  ssr: false,
+});
 export const Navbar = () => {
   const { state, dispatch } = useUserContext();
   const router = useRouter();
@@ -64,30 +69,34 @@ export const Navbar = () => {
         <Search />
         <div className="flex items-center relative justify-end  w-full gap-5">
           {/*<button onClick={handleLogout}>Logout</button>*/}
+          <ModeToggle />
           {username ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <div className="cursor-pointer">
-                  <Avatar>
-                    <AvatarImage src={avatar?.url} alt="@shadcn" />
-                    <AvatarFallback> {username} </AvatarFallback>
-                  </Avatar>
-                </div>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 mt-4">
-                <DropdownMenuItem
-                  onClick={handleLogout}
-                  className="cursor-pointer"
-                >
-                  <button>Logout</button>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">
-                  <Link href={`/channels/${username}`}>My Profile</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <>
+              <NoSSRNotification />
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <div className="cursor-pointer">
+                    <Avatar>
+                      <AvatarImage src={avatar?.url} alt="@shadcn" />
+                      <AvatarFallback> {username} </AvatarFallback>
+                    </Avatar>
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 mt-4">
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="cursor-pointer"
+                  >
+                    <button>Logout</button>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer">
+                    <Link href={`/channels/${username}`}>My Profile</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
           ) : (
-            <div className="gap-4 flex items-center justify-end  w-full">
+            <div className="gap-4 flex items-center ">
               <Link
                 href="/login"
                 className="w-full bg-[#383737] px-3 py-2 hover:bg-[#4f4e4e] sm:w-auto sm:bg-transparent"
@@ -102,7 +111,6 @@ export const Navbar = () => {
               </Link>
             </div>
           )}
-          <ModeToggle />
         </div>
       </div>
     </div>

@@ -8,7 +8,6 @@ import { VirtuosoGrid } from "react-virtuoso";
 import Error from "../common/Error";
 
 const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {
-  console.log(" initialVideos:", initialVideos);
   const { page: pageNum = 2, limit, ...restQueries } = queries || {};
   const [videos, setVideos] = useState(initialVideos);
   const [error, setError] = useState(null);

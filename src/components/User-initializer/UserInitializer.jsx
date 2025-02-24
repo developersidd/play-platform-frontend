@@ -13,6 +13,7 @@ const UserInitializer = () => {
       try {
         const res = await apiClient.get("/users/current-user");
         dispatch({ type: SET_USER, payload: res.data?.data });
+        console.log(" res.data?.data:", res.data?.data);
         //hasFetchedUser.current = true;
       } catch (error) {
         //console.log("error init:", error);
