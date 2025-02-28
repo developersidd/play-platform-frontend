@@ -177,7 +177,6 @@ function RegisterForm() {
                   <FormLabel>Avatar </FormLabel>
                   <FormControl>
                     <Input
-                      //value={value}
                       {...fieldProps}
                       placeholder="Picture"
                       type="file"

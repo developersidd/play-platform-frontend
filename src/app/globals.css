@@ -83,6 +83,7 @@
   --sidebar-border: 240 3.7% 15.9%;
   --sidebar-ring: 217.2 91.2% 59.8%;
 }
+
 /*}*/
 
 @layer base {
@@ -96,14 +97,13 @@
 
 /* Edit scroll bar */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-background;
+  @apply dark:bg-dark-bg;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary;
-  border-radius: 10px;
+  @apply dark:bg-light-bg;
 }

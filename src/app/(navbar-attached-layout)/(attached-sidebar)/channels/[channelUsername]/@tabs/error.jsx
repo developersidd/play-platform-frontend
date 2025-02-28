@@ -2,7 +2,9 @@
 import Error from "@/components/common/Error";
 
 const ChannelVideosErrorPage = () => {
-  return <Error title={"Error while getting videos"} />;
+  return (
+    <Error className="h-[450px]" title={"Error while getting My videos"} />
+  );
 };
 
 export default ChannelVideosErrorPage;

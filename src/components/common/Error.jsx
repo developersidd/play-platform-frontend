@@ -1,8 +1,10 @@
 import { MessageSquareWarning } from "lucide-react";
 
-const Error = ({ title, classes }) => {
+const Error = ({ title, className }) => {
   return (
-    <div className={`flex justify-center w-full  p-4 items-center ${classes}`}>
+    <div
+      className={`flex justify-center w-full  p-4 items-center ${className}`}
+    >
       <div className="w-full max-w-sm text-center">
         <p className="mb-3 w-full">
           <span className="inline-flex rounded-full bg-[#E4D3FF] p-2 text-[#AE7AFF]">

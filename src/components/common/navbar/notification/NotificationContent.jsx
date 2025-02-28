@@ -1,7 +1,6 @@
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 import NotificationItem from "./NotificationItem";
 const NotificationContent = ({ notifications }) => {
-  console.log(" notifications:", notifications);
   return (
     <>
       <DropdownMenuLabel className="border-b py-2">

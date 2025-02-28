@@ -11,10 +11,9 @@ const VideoCard = ({ video }) => {
     createdAt,
     thumbnail,
   } = video || {};
-  //console.log("avatar:", avatar);
-  ////console.log("thumbnail:", thumbnail);
+
   return (
-    <div key={_id} className="w-full ">
+    <div key={_id} className="w-full space-y-5">
       <div className="relative mb-2 w-full pt-[56%]">
         <Link href={`/videos/${_id}`} className="absolute inset-0">
           <img
@@ -22,7 +21,7 @@ const VideoCard = ({ video }) => {
             width={300}
             src={thumbnail?.url}
             alt={title}
-            className="h-full w-full"
+            className="h-full w-full rounded-md"
           />
         </Link>
         <span className="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">

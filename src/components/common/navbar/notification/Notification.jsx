@@ -28,6 +28,7 @@ const Notification = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
@@ -50,26 +51,46 @@ const Notification = () => {
       withCredentials: true,
       transports: ["websocket"],
     });
-    socket;
+    socket.on("connect_error", (err) => {
+      console.error("Connection Error", err.message);
+    });
     if (accessToken) {
       socket.on("new-notification", (notification) => {
+        console.log("new notification runs", notification);
         setNotifications((prev) => [notification, ...prev]);
         setUnreadCount((prev) => prev + 1);
       });
 
       if (role === "ADMIN") {
-        socket.on("registration", (report) => {
+        socket.on("registration", (report, cb) => {
+          console.log("new registration runs");
           setNotifications((prev) => [report, ...prev]);
           setUnreadCount((prev) => prev + 1);
+          cb({ success: true });
         });
       }
     }
 
     fetchNotifications();
-
     return () => socket.disconnect();
   }, [role, accessToken]);
-
+  // decide what to render
+  let content;
+  if (isLoading) {
+    content = (
+      <div className="flex justify-center items-center h-[400px]">
+        <Loader size={40} className="animate-spin" />
+      </div>
+    );
+  } else if (error) {
+    content = (
+      <div className="flex justify-center items-center h-[200px]">
+        <p className="text-red-500"> There was an error occurred</p>
+      </div>
+    );
+  } else {
+    content = <LazyNotificationContent notifications={notifications} />;
+  }
   return (
     <div>
       <DropdownMenu
@@ -81,7 +102,10 @@ const Notification = () => {
       >
         <DropdownMenuTrigger>
           <div>
-            <NotificationBadge show={unreadCount > 0} label={unreadCount}>
+            <NotificationBadge
+              show={unreadCount > 0 && !open}
+              label={unreadCount}
+            >
               <Button type="button" className="px-3" variant="outline">
                 <Bell className="" />
               </Button>
@@ -92,13 +116,7 @@ const Notification = () => {
           align="end"
           className="w-[500px] mt-4 max-h-[600px] min-h-[500px]"
         >
-          {error ? (
-            <div className="flex justify-center items-center h-[200px]">
-              <p className="text-red-500"> There was an error occurred</p>
-            </div>
-          ) : (
-            <LazyNotificationContent notifications={notifications} />
-          )}
+          {content}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

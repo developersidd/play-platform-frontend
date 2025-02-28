@@ -7,10 +7,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { BellOff, EllipsisVertical, EyeOff, Shield } from "lucide-react";
 import moment from "moment";
-import Image from "next/image";
+import Link from "next/link";
 const NotificationItem = ({ item }) => {
   const {
-    sender: { username, avatar } = {},
+    sender: { username = "", avatar = "" } = {},
     type,
     message,
     image,
@@ -21,8 +21,14 @@ const NotificationItem = ({ item }) => {
   const fromAdmin = type?.toLowerCase() === "admin";
   return (
     <DropdownMenuItem className="cursor-pointer">
+      <Link href={link}>
       <div className="flex items-center gap-2">
-        <div className="size-1.5 bg-blue-600 rounded-full"></div>
+        {
+          !read && (
+
+            <div className="size-1.5 bg-blue-600 rounded-full"></div>
+          ) 
+        }
         {fromAdmin ? (
           <Shield />
         ) : (
@@ -69,6 +75,7 @@ const NotificationItem = ({ item }) => {
           </DropdownMenu>
         )}
       </div>
+    </Link>
     </DropdownMenuItem>
   );
 };

@@ -1,7 +1,6 @@
 "use client";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTrigger,
@@ -15,14 +14,14 @@ import {
 } from "@/components/ui/form";
 import useAxios from "@/hooks/useAxios";
 import useUserContext from "@/hooks/useUserContext";
-import { formatFileSize } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, Film, LoaderCircle } from "lucide-react";
+import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import UploadVideoProgressModal from "./UploadVideoProgressModal";
 
 const MAX_THUMBNAIL_FILE_SIZE = 5242880; // 5MB
 const MAX_VIDEO_FILE_SIZE = 52428800; // 50MB
@@ -30,7 +29,7 @@ function checkFileType(file, format) {
   if (file?.name) {
     const fileType = file?.name?.split(".")?.pop();
     const allowedTypes =
-      format === "image" ? ["png", "jpg", "jpeg"] : ["mp3", "mp4"];
+      format === "image" ? ["png", "jpg", "jpeg", "webp"] : ["mp3", "mp4"];
     if (allowedTypes.includes(fileType)) return true;
   }
   return false;
@@ -72,11 +71,12 @@ const formSchema = z.object({
 
 const UploadVideoModal = ({ children }) => {
   const router = useRouter();
+  const abortControllerRef = useRef(null);
   const [showProgressModal, setShowProgressModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
-
   const [uploading, setUploading] = useState(false);
   const [videoFile, setVideoFile] = useState({});
+
   const { apiClient } = useAxios();
   const {
     state: { _id },
@@ -90,11 +90,15 @@ const UploadVideoModal = ({ children }) => {
       thumbnail: undefined,
     },
   });
+  const { reset } = form;
   const { isSubmitting } = form.formState;
   async function onSubmit(data) {
     if (!_id) {
       return toast.error("You must be logged in to upload videos!");
     }
+    const controller = new AbortController();
+    //setController(controller);
+    abortControllerRef.current = controller;
     setUploading(true);
     setShowUploadModal(false);
     setShowProgressModal(true);
@@ -103,105 +107,51 @@ const UploadVideoModal = ({ children }) => {
       formData.append(key, value);
     });
     try {
-      // delay for 5 seconds
-      /*await new Promise((resolve) => setTimeout(resolve, 3000));*/
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       const response = await apiClient.post("/videos", formData, {
+        signal: controller.signal,
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
       console.log("response:", response.data);
       //router.push(`/${username}`);
-
-      router.refresh();
-      toast.success("Video uploaded successfully!");
+      if (response.status === 201) {
+        router.refresh();
+        toast.success("Video uploaded successfully!");
+      }
     } catch (e) {
-      //console.log("e:", e);
-      setShowProgressModal(false);
+      console.log(" e:", e);
+      // Check if error is due to cancellation
+      if (axios.isCancel(e) || e?.name === "CanceledError") {
+        toast.info("Video Upload canceled");
+        return;
+      }
       toast.error("There was an error uploading video!");
     } finally {
       //form.reset();
+      setShowProgressModal(false);
       setUploading(false);
     }
   }
-
+  const handleCancelRequest = () => {
+    abortControllerRef.current?.abort();
+  };
   return (
     <>
       {/* Video Uploading Progres Modal */}
-      <Dialog
-        open={showProgressModal}
-        onOpenChange={setShowProgressModal}
-        className="bg-primary"
-      >
-        <DialogContent className="sm:max-w-[40%] block bg-primary overflow-y-auto">
-          <DialogHeader className="block w-full mt-3">
-            <div class="mb-4 flex items-start justify-between">
-              <h2 class="text-xl font-semibold">
-                {uploading ? "Uploading Video..." : "Video Uploaded"}
-                <span class="block text-sm text-gray-300">
-                  Track your video uploading process.
-                </span>
-              </h2>
-            </div>
-          </DialogHeader>
-
-          {/* Progress */}
-          <div class="mb-6 flex gap-x-2 border p-3">
-            <div class="w-8 shrink-0">
-              <span class="inline-block w-full rounded-full bg-[#E4D3FF] p-1 text-[#AE7AFF]">
-                <Film />
-              </span>
-            </div>
-            <div class="flex flex-col">
-              <h6> {videoFile?.name} </h6>
-              <p class="text-sm"> {formatFileSize(videoFile?.size)} </p>
-              <div class="mt-2">
-                {uploading ? (
-                  <>
-                    <LoaderCircle className="inline-block animate-spin mr-2" />
-                    Uploading...
-                  </>
-                ) : (
-                  <>
-                    <Check className="inline-block mr-2 text-green-500" />
-                    Uploaded
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/*  Footer */}
-          <div class="grid grid-cols-2 gap-4">
-            <DialogClose asChild>
-              <button
-                onClick={() => {
-                  setShowProgressModal(false);
-                }}
-                class="border px-4 py-3"
-              >
-                Cancel
-              </button>
-            </DialogClose>
-            <DialogClose asChild>
-              <button
-                disabled={uploading}
-                class="bg-[#ae7aff] px-4 py-3 text-black disabled:bg-[#E4D3FF]"
-              >
-                Finish
-              </button>
-            </DialogClose>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <UploadVideoProgressModal
+        onCancelRequest={handleCancelRequest}
+        uploading={uploading}
+        videoFile={videoFile}
+        showProgressModal={showProgressModal}
+        setShowProgressModal={setShowProgressModal}
+      />
       {/* Upload Video Modal */}
-      <Dialog
-        open={showUploadModal}
-        onOpenChange={setShowUploadModal}
-        className="bg-primary"
-      >
+      <Dialog open={showUploadModal} onOpenChange={setShowUploadModal}>
         <DialogTrigger asChild>{children}</DialogTrigger>
-        <DialogContent className="sm:max-w-[60%] block bg-primary overflow-y-auto h-[90%]">
+        <DialogContent className="sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg">
           <DialogHeader className="block w-full mt-3">
             {/*<DialogTitle>*/}
             <div className="flex items-center justify-between border-b p-4 ">
@@ -251,6 +201,18 @@ const UploadVideoModal = ({ children }) => {
                             ></path>
                           </svg>
                         </span>
+                        {
+                          // Show video file name if selected
+                          value?.name && (
+                            <p className="mb-2 ">
+                              {" "}
+                              Selected File:{" "}
+                              <span className="font-semibold">
+                                {value?.name}{" "}
+                              </span>{" "}
+                            </p>
+                          )
+                        }
                         <h6 className="mb-2 font-semibold">
                           Drag and drop video files to upload
                         </h6>
@@ -263,14 +225,13 @@ const UploadVideoModal = ({ children }) => {
                           className="group/btn mt-4 inline-flex w-auto cursor-pointer items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e]"
                         >
                           <input
-                            value={value}
                             onChange={(e) => {
                               setVideoFile(e.target.files[0]);
-                              console.log("e:", e.target.files[0]);
                               onChange(e.target?.files && e.target.files[0]);
                             }}
                             {...fieldProps}
                             type="file"
+                            accept="video/mp4, video/mp3"
                             id="upload-video"
                             className="sr-only"
                           />
@@ -294,7 +255,7 @@ const UploadVideoModal = ({ children }) => {
                           Thumbnail<sup>*</sup>
                         </label>
                         <input
-                          value={value}
+                          accept="image/png, image/jpeg, image/jpg, image/webp"
                           {...fieldProps}
                           onChange={(e) => {
                             onChange(e.target?.files && e.target.files[0]);

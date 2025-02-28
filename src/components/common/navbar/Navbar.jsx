@@ -12,17 +12,23 @@ import {
 import useAxios from "@/hooks/useAxios";
 import useSidebarContext from "@/hooks/useSidebarContext";
 import useUserContext from "@/hooks/useUserContext";
-import { MenuIcon } from "lucide-react";
+import { MenuIcon, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 //import Notification from "./notification/Notification";
+
+import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
 import Search from "./Search";
 const NoSSRNotification = dynamic(() => import("./notification/Notification"), {
   ssr: false,
 });
+const LazyUploadVideoModal = dynamic(() =>
+  import("@/app/(navbar-attached-layout)/_components/UploadVideoModal")
+);
+
 export const Navbar = () => {
   const { state, dispatch } = useUserContext();
   const router = useRouter();
@@ -69,10 +75,17 @@ export const Navbar = () => {
         <Search />
         <div className="flex items-center relative justify-end  w-full gap-5">
           {/*<button onClick={handleLogout}>Logout</button>*/}
-          <ModeToggle />
+
           {username ? (
             <>
+              <LazyUploadVideoModal>
+                <Button className="rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
+                  <Plus className="text-white" /> Upload
+                </Button>
+              </LazyUploadVideoModal>
+              <ModeToggle />
               <NoSSRNotification />
+
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <div className="cursor-pointer">
@@ -96,20 +109,23 @@ export const Navbar = () => {
               </DropdownMenu>
             </>
           ) : (
-            <div className="gap-4 flex items-center ">
-              <Link
-                href="/login"
-                className="w-full bg-[#383737] px-3 py-2 hover:bg-[#4f4e4e] sm:w-auto sm:bg-transparent"
-              >
-                Log in
-              </Link>
-              <Link
-                href="/register"
-                className="mr-1 w-full bg-secondary px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
-              >
-                Sign up
-              </Link>
-            </div>
+            <>
+              <ModeToggle />
+              <div className="gap-4 flex items-center ">
+                <Link
+                  href="/login"
+                  className="w-full bg-[#383737] px-3 py-2 hover:bg-[#4f4e4e] sm:w-auto sm:bg-transparent"
+                >
+                  Log in
+                </Link>
+                <Link
+                  href="/register"
+                  className="mr-1 w-full bg-secondary px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
+                >
+                  Sign up
+                </Link>
+              </div>
+            </>
           )}
         </div>
       </div>
