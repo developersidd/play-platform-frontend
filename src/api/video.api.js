@@ -1,6 +1,6 @@
 "use server";
 import { apiClient, fetchWithAuth } from ".";
-const getAllVideos = async (queries) => {
+const getVideos = async (queries) => {
   let url = "/videos";
   if (Object.keys(queries).length > 0) {
     const searchParams = new URLSearchParams(queries);
@@ -51,9 +51,15 @@ const getVideoById = async (id, userId) => {
   }
 };
 
-const getRelatedVideos = async (videoId) => {
+// get related videos
+const getRelatedVideos = async (videoId, queries) => {
+  let url = `/videos/related/${videoId}`;
+  if (Object.keys(queries).length > 0) {
+    const searchParams = new URLSearchParams(queries);
+    url += `?${searchParams.toString()}`;
+  }
   try {
-    const res = await apiClient.get(`/videos/related/${videoId}`);
+    const res = await apiClient.get(url);
     return {
       data: res.data?.data,
     };
@@ -80,4 +86,4 @@ const getLikedVideos = async () => {
   }
 };
 
-export { getAllVideos, getLikedVideos, getRelatedVideos, getVideoById };
+export { getLikedVideos, getRelatedVideos, getVideoById, getVideos };

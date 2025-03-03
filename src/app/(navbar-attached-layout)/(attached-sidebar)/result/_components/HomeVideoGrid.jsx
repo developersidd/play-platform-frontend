@@ -1,5 +1,5 @@
 "use client";
-import { getAllVideos } from "@/api/video.api";
+import { getVideos } from "@/api/video.api";
 import VideoCard from "@/app/(navbar-attached-layout)/_components/VideoCard";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -22,7 +22,7 @@ const HomeVideoGrid = ({ initialVideos }) => {
 
     const fetchData = async () => {
       setIsLoading(true);
-      const { data, error } = await getAllVideos(queries);
+      const { data, error } = await getVideos(queries);
       if (error) {
         setError(error);
       }

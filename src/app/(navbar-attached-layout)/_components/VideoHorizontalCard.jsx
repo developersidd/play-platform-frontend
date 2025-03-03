@@ -15,19 +15,17 @@ const VideoHorizontalCard = ({ video }) => {
     owner: { avatar, username, fullName } = {},
   } = video || {};
   return (
-    <Link href={`/videos/${_id}`} className="block">
-      <div className=" gap-x-4 md:flex">
-        <div className="relative mb-2 w-full md:mb-0 md:w-5/12 2xl:w-3/12">
-          <div className="">
-            <div className="inset-0">
-              <Image
-                width={450}
-                height={300}
-                src={thumbnail?.url}
-                alt={title}
-                className="md:h-[190px]  w-full 2xl:w-[400px] rounded-md  "
-              />
-            </div>
+    <Link href={`/videos/${_id}`} className="">
+      <div className="gap-x-4 md:flex">
+        <div className="mb-2 w-full md:mb-0 md:w-5/12 2xl:w-3/12">
+          <div className="md:h-[190px]  w-full 2xl:w-[400px] relative">
+            <Image
+              width={850}
+              height={400}
+              src={thumbnail?.url}
+              alt={title}
+              className="w-full h-full rounded-md  "
+            />
             <span className="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">
               {duration}
             </span>

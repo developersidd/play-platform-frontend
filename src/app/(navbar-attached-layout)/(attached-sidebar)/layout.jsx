@@ -3,6 +3,7 @@ import UserInitializer from "@/components/User-initializer/UserInitializer";
 import { SidebarProvider } from "@/providers/SidebarProvider";
 import UserProvider from "@/providers/UserProvider";
 import AttachedSidebar from "../_components/AttachedSidebar";
+import AttachedSidebarLayout from "./_components/AttachedSidebarLayout";
 
 export default function MainAttachedSidebarLayout({ children }) {
   //console.log("NavbarSidebarAttachedLayout");
@@ -13,10 +14,9 @@ export default function MainAttachedSidebarLayout({ children }) {
           <SidebarProvider>
             <UserInitializer />
             <Navbar />
-            <div className="flex  min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
-              <AttachedSidebar />
+            <AttachedSidebarLayout>
               {children}
-            </div>
+            </AttachedSidebarLayout>
           </SidebarProvider>
         </UserProvider>
       </body>

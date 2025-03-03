@@ -91,9 +91,12 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-x-hidden;
   }
-}
+  [data-testid="virtuoso-item-list"] {
+    @apply !pb-5 space-y-5;
+  }
+} 
 
 /* Edit scroll bar */
 ::-webkit-scrollbar {

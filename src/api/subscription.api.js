@@ -4,13 +4,10 @@ import { apiClient, fetchWithAuth } from ".";
 const getChannelSubscribers = async (channelId) => {
   try {
     const res = await apiClient.get(`/subscriptions/u/${channelId}`);
-    //console.log("res:", res);
     return {
       data: res?.data?.data,
     };
   } catch (error) {
-    //console.log("error from shannel subccfsdf:", error);
-    //console.error(error);
     return {
       error: error.message,
     };

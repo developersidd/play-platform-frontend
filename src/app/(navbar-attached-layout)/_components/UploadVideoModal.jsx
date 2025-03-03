@@ -76,7 +76,7 @@ const UploadVideoModal = ({ children }) => {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [videoFile, setVideoFile] = useState({});
-
+  const [dragging, setDragging] = useState(false);
   const { apiClient } = useAxios();
   const {
     state: { _id },
@@ -90,7 +90,7 @@ const UploadVideoModal = ({ children }) => {
       thumbnail: undefined,
     },
   });
-  const { reset } = form;
+  const { reset, setValue } = form;
   const { isSubmitting } = form.formState;
   async function onSubmit(data) {
     if (!_id) {
@@ -135,6 +135,34 @@ const UploadVideoModal = ({ children }) => {
       setUploading(false);
     }
   }
+  // Drag and Drop Functionality
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    if (!dragging) {
+      setDragging(true);
+    }
+  };
+
+  const handleDragLeave = () => {
+    setDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setDragging(false);
+
+    const file = e.dataTransfer.files[0];
+    console.log(" file:", file);
+    if (file && file.type.startsWith("video/")) {
+      setVideoFile(file);
+      setValue("videoFile", file);
+    }
+  };
+
+  console.log("video", videoFile);
+
+  // Cancel Request handler
   const handleCancelRequest = () => {
     abortControllerRef.current?.abort();
   };
@@ -160,7 +188,6 @@ const UploadVideoModal = ({ children }) => {
               <button
                 disabled={isSubmitting}
                 onClick={() => {
-                  // submit the form
                   form.handleSubmit(onSubmit)();
                 }}
                 className="group/btn mr-1 flex w-auto items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e]"
@@ -184,7 +211,14 @@ const UploadVideoModal = ({ children }) => {
                 render={({ field: { value, onChange, ...fieldProps } }) => (
                   <FormItem>
                     <FormControl>
-                      <div className="w-full border-2 border-dashed px-4 py-12 text-center">
+                      <div
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
+                        onDrop={handleDrop}
+                        className={`w-full border-2 border-dashed px-4 py-12 text-center cursor-drop ${
+                          dragging ? "border-purple-500" : ""
+                        }`}
+                      >
                         <span className="mb-4 inline-block w-24 rounded-full bg-[#E4D3FF] p-4 text-[#AE7AFF]">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -203,7 +237,7 @@ const UploadVideoModal = ({ children }) => {
                         </span>
                         {
                           // Show video file name if selected
-                          value?.name && (
+                          videoFile?.name && (
                             <p className="mb-2 ">
                               {" "}
                               Selected File:{" "}
@@ -226,8 +260,9 @@ const UploadVideoModal = ({ children }) => {
                         >
                           <input
                             onChange={(e) => {
-                              setVideoFile(e.target.files[0]);
-                              onChange(e.target?.files && e.target.files[0]);
+                              const file = e.target?.files && e.target.files[0];
+                              setVideoFile(file);
+                              onChange(file);
                             }}
                             {...fieldProps}
                             type="file"

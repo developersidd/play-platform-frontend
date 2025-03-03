@@ -1,6 +1,6 @@
 //"use server";
 import { retrieveCurrentUser } from "@/api/user.api";
-import { getAllVideos } from "@/api/video.api";
+import { getVideos } from "@/api/video.api";
 import MyChannelNotFoundVideos from "@/app/(navbar-attached-layout)/_components/MyChannelNotFoundVideos";
 import NoVideosFound from "@/app/(navbar-attached-layout)/_components/NotFoundVideos";
 import Error from "@/components/common/Error";
@@ -11,7 +11,7 @@ const LazyInfiniteVideos = dynamic(() =>
 const ChannelVideosPage = async ({ params: { channelUsername } }) => {
   const { data: user } = await retrieveCurrentUser();
   const { data: { videos } = {}, error } =
-    (await getAllVideos({
+    (await getVideos({
       limit: 10,
       username: channelUsername,
     })) || {};

@@ -56,14 +56,14 @@ const AttachedSidebar = () => {
   return (
     <aside
       className={`
-       border-r-2 top-[106px] left-0 
+       border-r-2 top-[82px] left-0 
        transition-all duration-250 
-      fixed inset-x-0  z-40  shrink-0 border-t border-gray-300 dark:border-white   py-2 sm:border-r sm:border-t-0 sm:py-6 lg:sticky       ${
+      fixed inset-x-0   z-40  shrink-0 border-t border-gray-300 dark:border-white   py-2 sm:border-r sm:border-t-0 sm:py-6        ${
         sidebarCollapsed ? "w-[85px]" : "w-[240px]"
       }
     `}
     >
-      <ul className="flex px-3   justify-around gap-y-3 sm:sticky sm:top-[106px] w-full sm:min-h-[calc(100vh-130px)] sm:flex-col">
+      <ul className="flex px-3  justify-around gap-y-3 sm:sticky sm:top-[106px] w-full sm:min-h-[calc(100vh-130px)] max-h-[calc(100vh-130px)] sm:flex-col">
         {sidebarItems.map(({ icon, label, link, mtAuto }, index) => (
           <TooltipProvider delayDuration={120} key={index}>
             <Tooltip>

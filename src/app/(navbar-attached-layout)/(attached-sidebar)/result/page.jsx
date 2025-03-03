@@ -1,4 +1,4 @@
-import { getAllVideos } from "@/api/video.api";
+import { getVideos } from "@/api/video.api";
 import Error from "@/components/common/Error";
 import dynamic from "next/dynamic";
 import NoVideosFound from "../../_components/NotFoundVideos";
@@ -8,7 +8,7 @@ const LazyInfiniteVideos = dynamic(() =>
 );
 const SearchResultPage = async ({ searchParams }) => {
   const searchVal = decodeURI(searchParams?.q);
-  const { data, error } = (await getAllVideos({ q: searchVal })) || {};
+  const { data, error } = (await getVideos({ q: searchVal })) || {};
   const { videos } = data || {};
   if (error) {
     return <Error title={"Error while getting searched videos"} />;
@@ -17,7 +17,7 @@ const SearchResultPage = async ({ searchParams }) => {
     return <NoVideosFound isSearch />;
   }
   return (
-    <section className="w-full  pb-[70px] px-3 sm:ml-[70px] sm:pb-0 lg:ml-0">
+    <div className="px-7 py-5">
       {videos?.length > 0 && (
         <LazyInfiniteVideos
           initialVideos={data?.videos}
@@ -27,7 +27,7 @@ const SearchResultPage = async ({ searchParams }) => {
           layout="flex"
         />
       )}
-    </section>
+    </div>
   );
 };
 

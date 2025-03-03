@@ -5,7 +5,6 @@ const SubscribedChannelsPage = async ({
   params: { channelUsername },
   searchParams: { search },
 }) => {
-  //console.log("search:", search);
   const { data: { totalSubscribedChannels, subscribedChannels } = {} } =
     await getUserSubscribedChannels(channelUsername, {
       search,
