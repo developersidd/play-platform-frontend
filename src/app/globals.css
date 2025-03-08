@@ -96,7 +96,7 @@
   [data-testid="virtuoso-item-list"] {
     @apply !pb-5 space-y-5;
   }
-} 
+}
 
 /* Edit scroll bar */
 ::-webkit-scrollbar {
@@ -104,9 +104,9 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply dark:bg-dark-bg;
+  @apply bg-slate-200 dark:bg-dark-bg;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply dark:bg-light-bg;
+  @apply bg-neutral-500/70 dark:bg-light-bg;
 }

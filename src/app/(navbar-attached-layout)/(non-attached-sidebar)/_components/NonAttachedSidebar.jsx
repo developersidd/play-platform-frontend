@@ -74,7 +74,7 @@ const NonAttachedSidebar = () => {
           ${showSidebar ? "visible" : "invisible"}  `}
       ></div>
       <aside
-        className={`w-[230px] fixed transition-all border-r-2 px-3 z-40 h-full bg-primary  top-0 left-0  ${
+        className={`w-[230px] fixed transition-all border-r-2 dark:border-gray-300 px-3 z-40 h-full bg-background  top-0 left-0  ${
           showSidebar ? "translate-x-0 block" : "-translate-x-full hidden"
         }`}
       >
@@ -92,7 +92,7 @@ const NonAttachedSidebar = () => {
                       <Link
                         title={label}
                         href={link}
-                        className={`flex h-[42px] flex-col items-center justify-center border-white py-1 focus:text-secondary sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-secondary sm:hover:text-black sm:focus:border-secondary sm:focus:bg-secondary sm:focus:text-black lg:justify-start
+                        className={`flex h-[42px] flex-col items-center justify-center  dark:border-gray-300 py-1 focus:text-secondary sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-secondary sm:hover:text-black sm:focus:border-secondary sm:focus:bg-secondary sm:focus:text-black lg:justify-start
                      lg:px-4`}
                       >
                         <p

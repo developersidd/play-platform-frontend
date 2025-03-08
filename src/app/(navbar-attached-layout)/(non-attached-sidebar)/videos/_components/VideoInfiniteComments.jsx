@@ -1,32 +1,35 @@
 "use client";
-import { getRelatedVideos } from "@/api/video.api";
+import { getVideoComments } from "@/api/comment.api";
 import Error from "@/components/common/Error";
 import { Loader } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
-import RelatedVideoCard from "./RelatedVideoCard";
+import VideoCommentItem from "./VideoCommentItem";
 
-const InfiniteRelatedVideos = ({ videoId, initialVideos }) => {
-  const [relatedVideos, setRelatedVideos] = useState(initialVideos);
+const VideoInfiniteComments = ({ initialComments }) => {
+  const [comments, setComments] = useState(initialComments);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(2);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
+  const videoId = useParams()?.id;
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (!hasMore) return;
         setIsLoading(true);
-
-        const { data } = await getRelatedVideos(videoId, {
-          page,
-          limit: 20,
-        });
-        setRelatedVideos((prev) => [...prev, ...(data?.videos || [])]);
-        setHasMore(data?.hasNextPage);
+        const { data: { comments, hasNextPage } = {} } = await getVideoComments(
+          videoId,
+          {
+            page,
+            limit: 20,
+          }
+        );
+        setComments((prev) => [...prev, ...(comments || [])]);
+        setHasMore(hasNextPage);
       } catch (error) {
-        setError(error.message);
+        setError(error?.message);
       } finally {
         setIsLoading(false);
       }
@@ -34,12 +37,12 @@ const InfiniteRelatedVideos = ({ videoId, initialVideos }) => {
 
     fetchData();
   }, [page, hasMore]);
-
+  if (error) return <Error title="Error while getting comments" />;
   return (
-    <div className="w-full space-y-4">
+    <div className="w-full h-[70vh] space-y-4">
       <Virtuoso
-        data={relatedVideos}
-        useWindowScroll
+        className="[&::-webkit-scrollbar]:w-[5px]"
+        data={comments}
         overscan={20}
         endReached={() => hasMore && setPage((p) => p + 1)}
         components={{
@@ -50,11 +53,10 @@ const InfiniteRelatedVideos = ({ videoId, initialVideos }) => {
               </div>
             ),
         }}
-        itemContent={(_, video) => <RelatedVideoCard video={video} />}
+        itemContent={(_, comment) => <VideoCommentItem item={comment} />}
       />
-      {error && <Error />}
     </div>
   );
 };
 
-export default InfiniteRelatedVideos;
+export default VideoInfiniteComments;

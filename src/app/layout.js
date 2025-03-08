@@ -1,13 +1,13 @@
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import UserProvider from "@/providers/UserProvider";
-import { Open_Sans } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 
-const openSans = Open_Sans({
-  weight: ["300", "400", "500", "600", "700", "800"],
+const nunito = Nunito({
+  weight: ["300", "400", "500", "600", "700", "900"],
   subsets: ["latin"],
-  variable: "--font-opensans",
+  variable: "--font-nunito",
 });
 
 export const metadata = {
@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
   console.log("RootLayout");
   return (
     <html lang="en">
-      <body className={`${openSans.variable}`}>
+      <body className={`${nunito.variable}`}>
         <UserProvider>
           <ThemeProvider
             attribute="class"

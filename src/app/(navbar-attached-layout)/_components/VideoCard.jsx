@@ -24,7 +24,7 @@ const VideoCard = ({ video }) => {
             className="h-full w-full rounded-md"
           />
         </Link>
-        <span className="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">
+        <span className="absolute bottom-1 right-1 inline-block rounded shadow bg-background px-1.5 text-sm">
           24:33
         </span>
       </div>
@@ -44,11 +44,11 @@ const VideoCard = ({ video }) => {
           <Link href={`/videos/${_id}`}>
             <h6 className="mb-1 font-semibold">{title}</h6>
           </Link>
-          <p className="flex text-sm text-gray-200">
+          <p className="flex text-sm ">
             {formatCounting(views)} Views · {moment(createdAt).fromNow()}
           </p>
 
-          <p className="text-sm text-gray-200"> {fullName} </p>
+          <p className="text-sm "> {fullName} </p>
         </div>
       </div>
     </div>

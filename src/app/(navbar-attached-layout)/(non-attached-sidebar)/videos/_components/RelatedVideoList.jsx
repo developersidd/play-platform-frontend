@@ -2,6 +2,7 @@ import { getRelatedVideos } from "@/api/video.api";
 import NoVideosFound from "@/app/(navbar-attached-layout)/_components/NotFoundVideos";
 import Error from "@/components/common/Error";
 import dynamic from "next/dynamic";
+import RelatedVideoCard from "./RelatedVideoCard";
 const LazyInfiniteRelatedVideos = dynamic(() =>
   import("../_components/InfiniteRelatedVideos")
 );
@@ -9,6 +10,8 @@ const RelatedVideoList = async ({ videoId }) => {
   const { data, error } = await getRelatedVideos(videoId, {
     limit: 20,
   });
+  let layoutCenterClass =
+    data?.videos?.length === 0 || error ? "items-center" : "";
   // decide what to render
   let content;
   if (error) {
@@ -17,6 +20,10 @@ const RelatedVideoList = async ({ videoId }) => {
     content = (
       <NoVideosFound title="No related videos found" classes={"mt-10"} />
     );
+  } else if (!data?.hasNextPage) {
+    content = data?.videos?.map((video) => (
+      <RelatedVideoCard key={video._id} video={video} />
+    ));
   } else {
     content = (
       <LazyInfiniteRelatedVideos
@@ -26,7 +33,9 @@ const RelatedVideoList = async ({ videoId }) => {
     );
   }
   return (
-    <div className="col-span-12 flex justify-center items-center w-full shrink-0 flex-col gap-3 lg:w-[350px] xl:w-[400px]">
+    <div
+      className={`col-span-12 flex  ${layoutCenterClass} items-center w-full shrink-0 flex-col gap-3 lg:w-[350px] xl:w-[400px]`}
+    >
       {content}
     </div>
   );

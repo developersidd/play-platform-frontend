@@ -57,7 +57,7 @@ const VideoPlayer = ({ video }) => {
   }
 
   return (
-    <>
+    <div className="rounded-lg overflow-hidden shadow dark:shadow-white/40 dark:shadow-md">
       {hasWindow && (
         <ReactPlayer
           onReady={onReady}
@@ -66,11 +66,11 @@ const VideoPlayer = ({ video }) => {
           playing={localStorage.getItem("lastTime") ? true : false}
           url={url}
           width="100%"
-          style={{
-            borderRadius: "10px",
-            boxShadow: "0 0 10px rgba(228, 226, 226, 0.1)",
-            overflow: "hidden",
-          }}
+          //style={{
+          //  borderRadius: "10px",
+          //  boxShadow: "0 0 10px rgba(228, 226, 226, 0.1)",
+          //  overflow: "hidden",
+          //}}
           height="720px"
           controls={true}
           onStart={handleOnStart}
@@ -78,7 +78,7 @@ const VideoPlayer = ({ video }) => {
           onProgress={handleOnProgress}
         />
       )}
-    </>
+    </div>
   );
 };
 export default VideoPlayer;

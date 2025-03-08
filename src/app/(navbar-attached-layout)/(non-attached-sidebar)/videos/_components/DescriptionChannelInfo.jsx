@@ -3,9 +3,8 @@ import { formatCounting } from "@/lib/utils";
 
 const DescriptionChannelInfo = async ({ videoOwner }) => {
   const { avatar, fullName, username, _id } = videoOwner || {};
-  const { data: { subscribers } = {} } =
+  const { data: { subscribers } = {}, error } =
     (await getChannelSubscribers(_id)) || {};
-  //console.log("subscribers:", subscribers);
   return (
     <div className="flex items-center gap-x-4">
       <div className="mt-2 h-12 w-12 shrink-0">
@@ -16,8 +15,8 @@ const DescriptionChannelInfo = async ({ videoOwner }) => {
         />
       </div>
       <div className="block">
-        <p className="text-gray-200"> {fullName} </p>
-        <p className="text-sm text-gray-400">
+        <p className="font-medium"> {fullName} </p>
+        <p className="text-sm ">
           {formatCounting(subscribers) ?? 0} Subscribers
         </p>
       </div>

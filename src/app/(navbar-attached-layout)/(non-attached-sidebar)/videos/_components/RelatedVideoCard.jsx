@@ -23,7 +23,7 @@ const RelatedVideoCard = ({ video }) => {
           <div className="absolute inset-0">
             <img src={thumbnail?.url} alt={title} className="h-full w-full" />
           </div>
-          <span className="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">
+          <span className="absolute bottom-1 right-1 inline-block rounded bg-background px-1.5 text-sm">
             {duration}
           </span>
         </div>
@@ -40,8 +40,8 @@ const RelatedVideoCard = ({ video }) => {
           <h6 className="mb-1 text-sm font-semibold">
             {title.length > 50 ? `${title.slice(0, 50)}...` : title}
           </h6>
-          <p className="mb-0.5 mt-2 text-sm text-gray-200"> {fullName} </p>
-          <p className="flex text-sm text-gray-200">
+          <p className="mb-0.5 mt-2 text-sm "> {fullName} </p>
+          <p className="flex text-sm ">
             {formatCounting(views)} Views · {moment(createdAt).fromNow()}
           </p>
         </div>

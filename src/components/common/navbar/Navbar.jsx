@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 //import Notification from "./notification/Notification";
 
+import CreatePlaylistModal from "@/app/(navbar-attached-layout)/(attached-sidebar)/channels/[channelUsername]/@tabs/channel-playlist/_components/CreatePlaylistModal";
 import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
 import Search from "./Search";
@@ -78,6 +79,11 @@ export const Navbar = () => {
 
           {username ? (
             <>
+            <CreatePlaylistModal>
+            <Button className="rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
+                  <Plus className="text-white" /> Playlist
+                </Button>
+            </CreatePlaylistModal>
               <LazyUploadVideoModal>
                 <Button className="rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
                   <Plus className="text-white" /> Upload

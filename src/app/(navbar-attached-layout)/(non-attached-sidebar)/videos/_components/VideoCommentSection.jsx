@@ -3,24 +3,26 @@ import VideoAddComment from "./VideoAddComment";
 import VideoCommentList from "./VideoCommentList";
 
 const VideoCommentSection = async ({ videoId }) => {
-  //console.log("videoId:", videoId);
-  const { data = [] } = await getVideoComments(videoId);
+  const { data: { totalComments } = {} } =
+    (await getVideoComments(videoId)) || {};
   return (
-    <div>
+    <div className="min-h-full">
       <button className="peer w-full rounded-lg border p-4 text-left duration-200 hover:bg-white/5 focus:bg-white/5 sm:hidden">
         <h6 className="font-semibold">573 Comments...</h6>
       </button>
-      <div className="fixed inset-x-0 top-full z-[60] h-[calc(100%-69px)] overflow-auto rounded-lg border bg-[#121212] p-4 duration-200 hover:top-[67px] peer-focus:top-[67px] sm:static sm:h-auto sm:max-h-[500px] lg:max-h-none">
+      <div className="fixed inset-x-0 top-full z-[60]  overflow-auto rounded-lg border bg-background p-4 duration-200 hover:top-[67px] peer-focus:top-[67px] sm:static min-h-auto  h-full">
         <div className="block">
           <h6 className="mb-4 font-semibold">
             {" "}
-            {data?.totalComments} Comments
+            {totalComments} Comments
             <VideoAddComment videoId={videoId} />
           </h6>
         </div>
-        <hr className="my-4 border-white" />
+        {totalComments > 0 && (
+          <hr className="my-4 dark:border-white border-gray-300" />
+        )}
         {/* comment list */}
-        <VideoCommentList commentList={data?.comments} />
+        <VideoCommentList videoId={videoId} />
       </div>
     </div>
   );

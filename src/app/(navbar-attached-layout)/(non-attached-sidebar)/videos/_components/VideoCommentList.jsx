@@ -1,17 +1,29 @@
+import { getVideoComments } from "@/api/comment.api";
+import Error from "@/components/common/Error";
+import dynamic from "next/dynamic";
 import VideoCommentItem from "./VideoCommentItem";
 
-const VideoCommentList = ({ commentList, userId }) => {
-  return (
-    <div>
-      {commentList?.length > 0 ? (
-        commentList.map((item) => (
-          <VideoCommentItem userId={userId} key={item?._id} item={item} />
-        ))
-      ) : (
-        <p className="text-white">No comments yet</p>
-      )}
-    </div>
-  );
+const LazyVideoInfiniteComments = dynamic(() =>
+  import("../_components/VideoInfiniteComments")
+);
+
+const VideoCommentList = async ({ videoId }) => {
+  const { data: { comments, hasNextPage } = {}, error } =
+    (await getVideoComments(videoId)) || {};
+  // decide what to render
+  let content;
+  if (error) {
+    content = <Error title={"Error while getting comments"} />;
+  } else if (comments?.length === 0) {
+    content = <p className="text-white">No comments yet</p>;
+  } else if (!hasNextPage) {
+    content = comments.map((item) => (
+      <VideoCommentItem key={item?._id} item={item} />
+    ));
+  } else {
+    content = <LazyVideoInfiniteComments initialComments={comments} />;
+  }
+  return <div>{content}</div>;
 };
 
 export default VideoCommentList;
