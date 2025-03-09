@@ -2,9 +2,9 @@
 import { Play, Plus } from "lucide-react";
 import dynamic from "next/dynamic";
 const LazyUploadVideoModal = dynamic(() =>
-  import("../_components/UploadVideoModal")
+  import("./UploadVideoModal")
 );
-const MyChannelNotFoundVideos = () => {
+const MyChannelNoVideosFound = () => {
   return (
     <>
       <div className="flex w-full items-center justify-center h-[450px]">
@@ -31,4 +31,4 @@ const MyChannelNotFoundVideos = () => {
   );
 };
 
-export default MyChannelNotFoundVideos;
+export default MyChannelNoVideosFound;

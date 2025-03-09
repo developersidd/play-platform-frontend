@@ -25,7 +25,7 @@ const SubscribedChannelItem = ({ channel }) => {
           </p>
         </div>
       </div>
-      <SubscribeChannel channelId={channel.id} isSubscribed={isSubscribed} />
+      <SubscribeChannel channelId={channel?._id} isSubscribed={isSubscribed} />
     </div>
   );
 };

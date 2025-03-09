@@ -8,6 +8,7 @@ const getVideos = async (queries) => {
   }
   try {
     const res = await apiClient.get(url);
+    console.log(" url:", url)
     return {
       data: res.data?.data,
     };

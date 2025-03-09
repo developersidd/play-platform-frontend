@@ -17,13 +17,12 @@ import { Switch } from "@/components/ui/switch";
 import useAxios from "@/hooks/useAxios";
 import useUserContext from "@/hooks/useUserContext";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import AddVideosInPlaylist from "./AddVideosInPlaylist";
+import AddVideosInPlaylistModal from "./AddVideosInPlaylistModal";
 const playlistTypes = ["videoPlaylist", "watchLater"];
 const formSchema = z.object({
   name: z
@@ -43,21 +42,27 @@ const formSchema = z.object({
       message: "Description must be at most 500 characters long",
     }),
   isPrivate: z.boolean(),
-  videos: z.array(z.string()),
+  videos: z
+    .array(z.string())
+    .min(1, {
+      message: "Please select at least one video to add to playlist",
+    })
+    .max(50, {
+      message: "You can add at most 50 videos to a playlist",
+    }),
 });
 
-const CreatePlaylistModal = ({ children, playlistType = "" }) => {
+const CreatePlaylistModal = ({ children, playlistType = "videoPlaylist" }) => {
   const router = useRouter();
   const [showUploadModal, setShowUploadModal] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const { apiClient } = useAxios();
   const {
-    state: { _id },
+    state: { _id, username },
   } = useUserContext();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
+      name: "",
       description: "",
       isPrivate: false,
       videos: [],
@@ -66,46 +71,25 @@ const CreatePlaylistModal = ({ children, playlistType = "" }) => {
   const { reset, setValue } = form;
   const { isSubmitting } = form.formState;
   async function onSubmit(data) {
+    if (playlistTypes.includes(playlistType)) {
+      data.type = playlistType;
+    }
+    console.log(" data:", data);
     if (!_id) {
       return toast.error("You must be logged in to upload videos!");
     }
-    const controller = new AbortController();
-    //setController(controller);
-    abortControllerRef.current = controller;
-    setUploading(true);
     setShowUploadModal(false);
-    setShowProgressModal(true);
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      const response = await apiClient.post("/videos", formData, {
-        signal: controller.signal,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await apiClient.post(`/playlist`, data);
+      router.push(`/channels/${username}/playlist`);
       console.log("response:", response.data);
-      //router.push(`/${username}`);
       if (response.status === 201) {
-        router.refresh();
-        toast.success("Video uploaded successfully!");
+        toast.success("Playlist create successfully!");
+        reset();
       }
     } catch (e) {
       console.log(" e:", e);
-      // Check if error is due to cancellation
-      if (axios.isCancel(e) || e?.name === "CanceledError") {
-        toast.info("Video Upload canceled");
-        return;
-      }
-      toast.error("There was an error uploading video!");
-    } finally {
-      //form.reset();
-      setShowProgressModal(false);
-      setUploading(false);
+      toast.error("There was an error creating playlist!");
     }
   }
 
@@ -114,12 +98,11 @@ const CreatePlaylistModal = ({ children, playlistType = "" }) => {
       {/* Upload Video Modal */}
       <Dialog open={showUploadModal} onOpenChange={setShowUploadModal}>
         <DialogTrigger asChild>{children}</DialogTrigger>
-        <DialogContent className="sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg">
+        <DialogContent className="min-h-[75%] sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto max-h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg">
           <DialogHeader className="block w-full mt-3">
             {/*<DialogTitle>*/}
             <div className="flex items-center justify-between border-b p-4 ">
               <h2 className="text-xl font-semibold">Create Playlist</h2>
-              {/*<DialogClose asChild>*/}
               <button
                 disabled={isSubmitting}
                 onClick={() => {
@@ -142,18 +125,18 @@ const CreatePlaylistModal = ({ children, playlistType = "" }) => {
               {/* Title Input */}
               <FormField
                 control={form.control}
-                name="title"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <div className="w-full">
-                        <label for="title" className="mb-1 inline-block">
-                          Title<sup>*</sup>
+                        <label for="name" className="mb-1 inline-block">
+                          Name<sup>*</sup>
                         </label>
 
                         <input
                           {...field}
-                          id="title"
+                          id="name"
                           type="text"
                           className="w-full border bg-transparent px-2 py-1.5 outline-none"
                         />
@@ -196,7 +179,11 @@ const CreatePlaylistModal = ({ children, playlistType = "" }) => {
                     </label>
                     <FormControl>
                       <div className="w-full flex items-center space-x-2">
-                        <Switch {...field} id="isPrivate" />
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          id="isPrivate"
+                        />
                         <Label htmlFor="isPrivate">Make Private </Label>
                       </div>
                     </FormControl>
@@ -205,7 +192,18 @@ const CreatePlaylistModal = ({ children, playlistType = "" }) => {
                 )}
               />
               {/* Add Videos */}
-              <AddVideosInPlaylist />
+              <FormField
+                control={form.control}
+                name="videos"
+                render={(props) => (
+                  <FormItem>
+                    <FormControl>
+                      <AddVideosInPlaylistModal setValue={setValue} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </form>
           </Form>
         </DialogContent>

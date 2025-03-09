@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 //import Notification from "./notification/Notification";
 
-import CreatePlaylistModal from "@/app/(navbar-attached-layout)/(attached-sidebar)/channels/[channelUsername]/@tabs/channel-playlist/_components/CreatePlaylistModal";
+import CreatePlaylistModal from "@/app/(navbar-attached-layout)/(attached-sidebar)/channels/[channelUsername]/@tabs/playlist/_components/CreatePlaylistModal";
 import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
 import Search from "./Search";

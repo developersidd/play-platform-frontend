@@ -39,7 +39,7 @@ const VideoInfiniteComments = ({ initialComments }) => {
   }, [page, hasMore]);
   if (error) return <Error title="Error while getting comments" />;
   return (
-    <div className="w-full h-[70vh] space-y-4">
+    <div className="w-full h-[75vh] space-y-4">
       <Virtuoso
         className="[&::-webkit-scrollbar]:w-[5px]"
         data={comments}

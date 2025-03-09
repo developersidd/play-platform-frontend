@@ -64,7 +64,7 @@ const CreateTweet = ({ isOwner, tweetToEdit, setTweetToEdit }) => {
   }, [showPicker]);
 
   return (
-    <div class="mt-2 border pb-2 ">
+    <div className="mt-2 border pb-2 ">
       <div
         ref={EmojiPikerRef}
         className="picker-container relative"
@@ -80,13 +80,13 @@ const CreateTweet = ({ isOwner, tweetToEdit, setTweetToEdit }) => {
       <textarea
         value={tweet}
         onChange={(e) => setTweet(e.target.value)}
-        class="mb-2 h-10 w-full resize-none border-none bg-transparent px-3 pt-2 outline-none"
+        className="mb-2 h-10 w-full resize-none border-none bg-transparent px-3 pt-2 outline-none"
         placeholder="Write a tweet"
       ></textarea>
-      <div class="flex items-center justify-end gap-x-4 px-3">
+      <div className="flex items-center justify-end gap-x-4 px-3">
         <button
           onClick={() => setShowPicker((prev) => !prev)}
-          class="inline-block h-5 w-5 hover:text-[#ae7aff]"
+          className="inline-block h-5 w-5 hover:text-[#ae7aff]"
         >
           <Smile />
         </button>
@@ -95,7 +95,7 @@ const CreateTweet = ({ isOwner, tweetToEdit, setTweetToEdit }) => {
             onClick={() => {
               setTweetToEdit({});
             }}
-            class="bg-white rounded px-2 py-2 font-semibold text-black"
+            className="bg-white rounded px-2 py-2 font-semibold text-black"
           >
             Cancel
           </button>
@@ -103,7 +103,7 @@ const CreateTweet = ({ isOwner, tweetToEdit, setTweetToEdit }) => {
         <button
           disabled={isSubmitting}
           onClick={handleCreateTweet}
-          class="rounded bg-[#ae7aff] px-2 py-2 font-semibold text-black"
+          className="rounded bg-[#ae7aff] px-2 py-2 font-semibold text-black"
         >
           <span className="align-middle inline-block mr-1.5">
             {isEditing ? <Edit size={18} /> : <Send size={18} />}

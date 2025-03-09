@@ -1,7 +1,7 @@
 //"use server";
 import { retrieveCurrentUser } from "@/api/user.api";
 import { getVideos } from "@/api/video.api";
-import MyChannelNotFoundVideos from "@/app/(navbar-attached-layout)/_components/MyChannelNotFoundVideos";
+import MyChannelNoVideosFound from "@/app/(navbar-attached-layout)/_components/MyChannelNoVideosFound";
 import NoVideosFound from "@/app/(navbar-attached-layout)/_components/NotFoundVideos";
 import Error from "@/components/common/Error";
 import dynamic from "next/dynamic";
@@ -23,7 +23,7 @@ const ChannelVideosPage = async ({ params: { channelUsername } }) => {
   } else if (videos?.length > 0) {
     content = <LazyInfiniteVideos initialVideos={videos} />;
   } else if (isMyChannel && videos?.length !== 0) {
-    content = <MyChannelNotFoundVideos />;
+    content = <MyChannelNoVideosFound />;
   } else {
     content = <NoVideosFound className="h-[450px]" />;
   }

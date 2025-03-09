@@ -9,15 +9,15 @@ const links = [
     text: "Videos",
   },
   {
-    href: "/channel-playlist",
+    href: "/playlist",
     text: "Playlist",
   },
   {
-    href: "/channel-tweets",
+    href: "/tweets",
     text: "Tweets",
   },
   {
-    href: "/channel-subscribed",
+    href: "/subscribed",
     text: "Subscribed",
   },
 ];

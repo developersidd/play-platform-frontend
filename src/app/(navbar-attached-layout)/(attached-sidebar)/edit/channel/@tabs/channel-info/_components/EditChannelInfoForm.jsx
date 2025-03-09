@@ -69,7 +69,7 @@ const EditChannelInfoForm = () => {
       <div className="rounded-lg border">
         <Form {...form}>
           <form className="flex flex-wrap gap-y-4 p-4">
-            <div class="w-full">
+            <div className="w-full">
               <FormField
                 control={form.control}
                 name="username"
@@ -77,15 +77,15 @@ const EditChannelInfoForm = () => {
                   <FormItem>
                     <FormLabel className="text-[15px]"> User Name </FormLabel>
                     <FormControl>
-                      <div class="flex rounded-lg border">
-                        <p class="flex shrink-0 items-center focus-within:ring-white border-r border-white px-3 align-middle">
+                      <div className="flex rounded-lg border">
+                        <p className="flex shrink-0 items-center focus-within:ring-white border-r border-white px-3 align-middle">
                           vidplay.com/
                         </p>
 
                         <input
                           {...field}
                           type="text"
-                          class="w-full bg-transparent px-2 py-1.5"
+                          className="w-full bg-transparent px-2 py-1.5"
                           id="username"
                           placeholder="@username"
                         ></input>
@@ -107,7 +107,7 @@ const EditChannelInfoForm = () => {
                     <FormControl>
                       <Textarea
                         {...field}
-                        class="w-full rounded-lg border bg-transparent px-2 py-1.5"
+                        className="w-full rounded-lg border bg-transparent px-2 py-1.5"
                         rows="4"
                         id="desc"
                         placeholder="Channel Description"
