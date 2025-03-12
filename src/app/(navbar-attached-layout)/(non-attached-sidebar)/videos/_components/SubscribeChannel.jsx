@@ -19,9 +19,8 @@ const SubscribeChannel = ({ channelId, isSubscribed, animation = false }) => {
     }
     setSubscribed((prev) => !prev);
     try {
-      const res = await apiClient.post(`/subscriptions/c/${channelId}`);
+       await apiClient.post(`/subscriptions/c/${channelId}`);
       router.refresh();
-      console.log("res:", res);
     } catch (error) {
       // Revert the state if the request fails
       setSubscribed(subscribed);
@@ -29,14 +28,10 @@ const SubscribeChannel = ({ channelId, isSubscribed, animation = false }) => {
     }
   };
 
-  const handleSubscribe = () => {
-    subscribe();
-  };
-
   return (
     <div className="block">
       <button
-        onClick={handleSubscribe}
+        onClick={subscribe}
         className={`mr-1 flex w-full items-center gap-x-2 bg-secondary px-3 py-2 text-center font-bold text-black sm:w-auto ${
           animation &&
           "shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e]"

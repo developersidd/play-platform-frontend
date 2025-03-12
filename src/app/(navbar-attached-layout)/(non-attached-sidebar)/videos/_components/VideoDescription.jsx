@@ -21,6 +21,7 @@ const VideoDescription = async ({ video, userId }) => {
 
   const { data: { isSubscribed } = {} } =
     (userId && (await checkUserSubscription(ownerId))) || {};
+
   return (
     <div
       className="group mt-6 mb-4 w-full rounded-lg border p-4 duration-200 hover:bg-white/5 focus:bg-white/5"
@@ -50,7 +51,7 @@ const VideoDescription = async ({ video, userId }) => {
               userId={userId}
             />
             {/* Save to playlist */}
-            <SaveToPlaylist />
+            {userId && <SaveToPlaylist videoId={_id} />}
           </div>
         </div>
       </div>

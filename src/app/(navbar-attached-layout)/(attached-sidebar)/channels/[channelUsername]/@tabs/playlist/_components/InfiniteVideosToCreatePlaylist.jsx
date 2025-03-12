@@ -17,10 +17,14 @@ const InfiniteVideosToCreatePlaylist = ({
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isInfiniteLoading, setIsInfiniteLoading] = useState(true);
+  const [searchedVideos, setSearchedVideos] = useState([]);
+
+  const videosToDisplay = searchQuery.trim() ? searchedVideos : userVideos;
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
+      setIsInfiniteLoading(true);
       try {
         52;
         const params = {
@@ -28,15 +32,17 @@ const InfiniteVideosToCreatePlaylist = ({
           limit: 20,
           username,
         };
-        if (searchQuery.trim()) {
+        if (searchQuery.trim()?.length > 0) {
           params.q = decodeURI(searchQuery?.toLowerCase());
+          delete params.page;
+        } else {
+          delete params.q;
         }
         const { data: { videos = [], hasNextPage } = {} } = await getVideos(
           params
         );
-        console.log(" videos:", videos);
         if (searchQuery.trim()?.length > 0) {
-          setUserVideos([...videos]);
+          setSearchedVideos([...videos]);
         } else {
           setUserVideos((prev) => [...prev, ...videos]);
         }
@@ -45,67 +51,85 @@ const InfiniteVideosToCreatePlaylist = ({
         setError(error.message);
       } finally {
         setIsLoading(false);
+        setIsInfiniteLoading(false);
       }
     };
 
     fetchData();
   }, [page, hasMore, searchQuery]);
+  // decide what to render
+  let content;
+  if (isLoading) {
+    content = (
+      <div className="flex justify-center py-5">
+        <Loader size={30} className="animate-spin" />
+      </div>
+    );
+  } else if (videosToDisplay?.length > 0) {
+    content = (
+      <Virtuoso
+        className="[&::-webkit-scrollbar]:w-[5px]"
+        data={videosToDisplay}
+        endReached={() => hasMore && setPage((p) => p + 1)}
+        components={{
+          Footer: () =>
+            isInfiniteLoading && (
+              <div className="flex justify-center py-5">
+                <Loader size={30} className="animate-spin" />
+              </div>
+            ),
+        }}
+        itemContent={(_, { _id, title, thumbnail } = {}) => (
+          <div
+            key={_id}
+            className="flex items-center p-2 hover:bg-dark-bg rounded-lg"
+          >
+            <Checkbox
+              checked={selectedVideos.includes(_id)}
+              onCheckedChange={(value) => {
+                if (value) {
+                  setSelectedVideos([...selectedVideos, _id]);
+                } else {
+                  setSelectedVideos(
+                    selectedVideos.filter((_id) => _id !== _id)
+                  );
+                }
+              }}
+              className="h-4 w-4 mr-3"
+            />
+            <img
+              src={thumbnail?.url}
+              className="w-16 h-10 rounded object-cover mr-3"
+              alt={title}
+            />
+            <span className="text-sm">{title}</span>
+          </div>
+        )}
+      />
+    );
+  } else if (!isInfiniteLoading && videosToDisplay?.length === 0) {
+    content = (
+      <div className="flex justify-center items-center h-full">
+        <h3 className="text-lg">
+          No videos found for{" "}
+          {searchQuery ? (
+            <span>
+              search query{" "}
+              <span className="font-bold"> &#34;{searchQuery}&#34;</span>
+            </span>
+          ) : (
+            "this channel"
+          )}
+        </h3>
+      </div>
+    );
+  } else if (error) {
+    content = <Error />;
+  }
 
   return (
     <>
-      <div className="pt-2 w-full h-[70vh] overflow-y-auto ">
-        {userVideos?.length > 0 ? (
-          <Virtuoso
-            className="[&::-webkit-scrollbar]:w-[5px]"
-            data={userVideos}
-            endReached={() => hasMore && setPage((p) => p + 1)}
-            components={{
-              Footer: () =>
-                isLoading && (
-                  <div className="flex justify-center py-5">
-                    <Loader size={30} className="animate-spin" />
-                  </div>
-                ),
-            }}
-            itemContent={(_, { _id, title, thumbnail } = {}) => (
-              <div
-                key={_id}
-                className="flex items-center p-2 hover:bg-dark-bg rounded-lg"
-              >
-                <Checkbox
-                  checked={selectedVideos.includes(_id)}
-                  onCheckedChange={(value) => {
-                    if (value) {
-                      setSelectedVideos([...selectedVideos, _id]);
-                    } else {
-                      setSelectedVideos(
-                        selectedVideos.filter((_id) => _id !== _id)
-                      );
-                    }
-                  }}
-                  className="h-4 w-4 mr-3"
-                />
-                <img
-                  src={thumbnail?.url}
-                  className="w-16 h-10 rounded object-cover mr-3"
-                  alt={title}
-                />
-                <span className="text-sm">{title}</span>
-              </div>
-            )}
-          />
-        ) : (
-          !isLoading && (
-            <div className="flex justify-center items-center h-full">
-              <h3>
-                No videos found for{" "}
-                {searchQuery ? `search query "${searchQuery}"` : "this channel"}
-              </h3>
-            </div>
-          )
-        )}
-        {error && <Error />}
-      </div>
+      <div className="pt-2 w-full h-[70vh] overflow-y-auto ">{content}</div>
     </>
   );
 };

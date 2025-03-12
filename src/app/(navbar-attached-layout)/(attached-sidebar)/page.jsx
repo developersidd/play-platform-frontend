@@ -16,7 +16,7 @@ const HomePage = async () => {
     return <NoVideosFound classes={"mt-10"} />;
   }
   return (
-    <section className="w-full px-7 py-5">
+    <section className="ps-5 pe-7 py-5">
       <LazyInfiniteVideos initialVideos={data?.videos} />
     </section>
   );

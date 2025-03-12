@@ -1,10 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import useDebounce from "@/hooks/useDebounce";
 import { X } from "lucide-react";
@@ -15,29 +10,52 @@ const AddVideosInPlaylistModal = ({ setValue }) => {
   const [selectedVideos, setSelectedVideos] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [userVideos, setUserVideos] = useState([]);
+  const [debounceSearchQuery, setDebounceSearchQuery] = useState("");
+  const [showAddVideosModal, setShowAddVideosModal] = useState(false);
+
   const debounceHandler = useDebounce((value) => {
-    setSearchQuery(value);
+    setDebounceSearchQuery(value);
+    console.log("debounced");
   }, 500);
 
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    debounceHandler(value);
+  };
+  console.log("rendered")
   return (
     <div className="mt-4 w-full">
       <label>
         Add Videos <sup>*</sup>
       </label>
 
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button variant="outline" className="w-full mt-2">
-            Select Videos ({selectedVideos.length})
-          </Button>
-        </DialogTrigger>
+      <Dialog
+        open={showAddVideosModal}
+        onOpenChange={() => {
+          setShowAddVideosModal(false);
+          if (searchQuery.trim()) {
+            setDebounceSearchQuery("");
+          }
+          setValue("videos", selectedVideos);
+        }}
+      >
+        <Button
+          onClick={() => setShowAddVideosModal(true)}
+          variant="outline"
+          type="button"
+          className="w-full mt-2"
+        >
+          Select Videos ({selectedVideos.length})
+        </Button>
 
-        <DialogContent className="max-h-[85vh] overflow-y-auto [&>button:last-child]:hidden">
+        <DialogContent className="max-h-[85vh] overflow-y-auto ">
           <div className="space-y-4">
             {/* Search Bar */}
             <Input
               placeholder="Search your videos..."
-              onChange={(e) => debounceHandler(e.target.value)}
+              onChange={handleSearch}
+              value={searchQuery}
             />
 
             {/* Infinite Video List */}
@@ -45,18 +63,19 @@ const AddVideosInPlaylistModal = ({ setValue }) => {
               //key={searchQuery}
               setters={{ setSelectedVideos, setUserVideos }}
               getters={{ selectedVideos, userVideos }}
-              searchQuery={searchQuery}
+              searchQuery={debounceSearchQuery}
             />
           </div>
-          <DialogClose
+          {/*<DialogClose
             onClick={() => {
-              setValue("videos", selectedVideos);
+              
+              setSearchQuery("");
             }}
             className="p-1.5  rounded-full hover:bg-light-bg inline-block absolute top-2 right-2"
             type="button"
           >
             <X size={20} />
-          </DialogClose>
+          </DialogClose>*/}
         </DialogContent>
       </Dialog>
 

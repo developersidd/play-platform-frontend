@@ -1,11 +1,11 @@
 "use client";
 import { getVideos } from "@/api/video.api";
 import VideoCard from "@/app/(navbar-attached-layout)/_components/VideoCard";
-import VideoHorizontalCard from "@/app/(navbar-attached-layout)/_components/VideoHorizontalCard";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Virtuoso, VirtuosoGrid } from "react-virtuoso";
 import Error from "../common/Error";
+import VideoHorizontalCard from "@/app/(navbar-attached-layout)/_components/VideoHorizontalCard";
 
 const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {
   const { page: pageNum = 2, limit, ...restQueries } = queries || {};
@@ -28,20 +28,19 @@ const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (!hasMore) return;
+        //if (!hasMore) return;
         setIsLoading(true);
 
-        const { data } = await getVideos({
+        const { data: { videos = [], hasNextPage } = {} } = await getVideos({
           page,
           limit: limit || 20,
-          sortBy: "createdAt",
-          sortType: "desc",
           ...restQueries,
         });
 
-        setVideos((prev) => [...prev, ...(data?.videos || [])]);
-        setHasMore(data?.hasNextPage);
+        setVideos((prev) => [...prev, ...videos]);
+        setHasMore(hasNextPage);
       } catch (error) {
+        console.log(" error:", error);
         setError(error.message);
       } finally {
         setIsLoading(false);
@@ -52,24 +51,21 @@ const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {
   }, [page, hasMore]);
 
   return (
-    <div className="pt-3 pb-7 w-full">
+    <div className="w-full">
       <layoutConfig.component
         data={videos}
+        overscan={20}
+        className=""
         useWindowScroll
-        listClassName={layoutConfig.listClass}
+        listClassName="grid 2xl:grid-cols-5 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-6"
         endReached={() => hasMore && setPage((p) => p + 1)}
-        components={{
-          Footer: () =>
-            isLoading && (
-              <div className="flex justify-center py-5">
-                <Loader size={40} className="animate-spin" />
-              </div>
-            ),
-        }}
-        itemContent={(index) => (
-          <layoutConfig.itemComponent video={videos[index]} />
-        )}
+        itemContent={(_, video) => <layoutConfig.itemComponent video={video} />}
       />
+      {isLoading && hasMore && (
+        <div className="flex justify-center py-10">
+          <Loader size={40} className="animate-spin" />
+        </div>
+      )}
       {error && <Error />}
     </div>
   );

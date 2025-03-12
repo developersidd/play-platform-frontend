@@ -153,14 +153,12 @@ const UploadVideoModal = ({ children }) => {
     setDragging(false);
 
     const file = e.dataTransfer.files[0];
-    console.log(" file:", file);
     if (file && file.type.startsWith("video/")) {
       setVideoFile(file);
       setValue("videoFile", file);
     }
   };
 
-  console.log("video", videoFile);
 
   // Cancel Request handler
   const handleCancelRequest = () => {

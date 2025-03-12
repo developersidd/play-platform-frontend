@@ -1,3 +1,5 @@
+import { getUserPlaylists } from "@/api/playlist.api";
+import { retrieveCurrentUser } from "@/api/user.api";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,8 +8,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { FilePlus } from "lucide-react";
+import CreateWatchLaterPlaylist from "./CreateWatchLaterPlaylist";
+import WatchLaterPlaylistItem from "./WatchLaterPlaylistItem";
 
-const SaveToPlaylist = () => {
+const SaveToPlaylist = async ({ videoId }) => {
+  const { data: { username } = {} } = (await retrieveCurrentUser()) || {};
+  console.log(" username:", username);
+  const { data: watchLaterPlaylists, error } = await getUserPlaylists(
+    username,
+    {
+      type: "watchLater",
+    }
+  );
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -25,23 +37,20 @@ const SaveToPlaylist = () => {
 
         <DropdownMenuSeparator />
         {/*  Playlist List */}
-
-        <div className="mt-4 flex flex-col">
-          <label
-            htmlFor="playlist-name"
-            className="mb-1 inline-block cursor-pointer"
-          >
-            Name
-          </label>
-          <input
-            className="w-full rounded-lg border border-transparent bg-light-bg px-3 py-2  outline-none focus:border-secondary"
-            id="playlist-name"
-            placeholder="Enter playlist name"
-          />
-          <button className="mx-auto mt-4 rounded-lg bg-secondary px-4 text-background font-medium py-2 ">
-            Create new playlist
-          </button>
-        </div>
+        {watchLaterPlaylists.length ? (
+          watchLaterPlaylists.map((playlist) => (
+            <WatchLaterPlaylistItem
+              key={playlist._id}
+              playlist={playlist}
+              videoId={videoId}
+              isSaved={playlist.videos.includes(videoId)}
+            />
+          ))
+        ) : (
+          <p className="text-center text-gray-400">No playlists found</p>
+        )}
+        {/* create watch later playlist */}
+        <CreateWatchLaterPlaylist />
       </DropdownMenuContent>
     </DropdownMenu>
   );

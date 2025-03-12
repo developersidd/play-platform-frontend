@@ -69,12 +69,11 @@ const CreatePlaylistModal = ({ children, playlistType = "videoPlaylist" }) => {
     },
   });
   const { reset, setValue } = form;
-  const { isSubmitting } = form.formState;
+  const { isSubmitting, errors } = form.formState;
   async function onSubmit(data) {
     if (playlistTypes.includes(playlistType)) {
       data.type = playlistType;
     }
-    console.log(" data:", data);
     if (!_id) {
       return toast.error("You must be logged in to upload videos!");
     }
@@ -82,20 +81,17 @@ const CreatePlaylistModal = ({ children, playlistType = "videoPlaylist" }) => {
     try {
       const response = await apiClient.post(`/playlist`, data);
       router.push(`/channels/${username}/playlist`);
-      console.log("response:", response.data);
       if (response.status === 201) {
         toast.success("Playlist create successfully!");
         reset();
       }
     } catch (e) {
-      console.log(" e:", e);
-      toast.error("There was an error creating playlist!");
+      toast.error("There was an error occurred!");
     }
   }
 
   return (
     <>
-      {/* Upload Video Modal */}
       <Dialog open={showUploadModal} onOpenChange={setShowUploadModal}>
         <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogContent className="min-h-[75%] sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto max-h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg">

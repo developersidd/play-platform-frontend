@@ -6,7 +6,6 @@ const retrieveCurrentUser = async () => {
   //console.log("retrieveCurrentUser");
   try {
     const accessToken = getAccessToken();
-    console.log("accessToken:", accessToken);
     if (!accessToken) {
       return {
         error: "No access token found",

@@ -8,19 +8,19 @@ const LazyInfiniteVideos = dynamic(() =>
 );
 const SearchResultPage = async ({ searchParams }) => {
   const searchVal = decodeURI(searchParams?.q);
-  const { data, error } = (await getVideos({ q: searchVal })) || {};
-  const { videos } = data || {};
+  const { data: { videos = [] } = {}, error } =
+    (await getVideos({ q: searchVal })) || {};
   if (error) {
     return <Error title={"Error while getting searched videos"} />;
   }
   if (videos?.length === 0) {
-    return <NoVideosFound isSearch />;
+    return <NoVideosFound className="h-full" isSearch />;
   }
   return (
-    <div className="px-7 py-5">
+    <div className="p-5">
       {videos?.length > 0 && (
         <LazyInfiniteVideos
-          initialVideos={data?.videos}
+          initialVideos={videos}
           queries={{
             q: searchVal,
           }}

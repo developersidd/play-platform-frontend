@@ -3,7 +3,7 @@ import { apiClient } from ".";
 // get playlist by id
 const getPlaylistById = async (id) => {
   try {
-    const res = await apiClient.get(`/playlist/${id}`);
+    const res = await apiClient.get(`/playlists/${id}`);
     return {
       data: res.data?.data,
     };
@@ -16,9 +16,10 @@ const getPlaylistById = async (id) => {
 
 // get user playlists
 const getUserPlaylists = async (username, queries = {}) => {
+  console.log(" queries:", queries)
   try {
     const res = await apiClient.get(
-      `/playlist/user/${username}
+      `/playlists/user/${username}
       `,
       {
         params: queries,
