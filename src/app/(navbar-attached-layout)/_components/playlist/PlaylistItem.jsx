@@ -2,7 +2,7 @@ import { formatCounting } from "@/lib/utils";
 import moment from "moment";
 import Link from "next/link";
 
-const ChannelPlaylistItem = ({ playlist }) => {
+const PlaylistItem = ({ playlist }) => {
   const { name, description, videos, totalVideos, createdAt, _id } =
     playlist || {};
   const [{ thumbnail }] = videos || [];
@@ -37,4 +37,4 @@ const ChannelPlaylistItem = ({ playlist }) => {
   );
 };
 
-export default ChannelPlaylistItem;
+export default PlaylistItem;

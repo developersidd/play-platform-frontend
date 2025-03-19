@@ -1,6 +1,6 @@
 import { Folders } from "lucide-react";
 
-const ChannelNoPlaylist = () => {
+const NoPlaylist = () => {
   return (
     <div className="flex justify-center p-4 items-center min-h-[42vh]">
       <div className="w-full max-w-sm text-center">
@@ -18,4 +18,4 @@ const ChannelNoPlaylist = () => {
   );
 };
 
-export default ChannelNoPlaylist;
+export default NoPlaylist;

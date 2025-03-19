@@ -2,7 +2,7 @@
 import { Play, Plus } from "lucide-react";
 import dynamic from "next/dynamic";
 const LazyUploadVideoModal = dynamic(() =>
-  import("./UploadVideoModal")
+  import("../../../components/video/UploadVideoModal")
 );
 const MyChannelNoVideosFound = () => {
   return (

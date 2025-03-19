@@ -1,4 +1,3 @@
-"use client";
 import useAxios from "@/hooks/useAxios";
 
 import {
@@ -10,8 +9,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -25,10 +24,9 @@ const formSchema = z.object({
     }),
 });
 
-const CreateWatchLaterPlaylist = () => {
+const CreateVideoCollection = ({ setCollections }) => {
   const { apiClient } = useAxios();
 
-  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,22 +36,27 @@ const CreateWatchLaterPlaylist = () => {
   const { formState, reset } = form;
   const { isSubmitting } = formState;
 
-  const onSubmit = async (data) => {
+  const onSubmit = async ({ name }) => {
     try {
-      const res = await apiClient.post("/playlists", {
-        name: data?.name,
-        type: "watchLater",
-      });
-      router.refresh();
+      const { data: { data } = {} } =
+      (await apiClient.post("/playlists", {
+        name,
+        type: "collection",
+      })) || {};
+      setCollections((prev) => [...prev, data]);
       reset();
-      console.log(" res:", res);
     } catch (error) {
-      console.log(" error:", error);
+      if (
+        error?.response?.data?.message?.startsWith("E11000 duplicate key error")
+      ) {
+        return toast.info("Collection with same name already exists");
+      }
+      toast.error("Failed to create collection");
     }
   };
 
   return (
-    <div className="mt-4 flex flex-col">
+    <div className="mt- flex flex-col">
       <Form {...form}>
         <form className="space-y-3 " onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
@@ -86,4 +89,4 @@ const CreateWatchLaterPlaylist = () => {
   );
 };
 
-export default CreateWatchLaterPlaylist;
+export default CreateVideoCollection;

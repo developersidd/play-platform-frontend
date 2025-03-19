@@ -10,6 +10,7 @@ import useUserContext from "@/hooks/useUserContext";
 import {
   BadgeHelp,
   Combine,
+  FolderClock,
   History,
   Home,
   Settings,
@@ -18,6 +19,7 @@ import {
   Video,
 } from "lucide-react";
 import Link from "next/link"; // Import Link for navigation in Next.js
+import { usePathname } from "next/navigation";
 
 // AttachedSidebar items with link property
 const sidebarItems = [
@@ -34,6 +36,7 @@ const sidebarItems = [
     link: "/channels/",
   },
   { icon: <Combine />, label: "Collections", link: "/collections" },
+  { icon: <FolderClock />, label: "Watch Later", link: "/watch-later" },
   { icon: <UserCheck />, label: "Subscribers", link: "/subscribers" },
   {
     icon: <BadgeHelp />,
@@ -53,6 +56,7 @@ const AttachedSidebar = () => {
   const { sidebarCollapsed } = useSidebarContext();
   const { state } = useUserContext() || {};
   const { avatar, username } = state || {};
+  const pathname = usePathname();
   return (
     <aside
       className={`
@@ -64,40 +68,52 @@ const AttachedSidebar = () => {
     `}
     >
       <ul className="flex px-3  justify-around gap-y-3 sm:sticky sm:top-[106px] w-full sm:min-h-[calc(100vh-130px)] max-h-[calc(100vh-130px)] sm:flex-col">
-        {sidebarItems.map(({ icon, label, link, mtAuto }, index) => (
-          <TooltipProvider delayDuration={120} key={index}>
-            <Tooltip>
-              <li className={` ${mtAuto ? "mt-auto" : ""}`}>
-                <TooltipTrigger className="w-full">
-                  <Link
-                    title={label}
-                    href={link === "/channels/" ? `${link}${username}` : link}
-                    className={`flex h-[42px] flex-col items-center justify-center border-gray-300 dark:border-white py-1 focus:text-secondary sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-secondary sm:hover:text-black sm:focus:border-secondary sm:focus:bg-secondary sm:focus:text-black lg:justify-start
+        {sidebarItems.map(({ icon, label, link, mtAuto }, index) => {
+          const path = link === "/channels/" ? `${link}${username}` : link;
+          return (
+            <TooltipProvider delayDuration={120} key={index}>
+              <Tooltip>
+                <li className={` ${mtAuto ? "mt-auto" : ""}`}>
+                  <TooltipTrigger className="w-full">
+                    <Link
+                      title={label}
+                      href={path}
+                      className={`${
+                        path === pathname
+                          ? "bg-secondary dark:border-secondary border-secondary"
+                          : "border-gray-300 dark:border-white"
+                      } flex h-[42px] flex-col items-center justify-center   py-1
+                     
+                      sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-secondary 
+                     dark:hover:border-secondary 
+                      hover:border-secondary
+                    lg:justify-start
                      lg:px-4`}
-                  >
-                    <p
-                      className={` 
+                    >
+                      <p
+                        className={` 
                         ${sidebarCollapsed ? "" : "lg:mr-4"}
                         }`}
-                    >
-                      {icon}
-                    </p>
-                    <p
-                      className={`sm:hidden ${
-                        sidebarCollapsed ? "" : "lg:inline-block"
-                      }`}
-                    >
-                      {label}
-                    </p>
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p> {label} </p>
-                </TooltipContent>
-              </li>
-            </Tooltip>
-          </TooltipProvider>
-        ))}
+                      >
+                        {icon}
+                      </p>
+                      <p
+                        className={`sm:hidden ${
+                          sidebarCollapsed ? "" : "lg:inline-block"
+                        }`}
+                      >
+                        {label}
+                      </p>
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p> {label} </p>
+                  </TooltipContent>
+                </li>
+              </Tooltip>
+            </TooltipProvider>
+          );
+        })}
       </ul>
     </aside>
   );

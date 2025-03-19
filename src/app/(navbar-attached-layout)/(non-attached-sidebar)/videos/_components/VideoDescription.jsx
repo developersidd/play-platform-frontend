@@ -1,7 +1,8 @@
 import { checkUserSubscription } from "@/api/subscription.api";
+import { FilePlus } from "lucide-react";
 import moment from "moment";
 import DescriptionChannelInfo from "./DescriptionChannelInfo";
-import SaveToPlaylist from "./SaveToPlaylist";
+import SaveToPlaylistModal from "./SaveToCollectionModal";
 import SubscribeChannel from "./SubscribeChannel";
 import VideoLikeDislike from "./VideoLikeDislike";
 
@@ -51,7 +52,16 @@ const VideoDescription = async ({ video, userId }) => {
               userId={userId}
             />
             {/* Save to playlist */}
-            {userId && <SaveToPlaylist videoId={_id} />}
+            {userId && (
+              <SaveToPlaylistModal videoId={_id}>
+                <button className="peer flex items-center gap-x-2 rounded-lg bg-gray-800 text-white dark:bg-white px-4 py-1.5 dark:text-black">
+                  <span className="inline-block w-5">
+                    <FilePlus size={20} />
+                  </span>
+                  Save
+                </button>
+              </SaveToPlaylistModal>
+            )}
           </div>
         </div>
       </div>

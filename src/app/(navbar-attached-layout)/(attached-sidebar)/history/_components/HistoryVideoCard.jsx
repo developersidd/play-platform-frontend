@@ -3,6 +3,7 @@ import moment from "moment";
 import Link from "next/link";
 import HistoryVideoCardActions from "./HistoryVideoCardActions";
 const HistoryVideoCard = ({ video }) => {
+  console.log(" video:", video)
   const {
     thumbnail,
     title,
@@ -11,12 +12,15 @@ const HistoryVideoCard = ({ video }) => {
     description,
     duration,
     _id,
+    isInWatchLater,
     owner: { avatar, username, fullName } = {},
   } = video || {};
   return (
     <div className="w-full relative transition-colors hover:bg-light-bg p-2 rounded-lg">
       {/* Actions */}
-      <HistoryVideoCardActions videoId={_id} />
+      <HistoryVideoCardActions 
+      isInWatchLater={isInWatchLater}
+      videoId={_id} />
       <div className=" gap-x-4 flex">
         <div className="relative mb-2  md:mb-0 w-2/4 lg:w-1/4 h-[140px]">
           <Link key={_id} href={`/videos/${_id}`}>

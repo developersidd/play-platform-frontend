@@ -1,20 +1,16 @@
 "use client";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenuItem,
-  DropdownMenuLabel,
-} from "@/components/ui/dropdown-menu";
 import useAxios from "@/hooks/useAxios";
 import useThrottle from "@/hooks/useThrottle";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const WatchLaterPlaylistItem = ({ isSaved, playlist, videoId }) => {
-  const [isSavedInPlaylist, setIsSavedInPlaylist] = useState(isSaved);
+const VideoCollectionItem = ({ isSaved, collection, videoId }) => {
+  const [isSavedInCollection, setIsSavedInCollection] = useState(isSaved);
   const { apiClient } = useAxios();
-  const { name = "", _id } = playlist || {};
+  const { name = "", _id } = collection || {};
 
-  // add video in playlist using throttling
+  // add video in collection using throttling
   const throttleAddRemoveVideoInPlaylist = useThrottle(async (value) => {
     console.log("throttled", value);
     try {
@@ -26,32 +22,29 @@ const WatchLaterPlaylistItem = ({ isSaved, playlist, videoId }) => {
       );
       console.log(" res:", res);
     } catch (error) {
-      toast.error("Failed to save or remove video from playlist");
+      toast.error("Failed to save or remove video from collection");
     }
   }, 3000);
 
   const handlePlaylistSave = (value) => {
-    setIsSavedInPlaylist(value);
+    setIsSavedInCollection(value);
     throttleAddRemoveVideoInPlaylist(value);
   };
   return (
-    <DropdownMenuItem
-      onSelect={(e) => e.preventDefault()}
-      className="mt-2 py-0.5"
-    >
+    <div className="flex items-center gap-x-2 rounded  py-2 ps-3 hover:bg-dark-bg ">
       <Checkbox
         id={_id}
-        checked={isSavedInPlaylist}
+        checked={isSavedInCollection}
         onCheckedChange={handlePlaylistSave}
       />
 
-      <DropdownMenuLabel className="w-full">
-        <label className="block" htmlFor={_id}>
-          {name}
-        </label>
-      </DropdownMenuLabel>
-    </DropdownMenuItem>
+      {/*<Label className="w-full">*/}
+      <label className="block" htmlFor={_id}>
+        {name}
+      </label>
+      {/*</label>*/}
+    </div>
   );
 };
 
-export default WatchLaterPlaylistItem;
+export default VideoCollectionItem;

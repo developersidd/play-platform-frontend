@@ -19,8 +19,8 @@ export async function fetchWithAuth(url, options = {}) {
       throw new Error("Session expired");
     }
     const response = await apiClient({
-      ...options,
       url,
+      ...options,
       headers: {
         ...options.headers,
         Authorization: `Bearer ${accessToken}`,

@@ -27,7 +27,7 @@ const NoSSRNotification = dynamic(() => import("./notification/Notification"), {
   ssr: false,
 });
 const LazyUploadVideoModal = dynamic(() =>
-  import("@/app/(navbar-attached-layout)/_components/UploadVideoModal")
+  import("@/components/video/UploadVideoModal")
 );
 
 export const Navbar = () => {
@@ -79,11 +79,11 @@ export const Navbar = () => {
 
           {username ? (
             <>
-            <CreatePlaylistModal>
-            <Button className="rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
+              <CreatePlaylistModal>
+                <Button className="rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
                   <Plus className="text-white" /> Playlist
                 </Button>
-            </CreatePlaylistModal>
+              </CreatePlaylistModal>
               <LazyUploadVideoModal>
                 <Button className="rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
                   <Plus className="text-white" /> Upload

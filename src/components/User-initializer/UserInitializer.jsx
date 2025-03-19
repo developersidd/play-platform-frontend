@@ -9,12 +9,9 @@ const UserInitializer = () => {
   const { apiClient } = useAxios();
   useEffect(() => {
     const fetchUser = async () => {
-      console.log("fetchUser");
       try {
         const res = await apiClient.get("/users/current-user");
         dispatch({ type: SET_USER, payload: res.data?.data });
-        console.log(" res.data?.data:", res.data?.data);
-        //hasFetchedUser.current = true;
       } catch (error) {
         //console.log("error init:", error);
       }

@@ -1,11 +1,11 @@
 "use client";
 import { getVideos } from "@/api/video.api";
-import VideoCard from "@/app/(navbar-attached-layout)/_components/VideoCard";
+import VideoCard from "@/components/common/cards/VideoCard";
+import VideoHorizontalCard from "@/components/common/cards/VideoHorizontalCard";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Virtuoso, VirtuosoGrid } from "react-virtuoso";
 import Error from "../common/Error";
-import VideoHorizontalCard from "@/app/(navbar-attached-layout)/_components/VideoHorizontalCard";
 
 const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {
   const { page: pageNum = 2, limit, ...restQueries } = queries || {};

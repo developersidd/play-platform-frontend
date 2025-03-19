@@ -1,5 +1,5 @@
 import NoVideosFound from "@/app/(navbar-attached-layout)/_components/NotFoundVideos";
-import VideoHorizontalCard from "@/app/(navbar-attached-layout)/_components/VideoHorizontalCard";
+import VideoHorizontalCard from "@/components/common/cards/VideoHorizontalCard";
 
 const SearchedVideos = ({ videos = [] }) => {
   return (

@@ -1,4 +1,4 @@
-import VideoHorizontalCard from "@/app/(navbar-attached-layout)/_components/VideoHorizontalCard";
+import VideoHorizontalCard from "@/components/common/cards/VideoHorizontalCard";
 
 const LikedVideos = ({ videos }) => {
   return (
