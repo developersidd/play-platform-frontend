@@ -1,6 +1,6 @@
 import { Folders } from "lucide-react";
 
-const NoPlaylist = () => {
+const NoCollection = () => {
   return (
     <div className="flex justify-center p-4 items-center min-h-[42vh]">
       <div className="w-full max-w-sm text-center">
@@ -11,11 +11,11 @@ const NoPlaylist = () => {
             </span>
           </span>
         </p>
-        <h5 className="mb-2 font-semibold">No playlist created</h5>
-        <p>There are no playlist created on this channel.</p>
+        <h5 className="mb-2 font-semibold">No Collection created</h5>
+        <p>There are no Collection created on your profile.</p>
       </div>
     </div>
   );
 };
 
-export default NoPlaylist;
+export default NoCollection;

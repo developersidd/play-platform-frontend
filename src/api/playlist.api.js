@@ -1,4 +1,4 @@
-import { apiClient } from ".";
+import { apiClient, fetchWithAuth } from ".";
 
 // get playlist by id
 const getPlaylistById = async (id) => {
@@ -16,7 +16,7 @@ const getPlaylistById = async (id) => {
 
 // get user playlists
 const getUserPlaylists = async (username, queries = {}) => {
-  console.log(" queries:", queries)
+  console.log(" queries:", queries);
   try {
     const res = await apiClient.get(
       `/playlists/user/${username}
@@ -30,6 +30,23 @@ const getUserPlaylists = async (username, queries = {}) => {
       data: res.data?.data,
     };
   } catch (e) {
+    console.log(" e:", e);
+    return {
+      error: e.message,
+    };
+  }
+};
+// get user collections
+const getUserCollections = async (queries = {}) => {
+  try {
+    const res = await fetchWithAuth(`/playlists/collections`, {
+      params: queries,
+    });
+    console.log(" res:", res);
+    return {
+      data: res?.data,
+    };
+  } catch (e) {
     console.log(" e:", e)
     return {
       error: e.message,
@@ -37,4 +54,4 @@ const getUserPlaylists = async (username, queries = {}) => {
   }
 };
 
-export { getPlaylistById, getUserPlaylists };
+export { getPlaylistById, getUserCollections, getUserPlaylists };

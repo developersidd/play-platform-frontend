@@ -1,5 +1,5 @@
 "use client";
-import { getUserPlaylists } from "@/api/playlist.api";
+import { getUserCollections } from "@/api/playlist.api";
 import { retrieveCurrentUser } from "@/api/user.api";
 import {
   Dialog,
@@ -24,9 +24,7 @@ const SaveToCollectionModal = ({ videoId, open, setIsOpen, children }) => {
         const { data: { username } = {} } = (await retrieveCurrentUser()) || {};
         if (username) {
           // Then fetch playlists
-          const playlistsRes = await getUserPlaylists(username, {
-            type: "collection",
-          });
+          const playlistsRes = await getUserCollections();
           setCollections(playlistsRes.data || []);
         }
       } catch (error) {
@@ -75,7 +73,7 @@ const SaveToCollectionModal = ({ videoId, open, setIsOpen, children }) => {
   }
 
   return (
-    <Dialog open={open} onOpenChange={setIsOpen}>
+    <Dialog open={open}  onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="">
         <DialogHeader className="block w-full mt-3">

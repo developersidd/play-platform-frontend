@@ -1,13 +1,13 @@
-import PlaylistItem from "./PlaylistItem";
+import CollectionItem from "./CollectionItem";
 
-const PlaylistList = ({ playlists = [] }) => {
+const CollectionList = ({ collections = [] }) => {
   return (
     <div className="grid gap-4 pt-2 sm:grid-cols-[repeat(auto-fit,_minmax(400px,_1fr))]">
-      {playlists.map((playlist) => (
-        <PlaylistItem key={playlist?._id} playlist={playlist} />
+      {collections.map((playlist) => (  
+        <CollectionItem key={playlist?._id} collection={playlist} />
       ))}
     </div>
   );
 };
 
-export default PlaylistList;
+export default CollectionList;

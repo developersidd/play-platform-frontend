@@ -5,7 +5,7 @@ import Link from "next/link";
 const CollectionItem = ({ collection }) => {
   const { name, description, videos, totalVideos, createdAt, _id } =
     collection || {};
-  const [{ thumbnail }] = videos || [];
+  const [{ thumbnail, _id: firstVideoId } = {}] = videos || [];
   return (
     <Link href={`/collection/${_id}`} className="w-full">
       <div className="relative mb-2 w-full pt-[56%]">

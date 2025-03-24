@@ -2,6 +2,7 @@ import { formatCounting } from "@/lib/utils";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
+import VideoHorizontalCardActions from "./VideoHorizontalCardActions";
 
 const VideoHorizontalCard = ({ video }) => {
   const {
@@ -16,7 +17,7 @@ const VideoHorizontalCard = ({ video }) => {
   } = video || {};
 
   return (
-    <article className="">
+    <article className="relative">
       <Link href={`/videos/${_id}`} className="block">
         <div className="gap-x-4 md:flex">
           {/* Thumbnail Section */}
@@ -88,8 +89,9 @@ const VideoHorizontalCard = ({ video }) => {
             </div>
           </section>
         </div>
-        
+        {/* actions */}
       </Link>
+      <VideoHorizontalCardActions videoId={_id} />
     </article>
   );
 };
