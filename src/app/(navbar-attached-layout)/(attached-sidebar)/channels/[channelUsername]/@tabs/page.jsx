@@ -1,6 +1,6 @@
 //"use server";
-import { retrieveCurrentUser } from "@/api/user.api";
-import { getVideos } from "@/api/video.api";
+import { retrieveCurrentUser } from "@/actions/user.api";
+import { getVideos } from "@/actions/video.api";
 import MyChannelNoVideosFound from "@/app/(navbar-attached-layout)/_components/MyChannelNoVideosFound";
 import NoVideosFound from "@/app/(navbar-attached-layout)/_components/NotFoundVideos";
 import Error from "@/components/common/Error";

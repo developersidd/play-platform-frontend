@@ -14,7 +14,7 @@ const AttachedSidebarLayout = ({ children }) => {
           width: `calc(100vw - ${sidebarWidth}px)`,
           transform: `translateX(${sidebarWidth}px)`,
         }}
-        className={`transition-all overflow-x-hidden h-auto`}
+        className={`transition-all h-auto `}
       >
         {children}
       </section>

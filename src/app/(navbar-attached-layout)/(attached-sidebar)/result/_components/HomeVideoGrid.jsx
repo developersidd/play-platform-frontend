@@ -1,5 +1,5 @@
 "use client";
-import { getVideos } from "@/api/video.api";
+import { getVideos } from "@/actions/video.api";
 import VideoCard from "@/components/common/cards/VideoCard";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";

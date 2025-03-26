@@ -1,5 +1,5 @@
-import { retrieveCurrentUser } from "@/api/user.api";
-import { getVideoById } from "@/api/video.api";
+import { retrieveCurrentUser } from "@/actions/user.api";
+import { getVideoById } from "@/actions/video.api";
 import RelatedVideoList from "../_components/RelatedVideoList";
 import VideoCommentSection from "../_components/VideoCommentSection";
 import VideoDescription from "../_components/VideoDescription";

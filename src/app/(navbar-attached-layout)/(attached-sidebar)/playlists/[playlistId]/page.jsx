@@ -1,4 +1,4 @@
-import { getPlaylistById } from "@/api/playlist.api";
+import { getPlaylistById } from "@/actions/playlist.api";
 import PlaylistVideos from "./_components/PlaylistVideos";
 import SinglePlaylistDetails from "./_components/SinglePlaylistDetails";
 

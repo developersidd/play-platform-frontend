@@ -1,5 +1,5 @@
 "use client";
-import { getVideoComments } from "@/api/comment.api";
+import { getVideoComments } from "@/actions/comment.api";
 import Error from "@/components/common/Error";
 import { Loader } from "lucide-react";
 import { useParams } from "next/navigation";

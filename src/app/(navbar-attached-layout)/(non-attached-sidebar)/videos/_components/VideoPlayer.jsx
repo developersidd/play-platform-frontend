@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 
-import { apiClient } from "@/api";
+import { apiClient } from "@/actions";
 const VideoPlayer = ({ video }) => {
   const { _id, thumbnail, video: { url } = {} } = video || {}; //console.log("lesson:", lesson);
   const [hasWindow, setHasWindow] = useState(false);

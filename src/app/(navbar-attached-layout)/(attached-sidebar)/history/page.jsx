@@ -1,4 +1,4 @@
-import { getUserHistory } from "@/api/user.api";
+import { getUserHistory } from "@/actions/user.api";
 import moment from "moment";
 import HistorySettings from "./_components/HistorySettings";
 import HistoryVideoCard from "./_components/HistoryVideoCard";
@@ -50,7 +50,6 @@ const HistoryPage = async ({ searchParams: { search } }) => {
         </div>
         <HistorySettings />
       </div>
-      
     </div>
   );
 };

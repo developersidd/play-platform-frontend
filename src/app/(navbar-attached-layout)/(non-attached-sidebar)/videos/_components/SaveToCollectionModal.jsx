@@ -1,6 +1,6 @@
 "use client";
-import { getUserCollections } from "@/api/playlist.api";
-import { retrieveCurrentUser } from "@/api/user.api";
+import { getUserCollections } from "@/actions/playlist.api";
+import { retrieveCurrentUser } from "@/actions/user.api";
 import {
   Dialog,
   DialogContent,

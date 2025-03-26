@@ -1,4 +1,4 @@
-import { getVideos } from "@/api/video.api";
+import { getVideos } from "@/actions/video.api";
 import Error from "@/components/common/Error";
 import { Checkbox } from "@/components/ui/checkbox";
 import useUserContext from "@/hooks/useUserContext";

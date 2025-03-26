@@ -1,4 +1,4 @@
-import { getVideos } from "@/api/video.api";
+import { getVideos } from "@/actions/video.api";
 import Error from "@/components/common/Error";
 import dynamic from "next/dynamic";
 import NoVideosFound from "../../_components/NotFoundVideos";
