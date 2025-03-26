@@ -1,4 +1,4 @@
-import { checkUserSubscription } from "@/actions/subscription.api";
+import { checkUserSubscription } from "@/server-actions/subscription.action";
 import { FilePlus } from "lucide-react";
 import moment from "moment";
 import DescriptionChannelInfo from "./DescriptionChannelInfo";

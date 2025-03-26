@@ -1,6 +1,4 @@
 "use client";
-import { getUserCollections } from "@/actions/playlist.api";
-import { retrieveCurrentUser } from "@/actions/user.api";
 import {
   Dialog,
   DialogContent,
@@ -8,6 +6,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { getUserCollections } from "@/server-actions/playlist.action";
+import { retrieveCurrentUser } from "@/server-actions/user.action";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import CreateVideoCollection from "./CreateVideoCollection";
@@ -73,7 +73,7 @@ const SaveToCollectionModal = ({ videoId, open, setIsOpen, children }) => {
   }
 
   return (
-    <Dialog open={open}  onOpenChange={setIsOpen}>
+    <Dialog open={open} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="">
         <DialogHeader className="block w-full mt-3">

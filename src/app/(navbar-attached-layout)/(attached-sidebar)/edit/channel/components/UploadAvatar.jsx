@@ -1,5 +1,5 @@
 "use client";
-import { PROFILE_UPDATED } from "@/actions/user.acton";
+import { PROFILE_UPDATED } from "@/actions/user.action";
 import useAxios from "@/hooks/useAxios";
 import useUserContext from "@/hooks/useUserContext";
 import { ImageUp } from "lucide-react";

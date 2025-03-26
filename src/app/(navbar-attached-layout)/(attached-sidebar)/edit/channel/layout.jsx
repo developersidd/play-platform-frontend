@@ -1,4 +1,4 @@
-import { retrieveCurrentUser } from "@/actions/user.api";
+import { retrieveCurrentUser } from "@/server-actions/user.action";
 import ChannelEditInfo from "./components/ChannelEditInfo";
 import ChannelEditMenu from "./components/ChannelEditMenu";
 import UploadCoverImage from "./components/UploadCoverImage";

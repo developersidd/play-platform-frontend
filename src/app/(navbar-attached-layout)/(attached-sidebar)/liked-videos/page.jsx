@@ -1,4 +1,4 @@
-import { getLikedVideos } from "@/actions/video.api";
+import { getLikedVideos } from "@/server-actions/video.action";
 import LikedVideos from "./_components/LikedVideos";
 import LikedVideosInfo from "./_components/LikedVideosInfo";
 

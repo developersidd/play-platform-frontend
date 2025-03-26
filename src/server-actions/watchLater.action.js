@@ -1,5 +1,5 @@
 "use server";
-import { fetchWithAuth } from ".";
+import { fetchWithAuth } from "../axios";
 
 // Add video in watch later
 export const addVideoInWatchLater = async (videoId) => {

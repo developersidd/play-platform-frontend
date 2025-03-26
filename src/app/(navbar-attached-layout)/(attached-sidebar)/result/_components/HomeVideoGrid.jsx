@@ -1,6 +1,6 @@
 "use client";
-import { getVideos } from "@/actions/video.api";
 import VideoCard from "@/components/common/cards/VideoCard";
+import { getVideos } from "@/server-actions/video.action";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { VirtuosoGrid } from "react-virtuoso";

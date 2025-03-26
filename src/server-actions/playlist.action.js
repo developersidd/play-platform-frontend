@@ -1,4 +1,4 @@
-import { apiClient, fetchWithAuth } from ".";
+import { apiClient, fetchWithAuth } from "../axios";
 
 // get playlist by id
 const getPlaylistById = async (id) => {
@@ -47,7 +47,7 @@ const getUserCollections = async (queries = {}) => {
       data: res?.data,
     };
   } catch (e) {
-    console.log(" e:", e)
+    console.log(" e:", e);
     return {
       error: e.message,
     };

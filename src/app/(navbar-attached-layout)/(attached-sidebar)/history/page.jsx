@@ -1,4 +1,4 @@
-import { getUserHistory } from "@/actions/user.api";
+import { getUserHistory } from "@/server-actions/user.action";
 import moment from "moment";
 import HistorySettings from "./_components/HistorySettings";
 import HistoryVideoCard from "./_components/HistoryVideoCard";

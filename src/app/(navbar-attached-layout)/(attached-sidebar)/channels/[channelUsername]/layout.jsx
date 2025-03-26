@@ -1,4 +1,7 @@
-import { getChannelByUsername, retrieveCurrentUser } from "@/actions/user.api";
+import {
+  getChannelByUsername,
+  retrieveCurrentUser,
+} from "@/server-actions/user.action";
 import ChannelInfo from "./@tabs/_components/ChannelInfo";
 import ChannelMenu from "./@tabs/_components/ChannelMenu";
 

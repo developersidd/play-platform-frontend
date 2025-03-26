@@ -3,7 +3,7 @@ import {
   PROFILE_UPDATED,
   SET_USER,
   TOKEN_REFRESHED,
-} from "@/actions/user.acton";
+} from "@/actions/user.action";
 
 export const initialState = {};
 

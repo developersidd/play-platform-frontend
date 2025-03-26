@@ -1,4 +1,4 @@
-import { getUserSubscribedChannels } from "@/actions/subscription.api";
+import { getUserSubscribedChannels } from "@/server-actions/subscription.action";
 import SubscribedChannelList from "./_components/SubscribedChannelList";
 
 const SubscribedChannelsPage = async ({

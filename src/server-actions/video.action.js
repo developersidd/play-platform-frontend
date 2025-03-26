@@ -1,5 +1,5 @@
 "use server";
-import { apiClient, fetchWithAuth } from ".";
+import { apiClient, fetchWithAuth } from "../axios";
 const getVideos = async (queries) => {
   let url = "/videos";
   if (Object.keys(queries).length > 0) {
@@ -8,7 +8,7 @@ const getVideos = async (queries) => {
   }
   try {
     const res = await apiClient.get(url);
-    console.log(" url:", url)
+    console.log(" url:", url);
     return {
       data: res.data?.data,
     };

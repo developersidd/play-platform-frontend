@@ -1,4 +1,4 @@
-import { getRelatedVideos } from "@/api/video.api";
+import { getRelatedVideos } from "@/server-actions/video.action";
 import NoVideosFound from "@/app/(navbar-attached-layout)/_components/NotFoundVideos";
 import Error from "@/components/common/Error";
 import dynamic from "next/dynamic";

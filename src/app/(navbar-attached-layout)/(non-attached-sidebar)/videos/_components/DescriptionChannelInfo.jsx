@@ -1,5 +1,5 @@
-import { getChannelSubscribers } from "@/actions/subscription.api";
 import { formatCounting } from "@/lib/utils";
+import { getChannelSubscribers } from "@/server-actions/subscription.action";
 
 const DescriptionChannelInfo = async ({ videoOwner }) => {
   const { avatar, fullName, username, _id } = videoOwner || {};

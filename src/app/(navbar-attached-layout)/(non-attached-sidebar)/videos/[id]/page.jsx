@@ -1,13 +1,13 @@
-import { retrieveCurrentUser } from "@/actions/user.api";
-import { getVideoById } from "@/actions/video.api";
+import { retrieveCurrentUser } from "@/server-actions/user.action";
+import { getVideoById } from "@/server-actions/video.action";
 import RelatedVideoList from "../_components/RelatedVideoList";
 import VideoCommentSection from "../_components/VideoCommentSection";
 import VideoDescription from "../_components/VideoDescription";
 import VideoPlayer from "../_components/VideoPlayer";
 
 const SingleVideoPage = async ({ params: { id } = {} }) => {
-  const { data: user } = await retrieveCurrentUser() || {};
-  const { data: video } = await getVideoById(id, user?._id) || {};
+  const { data: user } = (await retrieveCurrentUser()) || {};
+  const { data: video } = (await getVideoById(id, user?._id)) || {};
 
   return (
     <section className="w-full mx-20 pb-[70px] sm:pb-0">

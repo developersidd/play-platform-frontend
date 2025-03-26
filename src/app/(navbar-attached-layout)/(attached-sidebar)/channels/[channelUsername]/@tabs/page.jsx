@@ -1,9 +1,9 @@
 //"use server";
-import { retrieveCurrentUser } from "@/actions/user.api";
-import { getVideos } from "@/actions/video.api";
 import MyChannelNoVideosFound from "@/app/(navbar-attached-layout)/_components/MyChannelNoVideosFound";
 import NoVideosFound from "@/app/(navbar-attached-layout)/_components/NotFoundVideos";
 import Error from "@/components/common/Error";
+import { retrieveCurrentUser } from "@/server-actions/user.action";
+import { getVideos } from "@/server-actions/video.action";
 import dynamic from "next/dynamic";
 const LazyInfiniteVideos = dynamic(() =>
   import("@/components/infinite-data-layout/InfiniteVideos")

@@ -1,5 +1,5 @@
 "use client";
-import { getRelatedVideos } from "@/api/video.api";
+import { getRelatedVideos } from "@/server-actions/video.action";
 import Error from "@/components/common/Error";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";

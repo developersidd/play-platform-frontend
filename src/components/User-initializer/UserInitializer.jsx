@@ -1,5 +1,5 @@
 "use client";
-import { SET_USER } from "@/actions/user.acton";
+import { SET_USER } from "@/actions/user.action";
 import useAxios from "@/hooks/useAxios";
 import useUserContext from "@/hooks/useUserContext";
 import { useEffect } from "react";

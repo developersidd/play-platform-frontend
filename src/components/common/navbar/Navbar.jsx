@@ -1,5 +1,5 @@
 "use client";
-import { LOGGED_OUT } from "@/actions/user.acton";
+import { LOGGED_OUT } from "@/actions/user.action";
 import { ModeToggle } from "@/components/theme/ThemeToggler";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

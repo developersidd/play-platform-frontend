@@ -1,5 +1,5 @@
 "use server";
-import { apiClient, fetchWithAuth } from ".";
+import { apiClient, fetchWithAuth } from "../axios";
 
 const getChannelSubscribers = async (channelId) => {
   try {

@@ -1,6 +1,6 @@
 "use server";
-import { apiClient, fetchWithAuth } from ".";
-import { getAccessToken } from "./auth.api";
+import { apiClient, fetchWithAuth } from "../axios";
+import { getAccessToken } from "./auth.action";
 
 const retrieveCurrentUser = async () => {
   //console.log("retrieveCurrentUser");

@@ -1,4 +1,4 @@
-import { apiClient } from ".";
+import { apiClient } from "../axios";
 const getVideoComments = async (videoId, queries = {}) => {
   try {
     let url = `/comments/${videoId}`;
@@ -10,7 +10,7 @@ const getVideoComments = async (videoId, queries = {}) => {
     //console.log(" response.data?.data:", response.data?.data)
     return { data: response.data?.data };
   } catch (e) {
-    console.log(" e:", e)
+    console.log(" e:", e);
     console.error("Failed to get video comments", e);
     return {
       error: e.message,

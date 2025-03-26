@@ -1,6 +1,6 @@
 "use server";
 
-import { apiClient } from ".";
+import { apiClient } from "../axios";
 const getUserTweets = async (username, loggedInUserId) => {
   if (!username) return null;
   let url = `/tweets/user/${username}`;

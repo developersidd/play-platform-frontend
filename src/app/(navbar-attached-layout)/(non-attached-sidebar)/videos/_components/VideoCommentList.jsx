@@ -1,5 +1,5 @@
-import { getVideoComments } from "@/actions/comment.api";
 import Error from "@/components/common/Error";
+import { getVideoComments } from "@/server-actions/comment.action";
 import dynamic from "next/dynamic";
 import VideoCommentItem from "./VideoCommentItem";
 
