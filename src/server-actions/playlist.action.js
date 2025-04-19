@@ -16,7 +16,6 @@ const getPlaylistById = async (id) => {
 
 // get user playlists
 const getUserPlaylists = async (username, queries = {}) => {
-  console.log(" queries:", queries);
   try {
     const res = await apiClient.get(
       `/playlists/user/${username}
@@ -42,7 +41,6 @@ const getUserCollections = async (queries = {}) => {
     const res = await fetchWithAuth(`/playlists/collections`, {
       params: queries,
     });
-    console.log(" res:", res);
     return {
       data: res?.data,
     };

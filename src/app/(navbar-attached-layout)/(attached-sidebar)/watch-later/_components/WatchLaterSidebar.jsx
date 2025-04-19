@@ -1,42 +1,21 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { FastAverageColor } from "fast-average-color";
 import { Play } from "lucide-react";
-import { useEffect, useState } from "react";
 
 function WatchLaterSidebar({ thumbnailUrl = "" }) {
-  const [bgColor, setBgColor] = useState("hsl(0, 0%, 100%)");
-
-  useEffect(() => {
-    const getColor = async () => {
-      try {
-        const fastAverageColor = new FastAverageColor();
-        const color = await fastAverageColor.getColorAsync(thumbnailUrl);
-        console.log(" color:", color);
-        setBgColor(color.hex);
-      } catch (error) {
-        console.error("Error fetching color:", error);
-        setBgColor("#000000");
-      }
-    };
-
-    if (thumbnailUrl) getColor();
-  }, [thumbnailUrl]);
-  let bgClasses = `bg-${bgColor}`;
   return (
     <aside
-      className={`transition-colors duration-300  top-[100px] sticky left-0 w-1/4 h-[calc(100vh-115px)] rounded-xl overflow-hidden`}
+      className={`transition-colors duration-300  top-[100px] sticky left-0 w-1/4 h-[calc(100vh-120px)] rounded-xl overflow-hidden `}
     >
-      {/*<div className=" sticky  top-4 left-0 ">*/}
-      <div class={`relative w-full flex min-h-full overflow-hidden  p-3`}>
+      <div className={`relative w-full flex min-h-full overflow-hidden  p-3`}>
         <div
           style={{ backgroundImage: `url(${thumbnailUrl})` }}
-          class={`absolute inset-0  blur-xl bg-center bg-cover bg-no-repeat bg-black`}
+          className={`absolute inset-0  blur-xl bg-center bg-cover bg-no-repeat `}
         ></div>
 
         <div
-          className="z-50 w-full h-full  bg-white/15 shadow
+          className="z-50 w-full h-full  bg-white/20 shadow
          rounded-xl p-3"
         >
           <img

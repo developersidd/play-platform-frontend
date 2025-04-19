@@ -1,6 +1,6 @@
 "use client";
+import { TOKEN_REFRESHED } from "@/actions/user.action";
 import { apiClient } from "@/axios";
-import { TOKEN_REFRESHED } from "@/server-actions/user.action";
 import axios from "axios";
 import { useEffect } from "react";
 import useUserContext from "./useUserContext";

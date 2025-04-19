@@ -7,61 +7,36 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import useAxios from "@/hooks/useAxios";
-import { Bookmark, Clock, EllipsisVertical, X } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Bookmark, Clock, EllipsisVertical } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-const HistoryVideoCardActions = ({ videoId, isInWatchLater }) => {
-  const router = useRouter();
-  const [isVideoInWatchLater, setIsVideoInWatchLater] =
-    useState(isInWatchLater);
+const WatchLaterVideoItemActions = ({ videoId, setIsRemoveFromWatchLater }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { apiClient } = useAxios() || {};
-  // Remove video from history
-  const removeVideoFromHistory = async () => {
+
+  const handleVideoInWatchLater = async () => {
+    setIsRemoveFromWatchLater(true);
     try {
-      await apiClient.delete(`/users/history/remove/${videoId}`);
-      router.refresh();
-      toast.success("Video removed from history!");
+      await apiClient.delete(`/watch-later/v/${videoId}/remove`);
+      toast.success("Video removed from watch later!");
     } catch (error) {
-      toast.error("Failed to remove video from history!");
+      console.log(" error:", error);
+      toast.error("Failed to remove video from watch later!");
+      setIsRemoveFromWatchLater(false);
     }
   };
 
-  // save to watch later
-  const handleVideoInWatchLater = async () => {
-    setIsVideoInWatchLater((prev) => !prev);
-    try {
-      if (isVideoInWatchLater) {
-        await apiClient.delete(`/watch-later/v/${videoId}/remove`);
-        toast.success("Video removed from watch later!");
-        return;
-      }
-      await apiClient.patch(`/watch-later/v/${videoId}/add`);
-    } catch (error) {
-      setIsVideoInWatchLater((prev) => !prev);
-      console.log(" error:", error);
-      toast.error("Failed to add video in watch later!");
-    }
-  };
   return (
     <>
-      <div className="absolute flex items-center top-2 right-2 space-x-4">
-        <button
-          onClick={removeVideoFromHistory}
-          className="hover:bg-white/70 dark:hover:bg-dark-bg/40 p-2 rounded-full"
-        >
-          <X className="" size={28} />
-        </button>
-
+      <div className="absolute flex items-center top-1/2 right-2 space-x-4  -translate-y-1/2">
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <button className="outline-none">
-              <EllipsisVertical className="" size={22} />
+              <EllipsisVertical className="" size={20} />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            align="start"
+            align="end"
             className=" min-w-48 max-w-max space-y-1 "
           >
             <DropdownMenuItem
@@ -70,12 +45,7 @@ const HistoryVideoCardActions = ({ videoId, isInWatchLater }) => {
             >
               <button className="flex items-center gap-x-2">
                 <Clock />
-                <p>
-                  {" "}
-                  {isVideoInWatchLater
-                    ? "Remove from Watch Later"
-                    : "Save to Watch Later"}{" "}
-                </p>
+                <p>Remove from Watch Later</p>
               </button>
             </DropdownMenuItem>
 
@@ -100,4 +70,4 @@ const HistoryVideoCardActions = ({ videoId, isInWatchLater }) => {
   );
 };
 
-export default HistoryVideoCardActions;
+export default WatchLaterVideoItemActions;
