@@ -15,8 +15,11 @@ const RelatedVideoCard = ({ video }) => {
     owner: { fullName } = {},
   } = video;
   return (
-    <article className="relative  border rounded">
-      <Link href={`/videos/${_id}`} className="w-full gap-x-2  pr-2 md:flex">
+    <article className="w-full relative  border rounded">
+      <Link
+        href={`/videos/${_id}`}
+        className="w-full gap-x-2  pr-2 md:flex "
+      >
         <div className="relative mb-2 w-full md:mb-0 md:w-5/12">
           <div className="w-full pt-[56%]">
             <div className="absolute inset-0">

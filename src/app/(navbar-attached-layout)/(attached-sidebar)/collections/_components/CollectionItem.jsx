@@ -7,7 +7,10 @@ const CollectionItem = ({ collection }) => {
     collection || {};
   const [{ thumbnail, _id: firstVideoId } = {}] = videos || [];
   return (
-    <Link href={`/collection/${_id}`} className="w-full">
+    <Link
+      href={`/videos/${firstVideoId}?list=CT_${_id}&index=1`}
+      className="w-full"
+    >
       <div className="relative mb-2 w-full pt-[56%]">
         <div className="absolute inset-0">
           <img src={thumbnail?.url} alt={name} className="h-full w-full" />

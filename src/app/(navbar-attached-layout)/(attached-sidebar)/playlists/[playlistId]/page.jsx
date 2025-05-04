@@ -19,7 +19,7 @@ const ChannelSinglePlaylistPage = async ({ params: { playlistId } }) => {
           }}
         />
         {/* Playlist Videos */}
-        <PlaylistVideos videos={videos} />
+        <PlaylistVideos playlistId={playlistId} videos={videos} />
       </div>
     </section>
   );

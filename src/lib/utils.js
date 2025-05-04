@@ -31,3 +31,10 @@ export function formatFileSize(bytes) {
 
   return `${size} ${units[i]}`;
 }
+
+// get searchPrams from headers x-url
+export function getSearchParamsFromHeader(headers) {
+  const queries = headers.get("searchParams");
+  const searchParams = new URLSearchParams(queries);
+  return searchParams;
+}

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import VideoHorizontalCardActions from "./VideoHorizontalCardActions";
 
-const VideoHorizontalCard = ({ video }) => {
+const VideoHorizontalCard = ({ video, linkQuery }) => {
   const {
     _id,
     title,
@@ -15,10 +15,14 @@ const VideoHorizontalCard = ({ video }) => {
     duration,
     owner: { avatar, username, fullName } = {},
   } = video || {};
-
+  let link = `/videos/${_id}`;
+  if (linkQuery) {
+    const queryParams = new URLSearchParams(linkQuery);
+    link += `?${queryParams.toString()}`;
+  }
   return (
     <article className="relative">
-      <Link href={`/videos/${_id}`} className="block">
+      <Link href={link} className="block">
         <div className="gap-x-4 md:flex">
           {/* Thumbnail Section */}
           <figure className="mb-2 w-full md:mb-0 md:w-5/12 2xl:w-3/12">

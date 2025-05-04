@@ -47,7 +47,10 @@ const WatchLaterVideoItem = ({ index, item: { video, _id } }) => {
             />
             <div className=" gap-x-4 flex">
               <div className="relative mb-2  md:mb-0 w-2/4 lg:w-1/4 h-[140px]">
-                <Link key={videoId} href={`/videos/${videoId}`}>
+                <Link
+                  key={videoId}
+                  href={`/videos/${videoId}?list=WL_125fd&index=${index + 1}`}
+                >
                   <div className="w-full">
                     <div className="absolute inset-0">
                       <img

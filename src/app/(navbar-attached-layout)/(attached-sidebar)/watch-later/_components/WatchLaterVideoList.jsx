@@ -20,14 +20,14 @@ import React, { useEffect, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
 
 import { reorderWatchLaterVideos } from "@/server-actions/watchLater.action";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import WatchLaterVideoItem from "./WatchLaterVideoItem";
-import { useRouter } from "next/navigation";
 
 const WatchLaterVideoList = ({ dbVideos }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [items, setItems] = useState(dbVideos);
-  const router  = useRouter();
+  const router = useRouter();
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -54,7 +54,7 @@ const WatchLaterVideoList = ({ dbVideos }) => {
     }));
     reorderWatchLaterVideos(bulkUpdateData)
       .then((data) => {
-        router.refresh()
+        router.refresh();
         toast.success("Videos reordered successfully");
       })
       .catch((e) => {
