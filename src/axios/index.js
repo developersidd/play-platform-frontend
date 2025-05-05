@@ -23,6 +23,7 @@ export async function fetchWithAuth(url, options = {}) {
     }
     const response = await apiClient({
       url,
+      method: "GET",
       ...options,
       headers: {
         ...options.headers,

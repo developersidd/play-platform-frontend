@@ -4,7 +4,7 @@ import VideoHorizontalCard from "@/components/common/cards/VideoHorizontalCard";
 import { getVideos } from "@/server-actions/video.action";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
-import { TableVirtuoso, Virtuoso, VirtuosoGrid } from "react-virtuoso";
+import { Virtuoso, VirtuosoGrid } from "react-virtuoso";
 import Error from "../common/Error";
 
 const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {

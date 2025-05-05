@@ -11,9 +11,7 @@ const retrieveCurrentUser = async () => {
         error: "No access token found",
       };
     }
-    const res = await fetchWithAuth("/users/current-user", {
-      method: "GET",
-    });
+    const res = await fetchWithAuth("/users/current-user");
     return {
       data: res.data,
     };
@@ -42,14 +40,26 @@ const getChannelByUsername = async (username, loggedInUserId) => {
   }
 };
 
+// get user channel stats
+const getUserChannelStats = async () => {
+  try {
+    const res = await fetchWithAuth(`/users/profile/stats`);
+    return {
+      data: res.data,
+    };
+  } catch (e) {
+    console.log(" e:", e)
+    return {
+      error: e.message,
+    };
+  }
+};
+
 // get user history
 const getUserHistory = async (search = "") => {
   try {
     const res = await fetchWithAuth(
-      `/users/history?q=${encodeURIComponent(search)}`,
-      {
-        method: "GET",
-      }
+      `/users/history?q=${encodeURIComponent(search)}`
     );
     return {
       data: res?.data,
@@ -61,4 +71,9 @@ const getUserHistory = async (search = "") => {
   }
 };
 
-export { getChannelByUsername, getUserHistory, retrieveCurrentUser };
+export {
+  getChannelByUsername,
+  getUserChannelStats,
+  getUserHistory,
+  retrieveCurrentUser,
+};

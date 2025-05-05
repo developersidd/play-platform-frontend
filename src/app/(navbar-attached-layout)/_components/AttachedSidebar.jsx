@@ -13,6 +13,7 @@ import {
   FolderClock,
   History,
   Home,
+  MonitorCog,
   Settings,
   ThumbsUp,
   UserCheck,
@@ -23,6 +24,7 @@ import { usePathname } from "next/navigation";
 
 // AttachedSidebar items with link property
 const sidebarItems = [
+  { icon: <MonitorCog />, label: "Dashboard", link: "/dashboard" },
   { icon: <Home />, label: "Home", link: "/" },
   {
     icon: <ThumbsUp />,
