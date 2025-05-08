@@ -17,7 +17,7 @@ const InfiniteVideosToCreatePlaylist = ({
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [isInfiniteLoading, setIsInfiniteLoading] = useState(true);
   const [searchedVideos, setSearchedVideos] = useState([]);
 
@@ -31,6 +31,7 @@ const InfiniteVideosToCreatePlaylist = ({
           page,
           limit: 20,
           username,
+          
         };
         if (searchQuery.trim()?.length > 0) {
           params.q = decodeURI(searchQuery?.toLowerCase());
@@ -50,7 +51,7 @@ const InfiniteVideosToCreatePlaylist = ({
       } catch (error) {
         setError(error.message);
       } finally {
-        setIsLoading(false);
+        setIsInitialLoading(false);
         setIsInfiniteLoading(false);
       }
     };
@@ -59,7 +60,7 @@ const InfiniteVideosToCreatePlaylist = ({
   }, [page, hasMore, searchQuery]);
   // decide what to render
   let content;
-  if (isLoading) {
+  if (isInitialLoading) {
     content = (
       <div className="flex justify-center py-5">
         <Loader size={30} className="animate-spin" />

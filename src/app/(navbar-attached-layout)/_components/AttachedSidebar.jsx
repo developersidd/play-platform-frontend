@@ -14,6 +14,7 @@ import {
   History,
   Home,
   MonitorCog,
+  Play,
   Settings,
   ThumbsUp,
   UserCheck,
@@ -25,6 +26,7 @@ import { usePathname } from "next/navigation";
 // AttachedSidebar items with link property
 const sidebarItems = [
   { icon: <MonitorCog />, label: "Dashboard", link: "/dashboard" },
+  { icon: <Play />, label: "My Videos", link: "/dashboard/videos" },
   { icon: <Home />, label: "Home", link: "/" },
   {
     icon: <ThumbsUp />,

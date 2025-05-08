@@ -40,7 +40,9 @@ const DashboardHeader = ({ stats }) => {
               </span>
             </div>
             <h6 className="">{name}</h6>
-            <p className="text-3xl font-semibold">{stats[valueProperty]}</p>
+            <p className="text-3xl font-semibold">
+              {stats[valueProperty] ?? 0}
+            </p>
           </div>
         ))}
       </div>

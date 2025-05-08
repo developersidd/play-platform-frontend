@@ -12,7 +12,7 @@ const AttachedSidebarLayout = ({ children }) => {
       <section
         style={{
           width: `calc(100vw - ${sidebarWidth}px)`,
-          transform: `translateX(${sidebarWidth}px)`,
+          transform: `translateX(${sidebarWidth - 5}px)`,
         }}
         className={`transition-all h-auto `}
       >
