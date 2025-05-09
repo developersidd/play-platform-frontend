@@ -48,7 +48,8 @@ const VideosTableFooter = ({ totalPages }) => {
                 key={num}
                 onClick={() => {
                   setPerPage(num);
-                  setValue("limit", num);
+                  setValue(["limit", "page"], [num, 1]);
+                  
                 }}
               >
                 {num}

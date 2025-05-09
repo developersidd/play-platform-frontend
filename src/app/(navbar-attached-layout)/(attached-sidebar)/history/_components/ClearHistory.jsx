@@ -24,6 +24,7 @@ const ClearHistory = () => {
       toast.error("There was an error occurred");
     }
   };
+  
 
   return (
     <>

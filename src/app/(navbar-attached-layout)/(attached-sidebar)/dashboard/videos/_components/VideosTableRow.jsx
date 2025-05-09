@@ -1,27 +1,27 @@
 import { TableCell, TableRow } from "@/components/ui/table";
-import { Pencil, ScanSearch, Trash2 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MoreHorizontal } from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
-import Link from "next/link";
 import ToggleVideoStatus from "./ToggleVideoStatus";
+import VideoRowActions from "./VideoRowActions";
 
-const VideosTableRow = ({ video, ind }) => {
-  const { _id, title, thumbnail, createdAt, likes, dislikes, isPublished } =
-    video || {};
+const VideosTableRow = ({ video }) => {
+  const {
+    _id,
+    title,
+    thumbnail,
+    createdAt,
+    likes,
+    dislikes,
+    isPublished,
+    views,
+  } = video || {};
+
   return (
     <TableRow className=" h-[70px]">
-      <ToggleVideoStatus isPublished={isPublished} />
-      <TableCell className="w-1/3">
-        <div className="flex items-center gap-4">
+      <ToggleVideoStatus videoId={_id} isPublished={isPublished} />
+      <TableCell className="w-[30%]">
+        <div className="flex items-center gap-4 pr-5">
           <Image
             width={40}
             height={40}
@@ -32,9 +32,18 @@ const VideosTableRow = ({ video, ind }) => {
             }
             alt={title || "Video Thumbnail"}
           />
-          <h3 className="font-semibold">{title}</h3>
+          <h3 className="font-semibold">
+            {title?.length > 100 ? title?.slice(0, 100) + "..." : title}
+          </h3>
         </div>
       </TableCell>
+      <TableCell>
+        {/* style for views */}
+        <span className="inline-block rounded-xl bg-blue-200 px-1.5 py-0.5 text-blue-700">
+          {views} views
+        </span>
+      </TableCell>
+
       <TableCell>
         <div className="flex gap-4">
           <span className="inline-block rounded-xl bg-green-200 px-1.5 py-0.5 text-green-700">
@@ -46,34 +55,9 @@ const VideosTableRow = ({ video, ind }) => {
         </div>
       </TableCell>
       <TableCell>{moment(createdAt).format("Do MMM YYYY")}</TableCell>
-      <TableCell>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-4 w-8 p-0">
-              <span className="sr-only">Open Menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <Link href={`/videos/${_id}`}>
-              <DropdownMenuItem className="cursor-pointer">
-                <ScanSearch className="h-4 w-4 mr-2" />
-                View
-              </DropdownMenuItem>
-            </Link>
-
-            <DropdownMenuItem className="cursor-pointer">
-              <Pencil className="h-4 w-4 mr-2" />
-              Edit
-            </DropdownMenuItem>
-
-            <DropdownMenuItem className="cursor-pointer">
-              <Trash2 className="h-4 w-4 mr-2 " />
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </TableCell>
+      <VideoRowActions 
+      isVideoPublished={isPublished}
+      title={title} videoId={_id} />
     </TableRow>
   );
 };

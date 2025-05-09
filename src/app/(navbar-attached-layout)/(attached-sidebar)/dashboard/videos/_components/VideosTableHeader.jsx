@@ -24,10 +24,10 @@ const VideosTableHeader = () => {
   const { setValue, getValue } = useQueryParam();
   const [search, setSearch] = useState(getValue("search") || "");
   const [filterField, setFilterField] = useState(getValue("sortyBy") || "Date");
-  const [sortOrder, setSortOrder] = useState(getValue("sortOrder") || "Asc");
+  const [sortOrder, setSortOrder] = useState(getValue("sortOrder") || "Desc");
   const [status, setStatus] = useState(getValue("status") || "all");
   const handleDebounceSearch = useDebounce((value) => {
-    setValue("search", value);
+    setValue(["search", "page"], [value, 1]);
   }, 500);
   return (
     <div className="w-full">
@@ -50,7 +50,7 @@ const VideosTableHeader = () => {
               title="Clear search"
               onClick={() => {
                 setSearch("");
-                setValue("search", "");
+                setValue(["search", "page"], ["", 0]);
               }}
               className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 absolute right-2 top-1/2 inline-block -translate-y-1/2"
             >

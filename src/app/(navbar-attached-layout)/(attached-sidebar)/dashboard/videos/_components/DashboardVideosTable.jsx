@@ -12,11 +12,12 @@ const DashboardVideosTable = ({ videos }) => {
   return (
     <ScrollArea className="h-[calc(100vh-230px)]   border ">
       <Table className="w-full ">
-        <TableHeader className=" h-[55px] *:text-base  *:dark:text-white *:font-medium !sticky top  border-b-2">
+        <TableHeader className=" h-[55px] *:text-base  *:dark:text-white *:font-medium   bg-dark-bg">
           <TableRow>
             <TableHead className="pl-4">Status </TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Uploaded Video</TableHead>
+            <TableHead>Views</TableHead>
             <TableHead>Rating</TableHead>
             <TableHead>Date Uploaded</TableHead>
             <TableHead></TableHead>

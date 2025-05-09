@@ -1,5 +1,7 @@
 "use server";
 import { apiClient, fetchWithAuth } from "../axios";
+
+// get all videos
 const getVideos = async (queries) => {
   let url = "/videos";
   if (Object.keys(queries).length > 0) {
@@ -22,6 +24,7 @@ const getVideos = async (queries) => {
   }
 };
 
+// get video by id
 const getVideoById = async (id, userId) => {
   try {
     let url = `/videos/${id}`;
@@ -71,6 +74,7 @@ const getRelatedVideos = async (videoId, queries) => {
   }
 };
 
+// get liked videos
 const getLikedVideos = async () => {
   try {
     const res = await fetchWithAuth(`/videos/liked`, {
@@ -86,5 +90,6 @@ const getLikedVideos = async () => {
     };
   }
 };
+
 
 export { getLikedVideos, getRelatedVideos, getVideoById, getVideos };

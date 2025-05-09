@@ -16,13 +16,12 @@ function Paginate({ currentPage, totalPages, onPageChange }) {
       pageNumbers.push(i);
     }
   } else {
-    if (currentPage <= 3) {
+    if (currentPage <= 2) {
       pageNumbers.push(1, 2, 3, "...", totalPages);
-    } else if (currentPage >= totalPages - 3) {
+    } else if (currentPage >= totalPages - 2) {
       pageNumbers.push(
         1,
         "...",
-        totalPages - 4,
         totalPages - 3,
         totalPages - 2,
         totalPages - 1,
@@ -59,6 +58,7 @@ function Paginate({ currentPage, totalPages, onPageChange }) {
               <PaginationEllipsis />
             ) : (
               <PaginationLink
+                className="cursor-pointer"
                 isActive={currentPage === num}
                 onClick={() => onPageChange(num)}
               >
