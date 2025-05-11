@@ -12,7 +12,7 @@ import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 const VideosTableFooter = ({ totalPages }) => {
   const { setValue, getValue } = useQueryParam();
-  const [perPage, setPerPage] = useState(parseInt(getValue("limit")) || 10);
+  const [perPage, setPerPage] = useState(parseInt(getValue("limit")) || 20);
   const currentPageNum = parseInt(getValue("page")) || 1;
   const [currentPage, setCurrentPage] = useState(currentPageNum);
 
@@ -49,7 +49,6 @@ const VideosTableFooter = ({ totalPages }) => {
                 onClick={() => {
                   setPerPage(num);
                   setValue(["limit", "page"], [num, 1]);
-                  
                 }}
               >
                 {num}

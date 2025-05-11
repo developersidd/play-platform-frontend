@@ -7,7 +7,7 @@ import {
 import { TableCell } from "@/components/ui/table";
 import useAxios from "@/hooks/useAxios";
 import { Pencil, ScanSearch, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { lazy, useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +16,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+const LazyUploadVideoModal = lazy(() => import("@/components/video/UploadVideoModal"));
 import { useToast } from "@/hooks/use-toast";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
@@ -27,6 +28,14 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
   const { toast } = useToast();
 
   const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  useEffect(() => {
+    if (openEditModal) {
+      editModalTriggerRef?.current?.click();
+    }
+  }, [openEditModal]);
+
+  const editModalTriggerRef = useRef(null);
   const handleDeleteVideo = async () => {
     try {
       setOpenDeleteAlert(false);
@@ -35,7 +44,7 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
       router.refresh();
       sonnerToast.success("Video deleted successfully");
     } catch (e) {
-      console.log(" e:", e)
+      console.log(" e:", e);
       sonnerToast.error("There was an error occurred");
     }
   };
@@ -68,7 +77,12 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
             </DropdownMenuItem>
           </Link>
 
-          <DropdownMenuItem className="cursor-pointer">
+          <DropdownMenuItem
+            onClick={() => {
+              setOpenEditModal(true);
+            }}
+            className="cursor-pointer"
+          >
             <Pencil className="h-4 w-4 mr-2" />
             Edit
           </DropdownMenuItem>
@@ -82,6 +96,14 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      {/* Edit video Modal */}
+      {openEditModal && (
+        <LazyUploadVideoModal videoId={videoId}>
+          <button ref={editModalTriggerRef}></button>
+        </LazyUploadVideoModal>
+      )}
+
+      {/*  Show Delete alert */}
       <AlertDialog open={openDeleteAlert} onOpenChange={setOpenDeleteAlert}>
         <AlertDialogContent className="sm:max-w-[25%] h-[24%] block  border-0">
           <div className="flex flex-col h-full">

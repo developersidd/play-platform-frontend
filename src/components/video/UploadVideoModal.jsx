@@ -17,10 +17,12 @@ import useUserContext from "@/hooks/useUserContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import UploadThumbnailForm from "./UploadThumbnailForm";
+import UploadVideoForm from "./UploadVideoForm";
 import UploadVideoProgressModal from "./UploadVideoProgressModal";
 
 const MAX_THUMBNAIL_FILE_SIZE = 5242880; // 5MB
@@ -43,14 +45,20 @@ const formSchema = z.object({
       (file) => checkFileType(file, "video"),
       "Only .mp3, .mp4 formats are supported."
     ),
-  thumbnail: z
-    .any()
-    .refine((file) => file, "Thumbnail is required")
-    .refine((file) => file?.size < MAX_THUMBNAIL_FILE_SIZE, "Max size is 5MB.")
-    .refine(
-      (file) => checkFileType(file, "image"),
-      "Only .png, .jpg, .jpeg formats are supported."
-    ),
+  thumbnail: z.union([
+    z.string(),
+    z
+      .any()
+      .refine((file) => file, "Thumbnail is required")
+      .refine(
+        (file) => file?.size < MAX_THUMBNAIL_FILE_SIZE,
+        "Max size is 5MB."
+      )
+      .refine(
+        (file) => checkFileType(file, "image"),
+        "Only .png, .jpg, .jpeg formats are supported."
+      ),
+  ]),
   title: z
     .string()
     .min(10, {
@@ -69,7 +77,8 @@ const formSchema = z.object({
     }),
 });
 
-const UploadVideoModal = ({ children }) => {
+const UploadVideoModal = ({ children, videoId }) => {
+  const isEditingVideo = Boolean(videoId);
   const router = useRouter();
   const abortControllerRef = useRef(null);
   const [showProgressModal, setShowProgressModal] = useState(false);
@@ -78,6 +87,7 @@ const UploadVideoModal = ({ children }) => {
   const [videoFile, setVideoFile] = useState({});
   const [dragging, setDragging] = useState(false);
   const { apiClient } = useAxios();
+
   const {
     state: { _id },
   } = useUserContext();
@@ -91,52 +101,101 @@ const UploadVideoModal = ({ children }) => {
     },
   });
   const { reset, setValue } = form;
+  // fetch video data if editing
+  useEffect(() => {
+    if (isEditingVideo) {
+      // if the form in editing mode then need to make the videoFile optional
+      formSchema.shape.videoFile = z.any().optional();
+      const fetchVideoData = async () => {
+        try {
+          const { data } = await apiClient.get(`/videos/${videoId}`);
+          const { title, description, thumbnail } = data.data;
+          console.log(" title:", title);
+          setValue("title", title);
+          setValue("description", description);
+          setValue("thumbnail", thumbnail?.url);
+        } catch (error) {
+          console.error("Error fetching video data:", error);
+        }
+      };
+      fetchVideoData();
+    }
+  }, [isEditingVideo, videoId]);
+
   const { isSubmitting } = form.formState;
   async function onSubmit(data) {
+    console.log(" data:", data)
     if (!_id) {
       return toast.error("You must be logged in to upload videos!");
     }
-    const controller = new AbortController();
-    //setController(controller);
-    abortControllerRef.current = controller;
-    setUploading(true);
-    setShowUploadModal(false);
-    setShowProgressModal(true);
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      const response = await apiClient.post("/videos", formData, {
-        signal: controller.signal,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+    if (isEditingVideo) {
+      // Edit video
+      console.log("Editing video");
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        if (value) {
+          formData.append(key, value);
+        }
       });
-      console.log("response:", response.data);
-      //router.push(`/${username}`);
-      if (response.status === 201) {
-        router.refresh();
-        toast.success("Video uploaded successfully!");
+      try {
+        const response = await apiClient.patch(`/videos/${videoId}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log("response:", response.data);
+        //router.push(`/${username}`);
+        if (response.status === 200) {
+          router.refresh();
+          toast.success("Video edited successfully!");
+        }
+      } catch (e) {
+        console.log("err editing", e);
+        toast.error("Error occurred while editing video");
       }
-    } catch (e) {
-      console.log(" e:", e);
-      // Check if error is due to cancellation
-      if (axios.isCancel(e) || e?.name === "CanceledError") {
-        toast.info("Video Upload canceled");
-        return;
+    } else {
+      // upload video
+      const controller = new AbortController();
+      //setController(controller);
+      abortControllerRef.current = controller;
+      setUploading(true);
+      setShowUploadModal(false);
+      setShowProgressModal(true);
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        const response = await apiClient.post("/videos", formData, {
+          signal: controller.signal,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log("response:", response.data);
+        //router.push(`/${username}`);
+        if (response.status === 201) {
+          router.refresh();
+          toast.success("Video uploaded successfully!");
+        }
+      } catch (e) {
+        console.log(" e:", e);
+        // Check if error is due to cancellation
+        if (axios.isCancel(e) || e?.name === "CanceledError") {
+          toast.info("Video Upload canceled");
+          return;
+        }
+        toast.error("There was an error occurred uploading video!");
+      } finally {
+        //form.reset();
+        setShowProgressModal(false);
+        setUploading(false);
       }
-      toast.error("There was an error uploading video!");
-    } finally {
-      //form.reset();
-      setShowProgressModal(false);
-      setUploading(false);
     }
   }
   // Drag and Drop Functionality
-
   const handleDragOver = (e) => {
     e.preventDefault();
     if (!dragging) {
@@ -158,7 +217,6 @@ const UploadVideoModal = ({ children }) => {
       setValue("videoFile", file);
     }
   };
-
 
   // Cancel Request handler
   const handleCancelRequest = () => {
@@ -184,6 +242,7 @@ const UploadVideoModal = ({ children }) => {
               <h2 className="text-xl font-semibold">Upload Videos</h2>
               {/*<DialogClose asChild>*/}
               <button
+                type="submit"
                 disabled={isSubmitting}
                 onClick={() => {
                   form.handleSubmit(onSubmit)();
@@ -203,105 +262,21 @@ const UploadVideoModal = ({ children }) => {
               onSubmit={form.handleSubmit(onSubmit)}
             >
               {/* Upload video Input */}
-              <FormField
-                control={form.control}
-                name="videoFile"
-                render={({ field: { value, onChange, ...fieldProps } }) => (
-                  <FormItem>
-                    <FormControl>
-                      <div
-                        onDragOver={handleDragOver}
-                        onDragLeave={handleDragLeave}
-                        onDrop={handleDrop}
-                        className={`w-full border-2 border-dashed px-4 py-12 text-center cursor-drop ${
-                          dragging ? "border-purple-500" : ""
-                        }`}
-                      >
-                        <span className="mb-4 inline-block w-24 rounded-full bg-[#E4D3FF] p-4 text-[#AE7AFF]">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            aria-hidden="true"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
-                            ></path>
-                          </svg>
-                        </span>
-                        {
-                          // Show video file name if selected
-                          videoFile?.name && (
-                            <p className="mb-2 ">
-                              {" "}
-                              Selected File:{" "}
-                              <span className="font-semibold">
-                                {value?.name}{" "}
-                              </span>{" "}
-                            </p>
-                          )
-                        }
-                        <h6 className="mb-2 font-semibold">
-                          Drag and drop video files to upload
-                        </h6>
-                        <p className="text-gray-400">
-                          Your videos will be private untill you publish them.
-                        </p>
-
-                        <label
-                          for="upload-video"
-                          className="group/btn mt-4 inline-flex w-auto cursor-pointer items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e]"
-                        >
-                          <input
-                            onChange={(e) => {
-                              const file = e.target?.files && e.target.files[0];
-                              setVideoFile(file);
-                              onChange(file);
-                            }}
-                            {...fieldProps}
-                            type="file"
-                            accept="video/mp4, video/mp3"
-                            id="upload-video"
-                            className="sr-only"
-                          />
-                          Select Files
-                        </label>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {!isEditingVideo && (
+                <UploadVideoForm
+                  form={form}
+                  videoFile={videoFile}
+                  setVideoFile={setVideoFile}
+                  handleDragOver={handleDragOver}
+                  handleDragLeave={handleDragLeave}
+                  handleDrop={handleDrop}
+                  dragging={dragging}
+                />
+              )}
               {/* Thumbnail Input */}
-              <FormField
-                control={form.control}
-                name="thumbnail"
-                render={({ field: { value, onChange, ...fieldProps } }) => (
-                  <FormItem>
-                    <FormControl>
-                      <div className="w-full">
-                        <label for="thumbnail" className="mb-1 inline-block">
-                          Thumbnail<sup>*</sup>
-                        </label>
-                        <input
-                          accept="image/png, image/jpeg, image/jpg, image/webp"
-                          {...fieldProps}
-                          onChange={(e) => {
-                            onChange(e.target?.files && e.target.files[0]);
-                          }}
-                          id="thumbnail"
-                          type="file"
-                          className="w-full p-1 border file:mr-4 file:border-none file:bg-[#ae7aff] file:px-3 file:py-1.5"
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+              <UploadThumbnailForm
+                form={form}
+                isEditingVideo={isEditingVideo}
               />
               {/* Title Input */}
               <FormField
