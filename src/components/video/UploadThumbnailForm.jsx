@@ -10,13 +10,14 @@ import Image from "next/image";
 import { useState } from "react";
 import { Button } from "../ui/button";
 const UploadThumbnailForm = ({ form, isEditingVideo }) => {
-  const [isEditingThumbnail, setIsEditingThumbnail] = useState(false);
+  const [isChangingThumbnail, setIsChangingThumbnail] = useState(
+    !isEditingVideo
+  );
   return (
     <FormField
       control={form.control}
       name="thumbnail"
       render={({ field: { value, onChange, ...fieldProps } }) => {
-        console.log("valei", value);
         return (
           <FormItem>
             <FormControl>
@@ -26,14 +27,16 @@ const UploadThumbnailForm = ({ form, isEditingVideo }) => {
                     Thumbnail<sup>*</sup>
                   </label>
                   {/* show edit button if editing video */}
-                  {isEditingVideo && (
+                  {value && (
                     <Button
                       type="button"
                       variant="outline"
                       className=""
-                      onClick={() => setIsEditingThumbnail(!isEditingThumbnail)}
+                      onClick={() => {
+                        setIsChangingThumbnail(!isChangingThumbnail);
+                      }}
                     >
-                      {isEditingThumbnail ? (
+                      {isChangingThumbnail ? (
                         "Cancel"
                       ) : (
                         <>
@@ -45,33 +48,42 @@ const UploadThumbnailForm = ({ form, isEditingVideo }) => {
                   )}
                 </div>
                 {/*  show the image if editing video */}
-                {isEditingVideo && value && (
-                  <div className="my-4">
-                    <Image
-                      width={700}
-                      height={500}
-                      src={value?.name ? URL.createObjectURL(value) : value}
-                      alt="Thumbnail"
-                      className="w-full h-[400px] border"
-                    />
-                    {/* name of the image */}
-                    <p className="mt-2 text-sm text-secondary">{value?.name}</p>
+                {isChangingThumbnail ? (
+                  <div className="mt-5 border-2 border-dashed h-[300px] flex items-center justify-center">
+                    <label
+                      htmlFor="thumbnail"
+                      className="group/btn mt-4 inline-flex w-auto cursor-pointer items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e]"
+                    >
+                      <input
+                        accept="image/png, image/jpeg, image/jpg, image/webp"
+                        {...fieldProps}
+                        onChange={(e) => {
+                          onChange(e.target?.files && e.target.files[0]);
+                          setIsChangingThumbnail(false);
+                        }}
+                        id="thumbnail"
+                        type="file"
+                        className="sr-only "
+                      />
+                      Select File
+                    </label>
                   </div>
-                )}
-
-                {/* input field */}
-                {isEditingThumbnail && (
-                  <input
-                    accept="image/png, image/jpeg, image/jpg, image/webp"
-                    {...fieldProps}
-                    onChange={(e) => {
-                      onChange(e.target?.files && e.target.files[0]);
-                      setIsEditingThumbnail(false);
-                    }}
-                    id="thumbnail"
-                    type="file"
-                    className="w-full p-1 border file:mr-4 file:border-none file:bg-[#ae7aff] file:px-3 file:py-1.5"
-                  />
+                ) : (
+                  value && (
+                    <div className="mt-5">
+                      <Image
+                        width={700}
+                        height={500}
+                        src={value?.name ? URL.createObjectURL(value) : value}
+                        alt="Thumbnail"
+                        className="w-full h-[300px] border"
+                      />
+                      {/* name of the image */}
+                      <p className="mt-2 text-sm text-secondary">
+                        {value?.name}
+                      </p>
+                    </div>
+                  )
                 )}
               </div>
             </FormControl>

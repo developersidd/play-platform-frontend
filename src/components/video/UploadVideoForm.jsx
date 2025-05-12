@@ -20,7 +20,7 @@ const UploadVideoForm = ({
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
-              className={`w-full border-2 border-dashed px-4 py-12 text-center cursor-drop ${
+              className={`w-full border-2 border-dashed px-4 mb-3 py-12 text-center cursor-drop ${
                 dragging ? "border-purple-500" : ""
               }`}
             >

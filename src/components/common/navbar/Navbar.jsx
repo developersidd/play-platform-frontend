@@ -84,7 +84,7 @@ export const Navbar = () => {
                   <Plus className="text-white" /> Playlist
                 </Button>
               </CreatePlaylistModal>
-              <LazyUploadVideoModal>
+              <LazyUploadVideoModal key="upload-video">
                 <Button className="rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
                   <Plus className="text-white" /> Upload
                 </Button>

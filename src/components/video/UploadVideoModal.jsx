@@ -1,8 +1,10 @@
 "use client";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
@@ -16,6 +18,7 @@ import useAxios from "@/hooks/useAxios";
 import useUserContext from "@/hooks/useUserContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -106,6 +109,7 @@ const UploadVideoModal = ({ children, videoId }) => {
     if (isEditingVideo) {
       // if the form in editing mode then need to make the videoFile optional
       formSchema.shape.videoFile = z.any().optional();
+      formSchema.shape.thumbnail = z.any().optional();
       const fetchVideoData = async () => {
         try {
           const { data } = await apiClient.get(`/videos/${videoId}`);
@@ -124,13 +128,11 @@ const UploadVideoModal = ({ children, videoId }) => {
 
   const { isSubmitting } = form.formState;
   async function onSubmit(data) {
-    console.log(" data:", data)
     if (!_id) {
       return toast.error("You must be logged in to upload videos!");
     }
     if (isEditingVideo) {
       // Edit video
-      console.log("Editing video");
       const formData = new FormData();
       Object.entries(data).forEach(([key, value]) => {
         if (value) {
@@ -138,25 +140,22 @@ const UploadVideoModal = ({ children, videoId }) => {
         }
       });
       try {
+        setShowUploadModal(false);
         const response = await apiClient.patch(`/videos/${videoId}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
-        console.log("response:", response.data);
-        //router.push(`/${username}`);
         if (response.status === 200) {
           router.refresh();
           toast.success("Video edited successfully!");
         }
       } catch (e) {
-        console.log("err editing", e);
         toast.error("Error occurred while editing video");
       }
     } else {
       // upload video
       const controller = new AbortController();
-      //setController(controller);
       abortControllerRef.current = controller;
       setUploading(true);
       setShowUploadModal(false);
@@ -174,14 +173,12 @@ const UploadVideoModal = ({ children, videoId }) => {
             "Content-Type": "multipart/form-data",
           },
         });
-        console.log("response:", response.data);
-        //router.push(`/${username}`);
         if (response.status === 201) {
+          reset();
           router.refresh();
           toast.success("Video uploaded successfully!");
         }
       } catch (e) {
-        console.log(" e:", e);
         // Check if error is due to cancellation
         if (axios.isCancel(e) || e?.name === "CanceledError") {
           toast.info("Video Upload canceled");
@@ -189,7 +186,6 @@ const UploadVideoModal = ({ children, videoId }) => {
         }
         toast.error("There was an error occurred uploading video!");
       } finally {
-        //form.reset();
         setShowProgressModal(false);
         setUploading(false);
       }
@@ -235,12 +231,25 @@ const UploadVideoModal = ({ children, videoId }) => {
       {/* Upload Video Modal */}
       <Dialog open={showUploadModal} onOpenChange={setShowUploadModal}>
         <DialogTrigger asChild>{children}</DialogTrigger>
-        <DialogContent className="sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg">
+        <DialogContent
+          hideCloseButton
+          className="sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg"
+        >
           <DialogHeader className="block w-full mt-3">
-            {/*<DialogTitle>*/}
             <div className="flex items-center justify-between border-b p-4 ">
-              <h2 className="text-xl font-semibold">Upload Videos</h2>
-              {/*<DialogClose asChild>*/}
+              <DialogTitle className="text-xl font-semibold">
+                {" "}
+                {isEditingVideo ? "Edit Video" : "Upload Video"}{" "}
+              </DialogTitle>
+              <DialogClose
+                onClick={() => {
+                  reset();
+                }}
+                className="cursor-pointer absolute top-[12px] right-4"
+                asChild
+              >
+                <X size={18} />
+              </DialogClose>
               <button
                 type="submit"
                 disabled={isSubmitting}

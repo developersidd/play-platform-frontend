@@ -16,16 +16,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-const LazyUploadVideoModal = lazy(() => import("@/components/video/UploadVideoModal"));
-import { useToast } from "@/hooks/use-toast";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { toast as sonnerToast } from "sonner";
+import { toast } from "sonner";
+const LazyUploadVideoModal = lazy(() =>
+  import("@/components/video/UploadVideoModal")
+);
 const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
   const { apiClient } = useAxios();
   const router = useRouter();
-  const { toast } = useToast();
 
   const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -42,18 +42,17 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
       const res = await apiClient.delete(`/videos/${videoId}`);
       console.log(" res:", res);
       router.refresh();
-      sonnerToast.success("Video deleted successfully");
+      toast.success("Video deleted successfully");
     } catch (e) {
       console.log(" e:", e);
-      sonnerToast.error("There was an error occurred");
+      toast.error("There was an error occurred");
     }
   };
 
   const handleDeleteAlert = () => {
     if (isVideoPublished) {
-      toast({
-        title: "Video is Published",
-        description: "You cannot delete a published video",
+      return toast.info("Video is published", {
+        description: "You need to unpublish the video before deleting it.",
       });
     } else {
       setOpenDeleteAlert(true);
@@ -98,7 +97,7 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
       </DropdownMenu>
       {/* Edit video Modal */}
       {openEditModal && (
-        <LazyUploadVideoModal videoId={videoId}>
+        <LazyUploadVideoModal key="edit-video" videoId={videoId}>
           <button ref={editModalTriggerRef}></button>
         </LazyUploadVideoModal>
       )}
