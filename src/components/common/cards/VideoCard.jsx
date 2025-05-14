@@ -13,7 +13,7 @@ const VideoCard = ({ video }) => {
   } = video || {};
 
   return (
-    <div key={_id} className="w-full space-y-5">
+    <div key={_id} className="w-full max-h-[250px] !space-y-0">
       <div className="relative mb-2 w-full pt-[56%]">
         <Link href={`/videos/${_id}`} className="absolute inset-0">
           <img

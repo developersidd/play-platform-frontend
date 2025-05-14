@@ -5,18 +5,19 @@ import WatchLaterSidebar from "./_components/WatchLaterSidebar";
 import WatchLaterVideoList from "./_components/WatchLaterVideoList";
 
 const WatchLaterPage = async () => {
-  const { data = [], error } = (await getWatchLaterVideos()) || {};
-  const firstVideoThumbnailUrl = (data || [])[0]?.video?.thumbnail?.url;
+  const { data: { videos = [] } = {}, error } =
+    (await getWatchLaterVideos()) || {};
+  const firstVideoThumbnailUrl = videos[0]?.video?.thumbnail?.url;
   // decide what to render
   let content;
-  if (data?.length > 0) {
+  if (videos.length > 0) {
     content = (
       <>
         <WatchLaterSidebar thumbnailUrl={firstVideoThumbnailUrl} />
-        <WatchLaterVideoList dbVideos={data} />
+        <WatchLaterVideoList dbVideos={videos} />
       </>
     );
-  } else if (data?.length === 0) {
+  } else if (videos?.length === 0) {
     content = (
       <NoVideosFound
         className={"h-[calc(100vh-120px)]"}

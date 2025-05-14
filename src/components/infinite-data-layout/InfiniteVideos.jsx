@@ -17,10 +17,6 @@ const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {
 
   // Fixed layout configuration
   const layoutConfig = {
-    listClass:
-      layout === "grid"
-        ? "grid 2xl:grid-cols-5 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-7"
-        : "flex flex-col space-y-4",
     component: layout === "grid" ? VirtuosoGrid : Virtuoso,
     itemComponent: layout === "grid" ? VideoCard : VideoHorizontalCard,
   };
@@ -55,9 +51,9 @@ const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {
       <layoutConfig.component
         data={videos}
         overscan={20}
-        className=""
+        className="m-0 space-y-0"
         useWindowScroll
-        listClassName="grid 2xl:grid-cols-5 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-6"
+        listClassName="grid 2xl:grid-cols-5 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-6 space-y-0"
         endReached={() => hasMore && setPage((p) => p + 1)}
         itemContent={(_, video) => <layoutConfig.itemComponent video={video} />}
       />

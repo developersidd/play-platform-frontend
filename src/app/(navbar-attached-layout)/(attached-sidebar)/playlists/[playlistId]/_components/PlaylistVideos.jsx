@@ -4,12 +4,15 @@ const PlaylistVideos = ({ videos, playlistId }) => {
   return (
     <div className="flex w-full flex-col gap-y-4">
       {videos?.length > 0 ? (
-        videos.map((video, index) => (
+        videos.map(({ video }, index) => (
           <div key={video?._id} className="border rounded">
-            <VideoHorizontalCard linkQuery={{
-              list: `PL_${playlistId}`,
-              index: index,
-            }} video={video} />
+            <VideoHorizontalCard
+              linkQuery={{
+                list: `PL_${playlistId}`,
+                index: index + 1,
+              }}
+              video={video}
+            />
           </div>
         ))
       ) : (

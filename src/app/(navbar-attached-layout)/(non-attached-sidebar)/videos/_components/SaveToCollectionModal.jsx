@@ -52,7 +52,7 @@ const SaveToCollectionModal = ({ videoId, open, setIsOpen, children }) => {
             collection={collection}
             videoId={videoId}
             isSaved={collection?.videos?.some(
-              (videoId) => videoId?.toString() === videoId
+              ({ video }) => video?.toString() === videoId
             )}
           />
         ))}

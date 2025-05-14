@@ -39,15 +39,11 @@ const removeVideoFromWatchLater = async (videoId) => {
 const getWatchLaterVideos = async () => {
   try {
     //throw new Error("Not implemented yet");
-    const { data } =
-      (await fetchWithAuth(`/watch-later/videos`, {
-        method: "GET",
-      })) || {};
+    const { data } = (await fetchWithAuth(`/watch-later/videos`)) || {};
     return {
       data,
     };
   } catch (error) {
-    console.log(" error:", error);
     return {
       error: error.message,
     };

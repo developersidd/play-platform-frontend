@@ -13,7 +13,7 @@ const ChannelSinglePlaylistPage = async ({ params: { playlistId } }) => {
         <SinglePlaylistDetails
           playlistInfo={{
             totalVideos: videos?.length,
-            video: (videos ?? [])[0],
+            video: (videos ?? [])[0]?.video,
             owner,
             ...rest,
           }}

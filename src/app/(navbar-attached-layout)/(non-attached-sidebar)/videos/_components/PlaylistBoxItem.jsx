@@ -3,14 +3,20 @@ import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-const PlaylistBoxItem = async ({ video, isActiveVideo, playlistId, index }) => {
+const PlaylistBoxItem = async ({
+  videoItem: { video },
+  isActiveVideo,
+  playlistId,
+  index,
+}) => {
   const { _id, title, thumbnail, duration } = video || {};
 
   return (
     <Button
-      key={_id}
-      variant={isActiveVideo ? "secondary" : "ghost"}
-      className="w-full justify-start  h-[80px] relative"
+      variant="ghost"
+      className={`w-full ${
+        isActiveVideo ? "bg-dark-bg" : ""
+      } justify-start items-start  h-[80px] relative`}
       asChild
     >
       <Link

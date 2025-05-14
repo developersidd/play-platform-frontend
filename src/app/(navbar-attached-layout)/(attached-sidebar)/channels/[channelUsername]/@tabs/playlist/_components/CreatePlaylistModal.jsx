@@ -23,7 +23,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import AddVideosInPlaylistModal from "./AddVideosInPlaylistModal";
-const playlistTypes = ["videoPlaylist", "watchLater"];
 const formSchema = z.object({
   name: z
     .string()
@@ -52,7 +51,7 @@ const formSchema = z.object({
     }),
 });
 
-const CreatePlaylistModal = ({ children, playlistType = "videoPlaylist" }) => {
+const CreatePlaylistModal = ({ children,  }) => {
   const router = useRouter();
   const [showUploadModal, setShowUploadModal] = useState(false);
   const { apiClient } = useAxios();
@@ -69,23 +68,22 @@ const CreatePlaylistModal = ({ children, playlistType = "videoPlaylist" }) => {
     },
   });
   const { reset, setValue } = form;
-  const { isSubmitting, errors } = form.formState;
+  const { isSubmitting } = form.formState;
   async function onSubmit(data) {
-    if (playlistTypes.includes(playlistType)) {
-      data.type = playlistType;
-    }
     if (!_id) {
       return toast.error("You must be logged in to upload videos!");
     }
     setShowUploadModal(false);
     try {
-      const response = await apiClient.post(`/playlist`, data);
+      const response = await apiClient.post(`/playlists`, data);
       router.push(`/channels/${username}/playlist`);
+      console.log(" response:", response)
       if (response.status === 201) {
         toast.success("Playlist create successfully!");
         reset();
       }
     } catch (e) {
+      console.log(" e:", e)
       toast.error("There was an error occurred!");
     }
   }

@@ -30,7 +30,6 @@ export async function fetchWithAuth(url, options = {}) {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    //console.log("response:", response);
     return response.data;
   } catch (error) {
     //console.log("error in fetchwith:", error);

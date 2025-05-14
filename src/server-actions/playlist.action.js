@@ -4,6 +4,7 @@ import { apiClient, fetchWithAuth } from "../axios";
 const getPlaylistById = async (id) => {
   try {
     const res = await apiClient.get(`/playlists/${id}`);
+    //console.log(" res:", JSON.stringify( res.data, null, 2));
     return {
       data: res.data?.data,
     };
@@ -24,7 +25,7 @@ const getUserPlaylists = async (username, queries = {}) => {
         params: queries,
       }
     );
-    console.log("playlist:", res.data);
+    //console.log("playlist:", res.data);
     return {
       data: res.data?.data,
     };
@@ -41,6 +42,8 @@ const getUserCollections = async (queries = {}) => {
     const res = await fetchWithAuth(`/playlists/collections`, {
       params: queries,
     });
+    console.log(" collections:", JSON.stringify( res.data, null, 2));
+
     return {
       data: res?.data,
     };

@@ -22,6 +22,7 @@ const VideoCollectionItem = ({ isSaved, collection, videoId }) => {
       );
       console.log(" res:", res);
     } catch (error) {
+      console.log(" error:", error)
       toast.error("Failed to save or remove video from collection");
     }
   }, 3000);

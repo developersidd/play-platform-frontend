@@ -31,7 +31,6 @@ const InfiniteVideosToCreatePlaylist = ({
           page,
           limit: 20,
           username,
-          
         };
         if (searchQuery.trim()?.length > 0) {
           params.q = decodeURI(searchQuery?.toLowerCase());
