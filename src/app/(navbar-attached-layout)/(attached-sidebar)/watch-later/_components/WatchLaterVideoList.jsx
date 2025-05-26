@@ -1,26 +1,10 @@
 "use client";
-const DroppableVirtuosoList = React.forwardRef(({ style, children }, ref) => (
-  <div
-    {...provided.droppableProps}
-    ref={(el) => {
-      provided.innerRef(el);
-      if (typeof ref === "function") ref(el);
-      else if (ref) ref.current = el;
-    }}
-    style={style}
-  >
-    {children}
-    {provided.placeholder}
-  </div>
-));
-DroppableVirtuosoList.displayName = "DroppableVirtuosoList";
-
-import { DragDropContext, Droppable } from "@hello-pangea/dnd";
-import React, { useEffect, useState } from "react";
-import { Virtuoso } from "react-virtuoso";
 
 import { reorderWatchLaterVideos } from "@/server-actions/watchLater.action";
+import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { useRouter } from "next/navigation";
+import { forwardRef, useEffect, useState } from "react";
+import { Virtuoso } from "react-virtuoso";
 import { toast } from "sonner";
 import WatchLaterVideoItem from "./WatchLaterVideoItem";
 
@@ -75,22 +59,28 @@ const WatchLaterVideoList = ({ dbVideos }) => {
               data={items}
               overscan={20}
               components={{
-                List: React.forwardRef(({ style, children }, ref) => {
-                  return (
-                    <div
-                      {...provided.droppableProps}
-                      ref={(el) => {
-                        provided.innerRef(el);
-                        if (typeof ref === "function") ref(el);
-                        else if (ref) ref.current = el;
-                      }}
-                      style={style}
-                    >
-                      {children}
-                      {provided.placeholder}
-                    </div>
+                List: (() => {
+                  const ListComponent = forwardRef(
+                    ({ style, children }, ref) => {
+                      return (
+                        <div
+                          {...provided.droppableProps}
+                          ref={(el) => {
+                            provided.innerRef(el);
+                            if (typeof ref === "function") ref(el);
+                            else if (ref) ref.current = el;
+                          }}
+                          style={style}
+                        >
+                          {children}
+                          {provided.placeholder}
+                        </div>
+                      );
+                    }
                   );
-                }),
+                  ListComponent.displayName = "VirtuosoDroppableList";
+                  return ListComponent;
+                })(),
               }}
               itemContent={(index, item) => {
                 return <WatchLaterVideoItem item={item} index={index} />;

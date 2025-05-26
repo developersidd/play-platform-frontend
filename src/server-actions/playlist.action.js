@@ -42,7 +42,6 @@ const getUserCollections = async (queries = {}) => {
     const res = await fetchWithAuth(`/playlists/collections`, {
       params: queries,
     });
-    console.log(" collections:", JSON.stringify( res.data, null, 2));
 
     return {
       data: res?.data,

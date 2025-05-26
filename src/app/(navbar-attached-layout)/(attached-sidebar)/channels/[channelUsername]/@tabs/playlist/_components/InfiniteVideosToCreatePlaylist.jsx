@@ -7,13 +7,15 @@ import { useEffect, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
 
 const InfiniteVideosToCreatePlaylist = ({
-  setters: { setSelectedVideos, setUserVideos },
-  getters: { selectedVideos, userVideos },
+  setSelectedVideos,
+  selectedVideos,
   searchQuery,
 }) => {
   const {
     state: { username },
   } = useUserContext() || {};
+  const [userVideos, setUserVideos] = useState([]);
+
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -85,13 +87,20 @@ const InfiniteVideosToCreatePlaylist = ({
             className="flex items-center p-2 hover:bg-dark-bg rounded-lg"
           >
             <Checkbox
-              checked={selectedVideos.includes(_id)}
+              checked={!!selectedVideos.find((item) => item.video === _id)}
               onCheckedChange={(value) => {
                 if (value) {
-                  setSelectedVideos([...selectedVideos, _id]);
+                  setSelectedVideos([
+                    ...selectedVideos,
+                    {
+                      video: _id,
+                      title,
+                      thumbnail,
+                    },
+                  ]);
                 } else {
                   setSelectedVideos(
-                    selectedVideos.filter((_id) => _id !== _id)
+                    selectedVideos.filter((item) => item.video !== _id)
                   );
                 }
               }}

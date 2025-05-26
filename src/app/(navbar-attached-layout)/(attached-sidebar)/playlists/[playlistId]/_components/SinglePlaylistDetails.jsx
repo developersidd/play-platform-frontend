@@ -1,7 +1,9 @@
 import { formatCounting } from "@/lib/utils";
+import { Pencil } from "lucide-react";
 import moment from "moment";
+import CreatePlaylistModal from "../../../channels/[channelUsername]/@tabs/playlist/_components/CreatePlaylistModal";
 
-const SinglePlaylistDetails = ({ playlistInfo }) => {
+const SinglePlaylistDetails = ({ isPlaylistOwner, playlistInfo }) => {
   const {
     video: { thumbnail, title },
     owner: { avatar, fullName, subscribers },
@@ -9,11 +11,21 @@ const SinglePlaylistDetails = ({ playlistInfo }) => {
     description,
     createdAt,
     totalVideos,
+    _id,
   } = playlistInfo || {};
+  console.log(" _id:", _id);
   return (
     <div className="w-full shrink-0 sm:max-w-md xl:max-w-lg">
       <div className="relative mb-2 w-full pt-[56%]">
         <div className="absolute inset-0">
+          {/* create a pencil button */}
+          {isPlaylistOwner && (
+            <CreatePlaylistModal playlistId={_id}>
+              <button className="absolute right-4 top-4 rounded-full bg-dark-bg p-2  transition-all ">
+                <Pencil size={18} />
+              </button>
+            </CreatePlaylistModal>
+          )}
           <img src={thumbnail?.url} alt={title} className="h-full w-full" />
           <div className="absolute inset-x-0 bottom-0">
             <div className="relative border-t bg-white/30 p-4 text-white backdrop-blur-sm before:absolute before:inset-0 before:bg-black/40">

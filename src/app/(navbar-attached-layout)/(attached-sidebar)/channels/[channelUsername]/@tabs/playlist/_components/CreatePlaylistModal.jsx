@@ -18,11 +18,12 @@ import useAxios from "@/hooks/useAxios";
 import useUserContext from "@/hooks/useUserContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import AddVideosInPlaylistModal from "./AddVideosInPlaylistModal";
+import EditPlaylistVideosOrder from "./EditPlaylistVideosOrder";
 const formSchema = z.object({
   name: z
     .string()
@@ -37,7 +38,7 @@ const formSchema = z.object({
     .min(20, {
       message: "Description must be at least 20 characters long",
     })
-    .max(500, {
+    .max(1000, {
       message: "Description must be at most 500 characters long",
     }),
   isPrivate: z.boolean(),
@@ -51,8 +52,13 @@ const formSchema = z.object({
     }),
 });
 
-const CreatePlaylistModal = ({ children,  }) => {
+const CreatePlaylistModal = ({ children, playlistId }) => {
   const router = useRouter();
+  const [selectedVideos, setSelectedVideos] = useState([]);
+  console.log(" selectedVideos:", selectedVideos)
+  const [videosToUpdate, setVideosToUpdate] = useState([]);
+  console.log(" videosToUpdate:", videosToUpdate);
+  const isEditing = Boolean(playlistId);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const { apiClient } = useAxios();
   const {
@@ -69,21 +75,69 @@ const CreatePlaylistModal = ({ children,  }) => {
   });
   const { reset, setValue } = form;
   const { isSubmitting } = form.formState;
+
+  // fetch playlist to edit
+  useEffect(() => {
+    const fetchPlaylist = async () => {
+      try {
+        const { data: { data } = {} } = await apiClient.get(
+          `/playlists/${playlistId}`
+        );
+        const { name, description, isPrivate, videos } = data;
+        console.log("data:", data);
+        if (data) {
+          reset({
+            name,
+            description,
+            isPrivate,
+            videos: videos?.map(({ video }) => video?._id),
+          });
+          setSelectedVideos(
+            videos?.map(({ position, video: { _id, thumbnail, title } }) => {
+              return { video: _id, thumbnail, title, position };
+            })
+          );
+        }
+      } catch (e) {
+        console.log(" e:", e);
+        toast.error("Error fetching playlist");
+      }
+    };
+    if (playlistId) {
+      fetchPlaylist();
+    }
+  }, [playlistId]);
+
   async function onSubmit(data) {
     if (!_id) {
       return toast.error("You must be logged in to upload videos!");
     }
     setShowUploadModal(false);
     try {
-      const response = await apiClient.post(`/playlists`, data);
-      router.push(`/channels/${username}/playlist`);
-      console.log(" response:", response)
-      if (response.status === 201) {
-        toast.success("Playlist create successfully!");
-        reset();
+      console.log(" data:", data);
+      if (isEditing) {
+        // edit playlist
+        const response = await apiClient.patch(`/playlists/${playlistId}`, {
+          ...data,
+          videos: videosToUpdate,
+        });
+        console.log(" response:", response);
+        if (response.status === 200) {
+          toast.success("Playlist updated successfully!");
+          router.refresh();
+        }
+      } else {
+        // create playlist
+        const response = await apiClient.post(`/playlists`, data);
+        router.push(`/channels/${username}/playlist`);
+        console.log(" response:", response);
+        if (response.status === 201) {
+          toast.success("Playlist create successfully!");
+          reset();
+        }
       }
     } catch (e) {
-      console.log(" e:", e)
+      console.log(" e:", e);
       toast.error("There was an error occurred!");
     }
   }
@@ -96,7 +150,9 @@ const CreatePlaylistModal = ({ children,  }) => {
           <DialogHeader className="block w-full mt-3">
             {/*<DialogTitle>*/}
             <div className="flex items-center justify-between border-b p-4 ">
-              <h2 className="text-xl font-semibold">Create Playlist</h2>
+              <h2 className="text-xl font-semibold">
+                {isEditing ? "Edit" : "Create"} Playlist
+              </h2>
               <button
                 disabled={isSubmitting}
                 onClick={() => {
@@ -189,10 +245,14 @@ const CreatePlaylistModal = ({ children,  }) => {
               <FormField
                 control={form.control}
                 name="videos"
-                render={(props) => (
+                render={() => (
                   <FormItem>
                     <FormControl>
-                      <AddVideosInPlaylistModal setValue={setValue} />
+                      <AddVideosInPlaylistModal
+                        reset={reset}
+                        selectedVideos={selectedVideos}
+                        setSelectedVideos={setSelectedVideos}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -200,6 +260,15 @@ const CreatePlaylistModal = ({ children,  }) => {
               />
             </form>
           </Form>
+          {/* Selected Videos Preview */}
+          {selectedVideos?.length > 0 && (
+            <EditPlaylistVideosOrder
+              setValue={setValue}
+              setVideosToUpdate={setVideosToUpdate}
+              selectedVideos={selectedVideos}
+              setSelectedVideos={setSelectedVideos}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </>

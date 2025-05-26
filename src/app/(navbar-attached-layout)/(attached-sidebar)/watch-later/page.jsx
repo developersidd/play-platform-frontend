@@ -5,9 +5,9 @@ import WatchLaterSidebar from "./_components/WatchLaterSidebar";
 import WatchLaterVideoList from "./_components/WatchLaterVideoList";
 
 const WatchLaterPage = async () => {
-  const { data: { videos = [] } = {}, error } =
-    (await getWatchLaterVideos()) || {};
-  const firstVideoThumbnailUrl = videos[0]?.video?.thumbnail?.url;
+    const { data: videos = [], error } = (await getWatchLaterVideos()) || {};
+  const firstVideoThumbnailUrl = (videos || [])[0]?.video?.thumbnail?.url;
+
   // decide what to render
   let content;
   if (videos.length > 0) {

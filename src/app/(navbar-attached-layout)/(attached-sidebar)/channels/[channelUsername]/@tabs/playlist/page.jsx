@@ -3,7 +3,9 @@ import PlaylistList from "@/app/(navbar-attached-layout)/_components/playlist/Pl
 import { getUserPlaylists } from "@/server-actions/playlist.action";
 
 const ChannelPlaylistPage = async ({ params: { channelUsername } }) => {
-  const { data } = await getUserPlaylists(channelUsername);
+  const { data } = await getUserPlaylists(channelUsername, {
+    isPrivate: true
+  });
   return (
     <div>
       {data?.length > 0 ? <PlaylistList playlists={data} /> : <NoPlaylist />}

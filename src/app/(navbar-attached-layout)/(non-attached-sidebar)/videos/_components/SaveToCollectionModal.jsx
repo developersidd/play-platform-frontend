@@ -13,7 +13,13 @@ import { useEffect, useState } from "react";
 import CreateVideoCollection from "./CreateVideoCollection";
 import VideoCollectionItem from "./VideoCollectionItem";
 
-const SaveToCollectionModal = ({ videoId, open, setIsOpen, children }) => {
+const SaveToCollectionModal = ({
+  videoId,
+  open,
+  setIsOpen,
+  playlistId,
+  children,
+}) => {
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
