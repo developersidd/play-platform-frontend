@@ -51,11 +51,11 @@ export const Navbar = () => {
   }
   return (
     <div className="w-full bg-background border-b border-gray-300 dark:border-white  sticky top-0 z-50 ">
-      <div className="px-12 py-2  h-full flex w-full items-center  justify-between">
+      <div className="px-4 xl:px-12 py-2  h-full flex w-full items-center  justify-between">
         {/*<MobileSidebar />*/}
         <div className="w-full flex items-center gap-2 ">
           <MenuIcon
-            className="cursor-pointer"
+            className="cursor-pointer size-7 md:size-8"
             onClick={() => {
               setSidebarCollapsed((prev) => !prev);
               setShowSidebar((prev) => !prev);
@@ -65,7 +65,7 @@ export const Navbar = () => {
           <Link href="/" className="">
             <Image
               alt="youtube-clone"
-              className="size-16"
+              className="size-14 md:size-16"
               src="/assets/images/logo.svg"
               width={100}
               height={100}
@@ -80,7 +80,7 @@ export const Navbar = () => {
           {username ? (
             <>
               <CreatePlaylistModal>
-                <Button className="rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
+                <Button className="hidden md:block rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
                   <Plus className="text-white" /> Playlist
                 </Button>
               </CreatePlaylistModal>
@@ -126,7 +126,7 @@ export const Navbar = () => {
                 </Link>
                 <Link
                   href="/register"
-                  className="mr-1 w-full bg-secondary px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
+                  className="hidden md:block mr-1 w-full bg-secondary px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
                 >
                   Sign up
                 </Link>

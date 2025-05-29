@@ -8,54 +8,18 @@ import {
 } from "@/components/ui/tooltip";
 import { useLockBody } from "@/hooks/use-lock-body";
 import useSidebarContext from "@/hooks/useSidebarContext";
-import {
-  BadgeHelp,
-  Combine,
-  History,
-  Home,
-  Settings,
-  ThumbsUp,
-  UserCheck,
-  Video,
-} from "lucide-react";
-import Link from "next/link"; // Import Link for navigation in Next.js
+import useUserContext from "@/hooks/useUserContext";
+import { MenuIcon } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useLayoutEffect } from "react";
-
-// NonAttachedSidebar items with link property
-const sidebarItems = [
-  { icon: <Home />, label: "Home", link: "/" },
-  {
-    icon: <ThumbsUp />,
-    label: "Liked Videos",
-    link: "/liked-videos",
-    smHidden: true,
-  },
-  { icon: <History />, label: "History", link: "/history" },
-  {
-    icon: <Video />,
-    label: "My Content",
-    link: "/my-content",
-    smHidden: true,
-  },
-  { icon: <Combine />, label: "Collections", link: "/collections" },
-  { icon: <UserCheck />, label: "Subscribers", link: "/subscribers" },
-  {
-    icon: <BadgeHelp />,
-    label: "Support",
-    link: "/support",
-    smHidden: true,
-    mtAuto: true,
-  },
-  {
-    icon: <Settings />,
-    label: "Settings",
-    link: "/settings",
-    smHidden: true,
-  },
-];
-
+import { sidebarItems } from "../../_components/AttachedSidebar";
 const NonAttachedSidebar = () => {
   useLockBody();
+  const pathname = usePathname();
+  const { state } = useUserContext() || {};
+  const { avatar, username } = state || {};
   const { showSidebar, setShowSidebar } = useSidebarContext();
   // Lock body scroll when sidebar is open
   useLayoutEffect(() => {
@@ -67,33 +31,56 @@ const NonAttachedSidebar = () => {
   }, [showSidebar]);
   return (
     <>
-      {/* NonAttachedSidebar overlay */}
-      <div
-        onClick={() => setShowSidebar(false)}
-        className={`w-[calc(100vw-230px)] h-full bg-black/30 fixed top-0 right-0 z-30
-          ${showSidebar ? "visible" : "invisible"}  `}
-      ></div>
       <aside
-        className={`w-[230px] fixed transition-all border-r-2 dark:border-gray-300 px-3 z-40 h-full bg-background  top-0 left-0  ${
-          showSidebar ? "translate-x-0 block" : "-translate-x-full hidden"
+        className={`w-[220px] z-50 md:w-[235px] fixed transition-all   dark:border-gray-300 px-3  min-h-dvh max-h-dvh  bg-background  top-0 left-0  ${
+          showSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <ul className="flex justify-around gap-y-3 sm:sticky sm:top-[106px] sm:min-h-[calc(100vh-130px)] sm:flex-col">
-          {sidebarItems.map(
-            ({ icon, label, link, smHidden, mtAuto }, index) => (
+        {/* NonAttachedSidebar overlay */}
+        <div
+          onClick={() => setShowSidebar(false)}
+          className={`${showSidebar ? "visible" : "invisible"}   
+        fixed w-screen h-screen translate-x-full transition-transform  right-0 top-0 bottom-0 bg-black/60 z-30`}
+        ></div>
+        <div className=" w-full mt-2 flex items-center justify-start gap-4 px-6">
+          <MenuIcon
+            className="cursor-pointer size-7 md:size-8"
+            onClick={() => {
+              setShowSidebar((prev) => !prev);
+            }}
+          />
+          <Link href="/" className=" ">
+            <Image
+              alt="youtube-clone"
+              className="size-14 sm:size-16"
+              src="/assets/images/logo.svg"
+              width={100}
+              height={100}
+            />
+          </Link>
+        </div>
+        <ul className=" flex justify-around gap-y-3 sticky top-[95px] h-[calc(100dvh-115px)] md:h-[calc(100vh-130px)] flex-col">
+          {sidebarItems.map(({ icon, label, link, mtAuto }, index) => {
+            const path = link === "/channels/" ? `${link}${username}` : link;
+            return (
               <TooltipProvider delayDuration={120} key={index}>
                 <Tooltip>
-                  <li
-                    className={`${smHidden ? "hidden sm:block" : ""} ${
-                      mtAuto ? "mt-auto" : ""
-                    }`}
-                  >
+                  <li className={` ${mtAuto ? "mt-auto" : ""}`}>
                     <TooltipTrigger className="w-full">
                       <Link
                         title={label}
                         href={link}
-                        className={`flex h-[42px] flex-col items-center justify-center  dark:border-gray-300 py-1 focus:text-secondary sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-secondary sm:hover:text-black sm:focus:border-secondary sm:focus:bg-secondary sm:focus:text-black lg:justify-start
-                     lg:px-4`}
+                        className={`${
+                          path === pathname
+                            ? "bg-secondary border-secondary dark:border-secondary"
+                            : "border-gray-300 dark:border-white"
+                        } flex  h-[37px] md:h-[42px] items-center  max-md:gap-2  py-1
+                      w-full flex-row border hover:bg-secondary 
+
+                     dark:hover:border-secondary 
+                      hover:border-secondary
+                    justify-start
+                     px-4`}
                       >
                         <p
                           className={` 
@@ -102,7 +89,7 @@ const NonAttachedSidebar = () => {
                         >
                           {icon}
                         </p>
-                        <p className="sm:hidden lg:inline-block">{label}</p>
+                        <p className="max-md:text-sm block">{label}</p>
                       </Link>
                     </TooltipTrigger>
                     <TooltipContent>
@@ -111,8 +98,8 @@ const NonAttachedSidebar = () => {
                   </li>
                 </Tooltip>
               </TooltipProvider>
-            )
-          )}
+            );
+          })}
         </ul>
       </aside>
     </>

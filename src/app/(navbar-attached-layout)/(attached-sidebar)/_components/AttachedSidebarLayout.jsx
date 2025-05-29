@@ -5,16 +5,16 @@ import AttachedSidebar from "../../_components/AttachedSidebar";
 
 const AttachedSidebarLayout = ({ children }) => {
   const { sidebarCollapsed } = useSidebarContext();
-  const sidebarWidth = sidebarCollapsed ? 85 : 240;
+
   return (
-    <div className="flex min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
+    <div className="flex min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)] overflow-x-hidden">
       <AttachedSidebar />
       <section
-        style={{
-          width: `calc(100vw - ${sidebarWidth}px)`,
-          transform: `translateX(${sidebarWidth - 5}px)`,
-        }}
-        className={`transition-all h-auto `}
+        className={` transition-all h-auto w-full ${
+          sidebarCollapsed
+            ? "md:w-[calc(100vw-90px)] md:translate-x-[90px]"
+            : "md:w-[calc(100vw-235px)] md:translate-x-[235px]"
+        }`}
       >
         {children}
       </section>

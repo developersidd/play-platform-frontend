@@ -58,9 +58,10 @@ function LoginForm() {
         password,
       });
       localStorage.setItem("loggedIn", true);
-      router.push(redirect);
+      return router.push(redirect);
     } catch (e) {
-      toast.error("There was an error occurred!");
+      console.log(" e:", e);
+      toast.error(e.response?.data?.message || e?.message || "Login failed");
     }
   }
 
