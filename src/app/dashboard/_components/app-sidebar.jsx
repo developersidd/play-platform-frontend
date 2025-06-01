@@ -62,15 +62,23 @@ export default function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
-        <Link href="/" className="">
-          <Image
-            alt="youtube-clone"
-            className="size-12 md:size-14"
-            src="/assets/images/logo.svg"
-            width={100}
-            height={100}
-          />
-        </Link>
+        <div className="flex items-center gap-1 ">
+          <Link href="/" className="">
+            <Image
+              alt="youtube-clone"
+              className="size-12 md:size-14"
+              src="/assets/images/logo.svg"
+              width={100}
+              height={100}
+            />
+          </Link>
+          <div>
+            <h1 className="text-lg font-semibold">Play</h1>
+            <p className="text-xs text-muted-foreground">
+              Personalized video platform
+            </p>
+          </div>
+        </div>
       </SidebarHeader>
       <SidebarContent className="overflow-x-hidden">
         <SidebarGroup>

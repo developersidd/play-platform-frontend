@@ -28,7 +28,7 @@ const ChannelVideosPage = async ({ params: { channelUsername } }) => {
     content = <NoVideosFound className="h-[450px]" />;
   }
 
-  return <div className="w-full">{content}</div>;
+  return <div className="w-full py-5">{content}</div>;
 };
 
 export default ChannelVideosPage;

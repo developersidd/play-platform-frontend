@@ -1,44 +1,25 @@
-import { LayoutDashboard, Play, User } from "lucide-react";
+import { LayoutDashboard, Play, TabletSmartphone } from "lucide-react";
 
 //Info: The following data is used for the sidebar navigation and Cmd K bar.
-LayoutDashboard
+LayoutDashboard;
 export const navItems = [
   {
     title: "Dashboard",
     url: "/dashboard",
     icon: LayoutDashboard,
-    isActive: false,
     shortcut: ["d", "d"],
-    items: [], // Empty array as there are no child items for Dashboard
   },
   {
-    title: "Videos",
+    title: "My Videos",
     url: "/dashboard/videos",
     icon: Play,
     shortcut: ["p", "p"],
-    isActive: false,
-    items: [], // No child items
-  },  
+  },
   {
-    title: "Account",
-    url: "#", // Placeholder as there is no direct link for the parent
-    icon: User,
-    isActive: true,
-
-    items: [
-      {
-        title: "Profile",
-        url: "/dashboard/profile",
-        icon: "userPen",
-        shortcut: ["m", "m"],
-      },
-      {
-        title: "Login",
-        shortcut: ["l", "l"],
-        url: "/",
-        icon: "login",
-      },
-    ],
+    title: "Login Devices",
+    url: "/dashboard/login-devices",
+    icon: TabletSmartphone,
+    shortcut: ["m", "m"],
   },
 ];
 

@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Play Video Platform
+This project is a video platform built with Next.js, Tailwind CSS, and TypeScript. It allows users to browse, search, and watch videos, as well as upload their own content.
 
-## Getting Started
+![Screenshot](screenshot.png)
 
-First, run the development server:
+## Features
+- User authentication
+- Video upload and management
+- Search functionality
+- Responsive design
+- Video playback
+- Playlists and subscriptions
+- Comments and likes
+- Tweets integration
+- Dark mode support
+- Infinite scrolling for video lists
+- Video history tracking
+- Watch later functionality
+- User profiles with video statistics
+- Dashboard with video analytics
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies Used
+- Next.js
+- Tailwind CSS
+- React Virtualized
+- Shadcn UI
+- Cloudinary for image and video storage
+- React Player for video playback
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+https://i.ibb.co/d01wRL21/search-result.png
+https://i.ibb.co/N2cBqb7Y/Profile.png
+https://i.ibb.co/HDS4sKZq/my-videos.png
+https://i.ibb.co/LD4fvvwD/dashboard-stats.png
+https://i.ibb.co/GQqnLg2y/watch-later.png
+https://i.ibb.co/60TTnfhJ/upload-video-modal.png
+https://i.ibb.co/ymyLYyxp/profile-info.png
+https://i.ibb.co/8D7rjT1j/home.png
+https://i.ibb.co/cW802S2/video-details.png
+## Project Demo
+You can view a live demo of the project at [YouTube Clone Demo](https://youtube-clone-demo.vercel.app/).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Project Screenshots links with some brief introduction
+- [Home Page](https://i.ibb.co/8D7rjT1j/home.png): The main page displaying featured videos and categories.
+- [Video Page](https://i.ibb.co/cW802S2/video-details.png ): A detailed view of a video with comments and related videos.
+- [Upload Page](https://i.ibb.co/60TTnfhJ/upload-video-modal.png
+): A page for users to upload their videos.
+- [Search Page](https://i.ibb.co/d01wRL21/search-result.png): A page to search for videos by keywords.
+- [Profile Page](https://i.ibb.co/N2cBqb7Y/Profile.png): A user profile page displaying uploaded videos and playlists.
+- [Videos History](https://i.ibb.co/jPTjC54t/history.png): A page showing the user's video history.
+- [My Videos](https://i.ibb.co/HDS4sKZq/my-videos.png): A page listing all videos uploaded by the user.
+- [Dashboard](https://i.ibb.co/LD4fvvwD/dashboard-stats.png): A dashboard with statistics and analytics for the user's videos.
+- [Watch Later](https://i.ibb.co/GQqnLg2y/watch-later.png): A page for videos the user has saved to watch later.
+- [Profile Info](https://i.ibb.co/ymyLYyxp/profile-info.png): A section displaying user profile information and settings.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
