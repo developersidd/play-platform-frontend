@@ -32,7 +32,7 @@ const NonAttachedSidebar = () => {
   return (
     <>
       <aside
-        className={`w-[220px] z-50 md:w-[235px] fixed transition-all   dark:border-gray-300 px-3  min-h-dvh max-h-dvh  bg-background  top-0 left-0  ${
+        className={`w-[220px] z-50 md:w-[235px] fixed transition-all   dark:border-gray-300 px-[14px]  min-h-dvh max-h-dvh  bg-background  top-0 left-0  ${
           showSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -59,7 +59,7 @@ const NonAttachedSidebar = () => {
             />
           </Link>
         </div>
-        <ul className=" flex justify-around gap-y-3 sticky top-[95px] h-[calc(100dvh-115px)] md:h-[calc(100vh-130px)] flex-col">
+        <ul className=" flex justify-around gap-y-3 sticky top-[95px] h-[calc(100dvh-115px)] md:h-[calc(100vh-120px)] flex-col">
           {sidebarItems.map(({ icon, label, link, mtAuto }, index) => {
             const path = link === "/channels/" ? `${link}${username}` : link;
             return (
@@ -74,7 +74,7 @@ const NonAttachedSidebar = () => {
                           path === pathname
                             ? "bg-secondary border-secondary dark:border-secondary"
                             : "border-gray-300 dark:border-white"
-                        } flex  h-[37px] md:h-[42px] items-center  max-md:gap-2  py-1
+                        } flex  h-[37px] md:h-[40px] items-center  max-md:gap-2  py-1
                       w-full flex-row border hover:bg-secondary 
 
                      dark:hover:border-secondary 

@@ -9,10 +9,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 import useAxios from "@/hooks/useAxios";
 import useSidebarContext from "@/hooks/useSidebarContext";
 import useUserContext from "@/hooks/useUserContext";
-import { MenuIcon, Plus } from "lucide-react";
+import { LogOut, MenuIcon, Plus, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -23,9 +24,13 @@ import CreatePlaylistModal from "@/app/(navbar-attached-layout)/(attached-sideba
 import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
 import Search from "./Search";
-const NoSSRNotification = dynamic(() => import("./notification/Notification"), {
-  ssr: false,
-});
+const NoSSRNotification = dynamic(
+  () => import("@/components/notification/Notification"),
+  {
+    ssr: false,
+  }
+);
+
 const LazyUploadVideoModal = dynamic(() =>
   import("@/components/video/UploadVideoModal")
 );
@@ -80,7 +85,7 @@ export const Navbar = () => {
           {username ? (
             <>
               <CreatePlaylistModal>
-                <Button className="hidden md:block rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
+                <Button className="max-md:hidden  rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
                   <Plus className="text-white" /> Playlist
                 </Button>
               </CreatePlaylistModal>
@@ -101,14 +106,17 @@ export const Navbar = () => {
                     </Avatar>
                   </div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 mt-4">
+                <DropdownMenuContent align="end" className="w-48 mt-2">
                   <DropdownMenuItem
                     onClick={handleLogout}
                     className="cursor-pointer"
                   >
+                    <LogOut className="size-4 mr-2" />
                     <button>Logout</button>
                   </DropdownMenuItem>
                   <DropdownMenuItem className="cursor-pointer">
+                    <User className="size-4 mr-2" />
+
                     <Link href={`/channels/${username}`}>My Profile</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>

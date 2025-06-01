@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -114,7 +115,7 @@ const Notification = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
-          className="w-[500px] mt-4 max-h-[600px] min-h-[500px]"
+          className="w-[500px] mt-2 max-h-[600px] min-h-[500px]"
         >
           {content}
         </DropdownMenuContent>

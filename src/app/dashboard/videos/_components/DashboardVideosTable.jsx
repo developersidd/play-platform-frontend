@@ -10,7 +10,7 @@ import VideosTableRow from "./VideosTableRow";
 
 const DashboardVideosTable = ({ videos }) => {
   return (
-    <ScrollArea className="h-[calc(100vh-230px)]   border ">
+    <ScrollArea className="h-[calc(100vh-200px)]   border ">
       <Table className="w-full ">
         <TableHeader className=" h-[55px] *:text-base  *:dark:text-white *:font-medium   bg-dark-bg">
           <TableRow>

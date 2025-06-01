@@ -57,7 +57,7 @@ const VideoPlayer = ({ video }) => {
   }
 
   return (
-    <div className="rounded-lg overflow-hidden shadow dark:shadow-white/40 dark:shadow-md">
+    <div className="rounded-lg overflow-hidden shadow dark:shadow-white/40 dark:shadow-md h-[300px] sm:h-[400px] md:[550px] lg:h-[580px] xl:h-[600px] 2xl:h-[720px]">
       {hasWindow && (
         <ReactPlayer
           onReady={onReady}
@@ -71,7 +71,8 @@ const VideoPlayer = ({ video }) => {
           //  boxShadow: "0 0 10px rgba(228, 226, 226, 0.1)",
           //  overflow: "hidden",
           //}}
-          height="720px"
+          height="100%"
+          className="h-full"
           controls={true}
           onStart={handleOnStart}
           //onDuration={handleOnDuration}

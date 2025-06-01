@@ -1,12 +1,12 @@
 import { getUserChannelStats } from "@/server-actions/user.action";
-import DashboardHeader from "./_components/DashboardHeader";
+import DashboardStats from "./_components/DashboardStats";
 
 const page = async () => {
   const { data, error } = await getUserChannelStats();
 
   return (
     <section className="px-8 py-5">
-      <DashboardHeader stats={data} />
+      <DashboardStats stats={data} />
     </section>
   );
 };

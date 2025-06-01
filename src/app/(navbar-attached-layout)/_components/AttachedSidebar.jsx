@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/tooltip";
 import useSidebarContext from "@/hooks/useSidebarContext";
 import useUserContext from "@/hooks/useUserContext";
+import { cn } from "@/lib/utils";
 import {
   BadgeHelp,
   Combine,
@@ -29,55 +30,56 @@ import { useEffect } from "react";
 // AttachedSidebar items with link property
 export const sidebarItems = [
   {
-    icon: <MonitorCog className="size-5 md:size-6" />,
+    icon: <MonitorCog className="size-4 lg:size-5" />,
     label: "Dashboard",
     link: "/dashboard",
+    auth: true,
   },
   {
-    icon: <Play className="size-5 md:size-6" />,
+    icon: <Play className="size-4 lg:size-5" />,
     label: "My Videos",
     link: "/dashboard/videos",
   },
-  { icon: <Home className="size-5 md:size-6" />, label: "Home", link: "/" },
+  { icon: <Home className="size-4 lg:size-5" />, label: "Home", link: "/" },
   {
-    icon: <ThumbsUp className="size-5 md:size-6" />,
+    icon: <ThumbsUp className="size-4 lg:size-5" />,
     label: "Liked Videos",
     link: "/liked-videos",
   },
   {
-    icon: <History className="size-5 md:size-6" />,
+    icon: <History className="size-4 lg:size-5" />,
     label: "History",
     link: "/history",
   },
   {
-    icon: <Video className="size-5 md:size-6" />,
+    icon: <Video className="size-4 lg:size-5" />,
     label: "My Content",
     link: "/channels/",
   },
   {
-    icon: <Combine className="size-5 md:size-6" />,
+    icon: <Combine className="size-4 lg:size-5" />,
     label: "Collections",
     link: "/collections",
   },
   {
-    icon: <FolderClock className="size-5 md:size-6" />,
+    icon: <FolderClock className="size-4 lg:size-5" />,
     label: "Watch Later",
     link: "/watch-later",
   },
   {
-    icon: <UserCheck className="size-5 md:size-6" />,
+    icon: <UserCheck className="size-4 lg:size-5" />,
     label: "Subscribers",
     link: "/subscribers",
   },
   {
-    icon: <BadgeHelp className="size-5 md:size-6" />,
+    icon: <BadgeHelp className="size-4 lg:size-5" />,
     label: "Support",
     link: "/support",
 
     mtAuto: true,
   },
   {
-    icon: <Settings className="size-5 md:size-6" />,
+    icon: <Settings className="size-4 lg:size-5" />,
     label: "Settings",
     link: "/settings",
   },
@@ -140,7 +142,7 @@ const AttachedSidebar = () => {
             return (
               <TooltipProvider delayDuration={120} key={index}>
                 <Tooltip>
-                  <li className={` ${mtAuto ? "mt-auto" : ""}`}>
+                  <li className={cn(mtAuto ? "mt-auto" : "")}>
                     <TooltipTrigger className="w-full">
                       <Link
                         title={label}

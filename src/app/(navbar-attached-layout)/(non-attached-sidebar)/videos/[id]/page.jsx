@@ -14,8 +14,8 @@ const SingleVideoPage = async ({
   const { data: video } = (await getVideoById(id, user?._id)) || {};
 
   return (
-    <section className="w-full mx-20 pb-[70px] sm:pb-0">
-      <div className="flex w-full flex-wrap gap-4 px-2 py-8 lg:flex-nowrap">
+    <section className=" w-full mx-2 lg:mx-10 xl:mx-20 ">
+      <div className="flex w-full flex-wrap gap-4 px-2 py-4 md:py-8 lg:flex-nowrap">
         <div className="col-span- w-full">
           {/* video Player */}
           <VideoPlayer video={video} />

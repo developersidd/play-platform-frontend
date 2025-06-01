@@ -6,8 +6,8 @@ const PUBLIC_ROUTES = {
 };
 export default async function middleware(req) {
   const { nextUrl } = req;
-  const { pathname, search  } = nextUrl;
-  
+  const { pathname, search } = nextUrl;
+
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set("searchParams", search);
   const token = req?.cookies?.get("accessToken")?.value;
@@ -17,10 +17,15 @@ export default async function middleware(req) {
     ["/videos", "/channels", "/playlists", "/result"].some((route) =>
       pathname.startsWith(route)
     );
+  const isUnauthenticatedRoute = [
+    "/login",
+    "/register",
+    "/forgot-password",
+  ].some((route) => pathname.startsWith(route));
 
-  //console.log(isAuthenticated, pathname);
-  //console.log({ isPublicRoute });
-
+  if (isUnauthenticatedRoute && token) {
+    return Response.redirect(new URL("/", nextUrl));
+  }
   if (!token && !isPublicRoute) {
     console.log("redirecting to login");
     return Response.redirect(

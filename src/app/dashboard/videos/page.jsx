@@ -21,7 +21,7 @@ const DashboardVideosPage = async ({ searchParams }) => {
   });
   console.log(" data:", data);
   return (
-    <section className="px-8 pt-3">
+    <section className="px-8  ">
       <VideosTableHeader />
       <DashboardVideosTable videos={videos} />
       <VideosTableFooter totalPages={totalPages} />
