@@ -1,7 +1,7 @@
 # Play Video Platform
 This project is a video platform built with Next.js, Tailwind CSS, and TypeScript. It allows users to browse, search, and watch videos, as well as upload their own content.
 
-![Screenshot](screenshot.png)
+![Home page](https://i.ibb.co/8D7rjT1j/home.png)
 
 ## Features
 - User authentication
@@ -28,19 +28,10 @@ This project is a video platform built with Next.js, Tailwind CSS, and TypeScrip
 - Cloudinary for image and video storage
 - React Player for video playback
 
-https://i.ibb.co/d01wRL21/search-result.png
-https://i.ibb.co/N2cBqb7Y/Profile.png
-https://i.ibb.co/HDS4sKZq/my-videos.png
-https://i.ibb.co/LD4fvvwD/dashboard-stats.png
-https://i.ibb.co/GQqnLg2y/watch-later.png
-https://i.ibb.co/60TTnfhJ/upload-video-modal.png
-https://i.ibb.co/ymyLYyxp/profile-info.png
-https://i.ibb.co/8D7rjT1j/home.png
-https://i.ibb.co/cW802S2/video-details.png
 ## Project Demo
 You can view a live demo of the project at [YouTube Clone Demo](https://youtube-clone-demo.vercel.app/).
 
-## Project Screenshots links with some brief introduction
+## Project Screenshots with brief introduction
 - [Home Page](https://i.ibb.co/8D7rjT1j/home.png): The main page displaying featured videos and categories.
 - [Video Page](https://i.ibb.co/cW802S2/video-details.png ): A detailed view of a video with comments and related videos.
 - [Upload Page](https://i.ibb.co/60TTnfhJ/upload-video-modal.png

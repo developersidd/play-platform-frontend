@@ -72,7 +72,8 @@ export default function AppSidebar() {
               height={100}
             />
           </Link>
-          <div>
+
+          <div className={`${open ? "block" : "hidden"}`}>
             <h1 className="text-lg font-semibold">Play</h1>
             <p className="text-xs text-muted-foreground">
               Personalized video platform

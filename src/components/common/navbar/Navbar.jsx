@@ -56,9 +56,9 @@ export const Navbar = () => {
   }
   return (
     <div className="w-full bg-background border-b border-gray-300 dark:border-white  sticky top-0 z-50 ">
-      <div className="px-4 xl:px-12 py-2  h-full flex w-full items-center  justify-between">
+      <div className="px-3 sm:px-4 md:px-6 xl:px-12 py-2  h-full flex w-full items-center  justify-between">
         {/*<MobileSidebar />*/}
-        <div className="w-full flex items-center gap-2 ">
+        <div className="w-full flex items-center gap-1 sm:gap-2 ">
           <MenuIcon
             className="cursor-pointer size-7 md:size-8"
             onClick={() => {
@@ -79,7 +79,7 @@ export const Navbar = () => {
         </div>
         {/* search*/}
         <Search />
-        <div className="flex items-center relative justify-end  w-full gap-5">
+        <div className="flex items-center relative justify-end  w-full gap-3 md:gap-4 xl:gap-5">
           {/*<button onClick={handleLogout}>Logout</button>*/}
 
           {username ? (
@@ -90,7 +90,7 @@ export const Navbar = () => {
                 </Button>
               </CreatePlaylistModal>
               <LazyUploadVideoModal key="upload-video">
-                <Button className="rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
+                <Button className="max-md:hidden rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
                   <Plus className="text-white" /> Upload
                 </Button>
               </LazyUploadVideoModal>
@@ -114,10 +114,12 @@ export const Navbar = () => {
                     <LogOut className="size-4 mr-2" />
                     <button>Logout</button>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="cursor-pointer">
+                  <DropdownMenuItem
+                    onClick={() => router.push(`/channels/${username}`)}
+                    className="cursor-pointer"
+                  >
                     <User className="size-4 mr-2" />
-
-                    <Link href={`/channels/${username}`}>My Profile</Link>
+                    My Profile
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

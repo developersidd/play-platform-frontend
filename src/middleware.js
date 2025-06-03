@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { hasLoginHistory } from "./server-actions/loginHistory.action";
 
 const PUBLIC_ROUTES = {
   "/login": true,
@@ -11,6 +12,9 @@ export default async function middleware(req) {
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set("searchParams", search);
   const token = req?.cookies?.get("accessToken")?.value;
+  const hasHistory = await hasLoginHistory(token);
+  console.log(" hasHistory:", hasHistory);
+  const isLoggedIn = !!token && hasHistory;
   const isPublicRoute =
     PUBLIC_ROUTES[pathname] ||
     nextUrl.pathname === "/" ||
@@ -23,10 +27,10 @@ export default async function middleware(req) {
     "/forgot-password",
   ].some((route) => pathname.startsWith(route));
 
-  if (isUnauthenticatedRoute && token) {
+  if (isUnauthenticatedRoute && isLoggedIn) {
     return Response.redirect(new URL("/", nextUrl));
   }
-  if (!token && !isPublicRoute) {
+  if (!isLoggedIn && !isPublicRoute) {
     console.log("redirecting to login");
     return Response.redirect(
       new URL(`/login?redirect=${encodeURIComponent(pathname)}`, nextUrl)
