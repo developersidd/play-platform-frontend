@@ -79,7 +79,7 @@ export const Navbar = () => {
         </div>
         {/* search*/}
         <Search />
-        <div className="flex items-center relative justify-end  w-full gap-3 md:gap-4 xl:gap-5">
+        <div className="flex items-center relative justify-end w-full gap-3 md:gap-4 ">
           {/*<button onClick={handleLogout}>Logout</button>*/}
 
           {username ? (

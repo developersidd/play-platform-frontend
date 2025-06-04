@@ -22,7 +22,7 @@ const DevicesTableRow = ({ device }) => {
       <TableCell className="relative pl-6">
         <div className="flex items-center gap-4">
           <div
-            className={`absolute top-8 left-1 h-2 w-2 rounded-full bg-green-500 ${
+            className={`absolute top-[30px] left-[6px] h-2 w-2 rounded-full bg-green-500 ${
               isActive ? "block" : "hidden"
             }`}
           />

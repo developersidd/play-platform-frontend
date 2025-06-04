@@ -5,7 +5,7 @@ const LoginDevicePage = async () => {
   const { data, error } = await getUserLoginHistory();
   console.log("login h data:", JSON.stringify(data, null, 2));
   return (
-    <section className="px-8  ">
+    <section className="px-8  mt-5">
       <LoginDevicesTable devices={data} />
     </section>
   );

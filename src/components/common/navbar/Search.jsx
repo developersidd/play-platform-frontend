@@ -13,7 +13,7 @@ const Search = () => {
     return () => {
       setSearch("");
     };
-  }, [searchParams]);
+  }, [searchVal]);
   const router = useRouter();
   const gotToSearch = () => {
     if (search) {
@@ -21,7 +21,7 @@ const Search = () => {
     }
   };
   return (
-    <div className="relative hidden w-full h-[45px] max-w-md overflow-hidden sm:flex items-center border dark:border-white border-gray-300 rounded ">
+    <div className="relative hidden w-full h-[45px] max-w-md overflow-hidden sm:flex items-center border dark:border-white border-gray-300 rounded mr-5">
       <input
         onKeyDown={(e) => e.key === "Enter" && gotToSearch()}
         value={search}

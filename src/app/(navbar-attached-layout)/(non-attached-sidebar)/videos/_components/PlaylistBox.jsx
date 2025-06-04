@@ -1,8 +1,6 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  getPlaylistById
-} from "@/server-actions/playlist.action";
+import { getPlaylistById } from "@/server-actions/playlist.action";
 import { retrieveCurrentUser } from "@/server-actions/user.action";
 import { getWatchLaterVideos } from "@/server-actions/watchLater.action";
 import PlaylistBoxItem from "./PlaylistBoxItem";
@@ -17,18 +15,18 @@ const PlaylistBox = async ({ playlistId, currentVideoIndex }) => {
   // decide which playlist to fetch by id
   if (name === "PL" || name === "CT") {
     res = await getPlaylistById(id);
-  }  else if (name === "WL") {
+  } else if (name === "WL") {
     res = await getWatchLaterVideos();
   }
   const {
     data: { name: plName, videos, owner: { fullName } = {} },
     error,
   } = res || {};
-  console.log("res", res)
+  console.log("res", res);
   const playlistOwner = name === "WL" ? userFullName : fullName;
   let playlistName =
     name === "WL" ? "Watch Later" : name === "CT" ? "My Collection" : plName;
-  const totalVideos = videos?.length  || 0;
+  const totalVideos = videos?.length || 0;
   return (
     <Card className="max-w-[398px]">
       <CardHeader className="p-4 border-b">
@@ -50,7 +48,7 @@ const PlaylistBox = async ({ playlistId, currentVideoIndex }) => {
                 videoItem={videoItem}
                 playlistId={playlistId}
                 key={videoItem?._id}
-                index={index}
+                index={index + 1}
                 isActiveVideo={isActiveVideo}
               />
             );

@@ -16,9 +16,9 @@ const getUserLoginHistory = async () => {
 };
 
 // check if user has any login history
-const hasLoginHistory = async (token) => {
+const hasLoginHistory = async () => {
   try {
-    const res = await fetchWithAuth(`/login-history/has/${token}`);
+    const res = await fetchWithAuth(`/login-history/has`);
 
     if (res?.data?.hasLoginHistory) {
       return true;

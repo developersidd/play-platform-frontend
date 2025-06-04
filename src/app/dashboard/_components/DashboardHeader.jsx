@@ -30,7 +30,7 @@ const LazyUploadVideoModal = dynamic(() =>
 
 function DashboardHeader() {
   const { state } = useUserContext() || {};
-  const { avatar, username } = state || {};
+  const { avatar, username, email } = state || {};
   const { apiClient } = useAxios();
 
   async function handleLogout() {
@@ -52,40 +52,48 @@ function DashboardHeader() {
         <Separator orientation="vertical" className="mr-2 h-4" />
         <Breadcrumbs />
       </div>
+      {username && (
+        <div className="flex items-center gap-5 px-4">
+          <div className="hidden md:flex"></div>
 
-      <div className="flex items-center gap-5 px-4">
-        <div className="hidden md:flex"></div>
+          <LazyUploadVideoModal key="upload-video">
+            <Button className="rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
+              <Plus className="text-white" /> Upload
+            </Button>
+          </LazyUploadVideoModal>
+          <ModeToggle />
+          <NoSSRNotification />
 
-        <LazyUploadVideoModal key="upload-video">
-          <Button className="rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
-            <Plus className="text-white" /> Upload
-          </Button>
-        </LazyUploadVideoModal>
-        <ModeToggle />
-        <NoSSRNotification />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <div className="flex cursor-pointer">
+                <Avatar>
+                  <AvatarImage src={avatar?.url} alt="@shadcn" />
+                  <AvatarFallback> {username} </AvatarFallback>
+                </Avatar>
+                <div className="ml-2 flex flex-col">
+                  <span className="text-sm font-semibold">{username}</span>
+                  <span className="text-xs text-muted-foreground">{email}</span>
+                </div>
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48 mt-2">
+              <DropdownMenuItem
+                onClick={handleLogout}
+                className="cursor-pointer"
+              >
+                <LogOut className="size-4 mr-2" />
+                <button>Logout</button>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
+                <User className="size-4 mr-2" />
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <div className="cursor-pointer">
-              <Avatar>
-                <AvatarImage src={avatar?.url} alt="@shadcn" />
-                <AvatarFallback> {username} </AvatarFallback>
-              </Avatar>
-            </div>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-48 mt-2">
-            <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
-              <LogOut className="size-4 mr-2" />
-              <button>Logout</button>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
-              <User className="size-4 mr-2" />
-
-              <Link href={`/channels/${username}`}>My Profile</Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+                <Link href={`/channels/${username}`}>My Profile</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      )}
     </header>
   );
 }

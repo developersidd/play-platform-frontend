@@ -10,13 +10,12 @@ import useUserContext from "@/hooks/useUserContext";
 import { cn } from "@/lib/utils";
 import {
   BadgeHelp,
+  ChartPie,
   Combine,
   FolderClock,
   History,
   Home,
   MenuIcon,
-  MonitorCog,
-  Play,
   Settings,
   ThumbsUp,
   UserCheck,
@@ -30,15 +29,10 @@ import { useEffect } from "react";
 // AttachedSidebar items with link property
 export const sidebarItems = [
   {
-    icon: <MonitorCog className="size-4 lg:size-5" />,
+    icon: <ChartPie className="size-4 lg:size-5" />,
     label: "Dashboard",
     link: "/dashboard",
     auth: true,
-  },
-  {
-    icon: <Play className="size-4 lg:size-5" />,
-    label: "My Videos",
-    link: "/dashboard/videos",
   },
   { icon: <Home className="size-4 lg:size-5" />, label: "Home", link: "/" },
   {
@@ -89,9 +83,14 @@ const AttachedSidebar = () => {
   const { sidebarCollapsed, setSidebarCollapsed } = useSidebarContext();
   const { state } = useUserContext() || {};
   const { avatar, username } = state || {};
+
   const pathname = usePathname();
   // disable scroll on body when sidebar is open
   useEffect(() => {
+    if (window.innerWidth >= 768) {
+      document.body.style.overflow = "auto";
+      return;
+    }
     if (sidebarCollapsed) {
       document.body.style.overflow = "hidden";
     } else {
@@ -103,11 +102,11 @@ const AttachedSidebar = () => {
       <aside
         className={`
        border-r-0 md:border-r top-0 md:top-[82px] 
-       transition-all duration-250 
+       transition-all duration-350 ease-linear
        left-0 bg-background min-h-dvh max-h-dvh
        fixed  inset-x-0  z-50  shrink-0  border-gray-300 dark:border-white  w-[220px] pt-2  md:py-6        ${
          sidebarCollapsed
-           ? "max-md:translate-x-0 md:w-[90px]"
+           ? "max-md:translate-x-0 md:w-[80px]"
            : "max-md:-translate-x-full md:w-[235px] "
        }
     `}

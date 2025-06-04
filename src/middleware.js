@@ -12,7 +12,7 @@ export default async function middleware(req) {
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set("searchParams", search);
   const token = req?.cookies?.get("accessToken")?.value;
-  const hasHistory = await hasLoginHistory(token);
+  const hasHistory = await hasLoginHistory();
   console.log(" hasHistory:", hasHistory);
   const isLoggedIn = !!token && hasHistory;
   const isPublicRoute =

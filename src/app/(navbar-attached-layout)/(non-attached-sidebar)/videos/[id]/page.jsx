@@ -28,7 +28,7 @@ const SingleVideoPage = async ({
         <div className="space-y-8">
           {list && index && (
             <PlaylistBox
-              currentVideoIndex={parseInt(index)}
+              currentVideoIndex={parseInt(index) + 1}
               videos={[
                 { name: "Hello", _id: "1552" },
                 { name: "Hello", _id: "1552" },

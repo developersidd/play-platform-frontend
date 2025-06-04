@@ -1,21 +1,29 @@
 "use client";
+import { LOGGED_OUT } from "@/actions/user.action";
 import { Button } from "@/components/ui/button";
 import { TableCell } from "@/components/ui/table";
 import useAxios from "@/hooks/useAxios";
+import useUserContext from "@/hooks/useUserContext";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const DeviceRowAction = ({ deviceId, currentDevice }) => {
-  console.log(" deviceId:", deviceId)
+  console.log(" deviceId:", deviceId);
   const { apiClient } = useAxios();
+  const { dispatch } = useUserContext();
   const router = useRouter();
   async function handleRemoveDevice() {
     try {
       await apiClient.delete(`/login-history/remove/${deviceId}`);
-      router.refresh();
       toast.success("Device removed successfully");
+      router.refresh();
+      if (currentDevice) {
+        localStorage.removeItem("loggedIn");
+        router.push("/");
+        dispatch({ type: LOGGED_OUT });
+      }
     } catch (error) {
-      console.log(" error:", error)
+      console.log(" error:", error);
       toast.error("Failed to remove device");
     }
   }

@@ -20,7 +20,7 @@ const PlaylistBoxItem = async ({
       asChild
     >
       <Link
-        href={`/videos/${_id}?list=${playlistId}&index=${index + 1}`}
+        href={`/videos/${_id}?list=${playlistId}&index=${index}`}
         className="rounded-none pl-6"
       >
         <div className="absolute top-1/2 -translate-y-1/2 left-1">

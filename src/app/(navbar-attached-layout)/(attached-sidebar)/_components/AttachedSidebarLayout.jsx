@@ -12,8 +12,8 @@ const AttachedSidebarLayout = ({ children }) => {
       <section
         className={` transition-all h-auto w-full ${
           sidebarCollapsed
-            ? "md:w-[calc(100vw-90px)] md:translate-x-[90px]"
-            : "md:w-[calc(100vw-235px)] md:translate-x-[235px]"
+            ? "md:w-[calc(100%-80px)] md:translate-x-[80px]"
+            : "md:w-[calc(100%-235px)] md:translate-x-[235px]"
         }`}
       >
         {children}
