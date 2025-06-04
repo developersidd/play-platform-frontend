@@ -12,6 +12,7 @@
 - 📤 Video upload & management
 - 🔍 Search functionality
 - 📱 Fully responsive design
+- 🖥 Manage login Devices
 - ▶️ Video playback with React Player
 - 📝 Comments & likes
 - 🎞️ Playlists & subscriptions
@@ -29,11 +30,11 @@
 
 - **Next.js**
 - **Tailwind CSS**
-- **TypeScript**
 - **React Virtualized**
 - **Shadcn UI**
 - **Cloudinary** (for image & video storage)
-- **React Player**
+- **Hello-pangea/dnd** (for drag & drop functionaity) 
+- **React hook form** (for form handling) 
 
 ---
 
