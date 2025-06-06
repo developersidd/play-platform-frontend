@@ -74,7 +74,7 @@ function RegisterForm() {
       avatar: undefined,
     },
   });
-  //const { isSubmitting } = form.formState;
+  const { isSubmitting } = form.formState;
   async function onSubmit(data) {
     console.log("data:", data);
     const formData = new FormData();
@@ -191,7 +191,7 @@ function RegisterForm() {
               )}
             />
             <Button
-              //disabled={isSubmitting}
+              disabled={isSubmitting}
               type="submit"
               className="w-full bg-secondary"
             >

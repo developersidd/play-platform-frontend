@@ -15,7 +15,7 @@ const PlaylistBoxItem = async ({
     <Button
       variant="ghost"
       className={`w-full ${
-        isActiveVideo ? "bg-dark-bg" : ""
+        isActiveVideo ? "bg-accent" : ""
       } justify-start items-start  h-[80px] relative`}
       asChild
     >
@@ -27,7 +27,7 @@ const PlaylistBoxItem = async ({
           {isActiveVideo ? (
             <Play className="!size-4 " />
           ) : (
-            <span className="ml-1 text-xs"> {index + 1} </span>
+            <span className="ml-1 text-xs"> {index} </span>
           )}
         </div>
         <figure className="">

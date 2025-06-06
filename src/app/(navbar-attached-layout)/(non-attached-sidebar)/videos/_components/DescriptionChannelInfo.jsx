@@ -3,8 +3,13 @@ import { getChannelSubscribers } from "@/server-actions/subscription.action";
 
 const DescriptionChannelInfo = async ({ videoOwner }) => {
   const { avatar, fullName, username, _id } = videoOwner || {};
-  const { data: { subscribers } = {}, error } =
-    (await getChannelSubscribers(_id)) || {};
+  const {
+    data,
+    data: { subscribers } = {},
+    error,
+  } = (await getChannelSubscribers(_id)) || {};
+  console.log(" data:", data);
+  //console.log(" subscribers:", subscribers)
   return (
     <div className="flex items-center gap-x-4">
       <div className="mt-2 h-12 w-12 shrink-0">

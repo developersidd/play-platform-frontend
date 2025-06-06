@@ -31,7 +31,7 @@ const statsData = [
 const DashboardHeader = ({ stats }) => {
   return (
     <header>
-      <div className="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-4">
+      <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4">
         {statsData.map(({ name, valueProperty, icon }) => (
           <div key={name} className="border p-4">
             <div className="mb-4 block">

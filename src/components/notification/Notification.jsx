@@ -90,18 +90,24 @@ const Notification = () => {
       </div>
     );
   } else {
-    content = <LazyNotificationContent notifications={notifications} />;
+    content = (
+      <LazyNotificationContent
+        onClose={() => setOpen(false)}
+        notifications={notifications}
+      />
+    );
   }
   return (
     <div>
       <DropdownMenu
+        //modal={false}
         open={open}
         onOpenChange={() => {
           setOpen((prev) => !prev);
           setUnreadCount(0);
         }}
       >
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger asChild>
           <div>
             <NotificationBadge
               show={unreadCount > 0 && !open}
@@ -113,10 +119,7 @@ const Notification = () => {
             </NotificationBadge>
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent
-          align="end"
-          className="w-[500px] mt-2 max-h-[600px] min-h-[500px]"
-        >
+        <DropdownMenuContent align="end" className="w-[500px] mt-2">
           {content}
         </DropdownMenuContent>
       </DropdownMenu>

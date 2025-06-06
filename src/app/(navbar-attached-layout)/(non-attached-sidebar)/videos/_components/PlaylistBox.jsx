@@ -6,6 +6,7 @@ import { getWatchLaterVideos } from "@/server-actions/watchLater.action";
 import PlaylistBoxItem from "./PlaylistBoxItem";
 
 const PlaylistBox = async ({ playlistId, currentVideoIndex }) => {
+  console.log(" currentVideoIndex:", currentVideoIndex)
   const [name, id] = playlistId.split("_");
   const {
     data: { fullName: userFullName },

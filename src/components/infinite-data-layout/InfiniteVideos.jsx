@@ -53,7 +53,7 @@ const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {
         overscan={20}
         className="m-0 space-y-0"
         useWindowScroll
-        listClassName="grid 2xl:grid-cols-5 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-16 md:gap-6 space-y-0"
+        listClassName="grid 2xl:grid-cols-5 grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-16 md:gap-6 space-y-0"
         endReached={() => hasMore && setPage((p) => p + 1)}
         itemContent={(_, video) => <layoutConfig.itemComponent video={video} />}
       />

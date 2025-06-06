@@ -50,7 +50,7 @@ const HomeVideoGrid = ({ initialVideos }) => {
     <div className="py-7 w-full">
       <VirtuosoGrid
         listClassName={
-          "grid 2xl:grid-cols-5 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-4 p-4 w-full"
+          "grid 2xl:grid-cols-5 grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4 p-4 w-full"
         }
         useWindowScroll
         endReached={() => {

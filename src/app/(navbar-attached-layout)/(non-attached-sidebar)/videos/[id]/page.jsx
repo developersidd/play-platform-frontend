@@ -10,6 +10,7 @@ const SingleVideoPage = async ({
   params: { id } = {},
   searchParams: { list, index },
 }) => {
+  console.log(" index:", index)
   const { data: user } = (await retrieveCurrentUser()) || {};
   const { data: video } = (await getVideoById(id, user?._id)) || {};
 
@@ -28,7 +29,7 @@ const SingleVideoPage = async ({
         <div className="space-y-8">
           {list && index && (
             <PlaylistBox
-              currentVideoIndex={parseInt(index) + 1}
+              currentVideoIndex={parseInt(index)}
               videos={[
                 { name: "Hello", _id: "1552" },
                 { name: "Hello", _id: "1552" },

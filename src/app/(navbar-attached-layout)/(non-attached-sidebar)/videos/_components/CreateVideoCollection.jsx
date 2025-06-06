@@ -19,8 +19,8 @@ const formSchema = z.object({
     .min(5, {
       message: "Name must be at least 5 characters long",
     })
-    .max(20, {
-      message: "Name must be at most 20 characters long",
+    .max(70, {
+      message: "Name must be at most 70 characters long",
     }),
 });
 
@@ -39,10 +39,10 @@ const CreateVideoCollection = ({ setCollections }) => {
   const onSubmit = async ({ name }) => {
     try {
       const { data: { data } = {} } =
-      (await apiClient.post("/playlists", {
-        name,
-        type: "collection",
-      })) || {};
+        (await apiClient.post("/playlists", {
+          name,
+          type: "collection",
+        })) || {};
       setCollections((prev) => [...prev, data]);
       reset();
     } catch (error) {
