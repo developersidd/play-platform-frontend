@@ -1,11 +1,11 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 
+import { Checkbox } from "@/components/ui/checkbox";
 import moment from "moment";
 import Image from "next/image";
 import ToggleVideoStatus from "./ToggleVideoStatus";
 import VideoRowActions from "./VideoRowActions";
-
-const VideosTableRow = ({ video }) => {
+const VideosTableRow = ({ video, onCheckboxChange, selectedVideoIds }) => {
   const {
     _id,
     title,
@@ -19,6 +19,15 @@ const VideosTableRow = ({ video }) => {
 
   return (
     <TableRow className=" h-[70px]">
+      <TableCell className="pl-4">
+        <Checkbox
+          onCheckedChange={(checked) =>
+            onCheckboxChange(checked, "single", _id)
+          }
+          checked={selectedVideoIds.includes(_id)}
+          className="h-4 w-4"
+        />
+      </TableCell>
       <ToggleVideoStatus videoId={_id} isPublished={isPublished} />
       <TableCell className="w-[30%]">
         <div className="flex items-center gap-4 pr-5">
@@ -55,9 +64,11 @@ const VideosTableRow = ({ video }) => {
         </div>
       </TableCell>
       <TableCell>{moment(createdAt).format("Do MMM YYYY")}</TableCell>
-      <VideoRowActions 
-      isVideoPublished={isPublished}
-      title={title} videoId={_id} />
+      <VideoRowActions
+        isVideoPublished={isPublished}
+        title={title}
+        videoId={_id}
+      />
     </TableRow>
   );
 };

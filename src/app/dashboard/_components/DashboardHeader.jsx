@@ -1,4 +1,5 @@
 "use client";
+import CreatePlaylistModal from "@/components/common/playlist/playlist-modal/CreatePlaylistModal";
 import { ModeToggle } from "@/components/theme/ThemeToggler";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
@@ -16,6 +17,7 @@ import useUserContext from "@/hooks/useUserContext";
 import { LogOut, Plus, User } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const NoSSRNotification = dynamic(
   () => import("@/components/notification/Notification"),
@@ -25,14 +27,15 @@ const NoSSRNotification = dynamic(
 );
 
 const LazyUploadVideoModal = dynamic(() =>
-  import("@/components/video/UploadVideoModal")
+  import("@/components/common/video/UploadVideoModal")
 );
 
 function DashboardHeader() {
   const { state } = useUserContext() || {};
   const { avatar, username, email } = state || {};
   const { apiClient } = useAxios();
-
+  const pathname = usePathname();
+  console.log(" pathname:", pathname);
   async function handleLogout() {
     console.log("logout");
     try {
@@ -55,7 +58,13 @@ function DashboardHeader() {
       {username && (
         <div className="flex items-center gap-5 px-4">
           <div className="hidden md:flex"></div>
-
+          {pathname === "/dashboard/playlists" && (
+            <CreatePlaylistModal>
+              <Button className="max-md:hidden  rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
+                <Plus className="text-white" /> Playlist
+              </Button>
+            </CreatePlaylistModal>
+          )}
           <LazyUploadVideoModal key="upload-video">
             <Button className="rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
               <Plus className="text-white" /> Upload
@@ -71,10 +80,6 @@ function DashboardHeader() {
                   <AvatarImage src={avatar?.url} alt="@shadcn" />
                   <AvatarFallback> {username} </AvatarFallback>
                 </Avatar>
-                <div className="ml-2 flex flex-col">
-                  <span className="text-sm font-semibold">{username}</span>
-                  <span className="text-xs text-muted-foreground">{email}</span>
-                </div>
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48 mt-2">

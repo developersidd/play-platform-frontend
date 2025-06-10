@@ -1,4 +1,4 @@
-import AppSidebar from "./_components/app-sidebar";
+import AppSidebar from "./_components/DashboardSidebar";
 import DashboardHeader from "./_components/DashboardHeader";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { cookies } from "next/headers";

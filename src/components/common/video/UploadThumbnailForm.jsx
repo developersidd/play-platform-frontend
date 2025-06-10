@@ -8,7 +8,7 @@ import {
 import { Pencil } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 const UploadThumbnailForm = ({ form, isEditingVideo }) => {
   const [isChangingThumbnail, setIsChangingThumbnail] = useState(
     !isEditingVideo

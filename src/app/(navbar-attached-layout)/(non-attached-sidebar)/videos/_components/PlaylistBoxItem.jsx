@@ -16,40 +16,42 @@ const PlaylistBoxItem = async ({
       variant="ghost"
       className={`w-full ${
         isActiveVideo ? "bg-accent" : ""
-      } justify-start items-start  h-[80px] relative`}
+      } justify-start items-start  h-[80px] relative z-20`}
       asChild
     >
-      <Link
-        href={`/videos/${_id}?list=${playlistId}&index=${index}`}
-        className="rounded-none pl-6"
-      >
-        <div className="absolute top-1/2 -translate-y-1/2 left-1">
-          {isActiveVideo ? (
-            <Play className="!size-4 " />
-          ) : (
-            <span className="ml-1 text-xs"> {index} </span>
-          )}
-        </div>
-        <figure className="">
-          <div className="w-[120px] h-[60px] relative">
-            <Image
-              width={100}
-              height={50}
-              src={thumbnail?.url}
-              alt={`Thumbnail for ${title}`}
-              className="w-full h-full rounded-md object-cover"
-            />
-            <figcaption className="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-xs">
-              {duration}
-            </figcaption>
+      <div className="rounded-none pl-6">
+        <Link
+          href={`/videos/${_id}?list=${playlistId}&index=${index} gap-3`}
+          className="flex w-full gap-3"
+        >
+          <div className="absolute top-1/2 -translate-y-1/2 left-1">
+            {isActiveVideo ? (
+              <Play className="!size-4 " />
+            ) : (
+              <span className="ml-1 text-xs"> {index} </span>
+            )}
           </div>
-        </figure>
+          <figure className="">
+            <div className="w-[120px] h-[60px] relative">
+              <Image
+                width={100}
+                height={50}
+                src={thumbnail?.url}
+                alt={`Thumbnail for ${title}`}
+                className="w-full h-full rounded-md object-cover"
+              />
+              <figcaption className="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-xs">
+                {duration}
+              </figcaption>
+            </div>
+          </figure>
 
-        <div>
-          <span className="truncate">{title}</span>
-        </div>
-        <VideoHorizontalCardActions videoId={_id} />
-      </Link>
+          <div>
+            <span className="truncate">{title}</span>
+          </div>
+        </Link>
+          <VideoHorizontalCardActions videoId={_id} />
+      </div>
     </Button>
   );
 };

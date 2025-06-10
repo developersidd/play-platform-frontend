@@ -76,7 +76,7 @@ const NotificationItem = ({ item, onClose }) => {
             </Link>
           </Avatar>
         )}
-        <div className="ms-1 flex items-start justify-start gap-3 w-full pr-4">
+        <div className="ms-1 flex items-start justify-start gap-3 w-full pr-3">
           <div className="w-[70%]">
             <h5 className="text-sm text-gray-500">{message}</h5>
             <p> {moment(createdAt).fromNow()} </p>
@@ -97,7 +97,7 @@ const NotificationItem = ({ item, onClose }) => {
         {!fromAdmin && (
           <DropdownMenu className="">
             <DropdownMenuTrigger>
-              <div className="absolute right-0.5  outline-none">
+              <div className="absolute top-1/2 -translate-y-1/2 right-0.5  outline-none">
                 <EllipsisVertical className="" size={18} />
               </div>
             </DropdownMenuTrigger>

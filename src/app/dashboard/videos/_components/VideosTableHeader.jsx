@@ -7,10 +7,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import useAxios from "@/hooks/useAxios";
 import useDebounce from "@/hooks/useDebounce";
 import useQueryParam from "@/hooks/useQueryParam";
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown, Trash, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 // create a sorting options array to use in the dropdown menu with prop, label as boject
 const sortingOptions = [
   { prop: "title", label: "Title" },
@@ -20,15 +23,37 @@ const sortingOptions = [
   { prop: "createdAt", label: "Date" },
 ];
 
-const VideosTableHeader = () => {
+const VideosTableHeader = ({ selectedVideoIds, onCheckboxChange }) => {
+  console.log(" selectedVideoIds:", selectedVideoIds);
   const { setValue, getValue } = useQueryParam();
   const [search, setSearch] = useState(getValue("search") || "");
-  const [filterField, setFilterField] = useState(getValue("sortyBy") || "Date");
+  const [filterField, setFilterField] = useState(getValue("sortBy") || "Date");
   const [sortOrder, setSortOrder] = useState(getValue("sortOrder") || "Desc");
   const [status, setStatus] = useState(getValue("status") || "all");
   const handleDebounceSearch = useDebounce((value) => {
     setValue(["search", "page"], [value, 1]);
   }, 500);
+  const { apiClient } = useAxios();
+  const router = useRouter();
+  const handleDeleteVideos = async () => {
+    if (selectedVideoIds?.length > 0) {
+      try {
+        const res = await apiClient.delete("/videos/", {
+          data: { videoIds: selectedVideoIds },
+        });
+        console.log(" res:", res);
+        toast.success("Videos deleted successfully");
+        onCheckboxChange(false, "all");
+        router.refresh();
+      } catch (error) {
+        console.error("Error deleting videos:", error);
+        toast.error("Failed to delete videos");
+      }
+    } else {
+      toast.warn("No videos selected for deletion");
+    }
+  };
+
   return (
     <div className="w-full">
       {/* Header */}
@@ -61,6 +86,17 @@ const VideosTableHeader = () => {
 
         {/* Filters */}
         <div className="flex flex-wrap gap-2">
+          {/*  delete multiple videos */}
+          {selectedVideoIds?.length > 0 && (
+            <Button
+              className="bg-red-500 text-white hover:bg-red-600"
+              onClick={handleDeleteVideos}
+            >
+              <Trash />
+              Delete videos
+            </Button>
+          )}
+
           {/* Filter Field */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

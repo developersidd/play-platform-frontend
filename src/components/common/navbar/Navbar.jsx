@@ -18,9 +18,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-//import Notification from "./notification/Notification";
 
-import CreatePlaylistModal from "@/app/(navbar-attached-layout)/(attached-sidebar)/channels/[channelUsername]/@tabs/playlist/_components/CreatePlaylistModal";
+import CreatePlaylistModal from "@/components/common/playlist/playlist-modal/CreatePlaylistModal";
 import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
 import Search from "./Search";
@@ -32,7 +31,7 @@ const NoSSRNotification = dynamic(
 );
 
 const LazyUploadVideoModal = dynamic(() =>
-  import("@/components/video/UploadVideoModal")
+  import("@/components/common/video/UploadVideoModal")
 );
 
 export const Navbar = () => {

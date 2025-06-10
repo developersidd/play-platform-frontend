@@ -1,5 +1,5 @@
 import { Upload } from "lucide-react";
-import { FormControl, FormField, FormItem, FormMessage } from "../ui/form";
+import { FormControl, FormField, FormItem, FormMessage } from "../../ui/form";
 
 const UploadVideoForm = ({
   form,

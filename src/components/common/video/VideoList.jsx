@@ -1,4 +1,4 @@
-import VideoCard from "../common/cards/VideoCard";
+import VideoCard from "../cards/VideoCard";
 
 const VideoList = ({ videos }) => {
   return (

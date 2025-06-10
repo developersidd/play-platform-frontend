@@ -3,30 +3,41 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { getPlaylistById } from "@/server-actions/playlist.action";
 import { retrieveCurrentUser } from "@/server-actions/user.action";
 import { getWatchLaterVideos } from "@/server-actions/watchLater.action";
+import { redirect } from "next/navigation";
 import PlaylistBoxItem from "./PlaylistBoxItem";
-
 const PlaylistBox = async ({ playlistId, currentVideoIndex }) => {
-  console.log(" currentVideoIndex:", currentVideoIndex)
+  console.log(" currentVideoIndex:", currentVideoIndex);
   const [name, id] = playlistId.split("_");
-  const {
-    data: { fullName: userFullName },
-  } = (await retrieveCurrentUser()) || {};
+  const { data: { fullName: userFullName } = {} } =
+    (await retrieveCurrentUser()) || {};
   let res;
+  const listName = name?.trim()?.toLowerCase() || "";
+
+  // if user is not logged in, and trying to access watch later or collection, redirect to home
+  if (!userFullName && ["wl", "ct"].includes(listName)) {
+    return redirect("/");
+  }
 
   // decide which playlist to fetch by id
-  if (name === "PL" || name === "CT") {
+  if (["pl", "ct"].includes(listName)) {
     res = await getPlaylistById(id);
-  } else if (name === "WL") {
+  } else if (["wl"].includes(listName)) {
     res = await getWatchLaterVideos();
+  } else {
+    return redirect("/");
   }
   const {
     data: { name: plName, videos, owner: { fullName } = {} },
     error,
   } = res || {};
   console.log("res", res);
-  const playlistOwner = name === "WL" ? userFullName : fullName;
+  const playlistOwner = listName === "wl" ? userFullName : fullName;
   let playlistName =
-    name === "WL" ? "Watch Later" : name === "CT" ? "My Collection" : plName;
+    listName === "wl"
+      ? "Watch Later"
+      : listName === "ct"
+      ? "My Collection"
+      : plName;
   const totalVideos = videos?.length || 0;
   return (
     <Card className="max-w-[398px]">

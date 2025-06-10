@@ -26,7 +26,7 @@ const ToggleVideoStatus = ({ isPublished, videoId }) => {
 
   return (
     <>
-      <TableCell className="pl-4 w-[8%]">
+      <TableCell className="pl-6">
         <Switch
           onCheckedChange={(checked) => {
             setIsChecked(checked);

@@ -1,4 +1,4 @@
-import PlaylistItem from "./PlaylistItem";
+import PlaylistItem from "@/components/common/playlist/PlaylistItem";
 
 const PlaylistList = ({ playlists = [] }) => {
   return (

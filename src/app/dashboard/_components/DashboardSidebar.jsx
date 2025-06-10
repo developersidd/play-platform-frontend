@@ -1,6 +1,5 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,33 +21,25 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { navItems } from "@/constants/data";
+import { dashboardNavGroups } from "@/constants/data";
 import useAxios from "@/hooks/useAxios";
 import useUserContext from "@/hooks/useUserContext";
 
 import { useSidebar } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import Icons, {
-  Bell,
-  ChevronsDown,
-  LogOut,
-  Power,
-  UserCircle,
-} from "lucide-react";
+import { Bell, ChevronsDown, LogOut, Power, UserCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-export default function AppSidebar() {
+function DashboardSidebar() {
   const pathname = usePathname();
   const { state, dispatch } = useUserContext();
-  const { avatar, username, email } = state || {};
+  const { avatar, username, email, role } = state || {};
+  console.log(" role:", role)
   const { apiClient } = useAxios();
-  // get sidebar collapsed state
   const { open } = useSidebar();
-  console.log(" open:", open);
 
   async function handleLogout() {
-    console.log("logout");
     try {
       await apiClient.post("/users/logout");
       router.push("/");
@@ -82,47 +73,29 @@ export default function AppSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent className="overflow-x-hidden">
-        <SidebarGroup>
-          <SidebarGroupLabel>Overview</SidebarGroupLabel>
-          <SidebarMenu>
-            {navItems.map((item) => {
-              const Icon = item.icon ? item.icon : Icons.logo;
-              return item?.items && item?.items?.length > 0 ? (
-                <Collapsible
-                  key={item.title}
-                  asChild
-                  defaultOpen={item.isActive}
-                  className="group/collapsible"
-                >
-                  <SidebarMenuItem>
-                    <CollapsibleTrigger asChild>
-                      <SidebarMenuButton
-                        tooltip={item.title}
-                        isActive={pathname === item.url}
-                      >
-                        {item.icon && <Icon />}
+        {dashboardNavGroups.map(({ name, items }) =>
+          name === "Admin" && role?.toLowerCase() !== "admin" ? null : (
+            <SidebarGroup key={name}>
+              <SidebarGroupLabel>{name}</SidebarGroupLabel>
+              <SidebarMenu>
+                {items.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton
+                      asChild
+                      tooltip={item.title}
+                      isActive={pathname === item.url}
+                    >
+                      <Link href={item.url}>
+                        <item.icon />
                         <span>{item.title}</span>
-                      </SidebarMenuButton>
-                    </CollapsibleTrigger>
+                      </Link>
+                    </SidebarMenuButton>
                   </SidebarMenuItem>
-                </Collapsible>
-              ) : (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    asChild
-                    tooltip={item.title}
-                    isActive={pathname === item.url}
-                  >
-                    <Link href={item.url}>
-                      <Icon />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              );
-            })}
-          </SidebarMenu>
-        </SidebarGroup>
+                ))}
+              </SidebarMenu>
+            </SidebarGroup>
+          )
+        )}
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
@@ -208,3 +181,4 @@ export default function AppSidebar() {
     </Sidebar>
   );
 }
+export default DashboardSidebar;

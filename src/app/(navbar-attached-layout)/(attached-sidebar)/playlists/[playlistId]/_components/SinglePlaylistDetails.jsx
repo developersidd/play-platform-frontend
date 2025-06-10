@@ -1,7 +1,7 @@
 import { formatCounting } from "@/lib/utils";
 import { Pencil } from "lucide-react";
 import moment from "moment";
-import CreatePlaylistModal from "../../../channels/[channelUsername]/@tabs/playlist/_components/CreatePlaylistModal";
+import CreatePlaylistModal from "../../../../../../components/common/playlist/playlist-modal/CreatePlaylistModal";
 
 const SinglePlaylistDetails = ({ isPlaylistOwner, playlistInfo }) => {
   const {

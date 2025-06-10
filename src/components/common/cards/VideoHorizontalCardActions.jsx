@@ -40,12 +40,10 @@ const VideoHorizontalCardActions = ({ videoId }) => {
   }
   return (
     <>
-      <div className="absolute flex items-center top-2 right-8 z-50">
+      <div className="absolute flex items-center top-2 right-8 p-2 pt-0">
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
-            <button
-              className="outline-none"
-            >
+            <button className="outline-none">
               <EllipsisVertical className="" size={22} />
             </button>
           </DropdownMenuTrigger>
