@@ -5,14 +5,14 @@ import { TableCell } from "@/components/ui/table";
 import useAxios from "@/hooks/useAxios";
 import useDebounce from "@/hooks/useDebounce";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-const ToggleVideoStatus = ({ isPublished, videoId }) => {
-  const [isChecked, setIsChecked] = useState(isPublished);
+const ToggleVideoStatus = ({
+  isVideoPublished,
+  setIsVideoPublished,
+  videoId,
+}) => {
   const { apiClient } = useAxios();
   const router = useRouter();
-  useEffect(() => {
-    setIsChecked(isPublished);
-  }, [isPublished]);
+
   const handleDebouncedToggle = useDebounce(async (value) => {
     try {
       await apiClient.patch(`/videos/toggle/publish/${videoId}`, {
@@ -29,16 +29,16 @@ const ToggleVideoStatus = ({ isPublished, videoId }) => {
       <TableCell className="pl-6">
         <Switch
           onCheckedChange={(checked) => {
-            setIsChecked(checked);
+            setIsVideoPublished(checked);
             handleDebouncedToggle(checked);
           }}
-          checked={isChecked}
+          checked={isVideoPublished}
           id="isPrivate"
         />
       </TableCell>
-      <TableCell className="w-[10%]">
-        <Badge className={`${isChecked ? "bg-secondary" : ""}`}>
-          {isChecked ? "Published" : "Unpublished"}
+      <TableCell className="w-[9%]">
+        <Badge className={`${isVideoPublished ? "bg-secondary" : ""}`}>
+          {isVideoPublished ? "Published" : "Unpublished"}
         </Badge>
       </TableCell>
     </>

@@ -9,13 +9,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import useVideoSelection from "@/hooks/useVideoSelection";
+import VideosTableFooter from "./VideosTableFooter";
 import VideosTableHeader from "./VideosTableHeader";
 import VideosTableRow from "./VideosTableRow";
-const DashboardVideosTable = ({ videos }) => {
+const DashboardVideosTable = ({ videos, totalPages }) => {
   const videoIds = videos?.map((v) => v?._id);
   const { selectedVideoIds, handleCheckboxChange } =
     useVideoSelection(videoIds);
-  return (  
+  return (
     <>
       <VideosTableHeader
         onCheckboxChange={handleCheckboxChange}
@@ -37,6 +38,7 @@ const DashboardVideosTable = ({ videos }) => {
               <TableHead className="pl-6">Status </TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Uploaded Video</TableHead>
+              <TableHead className="pl-5">Owner</TableHead>
               <TableHead>Views</TableHead>
               <TableHead>Rating</TableHead>
               <TableHead>Date Uploaded</TableHead>
@@ -64,6 +66,7 @@ const DashboardVideosTable = ({ videos }) => {
           </TableBody>
         </Table>
       </ScrollArea>
+      <VideosTableFooter totalPages={totalPages} />
     </>
   );
 };

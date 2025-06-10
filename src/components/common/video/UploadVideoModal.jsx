@@ -152,6 +152,9 @@ const UploadVideoModal = ({ children, videoId }) => {
         }
       } catch (e) {
         toast.error("Error occurred while editing video");
+      } finally {
+        router.refresh();
+        setShowUploadModal(false);
       }
     } else {
       // upload video

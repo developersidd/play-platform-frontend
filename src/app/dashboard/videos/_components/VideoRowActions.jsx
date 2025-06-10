@@ -7,7 +7,7 @@ import {
 import { TableCell } from "@/components/ui/table";
 import useAxios from "@/hooks/useAxios";
 import { Pencil, ScanSearch, Trash2 } from "lucide-react";
-import { lazy, useEffect, useRef, useState } from "react";
+import { lazy, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -27,15 +27,9 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
   const { apiClient } = useAxios();
   const router = useRouter();
 
-  const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
-  const [openEditModal, setOpenEditModal] = useState(false);
-  useEffect(() => {
-    if (openEditModal) {
-      editModalTriggerRef?.current?.click();
-    }
-  }, [openEditModal]);
-
   const editModalTriggerRef = useRef(null);
+  const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
+
   const handleDeleteVideo = async () => {
     try {
       setOpenDeleteAlert(false);
@@ -78,7 +72,8 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
 
           <DropdownMenuItem
             onClick={() => {
-              setOpenEditModal(true);
+              editModalTriggerRef?.current?.click();
+
             }}
             className="cursor-pointer"
           >
@@ -96,11 +91,11 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       {/* Edit video Modal */}
-      {openEditModal && (
-        <LazyUploadVideoModal key="edit-video" videoId={videoId}>
+      
+        <LazyUploadVideoModal  videoId={videoId}>
           <button ref={editModalTriggerRef}></button>
         </LazyUploadVideoModal>
-      )}
+      
 
       {/*  Show Delete alert */}
       <AlertDialog open={openDeleteAlert} onOpenChange={setOpenDeleteAlert}>

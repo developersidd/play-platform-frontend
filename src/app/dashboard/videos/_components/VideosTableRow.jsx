@@ -3,6 +3,7 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import moment from "moment";
 import Image from "next/image";
+import { useState } from "react";
 import ToggleVideoStatus from "./ToggleVideoStatus";
 import VideoRowActions from "./VideoRowActions";
 const VideosTableRow = ({ video, onCheckboxChange, selectedVideoIds }) => {
@@ -15,7 +16,10 @@ const VideosTableRow = ({ video, onCheckboxChange, selectedVideoIds }) => {
     dislikes,
     isPublished,
     views,
+    owner: { username: ownerUsername, avatar } = {},
   } = video || {};
+
+  const [isVideoPublished, setIsVideoPublished] = useState(isPublished);
 
   return (
     <TableRow className=" h-[70px]">
@@ -24,26 +28,40 @@ const VideosTableRow = ({ video, onCheckboxChange, selectedVideoIds }) => {
           onCheckedChange={(checked) =>
             onCheckboxChange(checked, "single", _id)
           }
-          checked={selectedVideoIds.includes(_id)}
+          checked={selectedVideoIds?.includes(_id)}
           className="h-4 w-4"
         />
       </TableCell>
-      <ToggleVideoStatus videoId={_id} isPublished={isPublished} />
-      <TableCell className="w-[30%]">
-        <div className="flex items-center gap-4 pr-5">
+      <ToggleVideoStatus
+        videoId={_id}
+        isVideoPublished={isVideoPublished}
+        setIsVideoPublished={setIsVideoPublished}
+      />
+      <TableCell className="w-[450px]">
+        <div className="flex items-center gap-4 ">
           <Image
-            width={40}
-            height={40}
-            className="h-10 w-10 rounded-full"
-            src={
-              thumbnail?.url ||
-              "https://images.pexels.com/photos/3532545/pexels-photo-3532545.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            }
+            width={100}
+            height={300}
+            className="h-12 min-w-24 rounded object-fit"
+            src={thumbnail?.url}
             alt={title || "Video Thumbnail"}
           />
           <h3 className="font-semibold">
-            {title?.length > 100 ? title?.slice(0, 100) + "..." : title}
+            {title?.length > 90 ? title?.slice(0, 90) + "..." : title}
           </h3>
+        </div>
+      </TableCell>
+      {/* show owner avatar and username */}
+      <TableCell className="pl-5">
+        <div className="flex items-center gap-4">
+          <Image
+            width={100}
+            height={100}
+            className="h-10 w-10 rounded-full"
+            src={avatar?.url || "/default-avatar.png"}
+            alt={ownerUsername || "Owner Avatar"}
+          />
+          <span className="font-semibold">{ownerUsername}</span>
         </div>
       </TableCell>
       <TableCell>
@@ -65,7 +83,7 @@ const VideosTableRow = ({ video, onCheckboxChange, selectedVideoIds }) => {
       </TableCell>
       <TableCell>{moment(createdAt).format("Do MMM YYYY")}</TableCell>
       <VideoRowActions
-        isVideoPublished={isPublished}
+        isVideoPublished={isVideoPublished}
         title={title}
         videoId={_id}
       />

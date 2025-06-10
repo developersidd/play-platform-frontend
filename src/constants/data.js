@@ -56,7 +56,7 @@ export const dashboardNavGroups = [
       },
       {
         title: "Videos",
-        url: "/dashboard/videos-admin",
+        url: "/dashboard/videos/admin",
         icon: Youtube,
         shortcut: ["v", "v"],
       },

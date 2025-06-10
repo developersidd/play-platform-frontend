@@ -24,7 +24,6 @@ const sortingOptions = [
 ];
 
 const VideosTableHeader = ({ selectedVideoIds, onCheckboxChange }) => {
-  console.log(" selectedVideoIds:", selectedVideoIds);
   const { setValue, getValue } = useQueryParam();
   const [search, setSearch] = useState(getValue("search") || "");
   const [filterField, setFilterField] = useState(getValue("sortBy") || "Date");
@@ -34,20 +33,24 @@ const VideosTableHeader = ({ selectedVideoIds, onCheckboxChange }) => {
     setValue(["search", "page"], [value, 1]);
   }, 500);
   const { apiClient } = useAxios();
+  const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
   const handleDeleteVideos = async () => {
     if (selectedVideoIds?.length > 0) {
       try {
-        const res = await apiClient.delete("/videos/", {
+        setIsDeleting(true);
+        await apiClient.delete("/videos/", {
           data: { videoIds: selectedVideoIds },
         });
-        console.log(" res:", res);
         toast.success("Videos deleted successfully");
         onCheckboxChange(false, "all");
         router.refresh();
       } catch (error) {
         console.error("Error deleting videos:", error);
         toast.error("Failed to delete videos");
+      } finally {
+        setIsDeleting(false);
+        router.refresh();
       }
     } else {
       toast.warn("No videos selected for deletion");
@@ -86,9 +89,10 @@ const VideosTableHeader = ({ selectedVideoIds, onCheckboxChange }) => {
 
         {/* Filters */}
         <div className="flex flex-wrap gap-2">
-          {/*  delete multiple videos */}
+          {/*  delete many videos */}
           {selectedVideoIds?.length > 0 && (
             <Button
+              disabled={isDeleting}
               className="bg-red-500 text-white hover:bg-red-600"
               onClick={handleDeleteVideos}
             >
