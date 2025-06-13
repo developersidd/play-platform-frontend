@@ -113,12 +113,11 @@ export const Navbar = () => {
                     <LogOut className="size-4 mr-2" />
                     <button>Logout</button>
                   </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => router.push(`/channels/${username}`)}
-                    className="cursor-pointer"
-                  >
-                    <User className="size-4 mr-2" />
-                    My Profile
+                  <DropdownMenuItem className="cursor-pointer">
+                    <Link href={`/channels/${username}`} className="flex">
+                      <User className="size-4 mr-2" />
+                      My Profile
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

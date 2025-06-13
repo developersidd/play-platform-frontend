@@ -7,6 +7,7 @@ const ChannelSinglePlaylistPage = async ({ params: { playlistId } }) => {
   const { data: user } = await retrieveCurrentUser();
   const { data, error } = await getPlaylistById(playlistId);
   const { owner, videos = [], ...rest } = data || {};
+  console.log(" videosff:", videos)
   const isPlaylistOwner = user?._id === owner?._id;
   return (
     <section className="w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">

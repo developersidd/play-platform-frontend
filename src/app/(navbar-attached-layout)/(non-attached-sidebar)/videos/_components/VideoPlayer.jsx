@@ -53,7 +53,7 @@ const VideoPlayer = ({ video }) => {
   }
 
   return (
-    <div className="rounded-lg overflow-hidden shadow dark:shadow-white/40 dark:shadow-md h-[300px] sm:h-[400px] md:[550px] lg:h-[580px] xl:h-[600px] 2xl:h-[720px]">
+    <div className="rounded-lg overflow-hidden shadow dark:shadow-white/40 dark:shadow-md h-[300px] sm:h-[400px] md:h-[550px] lg:h-[580px] xl:h-[600px] 2xl:h-[720px]">
       {hasWindow && (
         <ReactPlayer
           onReady={onReady}

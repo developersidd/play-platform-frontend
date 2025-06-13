@@ -40,7 +40,7 @@ const PlaylistBox = async ({ playlistId, currentVideoIndex }) => {
       : plName;
   const totalVideos = videos?.length || 0;
   return (
-    <Card className="max-w-[398px]">
+    <Card className="w-[398px]">
       <CardHeader className="p-4 border-b">
         <h3 className="font-semibold text-lg"> {playlistName}</h3>
         <div className="flex gap-3">

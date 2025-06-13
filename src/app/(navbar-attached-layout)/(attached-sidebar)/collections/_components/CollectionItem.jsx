@@ -8,7 +8,7 @@ const CollectionItem = ({ collection }) => {
   // check if the video is available
 
   const [{ thumbnail, _id: firstVideoId } = {}] =
-    videos?.filter((v) => v?.title?.length > 0) || [];
+    videos || [];
 
   return (
     <Link

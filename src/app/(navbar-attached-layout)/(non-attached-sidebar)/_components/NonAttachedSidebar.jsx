@@ -40,7 +40,7 @@ const NonAttachedSidebar = () => {
         <div
           onClick={() => setShowSidebar(false)}
           className={`${showSidebar ? "visible" : "invisible"}   
-        fixed w-screen h-screen translate-x-full transition-transform  right-0 top-0 bottom-0 bg-black/60 z-30`}
+        fixed w-screen h-screen translate-x-full transition-transform !duration-1000 ease-in-out right-0 top-0 bottom-0 bg-black/60 z-30`}
         ></div>
         <div className=" w-full mt-2 flex items-center justify-start gap-4 px-6">
           <MenuIcon

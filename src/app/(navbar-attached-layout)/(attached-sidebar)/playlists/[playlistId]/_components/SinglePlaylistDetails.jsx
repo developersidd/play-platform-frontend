@@ -4,9 +4,10 @@ import moment from "moment";
 import CreatePlaylistModal from "../../../../../../components/common/playlist/playlist-modal/CreatePlaylistModal";
 
 const SinglePlaylistDetails = ({ isPlaylistOwner, playlistInfo }) => {
+  console.log(" playlistInfo:", playlistInfo);
   const {
-    video: { thumbnail, title },
-    owner: { avatar, fullName, subscribers },
+    video,
+    owner: { avatar, fullName, subscribers } = {},
     name,
     description,
     createdAt,
@@ -14,6 +15,7 @@ const SinglePlaylistDetails = ({ isPlaylistOwner, playlistInfo }) => {
     _id,
   } = playlistInfo || {};
   console.log(" _id:", _id);
+  const { thumbnail = {}, title } = video || {}
   return (
     <div className="w-full shrink-0 sm:max-w-md xl:max-w-lg">
       <div className="relative mb-2 w-full pt-[56%]">
@@ -26,7 +28,11 @@ const SinglePlaylistDetails = ({ isPlaylistOwner, playlistInfo }) => {
               </button>
             </CreatePlaylistModal>
           )}
-          <img src={thumbnail?.url} alt={title} className="h-full w-full" />
+          <img
+            src={thumbnail?.url || ""}
+            alt={title}
+            className="h-full w-full"
+          />
           <div className="absolute inset-x-0 bottom-0">
             <div className="relative border-t bg-white/30 p-4 text-white backdrop-blur-sm before:absolute before:inset-0 before:bg-black/40">
               <div className="relative z-[1]">
