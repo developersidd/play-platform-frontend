@@ -15,47 +15,49 @@ import { Trash, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-// create a sorting options array to use in the dropdown menu with prop, label as object
 const sortingOptions = [
-  { value: "title", label: "Title" },
-  { value: "views", label: "Views" },
-  { value: "likes", label: "Likes" },
-  { value: "dislikes", label: "Dislikes" },
+  { value: "username", label: "Username" },
+  { value: "videosCount", label: "Videos" },
+  { value: "tweetsCount", label: "Tweets" },
+  { value: "subscribersCount", label: "Subscribers" },
+  { value: "subscribedChannelsCount", label: "Subscribed Channels" },
   { value: "createdAt", label: "Date" },
 ];
 
-const VideosTableHeader = ({ selectedIds, onCheckboxChange }) => {
+const UsersTableHeader = ({ selectedIds, onCheckboxChange }) => {
+  console.log(" selectedIds:", selectedIds)
   const { setValue, getValue } = useQueryParam();
   const [search, setSearch] = useState(getValue("search") || "");
-  const [filterField, setFilterField] = useState(getValue("sortBy") || "title");
-  console.log(" filterField:", filterField);
+  const [filterField, setFilterField] = useState(
+    getValue("sortBy") || "createdAt"
+  );
   const [sortOrder, setSortOrder] = useState(getValue("sortOrder") || "desc");
-  const [status, setStatus] = useState(getValue("status"));
+
   const handleDebounceSearch = useDebounce((value) => {
     setValue(["search", "page"], [value, 1]);
   }, 500);
   const { apiClient } = useAxios();
   const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
-  const handleDeleteVideos = async () => {
+  const handleDeleteUsers = async () => {
     if (selectedIds?.length > 0) {
       try {
         setIsDeleting(true);
-        await apiClient.delete("/videos/", {
-          data: { videoIds: selectedIds },
+        await apiClient.delete("/users/", {
+          data: { userIds: selectedIds },
         });
-        toast.success("Videos deleted successfully");
+        toast.success("Users deleted successfully");
         onCheckboxChange(false, "all");
         router.refresh();
       } catch (error) {
-        console.error("Error deleting videos:", error);
-        toast.error("Failed to delete videos");
+        console.error("Error deleting users:", error);
+        toast.error("Failed to delete users");
       } finally {
         setIsDeleting(false);
         router.refresh();
       }
     } else {
-      toast.warn("No videos selected for deletion");
+      toast.warn("No users selected for deletion");
     }
   };
 
@@ -66,7 +68,7 @@ const VideosTableHeader = ({ selectedIds, onCheckboxChange }) => {
         {/* Search */}
         <div className="relative w-full md:max-w-[300px]">
           <Input
-            placeholder="Search videos..."
+            placeholder="Search users..."
             value={search}
             onChange={(e) => {
               const value = e.target.value;
@@ -91,15 +93,15 @@ const VideosTableHeader = ({ selectedIds, onCheckboxChange }) => {
 
         {/* Filters */}
         <div className="flex flex-wrap gap-2">
-          {/*  delete many videos */}
+          {/*  delete many users */}
           {selectedIds?.length > 0 && (
             <Button
               disabled={isDeleting}
               className="bg-red-500 text-white hover:bg-red-600"
-              onClick={handleDeleteVideos}
+              onClick={handleDeleteUsers}
             >
               <Trash />
-              Delete videos
+              Delete users
             </Button>
           )}
 
@@ -124,40 +126,21 @@ const VideosTableHeader = ({ selectedIds, onCheckboxChange }) => {
           </Select>
 
           {/* Sort Type */}
+
           <Select
             onValueChange={(value) => {
+              console.log(" value:", value);
               setSortOrder(value);
               setValue("sortOrder", value);
             }}
             value={sortOrder}
           >
-            <SelectTrigger className="w-[130px]">
+            <SelectTrigger className="w-[180px]">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="asc">Asc</SelectItem>
               <SelectItem value="desc">Desc</SelectItem>
-            </SelectContent>
-          </Select>
-
-          {/* Publish Filter */}
-
-          <Select
-            value={status || "all"}
-            onValueChange={(value) => {
-              setStatus(value);
-              setValue(["status", "page"], [value, 1]);
-            }}
-          >
-            <SelectTrigger className="capitalize w-[130px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {["all", "published", "unpublished"].map((status) => (
-                <SelectItem className="capitalize" key={status} value={status}>
-                  {status}
-                </SelectItem>
-              ))}
             </SelectContent>
           </Select>
         </div>
@@ -168,4 +151,4 @@ const VideosTableHeader = ({ selectedIds, onCheckboxChange }) => {
   );
 };
 
-export default VideosTableHeader;
+export default UsersTableHeader;

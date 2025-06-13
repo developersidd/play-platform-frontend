@@ -9,16 +9,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import useSelection from "@/hooks/useSelection";
-import VideosTableFooter from "./VideosTableFooter";
-import VideosTableHeader from "./VideosTableHeader";
-import VideosTableRow from "./VideosTableRow";
-const DashboardVideosTable = ({ videos, totalPages }) => {
-  const videoIds = videos?.map((v) => v?._id);
-  const { selectedIds, handleCheckboxChange } =
-    useSelection(videoIds);
+import UsersTableFooter from "./UsersTableFooter";
+import UsersTableHeader from "./UsersTableHeader";
+import UserTableRow from "./UsersTableRow";
+const DashboardUsersTable = ({ users, totalPages }) => {
+  const userIds = users?.map((v) => v?._id);
+  const { selectedIds, handleCheckboxChange } = useSelection(userIds);
   return (
     <>
-      <VideosTableHeader
+      <UsersTableHeader
         onCheckboxChange={handleCheckboxChange}
         selectedIds={selectedIds}
       />
@@ -29,45 +28,44 @@ const DashboardVideosTable = ({ videos, totalPages }) => {
             <TableRow>
               <TableHead className="pl-4">
                 <Checkbox
-                  checked={selectedIds?.length === videoIds?.length}
+                  checked={selectedIds?.length === userIds?.length}
                   onCheckedChange={(checked) =>
                     handleCheckboxChange(checked, "all")
                   }
                 />
               </TableHead>
-              <TableHead className="pl-6">Status </TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Uploaded Video</TableHead>
-              <TableHead className="pl-5">Owner</TableHead>
-              <TableHead>Views</TableHead>
-              <TableHead>Rating</TableHead>
-              <TableHead>Date Uploaded</TableHead>
+              <TableHead className="pl-5">Profile</TableHead>
+              <TableHead> Videos </TableHead>
+              <TableHead> Tweets </TableHead>
+              <TableHead> Subscribers </TableHead>
+              <TableHead> Subscribed </TableHead>
+              <TableHead>Joined At</TableHead>
               <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {videos?.length > 0 ? (
-              videos?.map((video, ind) => (
-                <VideosTableRow
+            {users?.length > 0 ? (
+              users?.map((user, ind) => (
+                <UserTableRow
                   onCheckboxChange={handleCheckboxChange}
                   ind={ind}
-                  key={video?._id}
-                  video={video}
+                  key={user?._id}
+                  user={user}
                   selectedIds={selectedIds}
                 />
               ))
             ) : (
-              <TableRow className="h-[70px] *:text-base  *:dark:text-white *:font-medium  border-b-2">
+              <TableRow className="h-[70px] *:text-base  *:dark:text-white *:font-medium  border-b-2 w-full">
                 <TableHead colSpan={6} className="text-center">
-                  No videos found
+                  No users found
                 </TableHead>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </ScrollArea>
-      <VideosTableFooter totalPages={totalPages} />
+      <UsersTableFooter totalPages={totalPages} />
     </>
   );
 };
-export default DashboardVideosTable;
+export default DashboardUsersTable;

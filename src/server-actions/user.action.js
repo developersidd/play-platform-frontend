@@ -2,8 +2,8 @@
 import { apiClient, fetchWithAuth } from "../axios";
 import { getAccessToken } from "./auth.action";
 
+// get current user
 const retrieveCurrentUser = async () => {
-  //console.log("retrieveCurrentUser");
   try {
     const accessToken = getAccessToken();
     if (!accessToken) {
@@ -12,6 +12,20 @@ const retrieveCurrentUser = async () => {
       };
     }
     const res = await fetchWithAuth("/users/current-user");
+    return {
+      data: res.data,
+    };
+  } catch (e) {
+    return {
+      error: e.message,
+    };
+  }
+};
+
+// get all users
+const getAllUsers = async (params) => {
+  try {
+    const res = await fetchWithAuth("/users/all", { params });
     return {
       data: res.data,
     };
@@ -48,7 +62,7 @@ const getUserChannelStats = async () => {
       data: res.data,
     };
   } catch (e) {
-    console.log(" e:", e)
+    console.log(" e:", e);
     return {
       error: e.message,
     };
@@ -76,4 +90,5 @@ export {
   getUserChannelStats,
   getUserHistory,
   retrieveCurrentUser,
+  getAllUsers
 };

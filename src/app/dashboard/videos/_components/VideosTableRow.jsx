@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 import ToggleVideoStatus from "./ToggleVideoStatus";
 import VideoRowActions from "./VideoRowActions";
-const VideosTableRow = ({ video, onCheckboxChange, selectedVideoIds }) => {
+const VideosTableRow = ({ video, onCheckboxChange, selectedIds }) => {
   const {
     _id,
     title,
@@ -28,7 +28,7 @@ const VideosTableRow = ({ video, onCheckboxChange, selectedVideoIds }) => {
           onCheckedChange={(checked) =>
             onCheckboxChange(checked, "single", _id)
           }
-          checked={selectedVideoIds?.includes(_id)}
+          checked={selectedIds?.includes(_id)}
           className="h-4 w-4"
         />
       </TableCell>

@@ -3,8 +3,8 @@ import CollectionItem from "./CollectionItem";
 const CollectionList = ({ collections = [] }) => {
   return (
     <div className="grid gap-4 pt-2 sm:grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))]">
-      {collections.map((playlist) => (
-        <CollectionItem key={playlist?._id} collection={playlist} />
+      {collections.map((collection) => (
+        <CollectionItem key={collection?._id} collection={collection} />
       ))}
     </div>
   );

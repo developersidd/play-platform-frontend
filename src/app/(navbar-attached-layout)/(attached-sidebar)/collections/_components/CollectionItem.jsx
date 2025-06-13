@@ -5,7 +5,11 @@ import Link from "next/link";
 const CollectionItem = ({ collection }) => {
   const { name, description, videos, totalVideos, createdAt, _id } =
     collection || {};
-  const [{ thumbnail, _id: firstVideoId } = {}] = videos || [];
+  // check if the video is available
+
+  const [{ thumbnail, _id: firstVideoId } = {}] =
+    videos?.filter((v) => v?.title?.length > 0) || [];
+
   return (
     <Link
       href={`/videos/${firstVideoId}?list=CT_${_id}&index=1`}

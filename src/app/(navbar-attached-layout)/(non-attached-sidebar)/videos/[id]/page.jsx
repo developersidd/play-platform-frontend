@@ -12,12 +12,13 @@ const SingleVideoPage = async ({
 }) => {
   console.log(" index:", index)
   const { data: user } = (await retrieveCurrentUser()) || {};
-  const { data: video } = (await getVideoById(id, user?._id)) || {};
+  const { data: video, error } = (await getVideoById(id, user?._id)) || {};
+  console.log(" error id:", error)
 
   return (
     <section className=" w-full mx-2 lg:mx-10 xl:mx-20 ">
       <div className="flex w-full flex-wrap gap-4 px-2 py-4 md:py-8 lg:flex-nowrap">
-        <div className="col-span- w-full">
+        <div className=" w-full">
           {/* video Player */}
           <VideoPlayer video={video} />
           {/* video description */}
