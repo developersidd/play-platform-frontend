@@ -6,8 +6,9 @@ import Image from "next/image";
 import ChannelInfo from "./@tabs/_components/ChannelInfo";
 import ChannelMenu from "./@tabs/_components/ChannelMenu";
 
-const ChannelLayout = async ({ tabs, params: { channelUsername } }) => {
+const ChannelLayout = async ({ tabs, params }) => {
   const { data: user } = await retrieveCurrentUser();
+  const { channelUsername } = await params;
   const { data: channel } = await getChannelByUsername(
     channelUsername,
     user?._id

@@ -5,10 +5,11 @@ import { useTheme } from "next-themes";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 export function ModeToggle() {
   const { setTheme, resolvedTheme } = useTheme();
-
+  const [initialLoad, setInitialLoad] = useState(false);
   const handleThemeToggle = React.useCallback(
     (e) => {
       const newMode = resolvedTheme === "dark" ? "light" : "dark";
@@ -31,7 +32,14 @@ export function ModeToggle() {
     },
     [resolvedTheme, setTheme]
   );
-
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setInitialLoad(true);
+    }
+  }, []);
+  if (!initialLoad) {
+    return;
+  }
   return (
     <Button
       variant="outline"
@@ -40,9 +48,9 @@ export function ModeToggle() {
       onClick={handleThemeToggle}
     >
       {resolvedTheme === "dark" ? (
-        <Sun className=" size-5  " />
+        <Sun className="size-5" />
       ) : (
-        <Moon className=" size-5  " />
+        <Moon className="size-5" />
       )}
       <span className="sr-only">Toggle theme</span>
     </Button>

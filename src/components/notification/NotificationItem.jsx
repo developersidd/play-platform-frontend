@@ -15,16 +15,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 const NotificationItem = ({ item, onClose }) => {
-  const {
-    sender,
-    type,
-    message,
-    image,
-    createdAt,
-    link,
-    _id,
-  } = item || {};
-  const  { username = "", avatar = "", _id: channelId } = sender ||{}
+  const { sender, type, message, image, createdAt, link, _id } = item || {};
+  const { username = "", avatar = "", _id: channelId } = sender || {};
   const { apiClient } = useAxios();
   const [isHide, setIsHide] = useState(false);
   const router = useRouter();
@@ -61,41 +53,45 @@ const NotificationItem = ({ item, onClose }) => {
       }}
       className={`${
         isHide ? "hidden" : ""
-      } cursor-pointer relative last:mb-0 mb-3`}
+      } cursor-pointer relative last:mb-0 mb-1 md:mb-3`}
     >
       {/*<Link href={link} onClick={handleDeleteNotification}>*/}
       <div className="flex items-center gap-2">
-        <div className="w-1.5 h-[5px] bg-blue-600 rounded-full"></div>
+        <div className="hidden w-1.5 h-[5px] rounded-full"></div>
 
-        {fromAdmin ? (
-          <Shield />
-        ) : (
-          <Avatar>
-            <Link href={`/channels/${username}`}>
-              <AvatarImage src={avatar?.url} alt={username} />
-              <AvatarFallback> {username} </AvatarFallback>
-            </Link>
-          </Avatar>
-        )}
-        <div className="ms-1 flex items-start justify-start gap-3 w-full pr-3">
-          <div className="w-[70%]">
-            <h5 className="text-sm text-gray-500">{message}</h5>
-            <p> {moment(createdAt).fromNow()} </p>
+        <div className="ms-1 flex items-start justify-between gap-3 pr-2 md:pr-3">
+          <div className="min-w-[60%] max-w-[60%] flex  gap-3 items-center">
+            {fromAdmin ? (
+              <Shield />
+            ) : (
+              <Avatar>
+                <Link href={`/channels/${username}`}>
+                  <AvatarImage src={avatar?.url} alt={username} />
+                  <AvatarFallback> {username} </AvatarFallback>
+                </Link>
+              </Avatar>
+            )}
+            <div>
+              <h5 className="text-xs md:text-sm text-gray-500">{message}</h5>
+              <p className="text-xs md:text-sm">
+                {" "}
+                {window && moment(createdAt).fromNow()}{" "}
+              </p>
+            </div>
           </div>
-          <div
-            className="w-[
-            30%] flex items-center justify-end"
-          >
-            <Image
-              width={150}
-              height={100}
-              src={image}
-              alt={message}
-              className="w-[150px] h-16  rounded-md"
-            />
+          <div className="min-w-[35%] max-w-[35%]  flex items-center justify-end ml-auto ">
+            <div className="ml-auto w-[150px] h-14 md:h-16  ">
+              <Image
+                width={150}
+                height={100}
+                src={image}
+                alt={message}
+                className=" rounded-md w-full h-full bg-green-300"
+              />
+            </div>
           </div>
         </div>
-        {!fromAdmin && (
+        {!!fromAdmin && (
           <DropdownMenu className="">
             <DropdownMenuTrigger>
               <div className="absolute top-1/2 -translate-y-1/2 right-0.5  outline-none">

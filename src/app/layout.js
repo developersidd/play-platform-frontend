@@ -29,7 +29,7 @@ export const viewport = {
 };
 
 export default async function RootLayout({ children }) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const activeThemeValue = cookieStore.get("active_theme")?.value;
   const isScaled = activeThemeValue?.endsWith("-scaled");
 

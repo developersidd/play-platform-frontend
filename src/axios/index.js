@@ -16,8 +16,7 @@ export const apiClient = axios.create({
 export async function fetchWithAuth(url, options = {}) {
   try {
     // Add the access token to the request headers
-    const accessToken = getAccessToken(); // Get access token from cookies/session
-    //console.log("accessToken:", accessToken);
+    const accessToken = await getAccessToken(); 
     if (!accessToken) {
       throw new Error("Session expired");
     }
@@ -32,7 +31,7 @@ export async function fetchWithAuth(url, options = {}) {
     });
     return response.data;
   } catch (error) {
-    //console.log("error in fetchwith:", error);
+    console.log("error in fetchwith:", error);
     if (error.response && error.response.status === 401 && !options._retry) {
       options._retry = true;
       // If we receive a 401, try refreshing the token
@@ -51,7 +50,10 @@ export async function fetchWithAuth(url, options = {}) {
         });
       } catch (refreshError) {
         // Token refresh failed, handle logout or redirect to login
-        throw new Error(
+        //throw new Error(
+        //  "Session expired or there was error refreshing token. Please log in again."
+        //);
+        console.log(
           "Session expired or there was error refreshing token. Please log in again."
         );
       }

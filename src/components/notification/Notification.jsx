@@ -14,6 +14,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 const LazyNotificationContent = dynamic(() => import("./NotificationContent"), {
+  ssr: false,
   loading: () => (
     <div className="flex justify-center items-center h-[400px]">
       <Loader size={40} className="animate-spin" />
@@ -23,6 +24,7 @@ const LazyNotificationContent = dynamic(() => import("./NotificationContent"), {
 const Notification = () => {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useLocalStorage("unread-count", 0);
+  console.log("Notification component rendered");
   const { state } = useUserContext() || {};
   const { accessToken, role } = state || {};
   const { apiClient } = useAxios();
@@ -119,7 +121,10 @@ const Notification = () => {
             </NotificationBadge>
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="lg:w-[500px] mt-2">
+        <DropdownMenuContent
+          align="end"
+          className="w-[calc(100vw-5rem)] sm:w-[500px] mt-2"
+        >
           {content}
         </DropdownMenuContent>
       </DropdownMenu>

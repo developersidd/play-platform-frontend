@@ -21,7 +21,7 @@ const Search = () => {
     }
   };
   return (
-    <div className="relative hidden w-full h-[45px] max-w-md overflow-hidden sm:flex items-center border dark:border-white border-gray-300 rounded mr-5">
+    <div className="relative hidden w-full  h-[45px]  lg:max-w-md overflow-hidden lg:flex items-center border dark:border-white border-gray-300 rounded mr-24">
       <input
         onKeyDown={(e) => e.key === "Enter" && gotToSearch()}
         value={search}
@@ -47,7 +47,7 @@ const Search = () => {
       <button
         disabled={!search}
         onClick={gotToSearch}
-        className="h-full border-l border-gray-300 dark:border-white py-[10px] flex items-center justify-center w-[10%]"
+        className="h-full border-l border-gray-300 dark:border-white py-[10px] flex items-center justify-center w-[50px]"
       >
         <SearchIcon size={20} />
       </button>

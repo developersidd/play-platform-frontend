@@ -9,9 +9,10 @@ import VideoDescription from "../_components/VideoDescription";
 import VideoPlayer from "../_components/VideoPlayer";
 
 const SingleVideoPage = async ({
-  params: { id } = {},
+  params,
   searchParams: { list, index },
 }) => {
+  const { id } = await params;
   console.log(" index:", index);
   const { data: user } = (await retrieveCurrentUser()) || {};
   const { data: video, error } = (await getVideoById(id, user?._id)) || {};

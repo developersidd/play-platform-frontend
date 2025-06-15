@@ -2,7 +2,8 @@ import { getUserTweets } from "@/server-actions/tweets.action";
 import { retrieveCurrentUser } from "@/server-actions/user.action";
 import ChannelTweetsWrapper from "./_components/ChannelTweetsWrapper";
 
-const ChannelTweetsPage = async ({ params: { channelUsername } }) => {
+const ChannelTweetsPage = async ({ params }) => {
+  const { channelUsername } = await params;
   const { data: { username, _id } = {} } = await retrieveCurrentUser();
   const { data: tweets = [], error } = await getUserTweets(
     channelUsername,

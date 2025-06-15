@@ -22,8 +22,9 @@ import { toast } from "sonner";
 import CreatePlaylistModal from "@/components/common/playlist/playlist-modal/CreatePlaylistModal";
 import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
+import { useState } from "react";
 import Search from "./Search";
-const NoSSRNotification = dynamic(
+const LazyNotification = dynamic(
   () => import("@/components/notification/Notification"),
   {
     ssr: false,
@@ -40,7 +41,7 @@ export const Navbar = () => {
   const { setSidebarCollapsed, setShowSidebar } = useSidebarContext();
   const { avatar, username } = state;
   const { apiClient } = useAxios();
-
+  const [show, setShow] = useState(false);
   async function handleLogout() {
     console.log("logout");
     try {
@@ -55,9 +56,9 @@ export const Navbar = () => {
   }
   return (
     <div className="w-full bg-background border-b border-gray-300 dark:border-white  sticky top-0 z-50 ">
-      <div className="px-3 sm:px-4 md:px-6 xl:px-12 py-2  h-full flex w-full items-center  justify-between">
+      <div className="px-3 sm:px-4 md:px-6 lg:px-8 2xl:px-10 py-2  h-full flex w-full items-center  justify-between">
         {/*<MobileSidebar />*/}
-        <div className="w-full flex items-center gap-1 sm:gap-2 ">
+        <div className="w-full flex items-center gap-1 sm:gap-2">
           <MenuIcon
             className="cursor-pointer size-7 md:size-8"
             onClick={() => {
@@ -78,9 +79,7 @@ export const Navbar = () => {
         </div>
         {/* search*/}
         <Search />
-        <div className="flex items-center relative justify-end w-full gap-3 md:gap-4 ">
-          {/*<button onClick={handleLogout}>Logout</button>*/}
-
+        <div className="flex items-center relative justify-end w-full gap-2 md:gap-3 ">
           {username ? (
             <>
               <CreatePlaylistModal>
@@ -94,7 +93,12 @@ export const Navbar = () => {
                 </Button>
               </LazyUploadVideoModal>
               <ModeToggle />
-              <NoSSRNotification />
+              <LazyNotification />
+
+              {/*{
+                show && (  
+                )
+              }*/}
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

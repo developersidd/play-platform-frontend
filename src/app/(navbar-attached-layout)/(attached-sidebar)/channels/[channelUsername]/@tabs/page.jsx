@@ -8,7 +8,8 @@ import dynamic from "next/dynamic";
 const LazyInfiniteVideos = dynamic(() =>
   import("@/components/infinite-data-layout/InfiniteVideos")
 );
-const ChannelVideosPage = async ({ params: { channelUsername } }) => {
+const ChannelVideosPage = async ({ params }) => {
+  const { channelUsername } =  await params;
   const { data: user } = await retrieveCurrentUser();
   const { data: { videos } = {}, error } =
     (await getVideos({
@@ -16,6 +17,9 @@ const ChannelVideosPage = async ({ params: { channelUsername } }) => {
       username: channelUsername,
     })) || {};
   const isMyChannel = user?.username === channelUsername;
+  console.log(" user?.username:", user?.username)
+  console.log(" channelUsername:", channelUsername)
+  console.log(" isMyChannel:", isMyChannel)
   // decide what to render
   let content;
   if (error) {

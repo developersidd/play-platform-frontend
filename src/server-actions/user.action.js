@@ -5,7 +5,7 @@ import { getAccessToken } from "./auth.action";
 // get current user
 const retrieveCurrentUser = async () => {
   try {
-    const accessToken = getAccessToken();
+    const accessToken = await getAccessToken();
     if (!accessToken) {
       return {
         error: "No access token found",

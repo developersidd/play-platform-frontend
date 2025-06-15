@@ -27,14 +27,14 @@ const logout = async () => {
 };
 
 // Function to get access token from cookies
-function getAccessToken() {
-  const cookieStore = cookies();
+async function getAccessToken() {
+  const cookieStore = await cookies();
   return cookieStore.get("accessToken")?.value;
 }
 
 // Function to get refresh token from cookies
-function getRefreshToken() {
-  const cookieStore = cookies();
+async function getRefreshToken() {
+  const cookieStore = await cookies();
   return cookieStore.get("refreshToken")?.value;
 }
 

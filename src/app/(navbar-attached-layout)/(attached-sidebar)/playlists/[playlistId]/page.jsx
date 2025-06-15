@@ -3,7 +3,8 @@ import { retrieveCurrentUser } from "@/server-actions/user.action";
 import PlaylistVideos from "./_components/PlaylistVideos";
 import SinglePlaylistDetails from "./_components/SinglePlaylistDetails";
 
-const ChannelSinglePlaylistPage = async ({ params: { playlistId } }) => {
+const ChannelSinglePlaylistPage = async ({ params }) => {
+  const { playlistId } = await params;
   const { data: user } = await retrieveCurrentUser();
   const { data, error } = await getPlaylistById(playlistId);
   const { owner, videos = [], ...rest } = data || {};

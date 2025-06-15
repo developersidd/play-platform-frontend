@@ -1,5 +1,6 @@
 import { formatCounting } from "@/lib/utils";
 import moment from "moment/moment";
+import Image from "next/image";
 import Link from "next/link";
 
 const VideoCard = ({ video }) => {
@@ -13,12 +14,12 @@ const VideoCard = ({ video }) => {
   } = video || {};
 
   return (
-    <div key={_id} className="w-full max-h-[250px] !space-y-0">
+    <div key={_id} className="w-full ">
       <div className="relative mb-2 w-full pt-[56%]">
         <Link href={`/videos/${_id}`} className="absolute inset-0">
-          <img
-            height={300}
-            width={300}
+          <Image
+            height={800}
+            width={500}
             src={thumbnail?.url}
             alt={title}
             className="h-full w-full rounded-md"
@@ -31,9 +32,9 @@ const VideoCard = ({ video }) => {
       <div className="flex gap-x-2">
         <Link href={`/channels/${username}`}>
           <div className="h-10 w-10 shrink-0">
-            <img
-              width={40}
-              height={40}
+            <Image
+              width={100}
+              height={100}
               src={avatar?.url}
               alt={username}
               className="h-full w-full rounded-full"
