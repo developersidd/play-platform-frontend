@@ -57,8 +57,8 @@ const PlaylistBoxItem = async ({
           <VideoHorizontalCardActions videoId={_id} />
         </div>
       ) : (
-        <div className="flex  items-center justify-center gap-4 ">
-          <VideoOff className="!size-8 text-secondary" />
+        <div className="flex  items-center justify-center gap-2 h-full">
+          <VideoOff className="!size-5 text-secondary" />
           <p className="text-sm font-semibold">Video not found!</p>
         </div>
       )}

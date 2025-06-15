@@ -7,7 +7,7 @@ const ChannelEditLayout = async ({ tabs }) => {
   const { data: user } = await retrieveCurrentUser();
 
   return (
-    <section className="w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
+    <section className="w-full">
       <UploadCoverImage
         coverImage={user?.coverImage}
         username={user?.username}

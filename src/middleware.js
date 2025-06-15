@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { hasLoginHistory } from "./server-actions/loginHistory.action";
+import { retrieveCurrentUser } from "./server-actions/user.action";
 
 const PUBLIC_ROUTES = {
   "/login": true,
@@ -13,7 +14,6 @@ export default async function middleware(req) {
   requestHeaders.set("searchParams", search);
   const token = req?.cookies?.get("accessToken")?.value;
   const hasHistory = await hasLoginHistory();
-  console.log(" hasHistory:", hasHistory);
   const isLoggedIn = !!token && hasHistory;
   const isPublicRoute =
     PUBLIC_ROUTES[pathname] ||
@@ -21,6 +21,7 @@ export default async function middleware(req) {
     ["/videos", "/channels", "/playlists", "/result"].some((route) =>
       pathname.startsWith(route)
     );
+
   const isUnauthenticatedRoute = [
     "/login",
     "/register",

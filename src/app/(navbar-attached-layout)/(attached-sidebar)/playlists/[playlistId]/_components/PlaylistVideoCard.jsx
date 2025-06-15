@@ -1,30 +1,29 @@
+import VideoHorizontalCardActions from "@/components/common/cards/VideoHorizontalCardActions";
 import { formatCounting } from "@/lib/utils";
 import moment from "moment";
+import Image from "next/image";
 import Link from "next/link";
-import HistoryVideoCardActions from "./HistoryVideoCardActions";
-const HistoryVideoCard = ({ video }) => {
+const PlaylistVideoCard = ({ video, link }) => {
   console.log(" video:", video);
   const {
     thumbnail,
     title,
     views,
     createdAt,
-    description,
     duration,
     _id,
-    isInWatchLater,
     owner: { avatar, username, fullName } = {},
   } = video || {};
   return (
-    <div className="w-full relative transition-colors hover:bg-light-bg p-2 rounded-lg">
+    <div className="w-full relative transition-colors hover:bg-light-bg p-2 rounded-lg border">
       {/* Actions */}
-      <HistoryVideoCardActions isInWatchLater={isInWatchLater} videoId={_id} />
+      <VideoHorizontalCardActions videoId={_id} />
       <div className=" gap-x-4 flex">
-        <div className="relative mb-2  md:mb-0 w-2/4 lg:w-1/4 h-[140px]">
-          <Link key={_id} href={`/videos/${_id}`}>
+        <div className="relative mb-2  md:mb-0 w-2/4 lg:w-2/6 2xl:w-1/4 h-[140px]">
+          <Link href={link}>
             <div className="w-full">
               <div className="absolute inset-0">
-                <img
+                <Image
                   width={450}
                   height={300}
                   src={thumbnail?.url}
@@ -40,10 +39,7 @@ const HistoryVideoCard = ({ video }) => {
         </div>
         <div className="flex gap-x-2 md:w-7/12">
           <div className="w-full">
-            <Link
-              href={`/videos/${_id}`}
-              className="mb-1 font-semibold md:max-w-[75]"
-            >
+            <Link href={link} className="mb-1 font-semibold md:max-w-[75]">
               {title}
             </Link>
 
@@ -53,7 +49,7 @@ const HistoryVideoCard = ({ video }) => {
             <Link className="inline-block" href={`/channels/${username}`}>
               <div className="flex items-center gap-x-4">
                 <div className="mt-2  h-10 w-10 shrink-0">
-                  <img
+                  <Image
                     width={100}
                     height={100}
                     src={avatar?.url}
@@ -71,4 +67,4 @@ const HistoryVideoCard = ({ video }) => {
   );
 };
 
-export default HistoryVideoCard;
+export default PlaylistVideoCard;

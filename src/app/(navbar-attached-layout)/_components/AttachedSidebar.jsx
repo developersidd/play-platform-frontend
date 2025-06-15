@@ -29,44 +29,44 @@ import { useEffect } from "react";
 // AttachedSidebar items with link property
 export const sidebarItems = [
   {
-    icon: <ChartPie className="size-4 lg:size-5" />,
+    icon: <ChartPie className="size-4 md:size-5" />,
     label: "Dashboard",
     link: "/dashboard",
     auth: true,
   },
-  { icon: <Home className="size-4 lg:size-5" />, label: "Home", link: "/" },
+  { icon: <Home className="size-4 md:size-5" />, label: "Home", link: "/" },
   {
-    icon: <ThumbsUp className="size-4 lg:size-5" />,
+    icon: <ThumbsUp className="size-4 md:size-5" />,
     label: "Liked Videos",
     link: "/liked-videos",
   },
   {
-    icon: <History className="size-4 lg:size-5" />,
+    icon: <History className="size-4 md:size-5" />,
     label: "History",
     link: "/history",
   },
   {
-    icon: <Video className="size-4 lg:size-5" />,
+    icon: <Video className="size-4 md:size-5" />,
     label: "My Content",
     link: "/channels/",
   },
   {
-    icon: <Combine className="size-4 lg:size-5" />,
+    icon: <Combine className="size-4 md:size-5" />,
     label: "Collections",
     link: "/collections",
   },
   {
-    icon: <FolderClock className="size-4 lg:size-5" />,
+    icon: <FolderClock className="size-4 md:size-5" />,
     label: "Watch Later",
     link: "/watch-later",
   },
   {
-    icon: <UserCheck className="size-4 lg:size-5" />,
+    icon: <UserCheck className="size-4 md:size-5" />,
     label: "Subscribers",
     link: "/subscribers",
   },
   {
-    icon: <BadgeHelp className="size-4 lg:size-5" />,
+    icon: <BadgeHelp className="size-4 md:size-5" />,
     label: "Support",
     link: "/support",
 
@@ -150,7 +150,7 @@ const AttachedSidebar = () => {
                           path === pathname
                             ? "bg-secondary border-secondary dark:border-secondary"
                             : "border-gray-300 dark:border-white"
-                        } flex  h-[37px] md:h-[42px] items-center  max-md:gap-2  py-1
+                        } flex  h-[37px] md:h-[42px] items-center  gap-2 lg:gap-3  py-1
                       w-full flex-row border hover:bg-secondary 
                       
                      dark:hover:border-secondary 
@@ -159,9 +159,7 @@ const AttachedSidebar = () => {
                      px-4`}
                       >
                         <p
-                          className={` 
-                        ${sidebarCollapsed ? "" : "lg:mr-4"}
-                        }`}
+                          className=""
                         >
                           {icon}
                         </p>

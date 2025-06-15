@@ -35,7 +35,6 @@ function DashboardSidebar() {
   const pathname = usePathname();
   const { state, dispatch } = useUserContext();
   const { avatar, username, email, role } = state || {};
-  console.log(" role:", role)
   const { apiClient } = useAxios();
   const { open } = useSidebar();
 

@@ -20,5 +20,5 @@
     },
     "peacock.color": "#215732",
     "files.autoSave": "afterDelay",
-    "files.autoSaveDelay": 5000,
+    //"files.autoSaveDelay": 5000,
 }

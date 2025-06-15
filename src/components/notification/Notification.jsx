@@ -119,7 +119,7 @@ const Notification = () => {
             </NotificationBadge>
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-[500px] mt-2">
+        <DropdownMenuContent align="end" className="lg:w-[500px] mt-2">
           {content}
         </DropdownMenuContent>
       </DropdownMenu>

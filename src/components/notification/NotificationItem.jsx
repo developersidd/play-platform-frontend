@@ -16,7 +16,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 const NotificationItem = ({ item, onClose }) => {
   const {
-    sender: { username = "", avatar = "", _id: channelId } = {},
+    sender,
     type,
     message,
     image,
@@ -24,6 +24,7 @@ const NotificationItem = ({ item, onClose }) => {
     link,
     _id,
   } = item || {};
+  const  { username = "", avatar = "", _id: channelId } = sender ||{}
   const { apiClient } = useAxios();
   const [isHide, setIsHide] = useState(false);
   const router = useRouter();

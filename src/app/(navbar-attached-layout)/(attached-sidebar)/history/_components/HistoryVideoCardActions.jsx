@@ -11,10 +11,10 @@ import { Bookmark, Clock, EllipsisVertical, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-const HistoryVideoCardActions = ({ videoId, isInWatchLater }) => {
+const HistoryVideoCardActions = ({ videoId,  }) => {
   const router = useRouter();
   const [isVideoInWatchLater, setIsVideoInWatchLater] =
-    useState(isInWatchLater);
+    useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { apiClient } = useAxios() || {};
   // Remove video from history

@@ -30,7 +30,7 @@ const VideoHorizontalCard = ({ video, linkQuery }) => {
               <Image
                 width={850}
                 height={400}
-                src={thumbnail?.url}
+                src={thumbnail?.url || "/assets/images/video-not-found.jpg"}
                 alt={`Thumbnail for ${title}`}
                 className="w-full h-full rounded-md"
               />
@@ -47,7 +47,7 @@ const VideoHorizontalCard = ({ video, linkQuery }) => {
               aria-label={`Visit ${fullName}'s channel`}
             >
               <figure className="h-10 w-10 shrink-0 md:hidden">
-                <img
+                <Image
                   width={100}
                   height={100}
                   src={avatar?.url}

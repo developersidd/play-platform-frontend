@@ -1,25 +1,29 @@
-import AppSidebar from "./_components/DashboardSidebar";
-import DashboardHeader from "./_components/DashboardHeader";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { cookies } from "next/headers";
+import { retrieveCurrentUser } from "@/server-actions/user.action";
+import DashboardHeader from "./_components/DashboardHeader";
+import DashboardSidebar from "./_components/DashboardSidebar";
+import { redirect } from "next/navigation";
 
 export const metadata = {
-  title: "Next Shadcn Dashboard Starter",
-  description: "Basic dashboard with Next.js and Shadcn",
+  title: "Dashboard - Play",
+  description: "Your personalized video platform",
 };
 
-export default async function DashboardLayout({ children }) {
-  // Persisting the sidebar state in the cookie.
-  const cookieStore = cookies();
-  const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
-  return (    
-      <SidebarProvider defaultOpen={defaultOpen}>
-        <AppSidebar />
-        <SidebarInset>
-          <DashboardHeader />
-          {children}
-        </SidebarInset>
-      </SidebarProvider>
-    
+async function DashboardLayout({ children }) {
+  const {data} = await retrieveCurrentUser() || {};
+  console.log(" data?.role:", data?.role)
+  if(data?.role?.toLowerCase() !== "admin") {
+    return redirect("/")
+  }
+  return (
+    <SidebarProvider defaultOpen={false}>
+      <DashboardSidebar />
+      <SidebarInset>
+        <DashboardHeader />
+        {children}
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
+
+export default DashboardLayout;

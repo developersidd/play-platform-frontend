@@ -2,9 +2,9 @@ import {
   getChannelByUsername,
   retrieveCurrentUser,
 } from "@/server-actions/user.action";
+import Image from "next/image";
 import ChannelInfo from "./@tabs/_components/ChannelInfo";
 import ChannelMenu from "./@tabs/_components/ChannelMenu";
-import Image from "next/image";
 
 const ChannelLayout = async ({ tabs, params: { channelUsername } }) => {
   const { data: user } = await retrieveCurrentUser();
@@ -13,7 +13,7 @@ const ChannelLayout = async ({ tabs, params: { channelUsername } }) => {
     user?._id
   );
   return (
-    <section className="w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
+    <section className="w-full ">
       <div className="relative min-h-[150px] w-full pt-[16.28%]">
         <div className="absolute inset-0 overflow-hidden">
           <Image
