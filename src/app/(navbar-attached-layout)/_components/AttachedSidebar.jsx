@@ -5,87 +5,23 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { sidebarItems } from "@/constants/data";
 import useSidebarContext from "@/hooks/useSidebarContext";
 import useUserContext from "@/hooks/useUserContext";
 import { cn } from "@/lib/utils";
-import {
-  BadgeHelp,
-  ChartPie,
-  Combine,
-  FolderClock,
-  History,
-  Home,
-  MenuIcon,
-  Settings,
-  ThumbsUp,
-  UserCheck,
-  Video,
-} from "lucide-react";
+import { MenuIcon } from "lucide-react";
+
 import Image from "next/image";
-import Link from "next/link"; // Import Link for navigation in Next.js
+import Link from "next/link"; 
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-
-// AttachedSidebar items with link property
-export const sidebarItems = [
-  {
-    icon: <ChartPie className="size-4 md:size-5" />,
-    label: "Dashboard",
-    link: "/dashboard",
-    auth: true,
-  },
-  { icon: <Home className="size-4 md:size-5" />, label: "Home", link: "/" },
-  {
-    icon: <ThumbsUp className="size-4 md:size-5" />,
-    label: "Liked Videos",
-    link: "/liked-videos",
-  },
-  {
-    icon: <History className="size-4 md:size-5" />,
-    label: "History",
-    link: "/history",
-  },
-  {
-    icon: <Video className="size-4 md:size-5" />,
-    label: "My Content",
-    link: "/channels/",
-  },
-  {
-    icon: <Combine className="size-4 md:size-5" />,
-    label: "Collections",
-    link: "/collections",
-  },
-  {
-    icon: <FolderClock className="size-4 md:size-5" />,
-    label: "Watch Later",
-    link: "/watch-later",
-  },
-  {
-    icon: <UserCheck className="size-4 md:size-5" />,
-    label: "Subscribers",
-    link: "/subscribers",
-  },
-  {
-    icon: <BadgeHelp className="size-4 md:size-5" />,
-    label: "Support",
-    link: "/support",
-
-    mtAuto: true,
-  },
-  {
-    icon: <Settings className="size-4 lg:size-5" />,
-    label: "Settings",
-    link: "/settings",
-  },
-];
 
 const AttachedSidebar = () => {
   const { sidebarCollapsed, setSidebarCollapsed } = useSidebarContext();
   const { state } = useUserContext() || {};
-  const { avatar, username } = state || {};
+  const { username } = state || {};
 
   const pathname = usePathname();
-  // disable scroll on body when sidebar is open
   useEffect(() => {
     if (window.innerWidth >= 768) {
       document.body.style.overflow = "auto";

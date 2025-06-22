@@ -1,6 +1,6 @@
 "use client";
-import { getRelatedVideos } from "@/server-actions/video.action";
 import Error from "@/components/common/Error";
+import { getRelatedVideos } from "@/server-actions/video.action";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -36,11 +36,12 @@ const InfiniteRelatedVideos = ({ videoId, initialVideos }) => {
   }, [page, hasMore]);
 
   return (
-    <div className="w-full space-y-4">
+    <div className="w-full">
       <Virtuoso
         data={relatedVideos}
         useWindowScroll
         overscan={20}
+        className="!mt-0 !mb-0 !space-y-0 !p-0"
         endReached={() => hasMore && setPage((p) => p + 1)}
         components={{
           Footer: () =>

@@ -22,7 +22,6 @@ import { toast } from "sonner";
 import CreatePlaylistModal from "@/components/common/playlist/playlist-modal/CreatePlaylistModal";
 import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
-import { useState } from "react";
 import Search from "./Search";
 const LazyNotification = dynamic(
   () => import("@/components/notification/Notification"),
@@ -41,16 +40,14 @@ export const Navbar = () => {
   const { setSidebarCollapsed, setShowSidebar } = useSidebarContext();
   const { avatar, username } = state;
   const { apiClient } = useAxios();
-  const [show, setShow] = useState(false);
   async function handleLogout() {
-    console.log("logout");
     try {
       await apiClient.post("/users/logout");
       router.push("/");
       localStorage.removeItem("loggedIn");
       dispatch({ type: LOGGED_OUT });
+      toast.success("Logged out successfully");
     } catch (error) {
-      console.error("Failed to logout", error);
       toast.error("Failed to logout");
     }
   }

@@ -6,6 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { sidebarItems } from "@/constants/data";
 import { useLockBody } from "@/hooks/use-lock-body";
 import useSidebarContext from "@/hooks/useSidebarContext";
 import useUserContext from "@/hooks/useUserContext";
@@ -14,12 +15,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLayoutEffect } from "react";
-import { sidebarItems } from "../../_components/AttachedSidebar";
 const NonAttachedSidebar = () => {
   useLockBody();
   const pathname = usePathname();
   const { state } = useUserContext() || {};
-  const { avatar, username } = state || {};
+  const { username } = state || {};
   const { showSidebar, setShowSidebar } = useSidebarContext();
   // Lock body scroll when sidebar is open
   useLayoutEffect(() => {

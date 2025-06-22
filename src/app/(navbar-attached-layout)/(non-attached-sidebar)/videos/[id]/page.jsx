@@ -8,18 +8,13 @@ import VideoCommentSection from "../_components/VideoCommentSection";
 import VideoDescription from "../_components/VideoDescription";
 import VideoPlayer from "../_components/VideoPlayer";
 
-const SingleVideoPage = async ({
-  params,
-  searchParams: { list, index },
-}) => {
+const SingleVideoPage = async ({ params, searchParams: { list, index } }) => {
   const { id } = await params;
-  console.log(" index:", index);
   const { data: user } = (await retrieveCurrentUser()) || {};
   const { data: video, error } = (await getVideoById(id, user?._id)) || {};
-  console.log(" error id:", error);
-  const isVideoExist = video && !error;
+  const isVideoExist = video?.title && !error;
   return (
-    <section className=" w-full mx-2 lg:mx-10 xl:mx-20 ">
+    <section className=" w-full mx-2 lg:mx-5  2xl:mx-20 ">
       <div className="flex w-full flex-wrap gap-4 px-2 py-4 md:py-8 lg:flex-nowrap">
         <div className=" w-full">
           {isVideoExist ? (

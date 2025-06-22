@@ -25,8 +25,9 @@ const NotificationItem = ({ item, onClose }) => {
     setIsHide(true);
     //onClose()
     try {
-      await apiClient.delete(`/notifications/${_id}`);
+    const res =  await apiClient.delete(`/notifications/${_id}`);
       router.refresh();
+    console.log(" res:", res.data)
     } catch (error) {
       toast.error("Failed to delete notification");
       setIsHide(false);
@@ -91,7 +92,7 @@ const NotificationItem = ({ item, onClose }) => {
             </div>
           </div>
         </div>
-        {!!fromAdmin && (
+        {!fromAdmin && (
           <DropdownMenu className="">
             <DropdownMenuTrigger>
               <div className="absolute top-1/2 -translate-y-1/2 right-0.5  outline-none">

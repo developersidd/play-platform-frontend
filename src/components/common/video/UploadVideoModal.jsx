@@ -78,6 +78,14 @@ const formSchema = z.object({
     .max(500, {
       message: "Description must be at most 500 characters long",
     }),
+  tags: z
+    .string()
+    .min(2, {
+      message: "Tags must be at least 2 characters long",
+    })
+    .max(100, {
+      message: "Tags must be at most 100 characters long",
+    }),
 });
 
 const UploadVideoModal = ({ children, videoId }) => {
@@ -100,6 +108,7 @@ const UploadVideoModal = ({ children, videoId }) => {
       title: "",
       description: "",
       videoFile: undefined,
+      tags: "",
       thumbnail: undefined,
     },
   });
@@ -113,11 +122,11 @@ const UploadVideoModal = ({ children, videoId }) => {
       const fetchVideoData = async () => {
         try {
           const { data } = await apiClient.get(`/videos/${videoId}`);
-          const { title, description, thumbnail } = data.data;
-          console.log(" title:", title);
+          const { title, description, thumbnail, tags } = data.data;
           setValue("title", title);
           setValue("description", description);
           setValue("thumbnail", thumbnail?.url);
+          setValue("tags", tags?.join(", ") || "");
         } catch (error) {
           console.error("Error fetching video data:", error);
         }
@@ -191,6 +200,7 @@ const UploadVideoModal = ({ children, videoId }) => {
       } finally {
         setShowProgressModal(false);
         setUploading(false);
+        router.refresh();
       }
     }
   }
@@ -236,7 +246,7 @@ const UploadVideoModal = ({ children, videoId }) => {
         <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogContent
           hideCloseButton
-          className="sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg"
+          className="sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg pb-10"
         >
           <DialogHeader className="block w-full mt-3">
             <div className="flex items-center justify-between border-b p-4 ">
@@ -330,6 +340,32 @@ const UploadVideoModal = ({ children, videoId }) => {
                           id="desc"
                           className="h-40 w-full resize-none border bg-transparent px-2 py-1 outline-none"
                         ></textarea>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {/* tags field */}
+              <FormField
+                control={form.control}
+                name="tags"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className="w-full">
+                        <label for="tags" className="mb-1 inline-block">
+                          Tags<sup>*</sup>{" "}
+                          <span className="text-sm text-gray-500">
+                            (comma separated, e.g. tag1, tag2)
+                          </span>
+                        </label>
+                        <input
+                          {...field}
+                          id="tags"
+                          type="text"
+                          className="w-full border bg-transparent px-2 py-1.5 outline-none"
+                        />
                       </div>
                     </FormControl>
                     <FormMessage />

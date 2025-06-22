@@ -15,13 +15,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import useAxios from "@/hooks/useAxios";
 import useUserContext from "@/hooks/useUserContext";
 import { Edit, Ellipsis, Trash } from "lucide-react";
 import moment from "moment";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -81,21 +81,29 @@ const VideoCommentItem = ({ item }) => {
         {/* Comment Modal */}
         {showMenu && (
           <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-            <DropdownMenuTrigger className="absolute top-0 right-5" asChild>
+            <DropdownMenuTrigger
+              className="cursor-pointer absolute top-0 right-5"
+              asChild
+            >
               <Ellipsis />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="*:curs" align="end">
+            <DropdownMenuContent
+              className="*:cursor-pointer min-w-40 "
+              align="end"
+            >
               <DropdownMenuItem onClick={() => setIsEditing(true)}>
-                <Edit size={18} />
-                <DropdownMenuLabel>Edit </DropdownMenuLabel>
+                <div className="flex items-center gap-x-2">
+                  <Edit size={18} />
+                  <h3>Edit </h3>
+                </div>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={handleCommentDelete}>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <>
+                    <div className="flex items-center gap-x-2">
                       <Trash size={18} />
-                      <DropdownMenuLabel> Delete</DropdownMenuLabel>
-                    </>
+                      <h3> Delete</h3>
+                    </div>
                   </AlertDialogTrigger>
                   <AlertDialogContent className="bg-primary">
                     <AlertDialogHeader>
@@ -124,7 +132,9 @@ const VideoCommentItem = ({ item }) => {
 
         {/* Commented User Info */}
         <div className="mt-2 h-11 w-11 shrink-0">
-          <img
+          <Image
+            width={100}
+            height={100}
             src={avatar?.url}
             alt={username}
             className="h-full w-full rounded-full"

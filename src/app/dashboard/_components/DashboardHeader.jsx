@@ -3,7 +3,7 @@ import CreatePlaylistModal from "@/components/common/playlist/playlist-modal/Cre
 import { ModeToggle } from "@/components/theme/ThemeToggler";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +17,8 @@ import useUserContext from "@/hooks/useUserContext";
 import { LogOut, Plus, User } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const NoSSRNotification = dynamic(
   () => import("@/components/notification/Notification"),
@@ -32,17 +33,18 @@ const LazyUploadVideoModal = dynamic(() =>
 
 function DashboardHeader() {
   const { state } = useUserContext() || {};
-  const { avatar, username, email } = state || {};
+  const router = useRouter();
+  const { avatar, username } = state || {};
   const { apiClient } = useAxios();
   const pathname = usePathname();
-  console.log(" pathname:", pathname);
   async function handleLogout() {
     console.log("logout");
     try {
       await apiClient.post("/users/logout");
-      router.push("/");
       localStorage.removeItem("loggedIn");
+      router.push("/");
       dispatch({ type: LOGGED_OUT });
+      toast.success("Logged out successfully");
     } catch (error) {
       console.error("Failed to logout", error);
       toast.error("Failed to logout");

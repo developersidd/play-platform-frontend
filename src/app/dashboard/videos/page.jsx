@@ -4,9 +4,7 @@ import DashboardVideosTable from "./_components/DashboardVideosTable";
 const DashboardVideosPage = async ({ searchParams }) => {
   const { page, limit, search, status, sortOrder, sortBy } = searchParams || {};
   console.log(" searchParams:", searchParams);
-  const {
-    data: { username },
-  } = (await retrieveCurrentUser()) || {};
+  const { data: { username } = {} } = (await retrieveCurrentUser()) || {};
   const { data: { totalPages, videos } = {}, data } = await getVideos({
     page: page || 1,
     limit: limit || 20,

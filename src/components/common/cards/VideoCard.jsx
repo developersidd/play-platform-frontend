@@ -14,15 +14,15 @@ const VideoCard = ({ video }) => {
   } = video || {};
 
   return (
-    <div key={_id} className="w-full ">
-      <div className="relative mb-2 w-full pt-[56%]">
-        <Link href={`/videos/${_id}`} className="absolute inset-0">
+    <div className="w-full h-[300px] md:pb-5">
+      <div className="mb-2 w-full h-[70%] md:h-[75%]">
+        <Link href={`/videos/${_id}`} className="">
           <Image
             height={800}
             width={500}
             src={thumbnail?.url}
             alt={title}
-            className="h-full w-full rounded-md"
+            className="h-full w-full rounded-md object-cover"
           />
         </Link>
         <span className="absolute bottom-1 right-1 inline-block rounded shadow bg-background px-1.5 text-sm">
@@ -43,7 +43,9 @@ const VideoCard = ({ video }) => {
         </Link>
         <div className="w-full">
           <Link href={`/videos/${_id}`}>
-            <h6 className="mb-1 font-semibold">{title}</h6>
+            <h6 className="text-sm md:text-base mb-1 font-semibold !leading-tight">
+              {title}
+            </h6>
           </Link>
           <p className="flex text-sm ">
             {formatCounting(views)} Views · {moment(createdAt).fromNow()}

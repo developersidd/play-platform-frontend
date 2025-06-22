@@ -25,15 +25,16 @@ const links = [
 const ChannelMenu = () => {
   const { channelUsername } = useParams();
   const pathname = usePathname();
-  const activeCls = "text-[#ae7aff]  border-[#ae7aff] bg-white font-medium";
+  const activeCls =
+    "dark:text-secondary text-white  border-secondary dark:bg-white bg-secondary font-semibold";
 
   return (
-    <ul className="no-scrollbar sticky top-[66px] z-[2] flex flex-row  overflow-auto  bg-[#121212]  sm:top-[82px]">
+    <ul className="no-scrollbar sticky top-[66px] z-[2] flex flex-row  overflow-auto  bg-accent  sm:top-[82px]">
       {links.map((item, index) => {
         return (
           <li
             key={item.text}
-            className={`w-full text-center px-3 py-3 inline-block  border-b-2 ${
+            className={`w-full text-center px-2 md:px-3 py-2 text-sm sm:text-base md:py-3 inline-block  border-b-2 ${
               pathname === `/channels/${channelUsername}${item.href}` ||
               (pathname === `/channels/${channelUsername}` && index === 0)
                 ? activeCls

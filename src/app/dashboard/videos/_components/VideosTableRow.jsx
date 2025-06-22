@@ -67,17 +67,17 @@ const VideosTableRow = ({ video, onCheckboxChange, selectedIds }) => {
       <TableCell>
         {/* style for views */}
         <span className="inline-block rounded-xl bg-blue-200 px-1.5 py-0.5 text-blue-700">
-          {views} views
+          {views?.toLocaleString()} views
         </span>
       </TableCell>
 
       <TableCell>
         <div className="flex gap-4">
           <span className="inline-block rounded-xl bg-green-200 px-1.5 py-0.5 text-green-700">
-            {likes} likes
+            {likes?.toLocaleString()} likes
           </span>
           <span className="inline-block rounded-xl bg-red-200 px-1.5 py-0.5 text-red-700">
-            {dislikes} dislikes
+            {dislikes?.toLocaleString()} dislikes
           </span>
         </div>
       </TableCell>

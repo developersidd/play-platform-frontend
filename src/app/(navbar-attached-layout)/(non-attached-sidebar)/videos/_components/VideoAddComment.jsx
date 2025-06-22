@@ -53,6 +53,8 @@ function VideoAddComment({ videoId }) {
       form.reset();
     } catch (error) {
       toast.error("There was an error occurred!");
+    } finally {
+      router.refresh();
     }
   }
 

@@ -20,12 +20,11 @@ const getUserSubscribedChannels = async (subscriberName, queries) => {
   if (queries?.search) {
     url += `?search=${queries?.search}`;
   }
-  console.log("url:", url);
   try {
-    const res = await apiClient.get(url);
-    console.log("res:", res.data?.data);
+    const res = await fetchWithAuth(url);
+    console.log("sss res:", res)
     return {
-      data: res.data?.data,
+      data: res.data,
     };
   } catch (error) {
     return {

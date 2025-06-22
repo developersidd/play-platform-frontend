@@ -18,7 +18,10 @@ const RelatedVideoList = async ({ videoId }) => {
     content = <Error title={"Error while getting Related videos"} />;
   } else if (data?.videos?.length === 0) {
     content = (
-      <NoVideosFound title="No related videos found" className={"mt-10"} />
+      <NoVideosFound
+        title="No related videos found"
+        className={"mt-10 mx-auto"}
+      />
     );
   } else if (!data?.hasNextPage) {
     content = data?.videos?.map((video) => (
@@ -34,7 +37,7 @@ const RelatedVideoList = async ({ videoId }) => {
   }
   return (
     <div
-      className={`col-span-12 flex  ${layoutCenterClass}  w-full shrink-0 flex-col gap-3 lg:w-[350px] xl:w-[400px]`}
+      className={` col-span-12 flex  ${layoutCenterClass}  w-full shrink-0 flex-col gap-3 lg:w-[400px] xl:w-[450px] items-center mx-auto`}
     >
       {content}
     </div>

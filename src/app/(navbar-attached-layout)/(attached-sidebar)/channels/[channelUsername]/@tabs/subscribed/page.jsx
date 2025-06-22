@@ -6,10 +6,11 @@ const SubscribedChannelsPage = async ({
   searchParams: { search },
 }) => {
   const { channelUsername } = await params;
-  const { data: { totalSubscribedChannels, subscribedChannels } = {} } =
-    await getUserSubscribedChannels(channelUsername, {
-      search,
-    });
+  const { data: { totalSubscribedChannels, subscribedChannels } = {}, data } =
+  await getUserSubscribedChannels(channelUsername, {
+    search,
+  });
+  console.log(" data:", data)
   return (
     <div className="flex flex-col gap-y-4 py-4">
       <SubscribedChannelList

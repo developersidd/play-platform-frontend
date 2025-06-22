@@ -1,5 +1,6 @@
 import { formatCounting } from "@/lib/utils";
 import moment from "moment";
+import Image from "next/image";
 import Link from "next/link";
 import RelatedVideoCardActions from "./RelatedVideoCardActions";
 
@@ -12,18 +13,17 @@ const RelatedVideoCard = ({ video }) => {
     views,
     _id,
     createdAt,
-    owner: { fullName } = {},
+    owner: { fullName, avatar, username } = {},
   } = video;
   return (
-    <article className="w-full relative  border rounded">
-      <Link
-        href={`/videos/${_id}`}
-        className="w-full gap-x-2  pr-2 md:flex "
-      >
+    <article className="w-full relative  rounded pr-3">
+      <Link href={`/videos/${_id}`} className="w-full gap-x-2  pr-2 md:flex ">
         <div className="relative mb-2 w-full md:mb-0 md:w-5/12">
           <div className="w-full pt-[56%]">
             <div className="absolute inset-0">
-              <img
+              <Image
+                width={640}
+                height={360}
                 src={thumbnail?.url}
                 alt={title}
                 className="h-full w-full  rounded-l"
@@ -36,9 +36,11 @@ const RelatedVideoCard = ({ video }) => {
         </div>
         <div className="flex gap-x-2 px-2 pb-4 pt-1 md:w-7/12 md:px-0 md:py-0.5">
           <div className="h-12 w-12 shrink-0 md:hidden">
-            <img
-              src="https://images.pexels.com/photos/18264716/pexels-photo-18264716/free-photo-of-man-people-laptop-internet.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1"
-              alt="reactpatterns"
+            <Image
+              width={48}
+              height={48}
+              src={avatar?.url}
+              alt={username}
               className="h-full w-full rounded-full"
             />
           </div>

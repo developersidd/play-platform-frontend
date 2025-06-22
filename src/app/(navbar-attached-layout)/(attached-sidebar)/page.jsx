@@ -8,6 +8,9 @@ const LazyInfiniteVideos = dynamic(() =>
 const HomePage = async () => {
   const { data, error } = await getVideos({
     limit: 20,
+    status: "published",
+    sortOrder: "desc",
+    sortBy: "createdAt",
   });
   if (error) {
     return <Error title={"Error while getting videos"} />;
@@ -16,7 +19,7 @@ const HomePage = async () => {
     return <NoVideosFound classes={"mt-10"} />;
   }
   return (
-    <section className="px-3.5 lg:px-5 py-5">
+    <section className="px-3.5 lg:px-5 py-5 pb-[50px]">
       <LazyInfiniteVideos initialVideos={data?.videos} />
     </section>
   );

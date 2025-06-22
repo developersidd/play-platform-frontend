@@ -4,7 +4,7 @@ import RegisterForm from "./_components/RegisterForm";
 
 const RegisterPage = () => {
   return (
-    <div className="w-full flex-col h-screen flex items-center justify-center gap-5 md:gap-7 xl:gap-10">
+    <div className="w-full flex-col h-screen flex items-center justify-center gap-4 md:gap-6 xl:gap-7">
       <div className="flex items-center gap-1 ">
         <Link href="/" className="">
           <Image

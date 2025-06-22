@@ -1,6 +1,7 @@
 import SubscribeChannel from "@/app/(navbar-attached-layout)/(non-attached-sidebar)/videos/_components/SubscribeChannel";
 import { formatCounting } from "@/lib/utils";
 import { Pen } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const ChannelInfo = ({ channelInfo, isMyChannel }) => {
@@ -15,9 +16,15 @@ const ChannelInfo = ({ channelInfo, isMyChannel }) => {
     avatar,
   } = channelInfo || {};
   return (
-    <div className="flex flex-wrap gap-4 pb-4 pt-6">
-      <span className="relative -mt-12 inline-block h-28 w-28 shrink-0 overflow-hidden rounded-full border-2">
-        <img src={avatar?.url} alt={username} className="h-full w-full" />
+    <div className="flex flex-wrap gap-4 pb-4 pt-3 md:pt-6">
+      <span className="relative -mt-12 inline-block size-24 md:size-28 shrink-0 overflow-hidden rounded-full border-2">
+        <Image
+          width={112}
+          height={112}
+          src={avatar?.url}
+          alt={username}
+          className="h-full w-full"
+        />
       </span>
       <div className="mr-auto inline-block">
         <h1 className="font-bold text-xl"> {fullName} </h1>

@@ -8,7 +8,7 @@ const NoVideosFound = ({ isSearch = false, className, title, description }) => {
       : "Please check back later.");
   return (
     <div
-      className={`flex w-full items-center justify-center ${className}`}
+      className={`flex w-full items-center justify-center ${className} `}
     >
       <div className="w-full max-w-sm text-center">
         <p className="mb-3 w-full">

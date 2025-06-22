@@ -36,6 +36,7 @@ const WatchLaterVideoList = ({ dbVideos }) => {
       videoId: item?.video?._id,
       position: items.findIndex(({ _id }) => _id === item._id),
     }));
+    console.log(" bulkUpdateData:", bulkUpdateData)
     reorderWatchLaterVideos(bulkUpdateData)
       .then((data) => {
         router.refresh();
