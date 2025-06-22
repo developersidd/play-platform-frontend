@@ -1,7 +1,6 @@
 "use client";
 import { Dialog, DialogClose, DialogContent } from "@/components/ui/dialog";
 import useAxios from "@/hooks/useAxios";
-import useUserContext from "@/hooks/useUserContext";
 import { TrashIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -11,9 +10,7 @@ const ClearHistory = () => {
   const [openClearDialog, setOpenClearDialog] = useState(false);
   const router = useRouter();
   // clear watch history
-  const user = useUserContext();
   const { apiClient } = useAxios();
-  // toggle pause history state
   const clearWatchHistory = async () => {
     try {
       setOpenClearDialog(false);
@@ -24,7 +21,6 @@ const ClearHistory = () => {
       toast.error("There was an error occurred");
     }
   };
-  
 
   return (
     <>

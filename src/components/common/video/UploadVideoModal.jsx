@@ -133,7 +133,7 @@ const UploadVideoModal = ({ children, videoId }) => {
       };
       fetchVideoData();
     }
-  }, [isEditingVideo, videoId]);
+  }, [isEditingVideo, videoId, apiClient, setValue]);
 
   const { isSubmitting } = form.formState;
   async function onSubmit(data) {

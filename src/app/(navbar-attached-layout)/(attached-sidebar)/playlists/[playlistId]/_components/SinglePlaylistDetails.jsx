@@ -2,9 +2,9 @@ import { formatCounting } from "@/lib/utils";
 import { Pencil } from "lucide-react";
 import moment from "moment";
 import CreatePlaylistModal from "../../../../../../components/common/playlist/playlist-modal/CreatePlaylistModal";
+import Image from "next/image";
 
 const SinglePlaylistDetails = ({ isPlaylistOwner, playlistInfo }) => {
-  console.log(" playlistInfo:", playlistInfo);
   const {
     video,
     owner: { avatar, fullName, subscribers } = {},
@@ -14,7 +14,6 @@ const SinglePlaylistDetails = ({ isPlaylistOwner, playlistInfo }) => {
     totalVideos,
     _id,
   } = playlistInfo || {};
-  console.log(" _id:", _id);
   const { thumbnail = {}, title } = video || {}
   return (
     <div className="w-full shrink-0 sm:max-w-md xl:max-w-lg">
@@ -28,10 +27,12 @@ const SinglePlaylistDetails = ({ isPlaylistOwner, playlistInfo }) => {
               </button>
             </CreatePlaylistModal>
           )}
-          <img
+          <Image
             src={thumbnail?.url || ""}
             alt={title}
             className="h-full w-full"
+            width={450}
+            height={300}
           />
           <div className="absolute inset-x-0 bottom-0">
             <div className="relative border-t bg-white/30 p-4 text-white backdrop-blur-sm before:absolute before:inset-0 before:bg-black/40">
@@ -52,7 +53,9 @@ const SinglePlaylistDetails = ({ isPlaylistOwner, playlistInfo }) => {
       <p className="flex text-sm text-gray-200">{description}</p>
       <div className="mt-6 flex items-center gap-x-3">
         <div className="h-16 w-16 shrink-0">
-          <img
+          <Image
+            width={64}
+            height={64}
             src={avatar?.url}
             alt={fullName}
             className="h-full w-full rounded-full"

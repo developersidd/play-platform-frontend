@@ -32,7 +32,7 @@ const WatchLaterVideoItemActions = ({ videoId, setIsRemoveFromWatchLater }) => {
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <button className="outline-none">
-              <EllipsisVertical className="" size={20} />
+              <EllipsisVertical className="size-5" />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent

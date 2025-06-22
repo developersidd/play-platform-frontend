@@ -2,6 +2,7 @@ import { formatCounting } from "@/lib/utils";
 import moment from "moment";
 import Link from "next/link";
 import HistoryVideoCardActions from "./HistoryVideoCardActions";
+import Image from "next/image";
 const HistoryVideoCard = ({ video }) => {
   console.log(" video:", video);
   const {
@@ -9,7 +10,6 @@ const HistoryVideoCard = ({ video }) => {
     title,
     views,
     createdAt,
-    description,
     duration,
     _id,
     isInWatchLater,
@@ -24,7 +24,7 @@ const HistoryVideoCard = ({ video }) => {
           <Link key={_id} href={`/videos/${_id}`}>
             <div className="w-full">
               <div className="absolute inset-0">
-                <img
+                <Image
                   width={450}
                   height={300}
                   src={thumbnail?.url}
@@ -53,7 +53,7 @@ const HistoryVideoCard = ({ video }) => {
             <Link className="inline-block" href={`/channels/${username}`}>
               <div className="flex items-center gap-x-4">
                 <div className="mt-2  h-10 w-10 shrink-0">
-                  <img
+                  <Image
                     width={100}
                     height={100}
                     src={avatar?.url}

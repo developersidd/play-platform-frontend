@@ -12,7 +12,7 @@ const SearchSubscribedChannels = () => {
     if (searchVal) {
       setSearch(searchVal);
     }
-  }, []);
+  }, [searchParams]);
   const pathname = usePathname();
   const router = useRouter();
   const handleDebounceSearch = useDebounce((value) => {

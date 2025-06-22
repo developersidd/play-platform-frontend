@@ -17,7 +17,7 @@ const PlaylistVideoCard = ({ video, link }) => {
   return (
     <div className="w-full relative transition-colors hover:bg-light-bg p-2 rounded-lg border">
       {/* Actions */}
-      <VideoHorizontalCardActions videoId={_id} />
+      <VideoHorizontalCardActions classes={"right-1 top-3"} videoId={_id} />
       <div className=" gap-x-4 flex">
         <div className="relative mb-2  md:mb-0 w-2/4 lg:w-2/6 2xl:w-1/4 h-[140px]">
           <Link href={link}>

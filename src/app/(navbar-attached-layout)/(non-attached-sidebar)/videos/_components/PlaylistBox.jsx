@@ -28,7 +28,7 @@ const PlaylistBox = async ({ playlistId, currentVideoIndex }) => {
   }
   const {
     data: { name: plName, videos, owner: { fullName } = {} },
-    error,
+
   } = res || {};
   console.log("res", res);
   const playlistOwner = listName === "wl" ? userFullName : fullName;

@@ -4,8 +4,13 @@ const useThrottle = (callback, delay, options = { leading: true, trailing: true 
   const lastExecRef = useRef(0);
   const timerRef = useRef(null);
   const pendingArgsRef = useRef(null);
-
+  
   const throttledFn = useCallback((...args) => {
+    const executeCallback = () => {
+      lastExecRef.current = Date.now();
+      callback(...pendingArgsRef.current);
+      pendingArgsRef.current = null;
+    };
     const now = Date.now();
     const elapsed = now - lastExecRef.current;
     
@@ -25,11 +30,6 @@ const useThrottle = (callback, delay, options = { leading: true, trailing: true 
     }
   }, [callback, delay, options.leading, options.trailing]);
 
-  const executeCallback = () => {
-    lastExecRef.current = Date.now();
-    callback(...pendingArgsRef.current);
-    pendingArgsRef.current = null;
-  };
 
   // Cleanup on unmount
   useEffect(() => {

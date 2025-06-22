@@ -84,7 +84,6 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
           `/playlists/${playlistId}`
         );
         const { name, description, isPrivate, videos } = data;
-        console.log("data:", data);
         if (data) {
           reset({
             name,
@@ -106,7 +105,7 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
     if (playlistId) {
       fetchPlaylist();
     }
-  }, [playlistId]);
+  }, [playlistId, apiClient, reset]);
 
   async function onSubmit(data) {
     if (!_id) {
@@ -124,14 +123,14 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
         console.log(" response:", response);
         if (response.status === 200) {
           toast.success("Playlist updated successfully!");
+          
           router.refresh();
         }
       } else {
         // create playlist
         const response = await apiClient.post(`/playlists`, data);
-        router.push(`/channels/${username}/playlist`);
-        console.log(" response:", response);
         if (response.status === 201) {
+          router.push(`/channels/${username}/playlist`);
           toast.success("Playlist create successfully!");
           reset();
         }

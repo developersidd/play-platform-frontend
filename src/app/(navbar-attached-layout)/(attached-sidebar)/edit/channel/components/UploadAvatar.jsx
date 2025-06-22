@@ -3,6 +3,7 @@ import { PROFILE_UPDATED } from "@/actions/user.action";
 import useAxios from "@/hooks/useAxios";
 import useUserContext from "@/hooks/useUserContext";
 import { ImageUp } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
@@ -50,7 +51,10 @@ const UploadAvatar = ({ avatar, username }) => {
   };
   return (
     <div className="relative -mt-12 inline-block h-28 w-28 shrink-0 overflow-hidden rounded-full border-2">
-      <img src={avatarImage?.url} alt={username} className="h-full w-full" />
+      <Image
+        width={112}
+        height={112}
+        src={avatarImage?.url} alt={username} className="h-full w-full" />
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <input
           ref={inputRef}

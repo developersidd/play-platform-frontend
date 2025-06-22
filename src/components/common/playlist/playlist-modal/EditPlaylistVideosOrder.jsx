@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 const EditPlaylistVideosOrder = ({
   selectedVideos,
@@ -17,7 +16,6 @@ const EditPlaylistVideosOrder = ({
 }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [items, setItems] = useState(selectedVideos);
-  const router = useRouter();
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -30,7 +28,7 @@ const EditPlaylistVideosOrder = ({
       position: ind,
     }));
     setVideosToUpdate(updatedVideosToUpdate);
-  }, [selectedVideos]);
+  }, [selectedVideos, setVideosToUpdate]);
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
@@ -47,15 +45,6 @@ const EditPlaylistVideosOrder = ({
       position: items.findIndex(({ video }) => video === item.video),
     }));
     setVideosToUpdate(bulkUpdateData);
-    /*reorderWatchLaterVideos(bulkUpdateData)
-      .then((data) => {
-        router.refresh();
-        toast.success("Videos reordered successfully");
-      })
-      .catch((e) => {
-        console.log(" e:", e);
-        toast.error("Error reordering videos");
-      });*/
   };
 
   if (!isMounted) {

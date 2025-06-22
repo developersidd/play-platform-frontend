@@ -6,7 +6,7 @@ import SinglePlaylistDetails from "./_components/SinglePlaylistDetails";
 const ChannelSinglePlaylistPage = async ({ params }) => {
   const { playlistId } = await params;
   const { data: user } = await retrieveCurrentUser();
-  const { data, error } = await getPlaylistById(playlistId);
+  const { data } = await getPlaylistById(playlistId);
   const { owner, videos = [], ...rest } = data || {};
   console.log(" videosss:", videos);
   const isPlaylistOwner = user?._id === owner?._id;

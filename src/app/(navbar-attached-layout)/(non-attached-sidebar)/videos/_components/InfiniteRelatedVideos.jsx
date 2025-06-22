@@ -33,7 +33,7 @@ const InfiniteRelatedVideos = ({ videoId, initialVideos }) => {
     };
 
     fetchData();
-  }, [page, hasMore]);
+  }, [page, hasMore, videoId]);
 
   return (
     <div className="w-full">

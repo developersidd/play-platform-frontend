@@ -9,11 +9,9 @@ import {
 import useAxios from "@/hooks/useAxios";
 import useUserContext from "@/hooks/useUserContext";
 import { Bookmark, Clock, EllipsisVertical } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 const RelatedVideoCardActions = ({ videoId }) => {
-  const router = useRouter();
   const [isVideoInWatchLater, setIsVideoInWatchLater] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { apiClient } = useAxios() || {};
@@ -32,7 +30,11 @@ const RelatedVideoCardActions = ({ videoId }) => {
       const res = await apiClient.patch(`/watch-later/v/${videoId}/add`);
       console.log(" res:", res);
     } catch (error) {
-      toast.error("Failed to add video in watch later!");
+      toast.error(
+        `Failed to ${
+          isVideoInWatchLater ? "remove" : "add"
+        } video in watch later!`
+      );
     }
   };
   if (!_id) {

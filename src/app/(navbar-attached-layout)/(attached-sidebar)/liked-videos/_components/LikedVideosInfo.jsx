@@ -1,5 +1,6 @@
 import { formatCounting } from "@/lib/utils";
 import moment from "moment";
+import Image from "next/image";
 
 const LikedVideosInfo = ({ likedVideosInfo }) => {
   const { video: { thumbnail, title, createdAt, views } = {}, totalVideos } =
@@ -8,7 +9,10 @@ const LikedVideosInfo = ({ likedVideosInfo }) => {
     <div className="w-full shrink-0 sm:max-w-md xl:max-w-lg">
       <div className="relative mb-2 w-full pt-[56%]">
         <div className="absolute inset-0">
-          <img src={thumbnail?.url} alt={title} className="h-full w-full" />
+          <Image
+            width={450}
+            height={300}
+            src={thumbnail?.url} alt={title} className="h-full w-full" />
           <div className="absolute inset-x-0 bottom-0">
             <div className="relative border-t bg-white/30 p-4 text-white backdrop-blur-sm before:absolute before:inset-0 before:bg-black/40">
               <div className="relative z-[1]">

@@ -1,5 +1,6 @@
 import { formatCounting } from "@/lib/utils";
 import moment from "moment";
+import Image from "next/image";
 import Link from "next/link";
 
 const PlaylistItem = ({ playlist }) => {
@@ -10,7 +11,10 @@ const PlaylistItem = ({ playlist }) => {
     <Link href={`/playlists/${_id}`} className="w-full">
       <div className="relative mb-2 w-full pt-[56%]">
         <div className="absolute inset-0">
-          <img src={thumbnail?.url} alt={name} className="h-full w-full" />
+          <Image
+          width={1200}
+          height={1000}
+          src={thumbnail?.url} alt={name} className="h-full w-full" />
           <div className="absolute inset-x-0 bottom-0">
             <div className="relative border-t bg-white/30 p-4 text-white backdrop-blur-sm before:absolute before:inset-0 before:bg-black/40">
               <div className="relative z-[1]">

@@ -1,12 +1,7 @@
-import { retrieveCurrentUser } from "@/server-actions/user.action";
 import { getVideos } from "@/server-actions/video.action";
 import DashboardVideosTable from "../_components/DashboardVideosTable";
 const DashboardVideosPage = async ({ searchParams }) => {
   const { page, limit, search, status, sortOrder, sortBy } = searchParams || {};
-  console.log(" searchParams:", searchParams);
-  const {
-    data: { username },
-  } = (await retrieveCurrentUser()) || {};
 
   const { data: { totalPages, videos } = {} } = await getVideos({
     page: page || 1,

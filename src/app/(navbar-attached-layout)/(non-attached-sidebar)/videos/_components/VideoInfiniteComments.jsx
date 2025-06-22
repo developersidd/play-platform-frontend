@@ -36,7 +36,7 @@ const VideoInfiniteComments = ({ initialComments }) => {
     };
 
     fetchData();
-  }, [page, hasMore]);
+  }, [page, hasMore, videoId]);
   if (error) return <Error title="Error while getting comments" />;
   return (
     <div className="w-full h-full min-h-[75vh] space-y-4">

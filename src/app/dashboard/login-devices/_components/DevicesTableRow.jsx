@@ -1,6 +1,5 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 
-import { Checkbox } from "@/components/ui/checkbox";
 import { Monitor, Smartphone, Tablet } from "lucide-react";
 import moment from "moment";
 import DeviceRowAction from "./DeviceRowAction";
@@ -20,7 +19,6 @@ const DevicesTableRow = ({ device }) => {
 
   return (
     <TableRow className=" h-[70px]">
-      
       <TableCell className="relative pl-6">
         <div className="flex items-center gap-4">
           <div

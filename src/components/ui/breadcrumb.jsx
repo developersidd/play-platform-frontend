@@ -30,7 +30,7 @@ const BreadcrumbItem = React.forwardRef(({ className, ...props }, ref) => (
 BreadcrumbItem.displayName = "BreadcrumbItem";
 
 const BreadcrumbLink = React.forwardRef(
-  ({ asChild, className, ...props }, ref) => {
+  ({ className, ...props }, ref) => {
     return (
       <Link
         ref={ref}

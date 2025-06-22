@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
+import Image from "next/image";
 
 function WatchLaterSidebar({ thumbnailUrl = "" }) {
   return (
@@ -18,7 +19,9 @@ function WatchLaterSidebar({ thumbnailUrl = "" }) {
           className="z-50 w-full h-full  bg-white/20 shadow
          rounded-xl p-3"
         >
-          <img
+          <Image
+            width={450}
+            height={300}
             src={thumbnailUrl}
             className="w-full h-[200px] object-fill rounded-xl mb-5"
             alt=""

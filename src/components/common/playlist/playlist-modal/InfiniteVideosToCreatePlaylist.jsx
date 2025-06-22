@@ -3,6 +3,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import useUserContext from "@/hooks/useUserContext";
 import { getVideos } from "@/server-actions/video.action";
 import { Loader } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
 
@@ -58,7 +59,7 @@ const InfiniteVideosToCreatePlaylist = ({
     };
 
     fetchData();
-  }, [page, hasMore, searchQuery]);
+  }, [page, hasMore, searchQuery, username]);
   // decide what to render
   let content;
   if (isInitialLoading) {
@@ -106,7 +107,9 @@ const InfiniteVideosToCreatePlaylist = ({
               }}
               className="h-4 w-4 mr-3"
             />
-            <img
+            <Image
+              width={100}
+              height={100}
               src={thumbnail?.url}
               className="w-16 h-10 rounded object-cover mr-3"
               alt={title}

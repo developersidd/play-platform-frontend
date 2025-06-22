@@ -44,7 +44,7 @@ const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {
     };
 
     fetchData();
-  }, [page, hasMore]);
+  }, [page, hasMore, limit]);
 
   return (
     <div className="w-full">

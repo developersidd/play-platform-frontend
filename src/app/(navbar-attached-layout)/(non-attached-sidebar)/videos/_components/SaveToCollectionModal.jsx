@@ -17,7 +17,6 @@ const SaveToCollectionModal = ({
   videoId,
   open,
   setIsOpen,
-  playlistId,
   children,
 }) => {
   const [collections, setCollections] = useState([]);

@@ -1,10 +1,7 @@
-import { getAllUsers, retrieveCurrentUser } from "@/server-actions/user.action";
+import { getAllUsers } from "@/server-actions/user.action";
 import DashboardUsersTable from "./_components/DashboardUsersTable";
 const AdminUsersPage = async ({ searchParams }) => {
   const { page, limit, search, sortOrder, sortBy } = searchParams || {};
-  const {
-    data: { username },
-  } = (await retrieveCurrentUser()) || {};
   const { data: { totalPages, users } = {}, data } = await getAllUsers({
     page: page || 1,
     limit: limit || 20,

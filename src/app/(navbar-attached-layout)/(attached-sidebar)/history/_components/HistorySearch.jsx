@@ -12,10 +12,11 @@ const HistorySearch = () => {
 
   // set search query from url
   useEffect(() => {
-    if (searchParams.has("search")) {
+    const urlSearchParams = new URLSearchParams(searchParams);
+    if (urlSearchParams.has("search")) {
       setSearch(decodeURI(urlSearchParams.get("search")));
     }
-  }, []);
+  }, [searchParams]);
 
   // Debounce Handler
   const debounceHandler = useDebounce((value) => {

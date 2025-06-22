@@ -67,7 +67,7 @@ const useAxios = () => {
         return Promise.reject(error);
       }
     });
-  }, [refreshToken]);
+  }, [refreshToken, accessToken, dispatch]);
 
   return { apiClient };
 };

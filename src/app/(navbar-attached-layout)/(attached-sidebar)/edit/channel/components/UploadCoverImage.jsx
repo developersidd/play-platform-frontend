@@ -1,6 +1,7 @@
 "use client";
 import useAxios from "@/hooks/useAxios";
 import { ImageUp } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
@@ -45,9 +46,9 @@ const UploadCoverImage = ({ coverImage: coverImg, username }) => {
   return (
     <div className="relative min-h-[150px] w-full pt-[16.28%]">
       <div className="absolute inset-0 overflow-hidden">
-        <img
-          //width={1200}
-          //height={250}
+        <Image
+          width={1000}
+          height={700}
           className="object-cover w-full h-full"
           src={coverImage?.url}
           alt={username}

@@ -1,19 +1,18 @@
 import { formatCounting } from "@/lib/utils";
 import { getChannelSubscribers } from "@/server-actions/subscription.action";
+import Image from "next/image";
 
 const DescriptionChannelInfo = async ({ videoOwner }) => {
   const { avatar, fullName, username, _id } = videoOwner || {};
   const {
-    data,
     data: { subscribers } = {},
-    error,
   } = (await getChannelSubscribers(_id)) || {};
-  console.log(" data:", data);
-  //console.log(" subscribers:", subscribers)
   return (
     <div className="flex items-center gap-x-4">
       <div className="mt-2 h-12 w-12 shrink-0">
-        <img
+        <Image
+          width={48}
+          height={48}
           src={avatar?.url}
           alt={username}
           className="h-full w-full rounded-full"

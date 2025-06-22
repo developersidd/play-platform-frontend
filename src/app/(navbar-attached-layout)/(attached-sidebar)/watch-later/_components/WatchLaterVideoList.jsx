@@ -38,7 +38,7 @@ const WatchLaterVideoList = ({ dbVideos }) => {
     }));
     console.log(" bulkUpdateData:", bulkUpdateData)
     reorderWatchLaterVideos(bulkUpdateData)
-      .then((data) => {
+      .then(() => {
         router.refresh();
         toast.success("Videos reordered successfully");
       })

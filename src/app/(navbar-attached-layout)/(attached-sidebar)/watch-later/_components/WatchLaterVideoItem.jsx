@@ -5,6 +5,7 @@ import moment from "moment";
 import Link from "next/link";
 import { useState } from "react";
 import WatchLaterVideoItemActions from "./WatchLaterVideoItemActions";
+import Image from "next/image";
 const WatchLaterVideoItem = ({ index, item: { video, _id } }) => {
   const {
     thumbnail,
@@ -53,7 +54,7 @@ const WatchLaterVideoItem = ({ index, item: { video, _id } }) => {
                 >
                   <div className="w-full">
                     <div className="absolute inset-0">
-                      <img
+                      <Image
                         width={450}
                         height={300}
                         src={thumbnail?.url}
@@ -83,7 +84,7 @@ const WatchLaterVideoItem = ({ index, item: { video, _id } }) => {
                   <Link className="inline-block" href={`/channels/${username}`}>
                     <div className="flex items-center gap-x-4">
                       <div className="mt-2  h-10 w-10 shrink-0">
-                        <img
+                        <Image
                           width={100}
                           height={100}
                           src={avatar?.url}

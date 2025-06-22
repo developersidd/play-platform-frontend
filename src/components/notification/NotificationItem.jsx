@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-const NotificationItem = ({ item, onClose }) => {
+const NotificationItem = ({ item }) => {
   const { sender, type, message, image, createdAt, link, _id } = item || {};
   const { username = "", avatar = "", _id: channelId } = sender || {};
   const { apiClient } = useAxios();
@@ -23,7 +23,6 @@ const NotificationItem = ({ item, onClose }) => {
   // delete notification
   const handleDeleteNotification = async () => {
     setIsHide(true);
-    //onClose()
     try {
     const res =  await apiClient.delete(`/notifications/${_id}`);
       router.refresh();

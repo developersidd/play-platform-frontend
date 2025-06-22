@@ -76,7 +76,7 @@ const Notification = () => {
 
     fetchNotifications();
     return () => socket.disconnect();
-  }, [role, accessToken]);
+  }, [role, accessToken, apiClient, setUnreadCount]);
   // decide what to render
   let content;
   if (isLoading) {

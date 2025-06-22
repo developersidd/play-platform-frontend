@@ -6,7 +6,7 @@ import ReactPlayer from "react-player";
 
 import { apiClient } from "@/axios";
 const VideoPlayer = ({ video }) => {
-  const { _id, thumbnail, video: { url } = {} } = video || {}; //console.log("lesson:", lesson);
+  const { _id, thumbnail, video: { url } = {} } = video || {}; 
   const [hasWindow, setHasWindow] = useState(false);
   const [started, setStarted] = useState(false);
   const [lastPlayed, setLastPlayed] = useState(0);
@@ -18,7 +18,7 @@ const VideoPlayer = ({ video }) => {
       playerRef.current.seekTo(lastPlayed, "seconds");
       setStarted(true);
     }
-  }, [started]);
+  }, [started, lastPlayed]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -28,7 +28,7 @@ const VideoPlayer = ({ video }) => {
         setLastPlayed(Number(lastTime));
       }
     }
-  }, []);
+  }, [_id]);
 
   useEffect(() => {
     async function updateVideoViews() {
@@ -39,15 +39,13 @@ const VideoPlayer = ({ video }) => {
       }
     }
     started && !lastPlayed && updateVideoViews();
-  }, [started]);
+  }, [started, lastPlayed, _id, router]);
 
   function handleOnStart() {
-    console.log("handleOnStart");
     setStarted(true);
   }
 
   function handleOnProgress(state) {
-    //console.log("state:", state);
     hasWindow &&
       Number(localStorage.setItem(`lastTime-${_id}`, state.playedSeconds));
   }

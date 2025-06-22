@@ -8,12 +8,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import useAxios from "@/hooks/useAxios";
 import useUserContext from "@/hooks/useUserContext";
+import { cn } from "@/lib/utils";
 import { Bookmark, Clock, EllipsisVertical } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-const VideoHorizontalCardActions = ({ videoId }) => {
-  const router = useRouter();
+const VideoHorizontalCardActions = ({ videoId, classes }) => {
   const [isVideoInWatchLater, setIsVideoInWatchLater] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { apiClient } = useAxios() || {};
@@ -40,7 +39,7 @@ const VideoHorizontalCardActions = ({ videoId }) => {
   }
   return (
     <>
-      <div className="absolute flex items-center top-2 right-8 p-2 pt-0">
+      <div className={cn("absolute flex items-center top-2 right-8 p-2 pt-0", classes)}>
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <button className="outline-none">

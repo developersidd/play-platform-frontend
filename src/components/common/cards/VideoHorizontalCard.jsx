@@ -71,7 +71,7 @@ const VideoHorizontalCard = ({ video, linkQuery }) => {
               {/* Channel Info */}
               <address className="flex items-center gap-x-4 mt-2 not-italic">
                 <figure className="hidden md:block h-10 w-10 shrink-0">
-                  <img
+                  <Image
                     width={100}
                     height={100}
                     src={avatar?.url}
