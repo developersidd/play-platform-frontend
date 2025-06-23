@@ -76,22 +76,18 @@ function RegisterForm() {
   });
   const { isSubmitting } = form.formState;
   async function onSubmit(data) {
-    console.log("data:", data);
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value);
     });
-    //console.log(Object.fromEntries(formData.entries()));
     try {
       await apiClient.post("/users/register", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      //console.log("response:", response);
       router.push("/login");
     } catch (e) {
-      console.log("e:", e);
       toast.error("There was an error occurred!");
     }
   }
@@ -172,12 +168,12 @@ function RegisterForm() {
               className="grid gap-2"
               control={form.control}
               name="avatar"
-              render={({ field: { value, onChange, ...fieldProps } }) => (
+              render={({ field: { onChange, ref } }) => (
                 <FormItem>
                   <FormLabel>Avatar </FormLabel>
                   <FormControl>
                     <Input
-                      {...fieldProps}
+                      ref={ref}
                       placeholder="Picture"
                       type="file"
                       accept="image/*"

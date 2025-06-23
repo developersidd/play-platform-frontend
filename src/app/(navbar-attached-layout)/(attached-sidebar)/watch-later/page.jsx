@@ -5,7 +5,7 @@ import WatchLaterSidebar from "./_components/WatchLaterSidebar";
 import WatchLaterVideoList from "./_components/WatchLaterVideoList";
 
 const WatchLaterPage = async () => {
-    const { data: videos = [], error } = (await getWatchLaterVideos()) || {};
+  const { data: videos = [], error } = (await getWatchLaterVideos()) || {};
   const firstVideoThumbnailUrl = (videos || [])[0]?.video?.thumbnail?.url;
 
   // decide what to render
@@ -32,7 +32,11 @@ const WatchLaterPage = async () => {
       />
     );
   }
-  return <section className="p-4 flex gap-5  ">{content}</section>;
+  return (
+    <section className="p-4 flex flex-wrap lg:flex-nowrap gap-5 md:gap-3 xl:gap-5  w-full">
+      {content}
+    </section>
+  );
 };
 
 export default WatchLaterPage;

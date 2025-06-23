@@ -36,7 +36,7 @@ const WatchLaterVideoList = ({ dbVideos }) => {
       videoId: item?.video?._id,
       position: items.findIndex(({ _id }) => _id === item._id),
     }));
-    console.log(" bulkUpdateData:", bulkUpdateData)
+    console.log(" bulkUpdateData:", bulkUpdateData);
     reorderWatchLaterVideos(bulkUpdateData)
       .then(() => {
         router.refresh();
@@ -51,7 +51,7 @@ const WatchLaterVideoList = ({ dbVideos }) => {
   if (!isMounted) return null;
 
   return (
-    <div className="w-3/4 pb-[85px]">
+    <div className="w-full lg:w-3/4 pb-[85px]">
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="videos">
           {(provided) => (
