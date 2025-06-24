@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { retrieveCurrentUser } from "@/server-actions/user.action";
 import { headers } from "next/headers";
