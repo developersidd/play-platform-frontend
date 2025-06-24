@@ -12,11 +12,11 @@ const UserInitializer = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await apiClient.get("/users/current-user");
+        await apiClient.get("/users/current-user");
+
         dispatch({ type: SET_USER, payload: res.data?.data });
       } catch (error) {
         return router.push("/");
-        //console.log("error init:", error);
       }
     };
     if (localStorage.getItem("loggedIn")) {

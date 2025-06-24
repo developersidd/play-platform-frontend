@@ -40,7 +40,6 @@ export default function middleware(req) {
       new URL(`/login?redirect=${encodeURIComponent(pathname)}`, nextUrl)
     );
   }
-  console.log("Middleware executed for:", pathname);
   return NextResponse.next({
     request: {
       headers: requestHeaders,

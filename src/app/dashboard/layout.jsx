@@ -17,8 +17,11 @@ async function DashboardLayout({ children }) {
   const { data } = await retrieveCurrentUser();
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") || "/";
+  console.log(" pathname:", pathname)
   const isAdmin = data?.role?.toLowerCase() === "admin";
-  const isAdminRoute = adminRoutes.some((route) => pathname.startsWith(route));
+  console.log(" isAdmin:", isAdmin)
+  const isAdminRoute = adminRoutes.includes(pathname);
+  console.log(" isAdminRoute:", isAdminRoute)
   if (!isAdmin && isAdminRoute)  {
     return redirect("/dashboard");
   }

@@ -49,7 +49,6 @@ function LoginForm() {
   const { isSubmitting } = form.formState;
   const searchParams = useSearchParams();
   const redirect = decodeURIComponent(searchParams.get("redirect") || "/");
-  console.log("redirect:", redirect);
   async function onSubmit(data) {
     const { email, password } = data;
     try {
@@ -60,7 +59,6 @@ function LoginForm() {
       localStorage.setItem("loggedIn", true);
       return router.push(redirect);
     } catch (e) {
-      console.log(" e:", e);
       toast.error(e.response?.data?.message || e?.message || "Login failed");
     }
   }
