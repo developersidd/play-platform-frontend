@@ -12,7 +12,7 @@ const UserInitializer = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        await apiClient.get("/users/current-user");
+       const res = await apiClient.get("/users/current-user");
 
         dispatch({ type: SET_USER, payload: res.data?.data });
       } catch (error) {
