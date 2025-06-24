@@ -32,7 +32,7 @@ const DashboardHeader = ({ stats }) => {
   return (
     <header>
       <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4">
-        {statsData.map(({ name, valueProperty, icon }) => (
+        {statsData?.map(({ name, valueProperty, icon }) => (
           <div key={name} className="border p-4">
             <div className="mb-4 block">
               <span className="flex items-center justify-center  h-7 w-7 rounded-full bg-[#E4D3FF] p-1 text-[#ae7aff]">
