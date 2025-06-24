@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import RegisterForm from "./_components/RegisterForm";
 
-const RegisterPage = () => {
+const RegisterPage = async () => {
   return (
     <div className="w-full flex-col h-screen flex items-center justify-center gap-4 md:gap-6 xl:gap-7">
       <div className="flex items-center gap-1 ">
