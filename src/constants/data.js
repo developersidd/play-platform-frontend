@@ -105,13 +105,13 @@ export const dashboardNavGroups = [
     items: [
       {
         title: "Users",
-        url: "/dashboard/users",
+        url: "/dashboard/admin/users",
         icon: Users,
         shortcut: ["u", "u"],
       },
       {
         title: "Videos",
-        url: "/dashboard/videos/admin",
+        url: "/dashboard/admin/videos",
         icon: Youtube,
         shortcut: ["v", "v"],
       },

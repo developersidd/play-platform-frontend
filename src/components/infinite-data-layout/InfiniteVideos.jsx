@@ -3,7 +3,7 @@ import VideoCard from "@/components/common/cards/VideoCard";
 import VideoHorizontalCard from "@/components/common/cards/VideoHorizontalCard";
 import { getVideos } from "@/server-actions/video.action";
 import { Loader } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Virtuoso, VirtuosoGrid } from "react-virtuoso";
 import Error from "../common/Error";
 
@@ -20,9 +20,6 @@ const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {
     component: layout === "grid" ? VirtuosoGrid : Virtuoso,
     itemComponent: layout === "grid" ? VideoCard : VideoHorizontalCard,
   };
-  const memorizedRestQueries = useMemo(() => {
-    return restQueries;
-  }, [restQueries]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,7 +29,7 @@ const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {
         const { data: { videos = [], hasNextPage } = {} } = await getVideos({
           page,
           limit: limit || 20,
-          ...memorizedRestQueries,
+          ...restQueries,
         });
 
         setVideos((prev) => [...prev, ...videos]);
@@ -46,7 +43,8 @@ const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {
     };
 
     fetchData();
-  }, [page, hasMore, limit, memorizedRestQueries]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, hasMore, limit]);
 
   return (
     <div className="w-full">

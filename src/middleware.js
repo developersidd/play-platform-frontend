@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
-import { retrieveCurrentUser } from "./server-actions/user.action";
 
-const ADMIN_ROUTES = ["/dashboard/users", "/dashboard/videos/admin"];
 const PUBLIC_ROUTES = [
   "/login",
   "/register",
@@ -12,18 +10,16 @@ const PUBLIC_ROUTES = [
   "/terms-of-service",
   "/privacy-policy",
 ];
-export default async function middleware(req) {
+export default function middleware(req) {
   const { nextUrl } = req;
   const { pathname, search } = nextUrl;
 
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set("searchParams", search);
+  requestHeaders.set("x-pathname", pathname);
   const token = req?.cookies?.get("accessToken")?.value;
-  const { data: currentUser } = await retrieveCurrentUser();
-  const isAdmin = currentUser?.role?.toLowerCase() === "admin";
-  const isAdminRoute = ADMIN_ROUTES.some((route) => pathname.startsWith(route));
 
-  const isLoggedIn = !!token && currentUser?._id;
+  const isLoggedIn = !!token;
   const isPublicRoute =
     nextUrl?.pathname === "/" ||
     PUBLIC_ROUTES.some((route) => pathname.startsWith(route));
@@ -37,16 +33,14 @@ export default async function middleware(req) {
   if (isUnauthenticatedRoute && isLoggedIn) {
     return Response.redirect(new URL("/", nextUrl));
   }
-  // check for admin access
-  if (isAdminRoute && !isAdmin) {
-    return Response.redirect(new URL("/dashboard", nextUrl));
-  }
+
   // check if the user is logged in
   if (!isLoggedIn && !isPublicRoute) {
     return Response.redirect(
       new URL(`/login?redirect=${encodeURIComponent(pathname)}`, nextUrl)
     );
   }
+  console.log("Middleware executed for:", pathname);
   return NextResponse.next({
     request: {
       headers: requestHeaders,
