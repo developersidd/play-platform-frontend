@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 const PUBLIC_ROUTES = [
@@ -7,21 +8,18 @@ const PUBLIC_ROUTES = [
   "/about",
   "/videos",
   "/contact",
-  "/terms-of-service",
-  "/privacy-policy",
 ];
-export default function middleware(req) {
+export default async function middleware(req) {
   const { nextUrl } = req;
   const { pathname, search } = nextUrl;
 
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set("searchParams", search);
   requestHeaders.set("x-pathname", pathname);
-  const token = req?.cookies?.get("accessToken")?.value;
-  console.log(" token:", token)
-  console.log(" cookies:", req)
-
-  const isLoggedIn = !!token;
+  const allCookies = await cookies()
+  const accessToken = allCookies.get("accessToken")?.value;
+  console.log(" accessToken:", accessToken)
+  const isLoggedIn = !!accessToken;
   const isPublicRoute =
     nextUrl?.pathname === "/" ||
     PUBLIC_ROUTES.some((route) => pathname.startsWith(route));
