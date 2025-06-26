@@ -19,8 +19,7 @@ export default function middleware(req) {
   requestHeaders.set("x-pathname", pathname);
   const token = req?.cookies?.get("accessToken")?.value;
   console.log(" token:", token)
-  console.log(" token 1:", req?.cookies?.get("accessToken"));
-  console.log(" cookies:", req?.cookies?.getAll());
+  console.log(" cookies:", req)
 
   const isLoggedIn = !!token;
   const isPublicRoute =
@@ -51,5 +50,5 @@ export default function middleware(req) {
 }
 
 export const config = {
-  matcher: [],
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
