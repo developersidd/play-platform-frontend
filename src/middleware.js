@@ -12,15 +12,14 @@ const PUBLIC_ROUTES = [
 ];
 export default function middleware(req) {
   const { nextUrl } = req;
-  console.log(" req:", req)
   const { pathname, search } = nextUrl;
 
-  console.log("all req?.cookies:", req?.cookies.getAll(),req?.cookies["accessToken"] )
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set("searchParams", search);
   requestHeaders.set("x-pathname", pathname);
   const token = req?.cookies?.get("accessToken")?.value;
   console.log(" token:", token)
+  console.log(" cookies:", req?.cookies?.getAll());
 
   const isLoggedIn = !!token;
   const isPublicRoute =
@@ -49,8 +48,6 @@ export default function middleware(req) {
     },
   });
 }
-  console.log(" req:", req)
-  console.log(" req:", req)
 
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
