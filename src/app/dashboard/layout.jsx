@@ -2,7 +2,6 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { retrieveCurrentUser } from "@/server-actions/user.action";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-//import { redirect } from "next/dist/server/api-utils";
 import DashboardHeader from "./_components/DashboardHeader";
 import DashboardSidebar from "./_components/DashboardSidebar";
 

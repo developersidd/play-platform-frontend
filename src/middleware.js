@@ -17,9 +17,11 @@ export default async function middleware(req) {
   requestHeaders.set("searchParams", search);
   requestHeaders.set("x-pathname", pathname);
   const allCookies = await cookies()
+  const token = req.cookies.get("accessToken")?.value;
+  console.log(" token:", token)
   const accessToken = allCookies.get("accessToken")?.value;
   console.log(" accessToken:", accessToken)
-  const isLoggedIn = !!accessToken;
+  const isLoggedIn = !!token || !!accessToken;
   const isPublicRoute =
     nextUrl?.pathname === "/" ||
     PUBLIC_ROUTES.some((route) => pathname.startsWith(route));
