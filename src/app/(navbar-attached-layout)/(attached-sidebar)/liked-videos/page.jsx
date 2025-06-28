@@ -3,7 +3,7 @@ import LikedVideos from "./_components/LikedVideos";
 import LikedVideosInfo from "./_components/LikedVideosInfo";
 
 const LikedVideosPage = async () => {
-  const { data = [], error } = await getLikedVideos();
+  const { data = [] } = await getLikedVideos();
   //console.log("error:", error);
   console.log("liked videos data:", data);
   return (

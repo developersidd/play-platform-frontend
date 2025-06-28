@@ -1,14 +1,13 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-const PUBLIC_ROUTES = [
-  "/login",
-  "/register",
-  "/forgot-password",
-  "/about",
-  "/videos",
-  "/contact",
-];
+//const PUBLIC_ROUTES = [
+//  "/login",
+//  "/register",
+//  "/forgot-password",
+//  "/about",
+//  "/videos",
+//  "/contact",
+//];
 
 export default async function middleware(req) {
   const { nextUrl } = req;
@@ -18,7 +17,7 @@ export default async function middleware(req) {
   requestHeaders.set("searchParams", search);
   requestHeaders.set("x-pathname", pathname);
   const token = req.cookies.get("accessToken")?.value;
-  console.log(" token:", token)
+  console.log(" token:", token);
   /*const allCookies = await cookies()
   const accessToken = allCookies.get("accessToken")?.value;
   console.log(" accessToken:", accessToken)
