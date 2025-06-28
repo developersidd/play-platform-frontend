@@ -1,6 +1,6 @@
 "use client";
 
-import { reorderWatchLaterVideos } from "@/server-actions/watchLater.action";
+import { reorderWatchLaterVideos } from "@/api/watchLater.api";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { useRouter } from "next/navigation";
 import { forwardRef, useEffect, useState } from "react";

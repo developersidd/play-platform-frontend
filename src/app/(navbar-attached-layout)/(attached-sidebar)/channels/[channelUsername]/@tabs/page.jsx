@@ -1,15 +1,15 @@
 //"use server";
+import { retrieveCurrentUser } from "@/api/user.api";
+import { getVideos } from "@/api/video.api";
 import MyChannelNoVideosFound from "@/app/(navbar-attached-layout)/_components/MyChannelNoVideosFound";
 import NoVideosFound from "@/app/(navbar-attached-layout)/_components/NotFoundVideos";
 import Error from "@/components/common/Error";
-import { retrieveCurrentUser } from "@/server-actions/user.action";
-import { getVideos } from "@/server-actions/video.action";
 import dynamic from "next/dynamic";
 const LazyInfiniteVideos = dynamic(() =>
   import("@/components/infinite-data-layout/InfiniteVideos")
 );
 const ChannelVideosPage = async ({ params }) => {
-  const { channelUsername } =  await params;
+  const { channelUsername } = await params;
   const { data: user } = await retrieveCurrentUser();
   const { data: { videos } = {}, error } =
     (await getVideos({
@@ -17,9 +17,9 @@ const ChannelVideosPage = async ({ params }) => {
       username: channelUsername,
     })) || {};
   const isMyChannel = user?.username === channelUsername;
-  console.log(" user?.username:", user?.username)
-  console.log(" channelUsername:", channelUsername)
-  console.log(" isMyChannel:", isMyChannel)
+  console.log(" user?.username:", user?.username);
+  console.log(" channelUsername:", channelUsername);
+  console.log(" isMyChannel:", isMyChannel);
   // decide what to render
   let content;
   if (error) {

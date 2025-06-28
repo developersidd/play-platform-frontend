@@ -1,6 +1,6 @@
 "use server";
-import { apiClient, fetchWithAuth } from "../axios";
-import { getAccessToken } from "./auth.action";
+import { apiClient, fetchWithAuth } from ".";
+import { getAccessToken } from "./auth.api";
 
 // get current user
 const retrieveCurrentUser = async () => {
@@ -86,9 +86,9 @@ const getUserHistory = async (search = "") => {
 };
 
 export {
+  getAllUsers,
   getChannelByUsername,
   getUserChannelStats,
   getUserHistory,
   retrieveCurrentUser,
-  getAllUsers
 };

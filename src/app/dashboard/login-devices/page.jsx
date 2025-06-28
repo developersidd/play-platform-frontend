@@ -1,4 +1,4 @@
-import { getUserLoginHistory } from "@/server-actions/loginHistory.action";
+import { getUserLoginHistory } from "@/api/loginHistory.api";
 import LoginDevicesTable from "./_components/LoginDevicesTable";
 
 const LoginDevicePage = async () => {

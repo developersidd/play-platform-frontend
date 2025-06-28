@@ -1,5 +1,5 @@
-import { getPlaylistById } from "@/server-actions/playlist.action";
-import { retrieveCurrentUser } from "@/server-actions/user.action";
+import { getPlaylistById } from "@/api/playlist.api";
+import { retrieveCurrentUser } from "@/api/user.api";
 import PlaylistVideos from "./_components/PlaylistVideos";
 import SinglePlaylistDetails from "./_components/SinglePlaylistDetails";
 

@@ -1,6 +1,6 @@
+import { retrieveCurrentUser } from "@/api/user.api";
+import { getVideoById } from "@/api/video.api";
 import { Card } from "@/components/ui/card";
-import { retrieveCurrentUser } from "@/server-actions/user.action";
-import { getVideoById } from "@/server-actions/video.action";
 import { VideoOff } from "lucide-react";
 import PlaylistBox from "../_components/PlaylistBox";
 import RelatedVideoList from "../_components/RelatedVideoList";
@@ -8,8 +8,9 @@ import VideoCommentSection from "../_components/VideoCommentSection";
 import VideoDescription from "../_components/VideoDescription";
 import VideoPlayer from "../_components/VideoPlayer";
 
-const SingleVideoPage = async ({ params, searchParams: { list, index } }) => {
+const SingleVideoPage = async ({ params, searchParams }) => {
   const { id } = await params;
+  const { list, index } = await searchParams;
   const { data: user } = (await retrieveCurrentUser()) || {};
   const { data: video, error } = (await getVideoById(id, user?._id)) || {};
   const isVideoExist = video?.title && !error;

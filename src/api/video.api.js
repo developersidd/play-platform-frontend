@@ -1,5 +1,5 @@
 "use server";
-import { apiClient, fetchWithAuth } from "../axios";
+import { apiClient, fetchWithAuth } from ".";
 
 // get all videos
 const getVideos = async (queries) => {
@@ -90,6 +90,5 @@ const getLikedVideos = async () => {
     };
   }
 };
-
 
 export { getLikedVideos, getRelatedVideos, getVideoById, getVideos };

@@ -1,4 +1,4 @@
-import { getVideos } from "@/server-actions/video.action";
+import { getVideos } from "@/api/video.api";
 import DashboardVideosTable from "../../videos/_components/DashboardVideosTable";
 const DashboardVideosPage = async ({ searchParams }) => {
   const { page, limit, search, status, sortOrder, sortBy } = searchParams || {};

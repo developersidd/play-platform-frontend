@@ -1,6 +1,6 @@
+import { getRelatedVideos } from "@/api/video.api";
 import NoVideosFound from "@/app/(navbar-attached-layout)/_components/NotFoundVideos";
 import Error from "@/components/common/Error";
-import { getRelatedVideos } from "@/server-actions/video.action";
 import dynamic from "next/dynamic";
 import RelatedVideoCard from "./RelatedVideoCard";
 const LazyInfiniteRelatedVideos = dynamic(() =>

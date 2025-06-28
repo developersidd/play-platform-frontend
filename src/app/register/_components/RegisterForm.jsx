@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-import { apiClient } from "@/axios";
+import { apiClient } from "@/api";
 import {
   Form,
   FormControl,

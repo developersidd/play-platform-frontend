@@ -1,4 +1,4 @@
-import { getAllUsers } from "@/server-actions/user.action";
+import { getAllUsers } from "@/api/user.api";
 import DashboardUsersTable from "./_components/DashboardUsersTable";
 const AdminUsersPage = async ({ searchParams }) => {
   const { page, limit, search, sortOrder, sortBy } = searchParams || {};

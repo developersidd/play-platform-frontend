@@ -1,5 +1,5 @@
 "use server";
-import { fetchWithAuth } from "../axios";
+import { fetchWithAuth } from ".";
 
 // Add video in watch later
 const addVideoInWatchLater = async (videoId) => {
@@ -52,7 +52,7 @@ const getWatchLaterVideos = async () => {
 
 // reorder watch later videos
 const reorderWatchLaterVideos = async (updateData) => {
-  console.log(" updateData:", updateData)
+  console.log(" updateData:", updateData);
   try {
     await fetchWithAuth(`/watch-later/videos/reorder`, {
       method: "PATCH",

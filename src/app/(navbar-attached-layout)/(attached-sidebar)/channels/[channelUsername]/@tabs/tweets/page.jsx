@@ -1,5 +1,5 @@
-import { getUserTweets } from "@/server-actions/tweets.action";
-import { retrieveCurrentUser } from "@/server-actions/user.action";
+import { getUserTweets } from "@/api/tweets.api";
+import { retrieveCurrentUser } from "@/api/user.api";
 import ChannelTweetsWrapper from "./_components/ChannelTweetsWrapper";
 
 const ChannelTweetsPage = async ({ params }) => {

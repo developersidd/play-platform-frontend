@@ -1,11 +1,12 @@
-import { getUserHistory } from "@/server-actions/user.action";
+import { getUserHistory } from "@/api/user.api";
 import moment from "moment";
 import HistorySettings from "./_components/HistorySettings";
 import HistoryVideoCard from "./_components/HistoryVideoCard";
 
-const HistoryPage = async ({ searchParams: { search } }) => {
+const HistoryPage = async ({ searchParams }) => {
+  const { search } = await searchParams;
   const userHistory = await getUserHistory(search);
-  console.log("userHistory:", JSON.stringify(userHistory, null, 2));
+  //console.log("userHistory:", JSON.stringify(userHistory, null, 2));
 
   return (
     <div className="w-full px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-16 py-4 md:py-6 xl:py-8">

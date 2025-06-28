@@ -1,4 +1,4 @@
-import { getVideoComments } from "@/server-actions/comment.action";
+import { getVideoComments } from "@/api/comment.api";
 import VideoAddComment from "./VideoAddComment";
 import VideoCommentList from "./VideoCommentList";
 

@@ -1,4 +1,4 @@
-const { fetchWithAuth } = require("@/axios");
+const { fetchWithAuth } = require("@/api");
 
 // get user login history
 const getUserLoginHistory = async () => {

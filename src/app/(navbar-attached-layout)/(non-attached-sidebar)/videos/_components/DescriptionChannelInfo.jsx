@@ -1,12 +1,11 @@
+import { getChannelSubscribers } from "@/api/subscription.api";
 import { formatCounting } from "@/lib/utils";
-import { getChannelSubscribers } from "@/server-actions/subscription.action";
 import Image from "next/image";
 
 const DescriptionChannelInfo = async ({ videoOwner }) => {
   const { avatar, fullName, username, _id } = videoOwner || {};
-  const {
-    data: { subscribers } = {},
-  } = (await getChannelSubscribers(_id)) || {};
+  const { data: { subscribers } = {} } =
+    (await getChannelSubscribers(_id)) || {};
   return (
     <div className="flex items-center gap-x-4">
       <div className="mt-2 h-12 w-12 shrink-0">

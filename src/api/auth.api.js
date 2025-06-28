@@ -1,6 +1,6 @@
 "use server";
 import { cookies } from "next/headers";
-import { apiClient } from "../axios";
+import { apiClient } from ".";
 const refreshAccessToken = async () => {
   try {
     const response = await apiClient.post("/users/refresh-token");

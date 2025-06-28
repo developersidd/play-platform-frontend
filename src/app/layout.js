@@ -3,11 +3,13 @@ import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import UserProvider from "@/providers/UserProvider";
 import { Nunito } from "next/font/google";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import "./globals.css";
 //import "./theme.css";
 import UserInitializer from "@/components/User-initializer/UserInitializer";
+import { redirect } from "next/navigation";
 import NextTopLoader from "nextjs-toploader";
+import { retrieveCurrentUser } from "@/api/user.api";
 const nunito = Nunito({
   weight: ["300", "400", "500", "600", "700", "900"],
   subsets: ["latin"],

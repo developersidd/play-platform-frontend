@@ -1,21 +1,21 @@
 "use server";
-import { apiClient } from "../axios";
-const getVideoLikes = async (videoId, userId) => {
+import { apiClient } from ".";
+const getVideoDisLikes = async (videoId, userId) => {
   try {
-    let url = `/likes/video/${videoId}`;
+    let url = `/dislikes/video/${videoId}`;
     if (userId) {
       url += `?userId=${userId}`;
     }
-
+    console.log("url:", url);
     const res = await apiClient.get(url);
     return {
       data: res.data?.data,
     };
   } catch (e) {
     return {
-      error: e,
+      error: e.message,
     };
   }
 };
 
-export { getVideoLikes };
+export { getVideoDisLikes };

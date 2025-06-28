@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 
-import { apiClient } from "@/axios";
+import { apiClient } from "@/api";
 const VideoPlayer = ({ video }) => {
-  const { _id, thumbnail, video: { url } = {} } = video || {}; 
+  const { _id, thumbnail, video: { url } = {} } = video || {};
   const [hasWindow, setHasWindow] = useState(false);
   const [started, setStarted] = useState(false);
   const [lastPlayed, setLastPlayed] = useState(0);

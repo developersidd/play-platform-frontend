@@ -32,7 +32,7 @@ const LazyUploadVideoModal = dynamic(() =>
 );
 
 function DashboardHeader() {
-  const { state } = useUserContext() || {};
+  const { state, dispatch } = useUserContext() || {};
   const router = useRouter();
   const { avatar, username } = state || {};
   const { apiClient } = useAxios();

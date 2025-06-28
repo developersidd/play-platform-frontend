@@ -1,5 +1,5 @@
+import { retrieveCurrentUser } from "@/api/user.api";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { retrieveCurrentUser } from "@/server-actions/user.action";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import DashboardHeader from "./_components/DashboardHeader";
@@ -16,12 +16,12 @@ async function DashboardLayout({ children }) {
   const { data } = await retrieveCurrentUser();
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") || "/";
-  console.log(" pathname:", pathname)
+  console.log(" pathname:", pathname);
   const isAdmin = data?.role?.toLowerCase() === "admin";
-  console.log(" isAdmin:", isAdmin)
+  console.log(" isAdmin:", isAdmin);
   const isAdminRoute = adminRoutes.includes(pathname);
-  console.log(" isAdminRoute:", isAdminRoute)
-  if (!isAdmin && isAdminRoute)  {
+  console.log(" isAdminRoute:", isAdminRoute);
+  if (!isAdmin && isAdminRoute) {
     return redirect("/dashboard");
   }
   return (

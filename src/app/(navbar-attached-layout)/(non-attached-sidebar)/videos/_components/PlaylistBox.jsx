@@ -1,8 +1,8 @@
+import { getPlaylistById } from "@/api/playlist.api";
+import { retrieveCurrentUser } from "@/api/user.api";
+import { getWatchLaterVideos } from "@/api/watchLater.api";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { getPlaylistById } from "@/server-actions/playlist.action";
-import { retrieveCurrentUser } from "@/server-actions/user.action";
-import { getWatchLaterVideos } from "@/server-actions/watchLater.action";
 import { redirect } from "next/navigation";
 import PlaylistBoxItem from "./PlaylistBoxItem";
 const PlaylistBox = async ({ playlistId, currentVideoIndex }) => {
@@ -28,7 +28,6 @@ const PlaylistBox = async ({ playlistId, currentVideoIndex }) => {
   }
   const {
     data: { name: plName, videos, owner: { fullName } = {} },
-
   } = res || {};
   console.log("res", res);
   const playlistOwner = listName === "wl" ? userFullName : fullName;

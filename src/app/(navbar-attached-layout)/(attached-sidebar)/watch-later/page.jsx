@@ -1,5 +1,5 @@
+import { getWatchLaterVideos } from "@/api/watchLater.api";
 import Error from "@/components/common/Error";
-import { getWatchLaterVideos } from "@/server-actions/watchLater.action";
 import NoVideosFound from "../../_components/NotFoundVideos";
 import WatchLaterSidebar from "./_components/WatchLaterSidebar";
 import WatchLaterVideoList from "./_components/WatchLaterVideoList";

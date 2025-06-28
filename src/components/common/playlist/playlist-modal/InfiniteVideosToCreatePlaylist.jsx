@@ -1,7 +1,7 @@
+import { getVideos } from "@/api/video.api";
 import Error from "@/components/common/Error";
 import { Checkbox } from "@/components/ui/checkbox";
 import useUserContext from "@/hooks/useUserContext";
-import { getVideos } from "@/server-actions/video.action";
 import { Loader } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";

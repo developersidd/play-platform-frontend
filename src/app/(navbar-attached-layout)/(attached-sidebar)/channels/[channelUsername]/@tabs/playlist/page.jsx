@@ -1,6 +1,6 @@
+import { getUserPlaylists } from "@/api/playlist.api";
 import NoPlaylist from "@/components/common/playlist/NoPlaylist";
 import PlaylistList from "@/components/common/playlist/PlaylistList";
-import { getUserPlaylists } from "@/server-actions/playlist.action";
 
 const ChannelPlaylistPage = async ({ params }) => {
   const { channelUsername } = await params;

@@ -1,4 +1,4 @@
-import { getUserCollections } from "@/server-actions/playlist.action";
+import { getUserCollections } from "@/api/playlist.api";
 import CollectionList from "./_components/CollectionList";
 import NoCollection from "./_components/NoCollection";
 

@@ -1,4 +1,4 @@
-import { apiClient, fetchWithAuth } from "../axios";
+import { apiClient, fetchWithAuth } from ".";
 
 // get playlist by id
 const getPlaylistById = async (id) => {

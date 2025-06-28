@@ -3,7 +3,7 @@ import moment from "moment";
 import Image from "next/image";
 
 const LikedVideosInfo = ({ likedVideosInfo }) => {
-  const { video: { thumbnail, title, createdAt, views } = {}, totalVideos } =
+  const { video: { thumbnail, title, createdAt, views = 0 } = {}, totalVideos } =
     likedVideosInfo || {};
   return (
     <div className="w-full shrink-0 sm:max-w-md xl:max-w-lg">
@@ -12,7 +12,7 @@ const LikedVideosInfo = ({ likedVideosInfo }) => {
           <Image
             width={450}
             height={300}
-            src={thumbnail?.url} alt={title} className="h-full w-full" />
+            src={thumbnail?.url || "/assets/images/video-not-found.jpg"} alt={title || "not found video"} className="h-full w-full" />
           <div className="absolute inset-x-0 bottom-0">
             <div className="relative border-t bg-white/30 p-4 text-white backdrop-blur-sm before:absolute before:inset-0 before:bg-black/40">
               <div className="relative z-[1]">

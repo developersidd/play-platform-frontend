@@ -1,4 +1,4 @@
-import { apiClient } from "../axios";
+import { apiClient } from ".";
 const getVideoComments = async (videoId, queries = {}) => {
   try {
     let url = `/comments/${videoId}`;

@@ -1,4 +1,6 @@
 "use client";
+import { getUserCollections } from "@/api/playlist.api";
+import { retrieveCurrentUser } from "@/api/user.api";
 import {
   Dialog,
   DialogContent,
@@ -6,19 +8,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { getUserCollections } from "@/server-actions/playlist.action";
-import { retrieveCurrentUser } from "@/server-actions/user.action";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import CreateVideoCollection from "./CreateVideoCollection";
 import VideoCollectionItem from "./VideoCollectionItem";
 
-const SaveToCollectionModal = ({
-  videoId,
-  open,
-  setIsOpen,
-  children,
-}) => {
+const SaveToCollectionModal = ({ videoId, open, setIsOpen, children }) => {
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
