@@ -1,7 +1,8 @@
-import { retrieveCurrentUser } from "@/api/user.api";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+//import { retrieveCurrentUser } from "@/api/user.api";
+//import { headers } from "next/headers";
+//import { redirect } from "next/navigation";
+
 import DashboardHeader from "./_components/DashboardHeader";
 import DashboardSidebar from "./_components/DashboardSidebar";
 
@@ -10,20 +11,21 @@ export const metadata = {
   description: "Your personalized video platform",
 };
 
-const adminRoutes = ["/dashboard/admin/users", "/dashboard/admin/videos"];
+//const adminRoutes = ["/dashboard/admin/users", "/dashboard/admin/videos"];
 
 async function DashboardLayout({ children }) {
-  const { data } = await retrieveCurrentUser();
-  const headersList = await headers();
-  const pathname = headersList.get("x-pathname") || "/";
-  console.log(" pathname:", pathname);
-  const isAdmin = data?.role?.toLowerCase() === "admin";
-  console.log(" isAdmin:", isAdmin);
-  const isAdminRoute = adminRoutes.includes(pathname);
-  console.log(" isAdminRoute:", isAdminRoute);
-  if (!isAdmin && isAdminRoute) {
-    return redirect("/dashboard");
-  }
+  //const { data } = await retrieveCurrentUser();
+  //const headersList = await headers();
+  //const pathname = headersList.get("x-pathname") || "/";
+  //console.log(" pathname:", pathname);
+  //const isAdmin = data?.role?.toLowerCase() === "admin";
+  //console.log(" isAdmin:", isAdmin);
+  //const isAdminRoute = adminRoutes.includes(pathname);
+  //console.log(" isAdminRoute:", isAdminRoute);
+  //if (!isAdmin && isAdminRoute) {
+  //  return redirect("/dashboard");
+  //}
+  //
   return (
     <SidebarProvider defaultOpen={false}>
       <DashboardSidebar />
