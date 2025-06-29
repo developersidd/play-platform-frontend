@@ -1,18 +1,9 @@
 //"use server";
 import { apiClient, fetchWithAuth } from ".";
-import { getAccessToken } from "./auth.api";
 
 // get current user
 const retrieveCurrentUser = async () => {
   try {
-    const accessToken = await getAccessToken();
-    console.log(" accessToken:", accessToken)
-    if (!accessToken) {
-      return {
-        error: "No access token found",
-      };
-    }
-    
     const res = await fetchWithAuth("/users/current-user");
     return {
       data: res.data,

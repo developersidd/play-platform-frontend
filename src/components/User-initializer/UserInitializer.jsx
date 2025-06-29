@@ -16,7 +16,7 @@ const UserInitializer = () => {
 
         dispatch({ type: SET_USER, payload: res.data?.data });
       } catch (error) {
-        return router.push("/");
+        //return router.push("/");
       }
     };
     if (localStorage.getItem("loggedIn")) {

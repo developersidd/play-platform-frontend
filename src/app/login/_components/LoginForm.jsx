@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-import { apiClient } from "@/api";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import {
@@ -50,15 +49,24 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const redirect = decodeURIComponent(searchParams.get("redirect") || "/");
   async function onSubmit(data) {
-    const { email, password } = data;
+    //const { email, password } = data;
     try {
-      await apiClient.post("/users/login", {
-        email,
-        password,
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+        credentials: "include", 
       });
+      console.log(" response:", response)
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
       localStorage.setItem("loggedIn", true);
       return router.push(redirect);
     } catch (e) {
+      console.log(" e:", e)
       toast.error(e.response?.data?.message || e?.message || "Login failed");
     }
   }
