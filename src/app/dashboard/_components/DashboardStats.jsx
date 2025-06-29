@@ -28,7 +28,7 @@ const statsData = [
   },
 ];
 
-const DashboardHeader = ({ stats }) => {
+const DashboardHeader = ({ stats = {} }) => {
   return (
     <header>
       <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4">

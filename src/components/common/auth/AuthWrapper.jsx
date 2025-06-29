@@ -1,36 +1,12 @@
-"use client";
-import useUserContext from "@/hooks/useUserContext";
-import { usePathname, useRouter } from "next/navigation";
-const PUBLIC_ROUTES = [
-  "/about",
-  "/videos",
-  "/contact",
-  "/login",
-  "/register",
-  "/forgot-password",
-];
+import { retrieveCurrentUser } from "@/api/user.api";
+import { redirect } from "next/navigation";
 
-const isUnauthenticatedRoute = ["/login", "/register", "/forgot-password"];
+const AuthWrapper = async ({ children }) => {
+  const { data: user } = await retrieveCurrentUser();
+  console.log(" user:", user)
+  const isLoggedIn = !!user?._id;
 
-const AuthWrapper = ({ children }) => {
-  const { state } = useUserContext() || {};
-  const isLoggedIn = !!state?.user;
-  const pathname = usePathname();
-  const router = useRouter();
-  const isPublicRoute =
-    pathname === "/" ||
-    PUBLIC_ROUTES.some((route) => pathname.startsWith(route));
-  const isUnauthenticated = isUnauthenticatedRoute.some((route) =>
-    pathname.startsWith(route)
-  );
-
-  if (isLoggedIn && isUnauthenticated) {
-    return router.push("/");
-  } else if (!isLoggedIn && !isPublicRoute) {
-    return router.push("/login");
-  } else {
-    return children;
-  }
+  isLoggedIn ? children : redirect("/login");
 };
 
 export default AuthWrapper;

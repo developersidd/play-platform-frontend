@@ -1,4 +1,4 @@
-"use server";
+//"use server";
 import { apiClient, fetchWithAuth } from ".";
 import { getAccessToken } from "./auth.api";
 
@@ -6,11 +6,13 @@ import { getAccessToken } from "./auth.api";
 const retrieveCurrentUser = async () => {
   try {
     const accessToken = await getAccessToken();
+    console.log(" accessToken:", accessToken)
     if (!accessToken) {
       return {
         error: "No access token found",
       };
     }
+    
     const res = await fetchWithAuth("/users/current-user");
     return {
       data: res.data,
@@ -72,11 +74,11 @@ const getUserChannelStats = async () => {
 // get user history
 const getUserHistory = async (search = "") => {
   try {
-    const res = await fetchWithAuth(
+    const res = await apiClient.get(
       `/users/history?q=${encodeURIComponent(search)}`
     );
     return {
-      data: res?.data,
+      data: res?.data?.data,
     };
   } catch (e) {
     return {
