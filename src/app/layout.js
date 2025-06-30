@@ -8,7 +8,6 @@ import "./globals.css";
 //import "./theme.css";
 import UserInitializer from "@/components/User-initializer/UserInitializer";
 import NextTopLoader from "nextjs-toploader";
-import { retrieveCurrentUser } from "@/api/user.api";
 const nunito = Nunito({
   weight: ["300", "400", "500", "600", "700", "900"],
   subsets: ["latin"],
@@ -31,9 +30,6 @@ export const viewport = {
 
 export default async function RootLayout({ children }) {
   const cookieStore = await cookies();
-  const { data: user, error } = await retrieveCurrentUser();
-  console.log(" user:", user)
-  console.log(" error:", error)
 
   const activeThemeValue = cookieStore.get("active_theme")?.value;
   const isScaled = activeThemeValue?.endsWith("-scaled");

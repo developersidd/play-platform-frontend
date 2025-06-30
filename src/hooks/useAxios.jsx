@@ -8,9 +8,12 @@ import useUserContext from "./useUserContext";
 const useAxios = () => {
   const {
     state: { refreshToken, accessToken },
-    dispatch,
+    dispatch
   } = useUserContext();
+  console.log(" accessToken from useAxios:", accessToken)
+  //console.log(" state:", state)
   useEffect(() => {
+    //console.log(" state:", state)
     // request interceptor
     apiClient.interceptors.request.use(
       (config) => {
@@ -38,10 +41,15 @@ const useAxios = () => {
             `${process.env.NEXT_PUBLIC_API_URL}/users/refresh-token`,
             {
               method: "POST",
+              credentials: "include",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken}`,
+              },
               body: JSON.stringify({ refreshToken }),
             }
           );
-          console.log("response:", response);
+          console.log("refresh token response:", response);
           //console.log("response:", response);
           const data = await response.json();
           console.log("data:", data);

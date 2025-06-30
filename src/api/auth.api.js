@@ -1,8 +1,23 @@
 "use server";
 import { cookies } from "next/headers";
 import { apiClient } from ".";
+// Function to get access token from cookies
+async function getAccessToken() {
+  const cookieStore = await cookies();
+  return cookieStore.get("accessToken")?.value;
+}
+
+// Function to get refresh token from cookies
+async function getRefreshToken() {
+  const cookieStore = await cookies();
+  return cookieStore.get("refreshToken")?.value;
+}
 const refreshAccessToken = async () => {
   try {
+    //const refreshToken = await getRefreshToken();
+    //if (!refreshToken) {
+    //  return null;
+    //}
     const response = await apiClient.post("/users/refresh-token");
     const data = await response.json();
     return { data };
@@ -25,17 +40,5 @@ const logout = async () => {
     };
   }
 };
-
-// Function to get access token from cookies
-async function getAccessToken() {
-  const cookieStore = await cookies();
-  return cookieStore.get("accessToken")?.value;
-}
-
-// Function to get refresh token from cookies
-async function getRefreshToken() {
-  const cookieStore = await cookies();
-  return cookieStore.get("refreshToken")?.value;
-}
 
 export { getAccessToken, getRefreshToken, logout, refreshAccessToken };

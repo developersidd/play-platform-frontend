@@ -13,6 +13,7 @@ const UserInitializer = () => {
     const fetchUser = async () => {
       try {
        const res = await apiClient.get("/users/current-user");
+       console.log(" res from UserInitializer:", res.data)
 
         dispatch({ type: SET_USER, payload: res.data?.data });
       } catch (error) {

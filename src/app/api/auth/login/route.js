@@ -18,16 +18,13 @@ export async function POST(request) {
 
     if (backendResponse.ok) {
       const { tokens } = data.data;
-      console.log(" tokens:", tokens)
-      
-      const response = NextResponse.json(data);
-      console.log(" response:", response)
+      console.log(" tokens from APP route.js:", tokens)
       
       // Set cookies on the same domain (Vercel domain)
       response.cookies.set('accessToken', tokens.accessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax', // Can use 'lax' since it's same-origin now
+        sameSite: 'lax',
         path: '/',
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
       });
