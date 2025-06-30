@@ -14,17 +14,19 @@ export async function POST(request) {
     });
 
     const data = await backendResponse.json();
-    console.log(" data:", data)
+    console.log(" data from api route:", data)
 
     if (backendResponse.ok) {
       const { tokens } = data.data;
       console.log(" tokens from APP route.js:", tokens)
       
+      const response = NextResponse.json(data);
+      
       // Set cookies on the same domain (Vercel domain)
       response.cookies.set('accessToken', tokens.accessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
+        sameSite: 'lax', // Can use 'lax' since it's same-origin now
         path: '/',
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
       });
@@ -49,9 +51,6 @@ export async function POST(request) {
     );
   }
 }
-
-// Logout
-
 
 export async function GET(request) {
   const accessToken = request.cookies.get('accessToken')?.value;

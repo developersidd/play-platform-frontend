@@ -17,7 +17,7 @@ export default async function middleware(req) {
   requestHeaders.set("searchParams", search);
   requestHeaders.set("x-pathname", pathname);
   const token = req.cookies.get("accessToken")?.value;
-  console.log(" token:", token);
+  console.log(" token from middleware:", token);
   const isLoggedIn = !!token;
   const isPublicRoute =
     nextUrl?.pathname === "/" ||
