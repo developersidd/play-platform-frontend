@@ -49,7 +49,6 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const redirect = decodeURIComponent(searchParams.get("redirect") || "/");
   async function onSubmit(data) {
-    //const { email, password } = data;
     try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
@@ -57,16 +56,16 @@ function LoginForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-        credentials: "include", 
+        credentials: "include",
       });
-      console.log(" response:", response)
-      if (!response.ok) {
-        throw new Error("Login failed");
+      if (response.ok) {
+        await response.json();
+        
+        localStorage.setItem("loggedIn", true);
+        return router.push(redirect);
       }
-      localStorage.setItem("loggedIn", true);
-      return router.push(redirect);
     } catch (e) {
-      console.log(" e:", e)
+      console.log(" e:", e);
       toast.error(e.response?.data?.message || e?.message || "Login failed");
     }
   }

@@ -1,5 +1,6 @@
 "use client";
 import { SET_USER } from "@/actions/user.action";
+import { retrieveCurrentUser } from "@/api/user.api";
 import useAxios from "@/hooks/useAxios";
 import useUserContext from "@/hooks/useUserContext";
 import { useRouter } from "next/navigation";
@@ -12,11 +13,10 @@ const UserInitializer = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-       const res = await apiClient.get("/users/current-user");
-       console.log(" res from UserInitializer:", res.data)
-
-        dispatch({ type: SET_USER, payload: res.data?.data });
+       const {data} = await retrieveCurrentUser() || {}
+        dispatch({ type: SET_USER, payload: data });
       } catch (error) {
+        console.log(" error in initi:", error)
         //return router.push("/");
       }
     };

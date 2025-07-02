@@ -1,4 +1,4 @@
-//"use server";
+"use server";
 import { apiClient, fetchWithAuth } from ".";
 
 // get current user

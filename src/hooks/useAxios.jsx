@@ -7,18 +7,21 @@ import useUserContext from "./useUserContext";
 
 const useAxios = () => {
   const {
-    state: { refreshToken, accessToken },
-    dispatch
+    state: { tokens } = {},
+    dispatch,
   } = useUserContext();
-  console.log(" accessToken from useAxios:", accessToken)
-  //console.log(" state:", state)
+  const accessToken = tokens?.accessToken || (typeof window !== "undefined" && localStorage.getItem("accessToken"));
+  const refreshToken = tokens?.refreshToken || (typeof window !== "undefined" && localStorage.getItem("refreshToken"));
+  console.log(" refreshToken:", refreshToken)
+  //console.log(" accessToken from useAxios:", accessToken);
   useEffect(() => {
-    //console.log(" state:", state)
     // request interceptor
     apiClient.interceptors.request.use(
       (config) => {
         if (accessToken) {
-          config.headers.Authorization = `Bearer ${accessToken}`;
+          config.headers.Authorization = `Bearer ${
+            accessToken || localStorage.getItem("accessToken")
+          }`;
         }
         return config;
       },
@@ -28,17 +31,18 @@ const useAxios = () => {
     );
     // response interceptor
     apiClient.interceptors.response.use(undefined, async (error) => {
-      //console.log("error:", error);
+      console.log("error in response interceptor:", error);
       const originalRequest = error?.config;
       if (
-        accessToken &&
+        refreshToken &&
         error?.response?.status === 401 &&
         !originalRequest._retry
       ) {
+        console.log("Refreshing access token...");
         originalRequest._retry = true;
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/users/refresh-token`,
+            `/api/auth/refresh-token`,
             {
               method: "POST",
               credentials: "include",
@@ -46,22 +50,21 @@ const useAxios = () => {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${accessToken}`,
               },
-              body: JSON.stringify({ refreshToken }),
+              body: JSON.stringify({ refreshToken, accessToken }),
             }
           );
-          console.log("refresh token response:", response);
-          //console.log("response:", response);
           const data = await response.json();
-          console.log("data:", data);
-          if (data?.statusCode === 200 || !data?.success) {
+          console.log("refresh token response:", data);
+          if (response.status === 200 || response.ok) {
             console.log("Access Token Refreshed");
-            //console.log("response.data.data.accessToken:", response.data);
-            //console.log(response.data.data.accessToken);
-            const newTokens = response.data || {};
+            console.log("response.data refrehstoken", data.data);
+            const newTokens = data?.data || {};
             originalRequest.headers[
               "Authorization"
             ] = `Bearer ${newTokens?.accessToken}`;
             dispatch({ type: TOKEN_REFRESHED, payload: newTokens });
+            localStorage.setItem("accessToken", newTokens?.accessToken);
+            localStorage.setItem("refreshToken", newTokens?.refreshToken);
             return axios(originalRequest);
           } else {
             return Promise.reject(error);

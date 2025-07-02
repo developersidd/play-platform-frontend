@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { getAccessToken, refreshAccessToken } from "./auth.api";
 
@@ -12,11 +13,11 @@ export const apiClient = axios.create({
 // Function to make an API request and handle 401 errors and token refresh
 export async function fetchWithAuth(url, options = {}) {
   try {
-    // Add the access token to the request headers
     const accessToken = await getAccessToken();
+    console.log(" accessToken in func:", accessToken)
     if (!accessToken) {
       return null
-    }
+    } 
     const response = await apiClient({
       url,
       method: "GET",
@@ -26,29 +27,34 @@ export async function fetchWithAuth(url, options = {}) {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    //console.log(" response in fethwithAU:", response.data)
     return response.data;
   } catch (error) {
-    if (error.response && error.response.status === 401 && !options._retry) {
+    console.log(" error in index:", error?.response?.data)
+    const isJwtError = error?.response?.data?.message === "jwt expired";
+    console.log(" isJwtError:", isJwtError)
+    if (error.response && error.response.status === 401 && !options._retry && isJwtError) {
       options._retry = true;
-      // If we receive a 401, try refreshing the token
       try {
         const { data } = (await refreshAccessToken()) || {};
-        //console.log("data:", data);
-        const newAccessToken = data?.accessToken;
-        // Retry the original request with the new token
-        await apiClient({
-          ...options,
-          url,
-          headers: {
-            ...options.headers,
-            Authorization: `Bearer ${newAccessToken}`,
-          },
-        });
+        console.log("data from refresh:", data);
+        if(!data?.success) {
+          console.log("Failed to refresh access token");
+          throw new Error("Failed to refresh access token");
+        }
+        const newAccessToken = data?.data?.accessToken;
+        console.log(" newAccessToken:", newAccessToken)
+        //// Retry the original request with the new token
+        //await apiClient({
+        //  ...options,
+        //  url,
+        //  headers: {
+        //    ...options.headers,
+        //    Authorization: `Bearer ${newAccessToken}`,
+        //  },
+        //});
       } catch (refreshError) {
-        // Token refresh failed, handle logout or redirect to login
-        //throw new Error(
-        //  "Session expired or there was error refreshing token. Please log in again."
-        //);
+        console.log(" refreshError:", refreshError)
         console.log(
           "Session expired or there was error refreshing token. Please log in again."
         );

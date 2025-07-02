@@ -4,7 +4,6 @@ export async function POST(request) {
   try {
     const body = await request.json();
     
-    // Make request to your actual backend
     const backendResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, {
       method: 'POST',
       headers: {
@@ -14,11 +13,11 @@ export async function POST(request) {
     });
 
     const data = await backendResponse.json();
-    console.log(" data from api route:", data)
+    //console.log(" login data from api route:", data)
 
     if (backendResponse.ok) {
       const { tokens } = data.data;
-      console.log(" tokens from APP route.js:", tokens)
+      //console.log(" tokens from APP route.js:", tokens)
       
       const response = NextResponse.json(data);
       
@@ -26,9 +25,9 @@ export async function POST(request) {
       response.cookies.set('accessToken', tokens.accessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax', // Can use 'lax' since it's same-origin now
+        sameSite: 'lax', 
         path: '/',
-        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        maxAge: 24 * 60 * 60 * 1000,
       });
       
       response.cookies.set('refreshToken', tokens.refreshToken, {
@@ -44,36 +43,10 @@ export async function POST(request) {
       return NextResponse.json(data, { status: backendResponse.status });
     }
   } catch (error) {
-    console.error('Proxy login error:', error);
+    //console.error('Proxy login error:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'There was an error logging in' },
       { status: 500 }
     );
-  }
-}
-
-export async function GET(request) {
-  const accessToken = request.cookies.get('accessToken')?.value;
-  
-  if (!accessToken) {
-    return NextResponse.json({ authenticated: false }, { status: 401 });
-  }
-  
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/current-user`, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    
-    if (response.ok) {
-      const userData = await response.json();
-      return NextResponse.json({ authenticated: true, user: userData });
-    } else {
-      return NextResponse.json({ authenticated: false }, { status: 401 });
-    }
-  } catch (error) {
-    return NextResponse.json({ authenticated: false }, { status: 500 });
   }
 }

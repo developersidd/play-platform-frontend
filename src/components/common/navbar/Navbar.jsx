@@ -10,7 +10,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import useAxios from "@/hooks/useAxios";
 import useSidebarContext from "@/hooks/useSidebarContext";
 import useUserContext from "@/hooks/useUserContext";
 import { LogOut, MenuIcon, Plus, User } from "lucide-react";
@@ -19,6 +18,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+import { logout } from "@/api/auth.api";
 import CreatePlaylistModal from "@/components/common/playlist/playlist-modal/CreatePlaylistModal";
 import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
@@ -39,18 +39,20 @@ export const Navbar = () => {
   const router = useRouter();
   const { setSidebarCollapsed, setShowSidebar } = useSidebarContext();
   const { avatar, username } = state;
-  const { apiClient } = useAxios();
   async function handleLogout() {
     try {
-      await apiClient.post("/users/logout");
-      router.push("/");
-      localStorage.removeItem("loggedIn");
-      dispatch({ type: LOGGED_OUT });
-      toast.success("Logged out successfully");
+      const { success } = await logout();
+      if (success) {
+        router.push("/");
+        localStorage.clear();
+        dispatch({ type: LOGGED_OUT });
+        toast.success("Logged out successfully");
+      }
     } catch (error) {
       toast.error("Failed to logout");
     }
   }
+
   return (
     <div className="w-full bg-background border-b border-gray-300 dark:border-white  sticky top-0 z-50 ">
       <div className="px-3 sm:px-4 md:px-6 lg:px-8 2xl:px-10 py-2  h-full flex w-full items-center  justify-between">
