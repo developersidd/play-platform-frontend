@@ -51,10 +51,11 @@ const AddVideosInPlaylistModal = ({
           Select Videos ({selectedVideos.length})
         </Button>
 
-        <DialogContent className="max-h-[85vh] overflow-y-auto ">
+        <DialogContent className="max-h-[85vh] overflow-y-auto w-[90%] sm:max-w-[50%] lg:max-w-[30%] block ">
           <div className="space-y-4">
             {/* Search Bar */}
             <Input
+            className="mt-5"
               placeholder="Search your videos..."
               onChange={handleSearch}
               value={searchQuery}

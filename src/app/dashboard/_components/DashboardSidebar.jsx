@@ -63,7 +63,7 @@ function DashboardSidebar() {
             />
           </Link>
 
-          <div className={`${open ? "block" : "hidden"}`}>
+          <div className={`${open ? "block" : "hidden"} max-md:block`}>
             <h1 className="text-lg font-semibold">Play</h1>
             <p className="text-xs text-muted-foreground">
               Personalized video platform

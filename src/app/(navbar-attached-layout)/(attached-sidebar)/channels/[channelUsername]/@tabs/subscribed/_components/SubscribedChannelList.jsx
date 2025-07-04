@@ -15,12 +15,15 @@ const SubscribedChannelList = ({
   } else {
     content = (
       <div className="space-y-5 mt-6">
-        {subscribedChannels?.map((subscription) => (
-          <SubscribedChannelItem
-            key={subscription?._id}
-            channel={subscription?.channel}
-          />
-        ))}
+        {subscribedChannels?.map(
+          (subscription) =>
+            subscription?.channel?._id && (
+              <SubscribedChannelItem
+                key={subscription?._id}
+                channel={subscription?.channel}
+              />
+            )
+        )}
       </div>
     );
   }

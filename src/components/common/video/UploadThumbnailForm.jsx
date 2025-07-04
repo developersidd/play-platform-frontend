@@ -22,7 +22,7 @@ const UploadThumbnailForm = ({ form, isEditingVideo }) => {
           <FormItem>
             <FormControl>
               <div className="w-full">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-5">
                   <label for="thumbnail" className="mb-1 inline-block">
                     Thumbnail<sup>*</sup>
                   </label>
@@ -49,34 +49,30 @@ const UploadThumbnailForm = ({ form, isEditingVideo }) => {
                 </div>
                 {/*  show the image if editing video */}
                 {isChangingThumbnail ? (
-                  <div className="mt-5 border-2 border-dashed h-[300px] flex items-center justify-center">
-                    <label
-                      htmlFor="thumbnail"
-                      className="group/btn mt-4 inline-flex w-auto cursor-pointer items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e]"
-                    >
-                      <input
-                        accept="image/png, image/jpeg, image/jpg, image/webp"
-                        {...fieldProps}
-                        onChange={(e) => {
-                          onChange(e.target?.files && e.target.files[0]);
+                  <div>
+                       
+                        <input
+                          accept="image/png, image/jpeg, image/jpg, image/webp"
+                          {...fieldProps}
+                          onChange={(e) => {
+                            onChange(e.target?.files && e.target.files[0]);
                           setIsChangingThumbnail(false);
-                        }}
-                        id="thumbnail"
-                        type="file"
-                        className="sr-only "
-                      />
-                      Select File
-                    </label>
-                  </div>
+
+                          }}
+                          id="thumbnail"
+                          type="file"
+                          className="w-full p-1 border file:mr-4 file:border-none file:bg-[#ae7aff] file:px-3 file:py-1.5"
+                        />
+                      </div>
                 ) : (
                   value && (
-                    <div className="mt-5">
+                    <div className="mb-8 h-[250px] md:h-[300px] w-full">
                       <Image
                         width={700}
                         height={500}
                         src={value?.name ? URL.createObjectURL(value) : value}
                         alt="Thumbnail"
-                        className="w-full h-[300px] border"
+                        className="rounded-md w-full h-full border"
                       />
                       {/* name of the image */}
                       <p className="mt-2 text-sm text-secondary">

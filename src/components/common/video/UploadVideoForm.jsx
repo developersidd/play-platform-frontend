@@ -21,12 +21,12 @@ const UploadVideoForm = ({
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
-              className={`w-full border-2 border-dashed px-4 mb-3 py-12 text-center cursor-drop ${
+              className={`w-full border-2 border-dashed px-4 mb-3 py-8 md:py-12 text-center cursor-drop ${
                 dragging ? "border-purple-500" : ""
               }`}
             >
               <span className="mb-4 inline-block  rounded-full bg-[#E4D3FF] p-4 text-[#AE7AFF]">
-                <Upload size={35} />
+                <Upload className="size-5 md:size-8" />
               </span>
               {
                 // Show video file name if selected
@@ -34,20 +34,20 @@ const UploadVideoForm = ({
                   <p className="mb-2 ">
                     {" "}
                     Selected File:{" "}
-                    <span className="font-semibold">{value?.name} </span>{" "}
+                    <span className="font-semibold max-sm:text-sm">{value?.name} </span>{" "}
                   </p>
                 )
               }
-              <h6 className="mb-2 font-semibold">
+              <h6 className="max-sm:mb-1 mb-2 font-semibold">
                 Drag and drop video files to upload
               </h6>
-              <p className="text-gray-400">
+              <p className="text-gray-400 max-sm:text-xs ">
                 Your videos will be private untill you publish them.
               </p>
 
               <label
                 for="upload-video"
-                className="group/btn mt-4 inline-flex w-auto cursor-pointer items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e]"
+                className="group/btn max-sm:text-sm mt-5 inline-flex w-auto cursor-pointer items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e]"
               >
                 <input
                   onChange={(e) => {

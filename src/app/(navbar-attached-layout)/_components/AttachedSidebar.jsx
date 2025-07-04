@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 import { MenuIcon } from "lucide-react";
 
 import Image from "next/image";
-import Link from "next/link"; 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
@@ -38,11 +38,11 @@ const AttachedSidebar = () => {
       <aside
         className={`
        border-r-0 md:border-r top-0 md:top-[82px] 
-       transition-all duration-350 ease-linear
+       transition-all duration-300 md:duration-[100ms] ease-in-out
        left-0 bg-background min-h-dvh max-h-dvh
        fixed  inset-x-0  z-50  shrink-0  border-gray-300 dark:border-white  w-[220px] pt-2  md:py-6        ${
          sidebarCollapsed
-           ? "max-md:translate-x-0 md:w-[80px]"
+           ? "max-md:translate-x-0 md:w-[75px]"
            : "max-md:-translate-x-full md:w-[235px] "
        }
     `}
@@ -94,11 +94,7 @@ const AttachedSidebar = () => {
                     justify-start
                      px-4`}
                       >
-                        <p
-                          className=""
-                        >
-                          {icon}
-                        </p>
+                        <p className="">{icon}</p>
                         <p
                           className={`
                           text-sm md:text-base

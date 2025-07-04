@@ -7,7 +7,7 @@ const SubscribedChannelItem = ({ channel }) => {
   const { fullName, username, avatar, channelSubscribers, isSubscribed } =
     channel || {};
   return (
-    <div className={`flex w-full justify-between ${!fullName && "hidden"}`}>
+    <div className={`flex w-full justify-between`}>
       <div className="flex items-center gap-x-2">
         <Link href={`/${username}`}>
           <div className="h-14 w-14 shrink-0">

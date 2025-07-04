@@ -12,12 +12,11 @@ const ChannelInfo = ({ channelInfo, isMyChannel }) => {
     isSubscribed,
     subscribedChannelsCount,
     fullName,
-
     avatar,
   } = channelInfo || {};
   return (
     <div className="flex flex-wrap gap-4 pb-4 pt-3 md:pt-6">
-      <span className="relative -mt-12 inline-block size-24 md:size-28 shrink-0 overflow-hidden rounded-full border-2">
+      <span className="relative -mt-12 inline-block size-24 md:size-28 shrink-0 overflow-hidden rounded-full border-2 !border-secondary">
         <Image
           width={112}
           height={112}
@@ -38,7 +37,7 @@ const ChannelInfo = ({ channelInfo, isMyChannel }) => {
         {isMyChannel ? (
           <Link
             href={`/edit/channel`}
-            className="group/btn mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
+            className="group/btn mr-1 flex w-full items-center gap-x-2 bg-secondary px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
           >
             <span className="inline-block w-5">
               <Pen size={18} />

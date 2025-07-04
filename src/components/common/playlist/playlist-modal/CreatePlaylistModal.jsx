@@ -145,10 +145,10 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
     <>
       <Dialog open={showUploadModal} onOpenChange={setShowUploadModal}>
         <DialogTrigger asChild>{children}</DialogTrigger>
-        <DialogContent className="min-h-[75%] sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto max-h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg">
+        <DialogContent className="h-[80%] md:min-h-[75%] w-[90%] sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto max-h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg">
           <DialogHeader className="block w-full mt-3">
             {/*<DialogTitle>*/}
-            <div className="flex items-center justify-between border-b p-4 ">
+            <div className="flex items-center justify-between border-b max-sm:pt-3 max-sm:pb-6 sm:p-4 ">
               <h2 className="text-xl font-semibold">
                 {isEditing ? "Edit" : "Create"} Playlist
               </h2>
@@ -157,7 +157,7 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
                 onClick={() => {
                   form.handleSubmit(onSubmit)();
                 }}
-                className="group/btn mr-1 flex w-auto items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e]"
+                className="group/btn mr-1 flex w-auto items-center gap-x-2 max-sm:text-sm bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e]"
               >
                 Save
               </button>
@@ -168,7 +168,7 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
 
           <Form {...form}>
             <form
-              className="mt-5 mx-auto flex w-full max-w-3xl flex-col gap-y-4 px-4"
+              className="mt-5 mx-auto flex w-full max-w-3xl flex-col gap-y-4 sm:px-4"
               onSubmit={form.handleSubmit(onSubmit)}
             >
               {/* Title Input */}

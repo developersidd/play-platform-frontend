@@ -5,19 +5,20 @@ import ChannelMenu from "./@tabs/_components/ChannelMenu";
 
 const ChannelLayout = async ({ tabs, params }) => {
   const { data: user } = await retrieveCurrentUser();
+  console.log(" user:", user)
   const { channelUsername } = await params;
   const { data: channel } = await getChannelByUsername(
     channelUsername,
     user?._id
   );
   return (
-    <section className="w-full ">
-      <div className="relative min-h-[150px] w-full pt-[16.28%]">
+    <section className="w-full">
+      <div className="relative h-[150px] sm:h-[350px] w-full pt-[16.28%]">
         <div className="absolute inset-0 overflow-hidden">
           <Image
             width={1200}
-            height={250}
-            className="object-cover w-full h-full"
+            height={600}
+            className="max-sm: object-cover w-full h-full"
             src={channel?.coverImage?.url}
             alt={channel?.username}
           />

@@ -121,7 +121,7 @@ export const Navbar = () => {
                     className="cursor-pointer"
                   >
                     <User className="size-4 mr-2" />
-                    My Profile
+                    Profile
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

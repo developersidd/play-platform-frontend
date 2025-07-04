@@ -16,7 +16,7 @@ const ChannelTweetsPage = async ({ params }) => {
   const isOwner = channelUsername === username;
 
   return (
-    <div className="p-4">
+    <div className="py-4">
       <ChannelTweetsWrapper isOwner={isOwner} tweets={tweets} />
     </div>
   );

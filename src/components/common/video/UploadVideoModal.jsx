@@ -246,10 +246,10 @@ const UploadVideoModal = ({ children, videoId }) => {
         <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogContent
           hideCloseButton
-          className="sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg pb-10"
+          className="w-[90%] sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg pb-10"
         >
           <DialogHeader className="block w-full mt-3">
-            <div className="flex items-center justify-between border-b p-4 ">
+            <div className="flex items-center justify-between border-b max-sm:pb-6 max-sm:pt-4 sm:p-4 ">
               <DialogTitle className="text-xl font-semibold">
                 {" "}
                 {isEditingVideo ? "Edit Video" : "Upload Video"}{" "}
@@ -280,7 +280,7 @@ const UploadVideoModal = ({ children, videoId }) => {
 
           <Form {...form}>
             <form
-              className="mt-5 mx-auto flex w-full max-w-3xl flex-col gap-y-4 px-4"
+              className="mt-5 mx-auto flex w-full max-w-3xl flex-col gap-y-4 sm:px-4"
               onSubmit={form.handleSubmit(onSubmit)}
             >
               {/* Upload video Input */}

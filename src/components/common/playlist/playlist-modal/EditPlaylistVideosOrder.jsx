@@ -52,8 +52,8 @@ const EditPlaylistVideosOrder = ({
   }
 
   return (
-    <section className="mt-8 px-4 w-full max-w-3xl mx-auto">
-      <ScrollArea className="h-[600px] border rounded-lg p-3">
+    <section className="mt-4 lg:mt-8 lg:px-4 w-full max-w-3xl mx-auto">
+      <ScrollArea className="min-h-[300px] max-h-[600px] border rounded-lg p-3">
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="videos">
             {(provided) => (
@@ -70,18 +70,18 @@ const EditPlaylistVideosOrder = ({
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           className={cn(
-                            "!left-auto !top-auto w-full rounded-lg hover:bg-dark-bg px-2  flex items-center group",
+                            "!left-auto !top-auto w-full rounded-lg hover:bg-dark-bg sm:px-2  flex items-center group",
                             isDragging && "bg-light-bg"
                           )}
                         >
                           {/* indexing */}
-                          <span className="text-xs text-gray-500 font-bold mx-2">
+                          <span className="text-xs text-gray-500 font-bold sm:mx-2">
                             {index + 1}.
                           </span>
 
                           <div
                             className={cn(
-                              "px-2 h-full  flex items-center justify-center  pb-0 m-0 cursor-grab"
+                              "max-md:pl-2 md:px-2 h-full  flex items-center justify-center  pb-0 m-0 cursor-grab"
                             )}
                             {...provided.dragHandleProps}
                           >
@@ -89,7 +89,7 @@ const EditPlaylistVideosOrder = ({
                           </div>
                           <div
                             key={video}
-                            className="flex w-full items-center p-2  "
+                            className="flex w-full items-center p-2 "
                           >
                             <Image
                               width={100}
@@ -98,13 +98,15 @@ const EditPlaylistVideosOrder = ({
                               className="w-16 h-10 rounded object-cover mr-3"
                               alt={title}
                             />
-                            <span className="text-sm">{title}</span>
+                            <span className="text-xs md:text-sm line-clamp-2 lg:line-clamp-3 overflow-hidden">
+                              {title}
+                            </span>
                           </div>
                           {/* create a cross button with group hover show */}
                           <button
                             type="button"
-                            className="invisible
-                          group-hover:visible mr-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors duration-200 ease-in-out"
+                            className="sm:invisible
+                          group-hover:visible md:mr-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors duration-200 ease-in-out"
                             aria-label="remove"
                             onClick={() => {
                               const updatedVideos = selectedVideos.filter(
@@ -117,7 +119,7 @@ const EditPlaylistVideosOrder = ({
                               );
                             }}
                           >
-                            <X size={18} />
+                            <X className="size-4" />
                           </button>
                         </div>
                       )}

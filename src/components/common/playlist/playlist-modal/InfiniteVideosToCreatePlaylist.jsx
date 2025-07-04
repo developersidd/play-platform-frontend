@@ -141,7 +141,7 @@ const InfiniteVideosToCreatePlaylist = ({
 
   return (
     <>
-      <div className="pt-2 w-full h-[70vh] overflow-y-auto ">{content}</div>
+      <div className="w-full h-[70vh] overflow-y-auto ">{content}</div>
     </>
   );
 };

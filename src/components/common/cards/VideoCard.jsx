@@ -15,7 +15,7 @@ const VideoCard = ({ video }) => {
 
   return (
     <div className="w-full h-[300px] md:pb-5">
-      <div className="mb-2 w-full h-[70%] md:h-[75%]">
+      <div className="mb-2 w-full h-[70%] md:h-[75%] relative">
         <Link href={`/videos/${_id}`} className="">
           <Image
             height={800}

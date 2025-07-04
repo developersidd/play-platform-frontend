@@ -38,7 +38,6 @@ function DashboardHeader() {
   const { apiClient } = useAxios();
   const pathname = usePathname();
   async function handleLogout() {
-    console.log("logout");
     try {
       await apiClient.post("/users/logout");
       localStorage.removeItem("loggedIn");
@@ -51,14 +50,14 @@ function DashboardHeader() {
     }
   }
   return (
-    <header className="flex h-16 shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+    <header className="flex h-16 shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear ">
       <div className="flex items-center gap-2 px-4">
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mr-2 h-4" />
-        <Breadcrumbs />
+        <Breadcrumbs  />
       </div>
       {username && (
-        <div className="flex items-center gap-5 px-4">
+        <div className="flex items-center gap-3 md:gap-5 px-4">
           <div className="hidden md:flex"></div>
           {pathname === "/dashboard/playlists" && (
             <CreatePlaylistModal>
@@ -92,11 +91,13 @@ function DashboardHeader() {
                 <LogOut className="size-4 mr-2" />
                 <button>Logout</button>
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                <User className="size-4 mr-2" />
-
-                <Link href={`/channels/${username}`}>My Profile</Link>
-              </DropdownMenuItem>
+              <DropdownMenuItem
+                    onClick={() => router.push(`/channels/${username}`)}
+                    className="cursor-pointer"
+                  >
+                    <User className="size-4 mr-2" />
+                    Profile
+                  </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

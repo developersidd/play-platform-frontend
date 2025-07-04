@@ -40,7 +40,7 @@ const SubscribeChannel = ({ channelId, isSubscribed, animation = false }) => {
         <span className="inline-block w-5">
           <UserRoundPlus />
         </span>
-        <span>{subscribed ? "Subscribed" : "Subscribe"}</span>
+        <span>{subscribed ? "Unsubscribe" : "Subscribe"}</span>
       </button>
     </div>
   );

@@ -32,7 +32,7 @@ const NonAttachedSidebar = () => {
   return (
     <>
       <aside
-        className={`w-[220px] z-50 md:w-[235px] fixed transition-all   dark:border-gray-300 px-[14px]  min-h-dvh max-h-dvh  bg-background  top-0 left-0  ${
+        className={`w-[220px] z-50 md:w-[235px] fixed transition-all duration-300   dark:border-gray-300 px-[14px]  min-h-dvh max-h-dvh  bg-background  top-0 left-0  ${
           showSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
