@@ -26,7 +26,10 @@ const Notification = () => {
   const [unreadCount, setUnreadCount] = useLocalStorage("unread-count", 0);
   console.log("Notification component rendered");
   const { state } = useUserContext() || {};
-  const { accessToken, role } = state || {};
+  const {
+    tokens: { accessToken } = {},
+    role,
+  } = state || {};
   const { apiClient } = useAxios();
   const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);

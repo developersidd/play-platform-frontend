@@ -7,6 +7,7 @@ const PUBLIC_ROUTES = [
   "/about",
   "/videos",
   "/contact",
+  "/channels"
 ];
 
 export default async function middleware(req) {

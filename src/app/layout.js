@@ -17,6 +17,7 @@ const nunito = Nunito({
 export const metadata = {
   title: "Youtube Clone",
   description: "Explore || Enjoy || Share || Learn",
+  manifest: "/manifest.json",
 };
 
 const META_THEME_COLORS = {
@@ -37,6 +38,8 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/assets/images/favicon.svg" />
         <script
           dangerouslySetInnerHTML={{
             __html: `

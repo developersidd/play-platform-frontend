@@ -24,9 +24,9 @@ const NotificationItem = ({ item }) => {
   const handleDeleteNotification = async () => {
     setIsHide(true);
     try {
-    const res =  await apiClient.delete(`/notifications/${_id}`);
+      const res = await apiClient.delete(`/notifications/${_id}`);
       router.refresh();
-    console.log(" res:", res.data)
+      console.log(" res:", res.data);
     } catch (error) {
       toast.error("Failed to delete notification");
       setIsHide(false);
@@ -55,12 +55,11 @@ const NotificationItem = ({ item }) => {
         isHide ? "hidden" : ""
       } cursor-pointer relative last:mb-0 mb-1 md:mb-3`}
     >
-      {/*<Link href={link} onClick={handleDeleteNotification}>*/}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center w-full  justify-end gap-2">
         <div className="hidden w-1.5 h-[5px] rounded-full"></div>
 
-        <div className="ms-1 flex items-start justify-between gap-3 pr-2 md:pr-3">
-          <div className="min-w-[60%] max-w-[60%] flex  gap-3 items-center">
+        <div className="ms-1 flex items-start justify-between w-full gap-3 pr-2 md:pr-3">
+          <div className=" flex  gap-3 items-center">
             {fromAdmin ? (
               <Shield />
             ) : (
@@ -79,7 +78,7 @@ const NotificationItem = ({ item }) => {
               </p>
             </div>
           </div>
-          <div className="min-w-[35%] max-w-[35%]  flex items-center justify-end ml-auto ">
+          <div className="min-w-[35%] max-w-[35%]  flex items-center justify-end ml-aut ">
             <div className="ml-auto w-[150px] h-14 md:h-16  ">
               <Image
                 width={150}
@@ -91,7 +90,7 @@ const NotificationItem = ({ item }) => {
             </div>
           </div>
         </div>
-        {!fromAdmin && (
+        {fromAdmin && (
           <DropdownMenu className="">
             <DropdownMenuTrigger>
               <div className="absolute top-1/2 -translate-y-1/2 right-0.5  outline-none">

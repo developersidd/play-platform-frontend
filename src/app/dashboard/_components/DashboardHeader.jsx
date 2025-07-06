@@ -16,7 +16,6 @@ import useAxios from "@/hooks/useAxios";
 import useUserContext from "@/hooks/useUserContext";
 import { LogOut, Plus, User } from "lucide-react";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -54,7 +53,7 @@ function DashboardHeader() {
       <div className="flex items-center gap-2 px-4">
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mr-2 h-4" />
-        <Breadcrumbs  />
+        <Breadcrumbs />
       </div>
       {username && (
         <div className="flex items-center gap-3 md:gap-5 px-4">
@@ -92,12 +91,12 @@ function DashboardHeader() {
                 <button>Logout</button>
               </DropdownMenuItem>
               <DropdownMenuItem
-                    onClick={() => router.push(`/channels/${username}`)}
-                    className="cursor-pointer"
-                  >
-                    <User className="size-4 mr-2" />
-                    Profile
-                  </DropdownMenuItem>
+                onClick={() => router.push(`/channels/${username}`)}
+                className="cursor-pointer"
+              >
+                <User className="size-4 mr-2" />
+                Profile
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
