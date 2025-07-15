@@ -13,7 +13,6 @@ import {
   TabletSmartphone,
   ThumbsUp,
   Users,
-  Video,
   Youtube,
 } from "lucide-react";
 
@@ -34,11 +33,6 @@ export const sidebarItems = [
     icon: <History className="size-4 md:size-5" />,
     label: "History",
     link: "/history",
-  },
-  {
-    icon: <Video className="size-4 md:size-5" />,
-    label: "My Content",
-    link: "/channels/",
   },
   {
     icon: <Combine className="size-4 md:size-5" />,

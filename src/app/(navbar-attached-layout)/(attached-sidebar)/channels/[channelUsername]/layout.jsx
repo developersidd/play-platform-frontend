@@ -11,6 +11,7 @@ const ChannelLayout = async ({ tabs, params }) => {
     channelUsername,
     user?._id
   );
+  const isMyChannel = user?.username === channelUsername;
   return (
     <section className="w-full">
       <div className="relative h-[150px] sm:h-[350px] w-full pt-[16.28%]">
@@ -26,12 +27,12 @@ const ChannelLayout = async ({ tabs, params }) => {
       </div>
       <div className="px-4 pb-4">
         <ChannelInfo
-          isMyChannel={user?.username === channelUsername}
+          isMyChannel={isMyChannel}
           loggedInUserId={user?._id}
           channelInfo={channel}
         />
         {/* Sidebar */}
-        <ChannelMenu />
+        <ChannelMenu isMyChannel={isMyChannel} />
         {/* Tabs Content */}
         {tabs}
       </div>

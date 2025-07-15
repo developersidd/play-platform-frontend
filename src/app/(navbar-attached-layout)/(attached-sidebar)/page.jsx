@@ -1,10 +1,8 @@
 import { getVideos } from "@/api/video.api";
 import Error from "@/components/common/Error";
-import dynamic from "next/dynamic";
 import NoVideosFound from "../_components/NotFoundVideos";
-const LazyInfiniteVideos = dynamic(() =>
-  import("@/components/infinite-data-layout/InfiniteVideos")
-);
+import InfiniteVideos from "@/components/infinite-data-layout/InfiniteVideos";
+
 const HomePage = async () => {
   const { data, error } = await getVideos({
     limit: 20,
@@ -19,8 +17,8 @@ const HomePage = async () => {
     return <NoVideosFound classes={"mt-10"} />;
   }
   return (
-    <section className="px-3.5 lg:px-5 py-5 pb-[50px]">
-      <LazyInfiniteVideos initialVideos={data?.videos} />
+    <section className="px-3 lg:px-4 py-5 pb-[50px]">
+      <InfiniteVideos initialVideos={data?.videos} />
     </section>
   );
 };

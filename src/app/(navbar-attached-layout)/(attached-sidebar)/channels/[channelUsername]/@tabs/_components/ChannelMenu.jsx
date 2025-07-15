@@ -22,7 +22,7 @@ const links = [
   },
 ];
 
-const ChannelMenu = () => {
+const ChannelMenu = ({ isMyChannel }) => {
   const { channelUsername } = useParams();
   const pathname = usePathname();
   const activeCls =
@@ -32,20 +32,23 @@ const ChannelMenu = () => {
     <ul className="no-scrollbar sticky top-[66px] z-[2] flex flex-row  overflow-auto  bg-accent  sm:top-[82px]">
       {links.map((item, index) => {
         return (
-          <li
-            key={item.text}
-            className={`w-full text-center px-2 md:px-3 py-2 text-sm sm:text-base md:py-3 inline-block  border-b-2 ${
-              pathname === `/channels/${channelUsername}${item.href}` ||
-              (pathname === `/channels/${channelUsername}` && index === 0)
-                ? activeCls
-                : "border-gray-500"
-            }
+          // If the channel is not mine, hide the "Subscribed" tab
+          !isMyChannel && item.text === "Subscribed" ? null : (
+            <li
+              key={item.text}
+              className={`w-full text-center px-2 md:px-3 py-2 text-sm sm:text-base md:py-3 inline-block  border-b-2 ${
+                pathname === `/channels/${channelUsername}${item.href}` ||
+                (pathname === `/channels/${channelUsername}` && index === 0)
+                  ? activeCls
+                  : "border-gray-500"
+              }
                 `}
-          >
-            <Link href={`/channels/${channelUsername}${item.href}`}>
-              {item.text}
-            </Link>
-          </li>
+            >
+              <Link href={`/channels/${channelUsername}${item.href}`}>
+                {item.text}
+              </Link>
+            </li>
+          )
         );
       })}
     </ul>

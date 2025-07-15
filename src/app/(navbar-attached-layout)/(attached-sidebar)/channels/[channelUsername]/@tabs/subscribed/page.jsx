@@ -6,7 +6,7 @@ const SubscribedChannelsPage = async ({ params, searchParams: { search } }) => {
   const { data: { totalSubscribedChannels, subscribedChannels } = {}, data } =
     await getUserSubscribedChannels(channelUsername, {
       search,
-    });
+    }) || {};
   console.log(" data:", data);
   return (
     <div className="flex flex-col gap-y-4 py-4">

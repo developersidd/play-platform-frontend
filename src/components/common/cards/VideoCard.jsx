@@ -18,8 +18,8 @@ const VideoCard = ({ video }) => {
       <div className="mb-2 w-full h-[70%] md:h-[75%] relative">
         <Link href={`/videos/${_id}`} className="">
           <Image
-            height={800}
-            width={500}
+            height={350}
+            width={400}
             src={thumbnail?.url}
             alt={title}
             className="h-full w-full rounded-md object-cover"

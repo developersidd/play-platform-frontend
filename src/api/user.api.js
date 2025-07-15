@@ -65,11 +65,11 @@ const getUserChannelStats = async () => {
 // get user history
 const getUserHistory = async (search = "") => {
   try {
-    const res = await apiClient.get(
+    const res = await fetchWithAuth(
       `/users/history?q=${encodeURIComponent(search)}`
     );
     return {
-      data: res?.data?.data,
+      data: res?.data,
     };
   } catch (e) {
     return {

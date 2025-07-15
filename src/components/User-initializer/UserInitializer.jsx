@@ -13,11 +13,10 @@ const UserInitializer = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-       const {data} = await retrieveCurrentUser() || {}
+        const { data } = (await retrieveCurrentUser()) || {};
         dispatch({ type: SET_USER, payload: data });
       } catch (error) {
-        console.log(" error in initi:", error)
-        //return router.push("/");
+        console.log("Error fetching user:", error);
       }
     };
     if (localStorage.getItem("loggedIn")) {

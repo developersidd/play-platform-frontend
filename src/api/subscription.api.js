@@ -15,8 +15,8 @@ const getChannelSubscribers = async (channelId) => {
 };
 
 // Get user subscribed channels
-const getUserSubscribedChannels = async (subscriberName, queries) => {
-  let url = `/subscriptions/c/${subscriberName}`;
+const getUserSubscribedChannels = async (channelName, queries) => {
+  let url = `/subscriptions/c/${channelName}`;
   if (queries?.search) {
     url += `?search=${queries?.search}`;
   }
@@ -24,9 +24,10 @@ const getUserSubscribedChannels = async (subscriberName, queries) => {
     const res = await fetchWithAuth(url);
     console.log("sss res:", res);
     return {
-      data: res.data,
+      data: res?.data,
     };
   } catch (error) {
+    console.log("🚀 ~ getUserSubscribedChannels ~ error:", error)
     return {
       error: error.message,
     };

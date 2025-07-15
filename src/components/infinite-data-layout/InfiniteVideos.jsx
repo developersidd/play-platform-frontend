@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { Virtuoso, VirtuosoGrid } from "react-virtuoso";
 import Error from "../common/Error";
 
-const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {
+const InfiniteVideos = ({ initialVideos = [], queries, layout = "grid" }) => {
   const { page: pageNum = 2, limit, ...restQueries } = queries || {};
   const [videos, setVideos] = useState(initialVideos);
   const [error, setError] = useState(null);
@@ -58,7 +58,7 @@ const InfiniteVideos = ({ initialVideos, queries, layout = "grid" }) => {
         itemContent={(_, video) => <layoutConfig.itemComponent video={video} />}
       />
       {isLoading && hasMore && (
-        <div className="flex justify-center py-10">
+        <div className="flex justify-center items-center py-10">
           <Loader size={40} className="animate-spin" />
         </div>
       )}
