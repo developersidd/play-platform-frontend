@@ -14,6 +14,7 @@ const UserInitializer = () => {
     const fetchUser = async () => {
       try {
         const { data } = (await retrieveCurrentUser()) || {};
+        console.log("🚀 ~ data user:", data)
         dispatch({ type: SET_USER, payload: data });
       } catch (error) {
         console.log("Error fetching user:", error);

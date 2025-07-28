@@ -191,6 +191,7 @@ const UploadVideoModal = ({ children, videoId }) => {
           toast.success("Video uploaded successfully!");
         }
       } catch (e) {
+        console.log("🚀 ~ e:", e)
         // Check if error is due to cancellation
         if (axios.isCancel(e) || e?.name === "CanceledError") {
           toast.info("Video Upload canceled");

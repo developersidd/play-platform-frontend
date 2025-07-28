@@ -44,13 +44,13 @@ export function ModeToggle() {
     <Button
       variant="outline"
       size="icon"
-      className="group/toggle w-10"
+      className="group/toggle w-11 h-[38px]"
       onClick={handleThemeToggle}
     >
       {resolvedTheme === "dark" ? (
-        <Sun className="size-5" />
+        <Sun className="size-4" />
       ) : (
-        <Moon className="size-5" />
+        <Moon className="size-4" />
       )}
       <span className="sr-only">Toggle theme</span>
     </Button>

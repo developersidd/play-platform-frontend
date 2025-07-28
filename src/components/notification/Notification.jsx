@@ -118,7 +118,7 @@ const Notification = () => {
               show={unreadCount > 0 && !open}
               label={unreadCount}
             >
-              <Button type="button" className="px-3" variant="outline">
+              <Button type="button" className="w-11 h-[38px]" variant="outline">
                 <Bell className="" />
               </Button>
             </NotificationBadge>

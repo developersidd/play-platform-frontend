@@ -1,5 +1,6 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
+import UserInitializer from "@/components/User-initializer/UserInitializer";
 import UserProvider from "@/providers/UserProvider";
 import DashboardHeader from "./_components/DashboardHeader";
 import DashboardSidebar from "./_components/DashboardSidebar";
@@ -15,6 +16,7 @@ async function DashboardLayout({ children }) {
       <DashboardSidebar />
       <SidebarInset>
         <UserProvider>
+          <UserInitializer />
           <DashboardHeader />
           {children}
         </UserProvider>

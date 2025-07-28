@@ -1,4 +1,5 @@
 "use client";
+import { getPlaylistById } from "@/api/playlist.action";
 import {
   Dialog,
   DialogContent,
@@ -55,9 +56,7 @@ const formSchema = z.object({
 const CreatePlaylistModal = ({ children, playlistId }) => {
   const router = useRouter();
   const [selectedVideos, setSelectedVideos] = useState([]);
-  console.log(" selectedVideos:", selectedVideos)
   const [videosToUpdate, setVideosToUpdate] = useState([]);
-  console.log(" videosToUpdate:", videosToUpdate);
   const isEditing = Boolean(playlistId);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const { apiClient } = useAxios();
@@ -80,19 +79,19 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
   useEffect(() => {
     const fetchPlaylist = async () => {
       try {
-        const { data: { data } = {} } = await apiClient.get(
-          `/playlists/${playlistId}`
-        );
+        const { data } = await getPlaylistById(playlistId);
         const { name, description, isPrivate, videos } = data;
+        console.log("🚀 ~ data in:", data);
         if (data) {
           reset({
             name,
             description,
             isPrivate,
-            videos: videos?.map(({ video }) => video?._id),
+            videos: videos?.map(({ video = {} }) => (video || {})?._id),
           });
           setSelectedVideos(
-            videos?.map(({ position, video: { _id, thumbnail, title } }) => {
+            videos?.map(({ position, video }) => {
+              const { _id, thumbnail, title } = video || {};
               return { video: _id, thumbnail, title, position };
             })
           );
@@ -113,7 +112,8 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
     }
     setShowUploadModal(false);
     try {
-      console.log(" data:", data);
+      console.log(" form data:", data);
+      //return null
       if (isEditing) {
         // edit playlist
         const response = await apiClient.patch(`/playlists/${playlistId}`, {
@@ -123,7 +123,7 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
         console.log(" response:", response);
         if (response.status === 200) {
           toast.success("Playlist updated successfully!");
-          
+
           router.refresh();
         }
       } else {
@@ -145,7 +145,7 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
     <>
       <Dialog open={showUploadModal} onOpenChange={setShowUploadModal}>
         <DialogTrigger asChild>{children}</DialogTrigger>
-        <DialogContent className="h-[80%] md:min-h-[75%] w-[90%] sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto max-h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg">
+        <DialogContent className="h-[80%] md:min-h-[90%] w-[90%] sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto max-h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg">
           <DialogHeader className="block w-full mt-3">
             {/*<DialogTitle>*/}
             <div className="flex items-center justify-between border-b max-sm:pt-3 max-sm:pb-6 sm:p-4 ">
@@ -248,7 +248,8 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
                   <FormItem>
                     <FormControl>
                       <AddVideosInPlaylistModal
-                        reset={reset}
+                        //reset={reset}
+                        setValue={setValue}
                         selectedVideos={selectedVideos}
                         setSelectedVideos={setSelectedVideos}
                       />

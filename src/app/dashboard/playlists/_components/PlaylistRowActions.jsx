@@ -5,10 +5,10 @@ import {
   AlertDialogContent,
 } from "@/components/ui/alert-dialog";
 import { TableCell } from "@/components/ui/table";
-import useAxios from "@/hooks/useAxios";
 import { Pencil, ScanSearch, Trash2 } from "lucide-react";
 import { lazy, useRef, useState } from "react";
 
+import { deletePlaylist } from "@/api/playlist.action";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -20,22 +20,21 @@ import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-const LazyUploadVideoModal = lazy(() =>
-  import("@/components/common/video/UploadVideoModal")
-);
-const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
-  const { apiClient } = useAxios();
-  const router = useRouter();
 
+const LazyUploadPlaylistModal = lazy(() =>
+  import("@/components/common/playlist/playlist-modal/CreatePlaylistModal")
+);
+const PlaylistRowActions = ({ playlistId, name, isPrivate }) => {
+  const router = useRouter();
   const editModalTriggerRef = useRef(null);
   const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
 
-  const handleDeleteVideo = async () => {
+  const handleDeletePlaylist = async () => {
     try {
       setOpenDeleteAlert(false);
-      await apiClient.delete(`/videos/${videoId}`);
+      await deletePlaylist(playlistId);
       router.refresh();
-      toast.success("Video deleted successfully");
+      toast.success("Playlist deleted successfully");
     } catch (e) {
       console.log(" e:", e);
       toast.error("There was an error occurred");
@@ -43,9 +42,9 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
   };
 
   const handleDeleteAlert = () => {
-    if (isVideoPublished) {
-      return toast.info("Video is published", {
-        description: "You need to unpublish the video before deleting it.",
+    if (!isPrivate) {
+      return toast.info("Playlist is public", {
+        description: "You need to private the playlist before deleting it.",
       });
     } else {
       setOpenDeleteAlert(true);
@@ -62,7 +61,7 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <Link target="_blank" href={`/videos/${videoId}`}>
+          <Link target="_blank" href={`/playlists/${playlistId}`}>
             <DropdownMenuItem className="cursor-pointer">
               <ScanSearch className="h-4 w-4 mr-2" />
               View
@@ -72,6 +71,7 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
           <DropdownMenuItem
             onClick={() => {
               editModalTriggerRef?.current?.click();
+              setOpenEditingModal(true);
             }}
             className="cursor-pointer"
           >
@@ -89,23 +89,24 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
         </DropdownMenuContent>
       </DropdownMenu>
       {/* Edit video Modal */}
-
-      <LazyUploadVideoModal videoId={videoId}>
+      {/*{openEditingModal && (*/}
+      <LazyUploadPlaylistModal playlistId={playlistId}>
         <button ref={editModalTriggerRef}></button>
-      </LazyUploadVideoModal>
+      </LazyUploadPlaylistModal>
+      {/*)}*/}
 
       {/*  Show Delete alert */}
       <AlertDialog open={openDeleteAlert} onOpenChange={setOpenDeleteAlert}>
-        <AlertDialogContent className="sm:max-w-[25%] h-[24%] block  border-0">
+        <AlertDialogContent className="w-[80%] sm:max-w-[30%] h-[23%]   border-0 mx-auto">
           <div className="flex flex-col h-full">
             <div className="space-y-4">
-              <h4 className="text-lg">Delete Video</h4>
+              <h4 className="text-lg">Delete Playlist</h4>
               <p>
-                Are you sure you want to delete the video titled{" "}
+                Are you sure you want to delete the playlist named{" "}
                 <span className="text-secondary font-bold">
                   {" "}
                   &quot;
-                  {title?.length > 100 ? title?.slice(0, 100) + "..." : title}
+                  {name?.length > 100 ? name?.slice(0, 100) + "..." : name}
                   &quot;
                 </span>{" "}
                 ? This action cannot be undone.
@@ -120,7 +121,7 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
               </AlertDialogCancel>
 
               <button
-                onClick={handleDeleteVideo}
+                onClick={handleDeletePlaylist}
                 className="text-red-600 font-semibold py-1 px-3 rounded-full hover:bg-red-600 hover:text-white"
               >
                 Delete
@@ -133,4 +134,4 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
   );
 };
 
-export default VideoRowActions;
+export default PlaylistRowActions;

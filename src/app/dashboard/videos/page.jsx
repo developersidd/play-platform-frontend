@@ -15,6 +15,7 @@ const DashboardVideosPage = async ({ searchParams }) => {
     sortBy: sortBy || "createdAt",
     expandQuery: true,
   });
+  
   console.log(" data:", data);
   return (
     <section className="px-8  ">

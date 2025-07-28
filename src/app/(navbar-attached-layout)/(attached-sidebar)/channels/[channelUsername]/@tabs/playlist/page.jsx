@@ -13,6 +13,7 @@ const ChannelPlaylistPage = async ({ params }) => {
   const isMyChannel = user?.username === channelUsername;
 
   const { data } = await getUserPlaylists(channelUsername);
+  
   return (
     <div className="py-4 md:py-2">
       {isMyChannel && (

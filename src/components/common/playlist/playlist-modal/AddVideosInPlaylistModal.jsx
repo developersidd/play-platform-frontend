@@ -6,7 +6,7 @@ import { useState } from "react";
 import InfiniteVideosToCreatePlaylist from "./InfiniteVideosToCreatePlaylist";
 
 const AddVideosInPlaylistModal = ({
-  reset,
+  setValue,
   selectedVideos,
   setSelectedVideos,
 }) => {
@@ -37,9 +37,10 @@ const AddVideosInPlaylistModal = ({
           if (searchQuery.trim()) {
             setDebounceSearchQuery("");
           }
-          reset({
-            videos: selectedVideos?.map(({ video }) => video),
-          });
+          setValue(
+            "videos",
+            selectedVideos?.map(({ video }) => video)
+          );
         }}
       >
         <Button
@@ -55,7 +56,7 @@ const AddVideosInPlaylistModal = ({
           <div className="space-y-4">
             {/* Search Bar */}
             <Input
-            className="mt-5"
+              className="mt-5"
               placeholder="Search your videos..."
               onChange={handleSearch}
               value={searchQuery}

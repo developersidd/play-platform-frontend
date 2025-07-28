@@ -62,6 +62,7 @@ function LoginForm() {
         await response.json();
         
         localStorage.setItem("loggedIn", true);
+        router.refresh()
         return router.push(redirect);
       }
     } catch (e) {
