@@ -1,45 +1,6 @@
 "use server";
 import { apiClient, fetchWithAuth } from ".";
 
-
-const getVideosTanStack = async ({ pageParam, ...queries }) => {
-
-  const page = pageParam || queries.page || 1;
-  
-  let url = "/videos";
-  
-  // Build query parameters
-  const queryParams = {
-    page,
-    ...queries
-  };
-  
-  if (Object.keys(queryParams).length > 0) {
-    const searchParams = new URLSearchParams(queryParams);
-    url += `?${searchParams.toString()}`;
-  }
-  
-  try {
-    const res = await apiClient.get(url);
-    const data = res.data?.data || {};
-    return {
-      data: {
-        videos: data.videos || [],
-        currentPage: data.currentPage || page,
-        hasNextPage: data.hasNextPage || false,
-        totalPages: data.totalPages,
-        total: data.total,
-      }
-    };
-  } catch (error) {
-    throw new Error(
-      error?.response?.data?.message ||
-      error?.message ||
-      "API request failed"
-    );
-  }
-};
-
 // get all videos
 const getVideos = async (queries) => {
   let url = "/videos";
@@ -131,4 +92,3 @@ const getLikedVideos = async () => {
 };
 
 export { getLikedVideos, getRelatedVideos, getVideoById, getVideos };
-

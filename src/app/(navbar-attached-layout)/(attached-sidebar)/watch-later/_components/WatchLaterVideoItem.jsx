@@ -5,7 +5,6 @@ import { Tally2 } from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 const WatchLaterVideoItem = ({ index, item: { video, _id } }) => {
   const {
     thumbnail,
@@ -14,10 +13,10 @@ const WatchLaterVideoItem = ({ index, item: { video, _id } }) => {
     createdAt,
     duration,
     _id: videoId,
-    isInWatchLater,
+
     owner: { avatar, username, fullName } = {},
   } = video || {};
-  const [isRemoveFromWatchLater, setIsRemoveFromWatchLater] = useState(false);
+
   return (
     <Draggable key={_id} draggableId={_id} index={index}>
       {(provided, { isDragging }) => (
@@ -26,8 +25,7 @@ const WatchLaterVideoItem = ({ index, item: { video, _id } }) => {
           {...provided.draggableProps}
           className={cn(
             "flex !left-auto my-auto !top-auto justify-center items-stretch h-[130px] sm:h-[140px]  lg:h-[150px]  rounded-md mb-4 text-sm transition-colors hover:bg-light-bg",
-            isDragging && "bg-light-bg",
-            isRemoveFromWatchLater ? "hidden" : ""
+            isDragging && "bg-light-bg"
           )}
         >
           <div

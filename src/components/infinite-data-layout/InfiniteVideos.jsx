@@ -19,7 +19,7 @@ const InfiniteVideos = ({ queries, layout = "grid" }) => {
     isFetchingNextPage,
     isLoading,
     isError,
-    error,
+    
   } = useInfiniteQuery({
     queryKey: ["videos", { ...restQueries, limit }],
     queryFn: ({ pageParam = pageNum }) =>
@@ -56,7 +56,7 @@ const InfiniteVideos = ({ queries, layout = "grid" }) => {
   };
 
   if (isError) {
-    return <Error />;
+    return <Error title={"Error while getting videos"} />;
   }
 
   return (
