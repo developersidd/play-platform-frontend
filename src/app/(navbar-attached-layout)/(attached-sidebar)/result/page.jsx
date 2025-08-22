@@ -20,7 +20,6 @@ const SearchResultPage = async ({ searchParams }) => {
     <div className="p-5">
       {videos?.length > 0 && (
         <LazyInfiniteVideos
-          initialVideos={videos}
           queries={{
             q: searchVal,
           }}

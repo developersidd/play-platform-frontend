@@ -36,6 +36,7 @@ const getUserPlaylists = async (username, queries = {}) => {
     };
   }
 };
+
 // get user collections
 const getUserCollections = async (queries = {}) => {
   try {
@@ -47,7 +48,7 @@ const getUserCollections = async (queries = {}) => {
       data: res?.data,
     };
   } catch (e) {
-    console.log(" e:", e);
+    console.log(" e in collection:", e);
     return {
       error: e.message,
     };

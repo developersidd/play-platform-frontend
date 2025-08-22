@@ -3,6 +3,7 @@ import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import RelatedVideoCardActions from "./RelatedVideoCardActions";
+import VideoActions from "@/components/common/video/VideoActions";
 
 const RelatedVideoCard = ({ video }) => {
   const {
@@ -55,7 +56,7 @@ const RelatedVideoCard = ({ video }) => {
           </div>
         </div>
       </Link>
-      <RelatedVideoCardActions videoId={_id} />
+      <VideoActions videoId={_id} dropdownContentAlign="end" />
     </article>
   );
 };

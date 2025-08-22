@@ -31,12 +31,7 @@ const PlaylistBox = async ({ playlistId, currentVideoIndex }) => {
   } = res || {};
   console.log("res", res);
   const playlistOwner = listName === "wl" ? userFullName : fullName;
-  let playlistName =
-    listName === "wl"
-      ? "Watch Later"
-      : listName === "ct"
-      ? "My Collection"
-      : plName;
+  let playlistName = listName === "wl" ? "Watch Later" : plName;
   const totalVideos = videos?.length || 0;
   return (
     <Card className="w-[398px]">

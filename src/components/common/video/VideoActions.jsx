@@ -7,27 +7,26 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import useAxios from "@/hooks/useAxios";
-import { Bookmark, Clock, EllipsisVertical, X } from "lucide-react";
+import useUserContext from "@/hooks/useUserContext";
+import { cn } from "@/lib/utils";
+import { Bookmark, Clock, EllipsisVertical } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-const HistoryVideoCardActions = ({ videoId }) => {
-  const router = useRouter();
+const VideoActions = ({
+  videoId,
+  dropdownContentAlign = "start",
+  dropdownTriggerIconClassName,
+  dropdownTriggerClassName
+}) => {
   const [isVideoInWatchLater, setIsVideoInWatchLater] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const router = useRouter();
   const { apiClient } = useAxios() || {};
-  // Remove video from history
-  const removeVideoFromHistory = async () => {
-    try {
-      await apiClient.delete(`/users/history/remove/${videoId}`);
-      router.refresh();
-      toast.success("Video removed from history!");
-    } catch (error) {
-      toast.error("Failed to remove video from history!");
-    }
-  };
-
+  const {
+    state: { _id },
+  } = useUserContext() || {};
   // save to watch later
   const handleVideoInWatchLater = async () => {
     setIsVideoInWatchLater((prev) => !prev);
@@ -37,14 +36,21 @@ const HistoryVideoCardActions = ({ videoId }) => {
         toast.success("Video removed from watch later!");
         return;
       }
-      await apiClient.patch(`/watch-later/v/${videoId}/add`);
+      const res = await apiClient.patch(`/watch-later/v/${videoId}/add`);
+      console.log(" res:", res);
     } catch (error) {
-      setIsVideoInWatchLater((prev) => !prev);
-      console.log(" error:", error);
-      toast.error("Failed to add video in watch later!");
+      toast.error(
+        `Failed to ${
+          isVideoInWatchLater ? "remove" : "add"
+        } video in watch later!`
+      );
+    }finally{
+      router.refresh();
     }
   };
-
+  if (!_id) {
+    return null;
+  }
   // handle modal close
   const handleModalClose = () => {
     setIsModalOpen(false);
@@ -55,39 +61,31 @@ const HistoryVideoCardActions = ({ videoId }) => {
     setIsModalOpen(true);
     setIsDropdownOpen(false);
   };
-  
+
   return (
     <>
-      <SaveToCollectionModal
-        open={isModalOpen}
-        setIsOpen={handleModalClose}
-        videoId={videoId}
-      />
-
-      <div className="absolute flex items-center top-2 right-2 space-x-4">
-        <button
-          onClick={removeVideoFromHistory}
-          className="hover:bg-white/70 dark:hover:bg-dark-bg/40 p-2 rounded-full"
-        >
-          <X className="" size={28} />
-        </button>
-
+      <div
+        className={cn(
+          "absolute flex items-center top-1 right-2",
+          dropdownTriggerClassName
+        )}
+      >
         <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
           <DropdownMenuTrigger asChild>
             <button className="outline-none">
-              <EllipsisVertical className="" size={22} />
+              <EllipsisVertical className={dropdownTriggerIconClassName} size={18} />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            align="start"
-            className=" min-w-48 max-w-max space-y-1 "
+            align={dropdownContentAlign}
+            className="min-w-48 max-w-max space-y-1 "
           >
             <DropdownMenuItem
               onClick={handleVideoInWatchLater}
               className="cursor-pointer"
             >
               <button className="flex items-center gap-x-2">
-                <Clock />
+                <Clock className="size-5" />
                 <p>
                   {" "}
                   {isVideoInWatchLater
@@ -102,15 +100,20 @@ const HistoryVideoCardActions = ({ videoId }) => {
               className="cursor-pointer"
             >
               <button className="flex items-center gap-x-2">
-                <Bookmark />
+                <Bookmark className="size-5" />
                 <p className="text-sm">Save to Collection</p>
               </button>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+      <SaveToCollectionModal
+        open={isModalOpen}
+        setIsOpen={handleModalClose}
+        videoId={videoId}
+      />
     </>
   );
 };
 
-export default HistoryVideoCardActions;
+export default VideoActions;

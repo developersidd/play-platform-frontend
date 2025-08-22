@@ -14,7 +14,7 @@ export const apiClient = axios.create({
 export async function fetchWithAuth(url, options = {}) {
   try {
     const accessToken = await getAccessToken();
-    console.log(" accessToken in func:", accessToken)
+    //console.log(" accessToken in func:", accessToken)
     if (!accessToken) {
       return null
     } 
@@ -32,7 +32,7 @@ export async function fetchWithAuth(url, options = {}) {
   } catch (error) {
     console.log(" error in index:", error?.response?.data)
     const isJwtError = error?.response?.data?.message === "jwt expired";
-    console.log(" isJwtError:", isJwtError)
+    //console.log(" isJwtError:", isJwtError)
     if (error.response && error.response.status === 401 && !options._retry && isJwtError) {
       options._retry = true;
       try {

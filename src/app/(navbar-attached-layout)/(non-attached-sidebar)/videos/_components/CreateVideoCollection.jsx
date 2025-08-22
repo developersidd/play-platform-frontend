@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -26,7 +27,7 @@ const formSchema = z.object({
 
 const CreateVideoCollection = ({ setCollections }) => {
   const { apiClient } = useAxios();
-
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,6 +46,7 @@ const CreateVideoCollection = ({ setCollections }) => {
         })) || {};
       setCollections((prev) => [...prev, data]);
       reset();
+      router.refresh();
     } catch (error) {
       if (
         error?.response?.data?.message?.startsWith("E11000 duplicate key error")

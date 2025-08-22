@@ -1,9 +1,10 @@
 "use client";
-import { getPlaylistById } from "@/api/playlist.action";
+import { getPlaylistById } from "@/api/playlist.api";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
@@ -90,10 +91,12 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
             videos: videos?.map(({ video = {} }) => (video || {})?._id),
           });
           setSelectedVideos(
-            videos?.map(({ position, video }) => {
-              const { _id, thumbnail, title } = video || {};
-              return { video: _id, thumbnail, title, position };
-            })
+            videos
+              ?.map(({ position, video }) => {
+                const { _id, thumbnail, title } = video || {};
+                return { video: _id, thumbnail, title, position };
+              })
+              .filter((v) => Boolean(v.video))
           );
         }
       } catch (e) {
@@ -145,13 +148,17 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
     <>
       <Dialog open={showUploadModal} onOpenChange={setShowUploadModal}>
         <DialogTrigger asChild>{children}</DialogTrigger>
-        <DialogContent className="h-[80%] md:min-h-[90%] w-[90%] sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto max-h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg">
+        <DialogContent
+          className="h-[80%] min-h-[90%] w-[90%] sm:max-w-[80%] lg:max-w-[70%] xl:max-w-[60%] block  overflow-y-auto max-h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-track]:bg-background 
+         [&::-webkit-scrollbar-thumb]:rounded-lg
+        "
+        >
           <DialogHeader className="block w-full mt-3">
             {/*<DialogTitle>*/}
             <div className="flex items-center justify-between border-b max-sm:pt-3 max-sm:pb-6 sm:p-4 ">
-              <h2 className="text-xl font-semibold">
+              <DialogTitle className="text-xl font-semibold">
                 {isEditing ? "Edit" : "Create"} Playlist
-              </h2>
+              </DialogTitle>
               <button
                 disabled={isSubmitting}
                 onClick={() => {
@@ -179,7 +186,7 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
                   <FormItem>
                     <FormControl>
                       <div className="w-full">
-                        <label for="name" className="mb-1 inline-block">
+                        <label htmlFor="name" className="mb-1 inline-block">
                           Name<sup>*</sup>
                         </label>
 
@@ -187,7 +194,7 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
                           {...field}
                           id="name"
                           type="text"
-                          className="w-full border bg-transparent px-2 py-1.5 outline-none"
+                          className="w-full border bg-transparent  px-2 py-1.5 outline-none"
                         />
                       </div>
                     </FormControl>
@@ -203,7 +210,7 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
                   <FormItem>
                     <FormControl>
                       <div className="w-full">
-                        <label for="desc" className="mb-1 inline-block">
+                        <label htmlFor="desc" className="mb-1 inline-block">
                           Description<sup>*</sup>
                         </label>
                         <textarea
@@ -223,7 +230,7 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
                 name="isPrivate"
                 render={({ field }) => (
                   <FormItem>
-                    <label for="desc" className="mb-1 inline-block">
+                    <label htmlFor="desc" className="mb-1 inline-block">
                       Playlist Visibility
                     </label>
                     <FormControl>
@@ -248,7 +255,6 @@ const CreatePlaylistModal = ({ children, playlistId }) => {
                   <FormItem>
                     <FormControl>
                       <AddVideosInPlaylistModal
-                        //reset={reset}
                         setValue={setValue}
                         selectedVideos={selectedVideos}
                         setSelectedVideos={setSelectedVideos}

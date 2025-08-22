@@ -4,7 +4,6 @@ import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { Tally2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -14,6 +13,7 @@ const EditPlaylistVideosOrder = ({
   setVideosToUpdate,
   setValue,
 }) => {
+  console.log("🚀 ~ selectedVideos:", selectedVideos);
   const [isMounted, setIsMounted] = useState(false);
   const [items, setItems] = useState(selectedVideos);
   useEffect(() => {
@@ -52,8 +52,8 @@ const EditPlaylistVideosOrder = ({
   }
 
   return (
-    <section className="mt-4 lg:mt-8 lg:px-4 w-full max-w-3xl mx-auto">
-      <ScrollArea className="min-h-[300px] max-h-[600px] border rounded-lg p-3">
+    <section className="mt-4 lg:mt-8 lg:px-4 w-full max-w-3xl mx-auto pb-">
+      <div className="overflow-y-auto min-h-[300px] max-h-[600px] !border rounded-none p-3 [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-thumb]:rounded-lg [&::-webkit-scrollbar-track]:bg-background ">
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="videos">
             {(provided) => (
@@ -70,7 +70,7 @@ const EditPlaylistVideosOrder = ({
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           className={cn(
-                            "!left-auto !top-auto w-full rounded-lg hover:bg-dark-bg sm:px-2  flex items-center group",
+                            "!left-auto !top-auto w-full rounded-none hover:bg-dark-bg sm:px-2  flex items-center group",
                             isDragging && "bg-light-bg"
                           )}
                         >
@@ -131,7 +131,7 @@ const EditPlaylistVideosOrder = ({
             )}
           </Droppable>
         </DragDropContext>
-      </ScrollArea>
+      </div>
     </section>
   );
 };

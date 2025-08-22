@@ -1,3 +1,4 @@
+import VideoActions from "@/components/common/video/VideoActions";
 import { cn, formatCounting } from "@/lib/utils";
 import { Draggable } from "@hello-pangea/dnd";
 import { Tally2 } from "lucide-react";
@@ -5,7 +6,6 @@ import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import WatchLaterVideoItemActions from "./WatchLaterVideoItemActions";
 const WatchLaterVideoItem = ({ index, item: { video, _id } }) => {
   const {
     thumbnail,
@@ -40,11 +40,11 @@ const WatchLaterVideoItem = ({ index, item: { video, _id } }) => {
             <Tally2 className=" rotate-90" />
           </div>
           <div className="w-full relative p-2 rounded-lg max-sm:mt-1">
-            {/* Actions */}
-            <WatchLaterVideoItemActions
-              setIsRemoveFromWatchLater={setIsRemoveFromWatchLater}
-              isInWatchLater={isInWatchLater}
-              videoId={videoId}
+            <VideoActions
+              videoId={_id}
+              dropdownContentAlign="end"
+              dropdownTriggerIconClassName="size-5"
+              dropdownTriggerClassName="top-2"
             />
             <div className=" gap-x-4 flex">
               <div className="relative mb-2  md:mb-0 w-2/4 lg:w-2/5 xl:w-1/4 h-full">
@@ -74,9 +74,7 @@ const WatchLaterVideoItem = ({ index, item: { video, _id } }) => {
                     href={`/videos/${videoId}`}
                     className="mb-1  text-sm font-semibold md:max-w-[75]"
                   >
-                    {title?.length > 60
-                      ? title.slice(0, 60) + "..."
-                      : title}
+                    {title?.length > 60 ? title.slice(0, 60) + "..." : title}
                   </Link>
 
                   <p className="flex text-xs md:text-sm  mt-1.5 sm:mt-3 ">

@@ -1,6 +1,5 @@
 "use client";
 import { getUserCollections } from "@/api/playlist.api";
-import { retrieveCurrentUser } from "@/api/user.api";
 import {
   Dialog,
   DialogContent,
@@ -20,13 +19,8 @@ const SaveToCollectionModal = ({ videoId, open, setIsOpen, children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch user first
-        const { data: { username } = {} } = (await retrieveCurrentUser()) || {};
-        if (username) {
-          // Then fetch playlists
-          const playlistsRes = await getUserCollections();
-          setCollections(playlistsRes.data || []);
-        }
+        const playlistsRes = await getUserCollections();
+        setCollections(playlistsRes.data || []);
       } catch (error) {
         setError(error?.message || "Failed to fetch collections");
       } finally {
@@ -37,6 +31,7 @@ const SaveToCollectionModal = ({ videoId, open, setIsOpen, children }) => {
     fetchData();
   }, []);
   let content;
+  console.log("🚀 ~ collection?.videos:", collections);
   if (loading) {
     content = (
       <div className="flex justify-center py-10">

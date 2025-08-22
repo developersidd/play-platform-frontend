@@ -85,7 +85,7 @@ const InfiniteVideosToCreatePlaylist = ({
         itemContent={(_, { _id, title, thumbnail } = {}) => (
           <div
             key={_id}
-            className="flex items-center p-2 hover:bg-dark-bg rounded-lg"
+            className="flex items-center p-2 hover:bg-dark-bg rounded-lg mr-2"
           >
             <Checkbox
               checked={!!selectedVideos.find((item) => item.video === _id)}
@@ -141,7 +141,7 @@ const InfiniteVideosToCreatePlaylist = ({
 
   return (
     <>
-      <div className="w-full h-[70vh] overflow-y-auto ">{content}</div>
+      <div className="w-full h-[70vh] overflow-y-auto">{content}</div>
     </>
   );
 };

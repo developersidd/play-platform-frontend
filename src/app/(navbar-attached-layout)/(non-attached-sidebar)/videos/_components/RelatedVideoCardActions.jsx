@@ -14,6 +14,7 @@ import { toast } from "sonner";
 const RelatedVideoCardActions = ({ videoId }) => {
   const [isVideoInWatchLater, setIsVideoInWatchLater] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { apiClient } = useAxios() || {};
   const {
     state: { _id },
@@ -40,10 +41,21 @@ const RelatedVideoCardActions = ({ videoId }) => {
   if (!_id) {
     return null;
   }
+  // handle modal close
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setIsDropdownOpen(false);
+  };
+  // handle modal open
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+    setIsDropdownOpen(false);
+  };
+  
   return (
     <>
-      <div className="absolute flex items-center top-2 right-2">
-        <DropdownMenu modal={false}>
+      <div className="absolute flex items-center top-1 right-2">
+        <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
           <DropdownMenuTrigger asChild>
             <button className="outline-none">
               <EllipsisVertical className="" size={18} />
@@ -69,7 +81,7 @@ const RelatedVideoCardActions = ({ videoId }) => {
             </DropdownMenuItem>
 
             <DropdownMenuItem
-              onSelect={() => setIsModalOpen(true)}
+              onClick={handleModalOpen}
               className="cursor-pointer"
             >
               <button className="flex items-center gap-x-2">
@@ -82,7 +94,7 @@ const RelatedVideoCardActions = ({ videoId }) => {
       </div>
       <SaveToCollectionModal
         open={isModalOpen}
-        setIsOpen={setIsModalOpen}
+        setIsOpen={handleModalClose}
         videoId={videoId}
       />
     </>

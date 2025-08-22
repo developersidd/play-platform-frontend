@@ -47,12 +47,12 @@ const AddVideosInPlaylistModal = ({
           onClick={() => setShowAddVideosModal(true)}
           variant="outline"
           type="button"
-          className="w-full mt-2"
+          className="w-full mt-2 rounded-none"
         >
           Select Videos ({selectedVideos.length})
         </Button>
 
-        <DialogContent className="max-h-[85vh] overflow-y-auto w-[90%] sm:max-w-[50%] lg:max-w-[30%] block ">
+        <DialogContent className="max-h-[85vh] overflow-y-auto w-[90%] sm:max-w-[50%] lg:max-w-[30%] px-4 pt-7">
           <div className="space-y-4">
             {/* Search Bar */}
             <Input

@@ -14,6 +14,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import useAxios from "@/hooks/useAxios";
 import useUserContext from "@/hooks/useUserContext";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -191,7 +192,7 @@ const UploadVideoModal = ({ children, videoId }) => {
           toast.success("Video uploaded successfully!");
         }
       } catch (e) {
-        console.log("🚀 ~ e:", e)
+        console.log("🚀 ~ e:", e);
         // Check if error is due to cancellation
         if (axios.isCancel(e) || e?.name === "CanceledError") {
           toast.info("Video Upload canceled");
@@ -247,134 +248,136 @@ const UploadVideoModal = ({ children, videoId }) => {
         <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogContent
           hideCloseButton
-          className="w-[90%] sm:max-w-[70%] lg:max-w-[60%] block  overflow-y-auto h-[90%]  [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-light-bg pb-10"
+          className="h-[80%] min-h-[90%] w-[90%] sm:max-w-[80%] lg:max-w-[70%] xl:max-w-[60%] max-h-[90%] p-0 border-0 "
         >
-          <DialogHeader className="block w-full mt-3">
-            <div className="flex items-center justify-between border-b max-sm:pb-6 max-sm:pt-4 sm:p-4 ">
-              <DialogTitle className="text-xl font-semibold">
-                {" "}
-                {isEditingVideo ? "Edit Video" : "Upload Video"}{" "}
-              </DialogTitle>
-              <DialogClose
-                onClick={() => {
-                  reset();
-                }}
-                className="cursor-pointer absolute top-[12px] right-4"
-                asChild
-              >
-                <X size={18} />
-              </DialogClose>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                onClick={() => {
-                  form.handleSubmit(onSubmit)();
-                }}
-                className="group/btn mr-1 flex w-auto items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e]"
-              >
-                Save
-              </button>
-              {/*</DialogClose>*/}
-            </div>
-            {/*</DialogTitle>*/}
-          </DialogHeader>
+          <ScrollArea className="h-full w-full border rounded-lg px-5 pt-5">
+            <DialogHeader className="block w-full mt-3">
+              <div className="flex items-center justify-between border-b max-sm:pb-6 max-sm:pt-4 sm:p-4 ">
+                <DialogTitle className="text-xl font-semibold">
+                  {" "}
+                  {isEditingVideo ? "Edit Video" : "Upload Video"}{" "}
+                </DialogTitle>
+                <DialogClose
+                  onClick={() => {
+                    reset();
+                  }}
+                  className="cursor-pointer absolute top-[12px] right-4"
+                  asChild
+                >
+                  <X size={18} />
+                </DialogClose>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  onClick={() => {
+                    form.handleSubmit(onSubmit)();
+                  }}
+                  className="group/btn mr-1 flex w-auto items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e]"
+                >
+                  Save
+                </button>
+                {/*</DialogClose>*/}
+              </div>
+              {/*</DialogTitle>*/}
+            </DialogHeader>
 
-          <Form {...form}>
-            <form
-              className="mt-5 mx-auto flex w-full max-w-3xl flex-col gap-y-4 sm:px-4"
-              onSubmit={form.handleSubmit(onSubmit)}
-            >
-              {/* Upload video Input */}
-              {!isEditingVideo && (
-                <UploadVideoForm
+            <Form {...form}>
+              <form
+                className="mt-5 mx-auto flex w-full max-w-3xl flex-col pb-10 gap-y-4 sm:px-4"
+                onSubmit={form.handleSubmit(onSubmit)}
+              >
+                {/* Upload video Input */}
+                {!isEditingVideo && (
+                  <UploadVideoForm
+                    form={form}
+                    videoFile={videoFile}
+                    setVideoFile={setVideoFile}
+                    handleDragOver={handleDragOver}
+                    handleDragLeave={handleDragLeave}
+                    handleDrop={handleDrop}
+                    dragging={dragging}
+                  />
+                )}
+                {/* Thumbnail Input */}
+                <UploadThumbnailForm
                   form={form}
-                  videoFile={videoFile}
-                  setVideoFile={setVideoFile}
-                  handleDragOver={handleDragOver}
-                  handleDragLeave={handleDragLeave}
-                  handleDrop={handleDrop}
-                  dragging={dragging}
+                  isEditingVideo={isEditingVideo}
                 />
-              )}
-              {/* Thumbnail Input */}
-              <UploadThumbnailForm
-                form={form}
-                isEditingVideo={isEditingVideo}
-              />
-              {/* Title Input */}
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <div className="w-full">
-                        <label for="title" className="mb-1 inline-block">
-                          Title<sup>*</sup>
-                        </label>
+                {/* Title Input */}
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <div className="w-full">
+                          <label for="title" className="mb-1 inline-block">
+                            Title<sup>*</sup>
+                          </label>
 
-                        <input
-                          {...field}
-                          id="title"
-                          type="text"
-                          className="w-full border bg-transparent px-2 py-1.5 outline-none"
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {/* Description Input */}
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <div className="w-full">
-                        <label for="desc" className="mb-1 inline-block">
-                          Description<sup>*</sup>
-                        </label>
-                        <textarea
-                          {...field}
-                          id="desc"
-                          className="h-40 w-full resize-none border bg-transparent px-2 py-1 outline-none"
-                        ></textarea>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {/* tags field */}
-              <FormField
-                control={form.control}
-                name="tags"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <div className="w-full">
-                        <label for="tags" className="mb-1 inline-block">
-                          Tags<sup>*</sup>{" "}
-                          <span className="text-sm text-gray-500">
-                            (comma separated, e.g. tag1, tag2)
-                          </span>
-                        </label>
-                        <input
-                          {...field}
-                          id="tags"
-                          type="text"
-                          className="w-full border bg-transparent px-2 py-1.5 outline-none"
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </form>
-          </Form>
+                          <input
+                            {...field}
+                            id="title"
+                            type="text"
+                            className="w-full border bg-transparent px-2 py-1.5 outline-none"
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                {/* Description Input */}
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <div className="w-full">
+                          <label for="desc" className="mb-1 inline-block">
+                            Description<sup>*</sup>
+                          </label>
+                          <textarea
+                            {...field}
+                            id="desc"
+                            className="h-40 w-full resize-none border bg-transparent px-2 py-1 outline-none"
+                          ></textarea>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                {/* tags field */}
+                <FormField
+                  control={form.control}
+                  name="tags"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <div className="w-full">
+                          <label for="tags" className="mb-1 inline-block">
+                            Tags<sup>*</sup>{" "}
+                            <span className="text-sm text-gray-500">
+                              (comma separated, e.g. tag1, tag2)
+                            </span>
+                          </label>
+                          <input
+                            {...field}
+                            id="tags"
+                            type="text"
+                            className="w-full border bg-transparent px-2 py-1.5 outline-none"
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </form>
+            </Form>
+          </ScrollArea>
         </DialogContent>
       </Dialog>
     </>

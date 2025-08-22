@@ -12,7 +12,7 @@ const useAxios = () => {
   } = useUserContext();
   const accessToken = tokens?.accessToken || (typeof window !== "undefined" && localStorage.getItem("accessToken"));
   const refreshToken = tokens?.refreshToken || (typeof window !== "undefined" && localStorage.getItem("refreshToken"));
-  console.log(" refreshToken:", refreshToken)
+  //console.log(" refreshToken:", refreshToken)
   //console.log(" accessToken from useAxios:", accessToken);
   useEffect(() => {
     // request interceptor

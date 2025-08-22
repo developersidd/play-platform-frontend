@@ -6,6 +6,7 @@ import { Nunito } from "next/font/google";
 import { cookies } from "next/headers";
 import "./globals.css";
 //import "./theme.css";
+import TanstackClientProvider from "@/components/common/tanstack/TanstackClientProvider";
 import UserInitializer from "@/components/User-initializer/UserInitializer";
 import NextTopLoader from "nextjs-toploader";
 const nunito = Nunito({
@@ -61,19 +62,20 @@ export default async function RootLayout({ children }) {
         )}
       >
         <NextTopLoader color="#AE7AFF" showSpinner={false} />
-
-        <UserProvider>
-          <UserInitializer />
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-            enableColorScheme
-          >
-            {children}
-          </ThemeProvider>
-        </UserProvider>
+        <TanstackClientProvider>
+          <UserProvider>
+            <UserInitializer />
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+              enableColorScheme
+            >
+              {children}
+            </ThemeProvider>
+          </UserProvider>
+        </TanstackClientProvider>
         <Toaster richColors position="bottom-right" />
       </body>
     </html>

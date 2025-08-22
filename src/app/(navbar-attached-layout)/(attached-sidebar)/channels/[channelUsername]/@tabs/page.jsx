@@ -40,7 +40,7 @@ const ChannelVideosPage = async ({ params }) => {
             </UploadVideoModal>
           </div>
         )}
-        <LazyInfiniteVideos initialVideos={videos} />;
+        <LazyInfiniteVideos />;
       </>
     );
   } else if (isMyChannel && videos?.length !== 0) {
