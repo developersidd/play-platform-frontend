@@ -8,7 +8,7 @@ import { TableCell } from "@/components/ui/table";
 import { Pencil, ScanSearch, Trash2 } from "lucide-react";
 import { lazy, useRef, useState } from "react";
 
-import { deletePlaylist } from "@/api/playlist.action";
+import { deletePlaylist } from "@/api/playlist.api";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
