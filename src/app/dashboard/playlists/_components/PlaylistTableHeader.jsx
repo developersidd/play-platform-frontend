@@ -1,5 +1,5 @@
 "use client";
-import { deleteManyPlaylists } from "@/api/playlist.action";
+import { deleteManyPlaylists } from "@/api/playlist.api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {

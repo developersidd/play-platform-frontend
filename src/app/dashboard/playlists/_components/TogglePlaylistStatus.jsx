@@ -1,5 +1,5 @@
 "use client";
-import { updatePlaylist } from "@/api/playlist.action";
+import { updatePlaylist } from "@/api/playlist.api";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { TableCell } from "@/components/ui/table";
