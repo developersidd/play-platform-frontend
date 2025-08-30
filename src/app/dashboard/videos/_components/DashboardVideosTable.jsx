@@ -12,7 +12,7 @@ import useSelection from "@/hooks/useSelection";
 import VideosTableFooter from "./VideosTableFooter";
 import VideosTableHeader from "./VideosTableHeader";
 import VideosTableRow from "./VideosTableRow";
-const DashboardVideosTable = ({ videos, totalPages }) => {
+const DashboardVideosTable = ({ videos, totalPages, totalVideos }) => {
   const videoIds = videos?.map((v) => v?._id);
   const { selectedIds, handleCheckboxChange } =
     useSelection(videoIds);
@@ -21,6 +21,7 @@ const DashboardVideosTable = ({ videos, totalPages }) => {
       <VideosTableHeader
         onCheckboxChange={handleCheckboxChange}
         selectedIds={selectedIds}
+        totalVideos={totalVideos}
       />
 
       <ScrollArea className="h-[calc(100vh-200px)]   border ">

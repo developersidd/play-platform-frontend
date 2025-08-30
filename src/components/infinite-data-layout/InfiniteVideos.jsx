@@ -29,6 +29,7 @@ const InfiniteVideos = ({ queries, layout = "grid" }) => {
         ...restQueries,
       }),
     getNextPageParam: (lastPage) => {
+      console.log("🚀 ~ lastPage:", lastPage)
       if (lastPage?.data?.hasNextPage) {
         return (lastPage?.data?.currentPage || lastPage?.data?.page || pageNum) + 1;
       }

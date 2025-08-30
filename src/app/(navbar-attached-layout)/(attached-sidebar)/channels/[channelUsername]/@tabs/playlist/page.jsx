@@ -1,19 +1,18 @@
 import { getUserPlaylists } from "@/api/playlist.api";
 import { retrieveCurrentUser } from "@/api/user.api";
 import NoPlaylist from "@/components/common/playlist/NoPlaylist";
-import CreatePlaylistModal from "@/components/common/playlist/playlist-modal/CreatePlaylistModal";
+import CreatePlaylistModal from "@/components/common/playlist/playlist-modal/PlaylistFormModal";
 import PlaylistList from "@/components/common/playlist/PlaylistList";
 import { Button } from "@/components/ui/button";
 import { LayoutList, Plus } from "lucide-react";
 
 const ChannelPlaylistPage = async ({ params }) => {
-  
   const { channelUsername } = await params;
   const { data: user } = await retrieveCurrentUser();
   const isMyChannel = user?.username === channelUsername;
 
   const { data } = await getUserPlaylists(channelUsername);
-  
+
   return (
     <div className="py-4 md:py-2">
       {isMyChannel && (

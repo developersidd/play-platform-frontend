@@ -24,7 +24,7 @@ const ToggleVideoStatus = ({ isPrivate, setIsPrivate, playlistId }) => {
 
   return (
     <>
-      <TableCell className="pl-6">
+      <TableCell className="w-[100px] min-w-[80px]">
         <Switch
           onCheckedChange={(checked) => {
             setIsPrivate(checked);

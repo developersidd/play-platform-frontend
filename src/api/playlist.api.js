@@ -54,5 +54,42 @@ const getUserCollections = async (queries = {}) => {
     };
   }
 };
+// update playlist
+const updatePlaylist = async (playlistId, data) => {
+  try {
+    const res = await apiClient.patch(`/playlists/${playlistId}`, data);
+    return {
+      data: res.data,
+    };
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
 
-export { getPlaylistById, getUserCollections, getUserPlaylists };
+// delete playlist
+const deletePlaylist = async (playlistId) => {
+  try {
+    const res = await apiClient.delete(`/playlists/${playlistId}`);
+    return {
+      data: res.data,
+    };
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+// delete many playlists
+const deleteManyPlaylists = async (playlistIds) => {
+  try {
+    const res = await apiClient.delete(`/playlists`, {
+      data: { playlistIds: playlistIds },
+    });
+    return {
+      data: res.data,
+    };
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+export { getPlaylistById, getUserCollections, getUserPlaylists, updatePlaylist, deletePlaylist, deleteManyPlaylists };

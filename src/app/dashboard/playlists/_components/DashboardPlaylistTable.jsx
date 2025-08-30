@@ -21,8 +21,8 @@ const DashboardPlaylistTable = ({ playlists }) => {
         selectedIds={selectedIds}
       />
 
-      <ScrollArea className="h-[calc(100vh-140px)]   border ">
-        <Table className="w-full ">
+      <ScrollArea className="h-[calc(100vh-140px)]   border overflow-x-auto">
+        <Table className="w-full min-w-max">
           <TableHeader className=" h-[55px] *:text-base  *:dark:text-white *:font-medium   bg-dark-bg">
             <TableRow>
               <TableHead className="pl-4">
@@ -33,7 +33,7 @@ const DashboardPlaylistTable = ({ playlists }) => {
                   }
                 />
               </TableHead>
-              <TableHead className="pl-6">Status </TableHead>
+              <TableHead>Status </TableHead>
               <TableHead>Visibility</TableHead>
               <TableHead>Playlist Name</TableHead>
               <TableHead>Owner</TableHead>
@@ -42,7 +42,7 @@ const DashboardPlaylistTable = ({ playlists }) => {
               <TableHead></TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody className="!overflow-x-auto">
             {playlists?.length > 0 ? (
               playlists?.map((playlist, ind) => (
                 <PlaylistTableRow

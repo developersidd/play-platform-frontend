@@ -3,7 +3,7 @@ import { getVideos } from "@/api/video.api";
 import MyChannelNoVideosFound from "@/app/(navbar-attached-layout)/_components/MyChannelNoVideosFound";
 import NoVideosFound from "@/app/(navbar-attached-layout)/_components/NotFoundVideos";
 import Error from "@/components/common/Error";
-import UploadVideoModal from "@/components/common/video/UploadVideoModal";
+import UploadVideoModal from "@/components/common/video/VideoFormModal";
 import { Button } from "@/components/ui/button";
 import { Play, Plus } from "lucide-react";
 import dynamic from "next/dynamic";

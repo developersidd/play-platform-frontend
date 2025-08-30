@@ -1,5 +1,5 @@
 "use client";
-import CreatePlaylistModal from "@/components/common/playlist/playlist-modal/CreatePlaylistModal";
+import CreatePlaylistModal from "@/components/common/playlist/playlist-modal/PlaylistFormModal";
 import { ModeToggle } from "@/components/theme/ThemeToggler";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
@@ -27,12 +27,12 @@ const NoSSRNotification = dynamic(
 );
 
 const LazyUploadVideoModal = dynamic(() =>
-  import("@/components/common/video/UploadVideoModal")
+  import("@/components/common/video/VideoFormModal")
 );
 
 function DashboardHeader() {
   const { state, dispatch } = useUserContext() || {};
-  console.log("🚀 ~ state:", state)
+  console.log("🚀 ~ state:", state);
   const router = useRouter();
   const { avatar, username } = state || {};
   const { apiClient } = useAxios();
@@ -58,21 +58,22 @@ function DashboardHeader() {
       </div>
       {username && (
         <div className="flex items-center gap-3 md:gap-5 px-4">
-          <div className="hidden md:flex"></div>
-          {pathname === "/dashboard/playlists" && (
-            <CreatePlaylistModal>
-              <Button className="max-md:hidden  rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
-                <Plus className="text-white" /> Playlist
+          <div className="xl:flex hidden items-center gap-2 md:gap-5">
+            {pathname === "/dashboard/playlists" && (
+              <CreatePlaylistModal>
+                <Button className="rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
+                  <Plus className="text-white" /> Playlist
+                </Button>
+              </CreatePlaylistModal>
+            )}
+            <LazyUploadVideoModal key="upload-video">
+              <Button className="rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
+                <Plus className="text-white" /> Upload
               </Button>
-            </CreatePlaylistModal>
-          )}
-          <LazyUploadVideoModal key="upload-video">
-            <Button className="rounded-full bg-secondary text-white hover:bg-secondary dark:bg-dark-bg">
-              <Plus className="text-white" /> Upload
-            </Button>
-          </LazyUploadVideoModal>
-          <ModeToggle />
-          <NoSSRNotification />
+            </LazyUploadVideoModal>
+            <ModeToggle />
+            <NoSSRNotification />
+          </div>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

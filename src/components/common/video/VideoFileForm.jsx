@@ -1,7 +1,7 @@
 import { Upload } from "lucide-react";
 import { FormControl, FormField, FormItem, FormMessage } from "../../ui/form";
 
-const UploadVideoForm = ({
+const VideoFileForm = ({
   form,
   videoFile,
   setVideoFile,
@@ -72,4 +72,4 @@ const UploadVideoForm = ({
   );
 };
 
-export default UploadVideoForm;
+export default VideoFileForm;

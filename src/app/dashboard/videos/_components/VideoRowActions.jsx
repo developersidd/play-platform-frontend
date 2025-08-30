@@ -21,7 +21,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 const LazyUploadVideoModal = lazy(() =>
-  import("@/components/common/video/UploadVideoModal")
+  import("@/components/common/video/VideoFormModal")
 );
 const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
   const { apiClient } = useAxios();

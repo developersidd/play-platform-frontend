@@ -24,7 +24,7 @@ const sortingOptions = [
   { value: "createdAt", label: "Date" },
 ];
 
-const VideosTableHeader = ({ selectedIds, onCheckboxChange }) => {
+const VideosTableHeader = ({ selectedIds, onCheckboxChange, totalVideos }) => {
   const { setValue, getValue } = useQueryParam();
   const [search, setSearch] = useState(getValue("search") || "");
   const [filterField, setFilterField] = useState(getValue("sortBy") || "title");
@@ -65,6 +65,7 @@ const VideosTableHeader = ({ selectedIds, onCheckboxChange }) => {
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between py-4">
         {/* Search */}
         <div className="relative w-full md:max-w-[300px]">
+          {/*  show totalVideos as badge inside searchbar */}
           <Input
             placeholder="Search videos..."
             value={search}
@@ -91,6 +92,9 @@ const VideosTableHeader = ({ selectedIds, onCheckboxChange }) => {
 
         {/* Filters */}
         <div className="flex flex-wrap gap-2">
+          <Button variant="secondary">
+            Total videos: <span className="font-bold">{totalVideos}</span>
+          </Button>
           {/*  delete many videos */}
           {selectedIds?.length > 0 && (
             <Button

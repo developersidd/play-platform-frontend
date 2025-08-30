@@ -37,8 +37,8 @@ const VideosTableRow = ({ video, onCheckboxChange, selectedIds }) => {
         isVideoPublished={isVideoPublished}
         setIsVideoPublished={setIsVideoPublished}
       />
-      <TableCell className="w-[450px]">
-        <div className="flex items-center gap-4 ">
+      <TableCell className="w-[550px] min-w-[370px] ">
+        <div className="flex flex-1 w-full items-center gap-4 ">
           <Image
             width={100}
             height={300}
@@ -52,7 +52,7 @@ const VideosTableRow = ({ video, onCheckboxChange, selectedIds }) => {
         </div>
       </TableCell>
       {/* show owner avatar and username */}
-      <TableCell className="pl-5">
+      <TableCell className="w-[230px] min-w-[200px] pl-5">
         <div className="flex items-center gap-4">
           <Image
             width={100}
@@ -64,14 +64,14 @@ const VideosTableRow = ({ video, onCheckboxChange, selectedIds }) => {
           <span className="font-semibold">{ownerUsername}</span>
         </div>
       </TableCell>
-      <TableCell>
+      <TableCell className="w-[150px] min-w-[170px]">
         {/* style for views */}
         <span className="inline-block rounded-xl bg-blue-200 px-1.5 py-0.5 text-blue-700">
           {views?.toLocaleString()} views
         </span>
       </TableCell>
 
-      <TableCell>
+      <TableCell className="w-[150px] min-w-[200px]">
         <div className="flex gap-4">
           <span className="inline-block rounded-xl bg-green-200 px-1.5 py-0.5 text-green-700">
             {likes?.toLocaleString()} likes
@@ -81,7 +81,8 @@ const VideosTableRow = ({ video, onCheckboxChange, selectedIds }) => {
           </span>
         </div>
       </TableCell>
-      <TableCell>{moment(createdAt).format("Do MMM YYYY")}</TableCell>
+      <TableCell className="w-[150px] min-w-[160px]">
+        {moment(createdAt).format("Do MMM YYYY")}</TableCell>
       <VideoRowActions
         isVideoPublished={isVideoPublished}
         title={title}

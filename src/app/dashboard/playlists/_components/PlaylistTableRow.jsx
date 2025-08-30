@@ -20,7 +20,7 @@ const PlaylistTableRow = ({ playlist, onCheckboxChange, selectedIds }) => {
 
   return (
     <TableRow className=" h-[70px]">
-      <TableCell className="pl-4">
+      <TableCell className="pl-4 w-[100px] min-w-[80px]">
         <Checkbox
           onCheckedChange={(checked) =>
             onCheckboxChange(checked, "single", _id)
@@ -35,12 +35,12 @@ const PlaylistTableRow = ({ playlist, onCheckboxChange, selectedIds }) => {
         setIsPrivate={setIsPrivate}
       />
 
-      <TableCell>
+      <TableCell className="w-[300px] min-w-[260px]">
         <h3 className="font-semibold">
           {name?.length > 90 ? name?.slice(0, 90) + "..." : name}
         </h3>
       </TableCell>
-      <TableCell>
+      <TableCell className="w-[200px] min-w-[180px]">
         <div className="flex items-center gap-4">
           <Image
             width={100}
@@ -52,13 +52,14 @@ const PlaylistTableRow = ({ playlist, onCheckboxChange, selectedIds }) => {
           <span className="font-semibold">{ownerUsername}</span>
         </div>
       </TableCell>
-      <TableCell>
+      <TableCell className="w-[100px] min-w-[80px]">
         <span className="inline-block rounded-xl bg-blue-200 px-2 py-0.5 text-blue-700">
           {videos?.length?.toLocaleString()}
         </span>
       </TableCell>
 
-      <TableCell>{moment(createdAt).format("Do MMM YYYY")}</TableCell>
+      <TableCell className="w-[150px] min-w-[150px]">
+        {moment(createdAt).format("Do MMM YYYY")}</TableCell>
       <PlaylistRowActions isPrivate={isPrivate} name={name} playlistId={_id} />
     </TableRow>
   );

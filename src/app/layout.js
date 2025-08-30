@@ -6,7 +6,7 @@ import { Nunito } from "next/font/google";
 import { cookies } from "next/headers";
 import "./globals.css";
 //import "./theme.css";
-import TanstackClientProvider from "@/components/common/tanstack/TanstackClientProvider";
+import TanstackClientProvider from "@/providers/TanstackClientProvider";
 import UserInitializer from "@/components/User-initializer/UserInitializer";
 import NextTopLoader from "nextjs-toploader";
 const nunito = Nunito({
@@ -55,7 +55,7 @@ export default async function RootLayout({ children }) {
       </head>
       <body
         className={cn(
-          "bg-background overflow-hidden overscroll-none font-sans antialiased",
+          "bg-background overflow-x-hidden overscroll-none font-sans antialiased",
           activeThemeValue ? `theme-${activeThemeValue}` : "",
           isScaled ? "theme-scaled" : "",
           nunito.variable

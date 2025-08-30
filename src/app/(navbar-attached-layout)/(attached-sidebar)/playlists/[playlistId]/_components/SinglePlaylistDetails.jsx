@@ -1,8 +1,8 @@
 import { formatCounting } from "@/lib/utils";
 import { Pencil } from "lucide-react";
 import moment from "moment";
-import CreatePlaylistModal from "../../../../../../components/common/playlist/playlist-modal/CreatePlaylistModal";
 import Image from "next/image";
+import CreatePlaylistModal from "../../../../../../components/common/playlist/playlist-modal/PlaylistFormModal";
 
 const SinglePlaylistDetails = ({ isPlaylistOwner, playlistInfo }) => {
   const {
@@ -14,7 +14,7 @@ const SinglePlaylistDetails = ({ isPlaylistOwner, playlistInfo }) => {
     totalVideos,
     _id,
   } = playlistInfo || {};
-  const { thumbnail = {}, title } = video || {}
+  const { thumbnail = {}, title } = video || {};
   return (
     <div className="w-full shrink-0 sm:max-w-md xl:max-w-lg">
       <div className="relative mb-2 w-full pt-[56%]">

@@ -14,7 +14,7 @@ const DashboardPlaylistsPage = async ({ searchParams }) => {
   console.log("🚀 ~ data:", data);
 
   return (
-    <section className="px-8">
+    <section className="px-8 !overflow-x-hidden">
       <DashboardPlaylistTable playlists={data} />
     </section>
   );

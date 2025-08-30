@@ -22,7 +22,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const LazyUploadPlaylistModal = lazy(() =>
-  import("@/components/common/playlist/playlist-modal/CreatePlaylistModal")
+  import("@/components/common/playlist/playlist-modal/PlaylistFormModal")
 );
 const PlaylistRowActions = ({ playlistId, name, isPrivate }) => {
   const router = useRouter();
@@ -52,7 +52,7 @@ const PlaylistRowActions = ({ playlistId, name, isPrivate }) => {
   };
 
   return (
-    <TableCell>
+    <TableCell className="justify-end w-[9%]">
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-4 w-8 p-0">

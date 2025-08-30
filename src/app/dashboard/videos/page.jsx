@@ -2,10 +2,10 @@ import { retrieveCurrentUser } from "@/api/user.api";
 import { getVideos } from "@/api/video.api";
 import DashboardVideosTable from "./_components/DashboardVideosTable";
 const DashboardVideosPage = async ({ searchParams }) => {
-  const { page, limit, search, status, sortOrder, sortBy } = searchParams || {};
+  const { page, limit, search, status, sortOrder, sortBy } = await searchParams || {};
   console.log(" searchParams:", searchParams);
   const { data: { username } = {} } = (await retrieveCurrentUser()) || {};
-  const { data: { totalPages, videos } = {}, data } = await getVideos({
+  const { data: { totalPages, videos, totalVideos } = {}, data } = await getVideos({
     page: page || 1,
     limit: limit || 20,
     username,
@@ -19,7 +19,7 @@ const DashboardVideosPage = async ({ searchParams }) => {
   console.log(" data:", data);
   return (
     <section className="px-8  ">
-      <DashboardVideosTable totalPages={totalPages} videos={videos} />
+      <DashboardVideosTable totalVideos={totalVideos} totalPages={totalPages} videos={videos} />
     </section>
   );
 };

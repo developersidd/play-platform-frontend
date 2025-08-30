@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { logout } from "@/api/auth.api";
-import CreatePlaylistModal from "@/components/common/playlist/playlist-modal/CreatePlaylistModal";
+import CreatePlaylistModal from "@/components/common/playlist/playlist-modal/PlaylistFormModal";
 import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
 import Search from "./Search";
@@ -31,7 +31,7 @@ const LazyNotification = dynamic(
 );
 
 const LazyUploadVideoModal = dynamic(() =>
-  import("@/components/common/video/UploadVideoModal")
+  import("@/components/common/video/VideoFormModal")
 );
 
 export const Navbar = () => {

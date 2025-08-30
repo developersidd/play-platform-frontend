@@ -1,6 +1,21 @@
 "use server";
 import { apiClient, fetchWithAuth } from ".";
 
+// get monthly subscription growth
+const getMonthlySubscriptionGrowth = async () => {
+  try {
+    const res = await fetchWithAuth(`/subscriptions/growth`);
+    return {
+      data: res?.data,
+    };
+  } catch (error) {
+    return {
+      error: error.message,
+    };
+  }
+};
+
+// get channel subscribers
 const getChannelSubscribers = async (channelId) => {
   try {
     const res = await apiClient.get(`/subscriptions/u/${channelId}`);
@@ -27,7 +42,7 @@ const getUserSubscribedChannels = async (channelName, queries) => {
       data: res?.data,
     };
   } catch (error) {
-    console.log("🚀 ~ getUserSubscribedChannels ~ error:", error)
+    console.log("🚀 ~ getUserSubscribedChannels ~ error:", error);
     return {
       error: error.message,
     };
@@ -54,4 +69,5 @@ export {
   checkUserSubscription,
   getChannelSubscribers,
   getUserSubscribedChannels,
+  getMonthlySubscriptionGrowth
 };

@@ -1,3 +1,4 @@
+"use client";
 import { EyeIcon, Heart, HeartOff, Play, User } from "lucide-react";
 
 const statsData = [
