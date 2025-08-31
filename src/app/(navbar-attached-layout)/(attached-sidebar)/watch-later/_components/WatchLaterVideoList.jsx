@@ -42,7 +42,7 @@ const WatchLaterVideoList = ({ dbVideos }) => {
         router.refresh();
         toast.success("Videos reordered successfully");
       })
-      .catch((e) => {
+      .catch(() => {
         //console.log(" e:", e);
         toast.error("Error reordering videos");
       });

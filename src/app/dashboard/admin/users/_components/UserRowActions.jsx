@@ -22,7 +22,7 @@ const UserRowActions = ({ username, userId }) => {
   const handleDeleteUser = async () => {
     try {
       setOpenDeleteAlert(false);
-      const res = await apiClient.delete(`/users/${userId}`);
+      await apiClient.delete(`/users/${userId}`);
       //console.log(" res:", res);
       router.refresh();
       toast.success("User deleted successfully");

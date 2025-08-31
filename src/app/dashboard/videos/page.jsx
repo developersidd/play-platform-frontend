@@ -6,7 +6,7 @@ const DashboardVideosPage = async ({ searchParams }) => {
     (await searchParams) || {};
   //console.log(" searchParams:", searchParams);
   const { data: { username } = {} } = (await retrieveCurrentUser()) || {};
-  const { data: { totalPages, videos, totalVideos } = {}, data } =
+  const { data: { totalPages, videos, totalVideos } = {} } =
     await getVideos({
       page: page || 1,
       limit: limit || 20,

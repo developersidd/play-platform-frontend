@@ -36,7 +36,7 @@ const VideoActions = ({
         toast.success("Video removed from watch later!");
         return;
       }
-      const res = await apiClient.patch(`/watch-later/v/${videoId}/add`);
+      await apiClient.patch(`/watch-later/v/${videoId}/add`);
       //console.log(" res:", res);
     } catch (error) {
       toast.error(

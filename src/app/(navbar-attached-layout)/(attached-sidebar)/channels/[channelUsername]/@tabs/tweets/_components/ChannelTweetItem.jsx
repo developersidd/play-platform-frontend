@@ -45,7 +45,7 @@ const ChannelTweetItem = ({ tweet, isOwner, setTweetToEdit }) => {
     if (!isOwner) return;
     setIsDeleted(true);
     try {
-      const res = await apiClient.delete(`/tweets/${_id}`);
+       await apiClient.delete(`/tweets/${_id}`);
       toast.success("Tweet Deleted successfully");
       //console.log("res:", res);
     } catch (error) {

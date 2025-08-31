@@ -34,14 +34,14 @@ const CreateTweet = ({ isOwner, tweetToEdit, setTweetToEdit }) => {
     setIsSubmitting(true);
     try {
       if (isEditing) {
-        const res = await apiClient.patch(`/tweets/${tweetToEdit.tweetId}`, {
+        await apiClient.patch(`/tweets/${tweetToEdit.tweetId}`, {
           content: tweet,
         });
         //console.log("res:", res);
         setTweetToEdit(null);
         toast.success("Tweet updated successfully");
       } else {
-        const res = await apiClient.post(`/tweets`, { content: tweet });
+         await apiClient.post(`/tweets`, { content: tweet });
         toast.success("Tweet created successfully");
         //console.log("res:", res);
       }

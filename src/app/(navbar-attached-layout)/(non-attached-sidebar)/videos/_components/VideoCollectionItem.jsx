@@ -14,7 +14,7 @@ const VideoCollectionItem = ({ isSaved, collection, videoId }) => {
   const throttleAddRemoveVideoInPlaylist = useThrottle(async (value) => {
     //console.log("throttled", value);
     try {
-      const res = await apiClient.patch(
+       await apiClient.patch(
         `/playlists/${_id}/v/${videoId}/toggle`,
         {
           value,

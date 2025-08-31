@@ -55,7 +55,7 @@ const EditChannelInfoForm = () => {
   async function onSubmit(data) {
     //console.log("data:", data);
     try {
-      const response = await apiClient.patch("/users/update-account", data);
+      await apiClient.patch("/users/update-account", data);
       toast.success("Channel updated successfully!");
       //console.log("response:", response);
       router.refresh();

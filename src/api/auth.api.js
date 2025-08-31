@@ -18,7 +18,6 @@ const refreshAccessToken = async () => {
     ////console.log("🚀 ~ cookieStore:", cookieStore);
     const refreshToken = await getRefreshToken();
     ////console.log(" refreshToken:", refreshToken)
-    const accessToken = await getAccessToken();
     //console.log("🚀 ~ accessToken:", accessToken)
     if (!refreshToken) {
       return null;

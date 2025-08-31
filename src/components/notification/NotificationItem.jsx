@@ -24,7 +24,7 @@ const NotificationItem = ({ item }) => {
   const handleDeleteNotification = async () => {
     setIsHide(true);
     try {
-      const res = await apiClient.delete(`/notifications/${_id}`);
+      await apiClient.delete(`/notifications/${_id}`);
       router.refresh();
       //console.log(" res:", res.data);
     } catch (error) {

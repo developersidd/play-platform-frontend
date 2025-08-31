@@ -36,29 +36,12 @@ export async function fetchWithAuth(url, options = {}) {
       options._retry = true;
       try {
         //console.log("Calling refreshAccessToken()")
-        const { data } = (await refreshAccessToken()) || {};
-        //console.log("data from refresh:", data);
-        //if(!data?.success) {
-        //  //console.log("Failed to refresh access token");
-        //  throw new Error("Failed to refresh access token");
-        //}
-        const newAccessToken = data?.data?.accessToken;
-        //console.log(" newAccessToken:", newAccessToken)
-        //// Retry the original request with the new token
-        //console.log("🚀 ~ url:", url)
-        //await apiClient({
-        //  ...options,
-        //  url,
-        //  headers: {
-        //    ...options.headers,
-        //    Authorization: `Bearer ${newAccessToken}`,
-        //  },
-        //});
+         (await refreshAccessToken()) || {};
       } catch (refreshError) {
         //console.log(" refreshError:", refreshError)
-        //console.log(
-          "Session expired or there was error refreshing token. Please log in again."
-        );
+        ////console.log(
+        //  "Session expired or there was error refreshing token. Please log in again."
+        //);
       }
     }
     throw error; // If it's another error, rethrow it

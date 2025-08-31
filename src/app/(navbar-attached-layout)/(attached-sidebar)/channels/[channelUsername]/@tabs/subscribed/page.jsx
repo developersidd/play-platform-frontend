@@ -3,7 +3,7 @@ import SubscribedChannelList from "./_components/SubscribedChannelList";
 
 const SubscribedChannelsPage = async ({ params, searchParams: { search } }) => {
   const { channelUsername } = await params;
-  const { data: { totalSubscribedChannels, subscribedChannels } = {}, data } =
+  const { data: { totalSubscribedChannels, subscribedChannels } = {} } =
     (await getUserSubscribedChannels(channelUsername, {
       search,
     })) || {};

@@ -2,7 +2,7 @@ import { getAllUsers } from "@/api/user.api";
 import DashboardUsersTable from "./_components/DashboardUsersTable";
 const AdminUsersPage = async ({ searchParams }) => {
   const { page, limit, search, sortOrder, sortBy } = searchParams || {};
-  const { data: { totalPages, users } = {}, data } = await getAllUsers({
+  const { data: { totalPages, users } = {} } = await getAllUsers({
     page: page || 1,
     limit: limit || 20,
     q: search || "",

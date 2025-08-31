@@ -62,7 +62,7 @@ const EditPersonalInfoForm = () => {
   const { isSubmitting } = form.formState;
   async function onSubmit(data) {
     try {
-      const response = await apiClient.patch("/users/update-account", data);
+      await apiClient.patch("/users/update-account", data);
       toast.success("Account updated successfully!");
       //console.log("response:", response);
       router.refresh();

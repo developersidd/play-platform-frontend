@@ -75,7 +75,7 @@ const ChangePasswordForm = () => {
       return;
     }
     try {
-      const response = await apiClient.post("/users/change-password", {
+      await apiClient.post("/users/change-password", {
         currentPassword,
         newPassword,
       });

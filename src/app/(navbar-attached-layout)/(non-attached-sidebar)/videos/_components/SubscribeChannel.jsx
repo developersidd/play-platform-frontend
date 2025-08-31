@@ -19,7 +19,7 @@ const SubscribeChannel = ({ channelId, isSubscribed, animation = false }) => {
     }
     setSubscribed((prev) => !prev);
     try {
-      const res = await apiClient.post(`/subscriptions/c/${channelId}`);
+      await apiClient.post(`/subscriptions/c/${channelId}`);
       //console.log("🚀 ~ res subscription:", res.data)
       router.refresh();
     } catch (error) {

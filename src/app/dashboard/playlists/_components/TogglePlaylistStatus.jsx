@@ -11,7 +11,7 @@ const ToggleVideoStatus = ({ isPrivate, setIsPrivate, playlistId }) => {
 
   const handleDebouncedToggle = useDebounce(async (value) => {
     try {
-      const res = await updatePlaylist(playlistId, {
+      await updatePlaylist(playlistId, {
         isPrivate: value,
       });
       //console.log("🚀 ~ res:", res)

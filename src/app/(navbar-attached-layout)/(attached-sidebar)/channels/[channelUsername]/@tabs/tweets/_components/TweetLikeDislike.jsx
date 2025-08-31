@@ -22,7 +22,7 @@ const TweetLikeDislike = ({ tweetId, likeData, dislikeData }) => {
   // Like Api
   const likeApi = async () => {
     try {
-      const res = await apiClient.post(`/likes/toggle/t/${tweetId}`);
+      await apiClient.post(`/likes/toggle/t/${tweetId}`);
       ////console.log("res:", res);
       //console.log("res:", res);
       router.refresh();
@@ -35,7 +35,7 @@ const TweetLikeDislike = ({ tweetId, likeData, dislikeData }) => {
   // Dislike Api
   const dislikeApi = async () => {
     try {
-      const res = await apiClient.post(`/dislikes/toggle/t/${tweetId}`);
+      await apiClient.post(`/dislikes/toggle/t/${tweetId}`);
       router.refresh();
       //console.log("res:", res);
     } catch (error) {
