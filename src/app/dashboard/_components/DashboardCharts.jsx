@@ -13,9 +13,15 @@ const mockEngagementData = [
     value: 0,
     color: "#3b82f6",
   },
-  { name: "Tweets", propName: "tweetsCount", value: 0, color: "#8b5cf6" },
+  {
+    name: "Subscribers",
+    propName: "subscribersCount",
+    value: 0,
+    color: "#8b5cf6",
+  },
 ];
 const DashboardCharts = ({ engagementData, subscriptionData }) => {
+  //console.log("🚀 ~ engagementData:", engagementData)
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -27,11 +33,11 @@ const DashboardCharts = ({ engagementData, subscriptionData }) => {
     return mockEngagementData.map((item) => {
       return {
         ...item,
-        value: engagementData[item.propName] || 0,
+        value: (engagementData || {})[item.propName] || 0,
       };
     });
   }, [engagementData]);
-  
+
   if (!isClient) {
     return (
       <div className="flex h-[50vh] w-full items-center justify-center">

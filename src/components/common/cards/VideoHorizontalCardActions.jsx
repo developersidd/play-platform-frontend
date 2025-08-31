@@ -29,7 +29,7 @@ const VideoHorizontalCardActions = ({ videoId, classes }) => {
         return;
       }
       const res = await apiClient.patch(`/watch-later/v/${videoId}/add`);
-      console.log(" res:", res);
+      //console.log(" res:", res);
     } catch (error) {
       toast.error("Failed to add video in watch later!");
     }
@@ -39,7 +39,12 @@ const VideoHorizontalCardActions = ({ videoId, classes }) => {
   }
   return (
     <>
-      <div className={cn("absolute flex items-center top-2 right-8 p-2 pt-0", classes)}>
+      <div
+        className={cn(
+          "absolute flex items-center top-2 right-8 p-2 pt-0",
+          classes
+        )}
+      >
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <button className="outline-none">

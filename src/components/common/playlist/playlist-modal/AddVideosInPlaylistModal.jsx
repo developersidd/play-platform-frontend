@@ -16,7 +16,7 @@ const AddVideosInPlaylistModal = ({
 
   const debounceHandler = useDebounce((value) => {
     setDebounceSearchQuery(value);
-    console.log("debounced");
+    //console.log("debounced");
   }, 500);
 
   const handleSearch = (e) => {

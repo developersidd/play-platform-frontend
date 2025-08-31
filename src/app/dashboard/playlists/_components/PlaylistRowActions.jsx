@@ -36,7 +36,7 @@ const PlaylistRowActions = ({ playlistId, name, isPrivate }) => {
       router.refresh();
       toast.success("Playlist deleted successfully");
     } catch (e) {
-      console.log(" e:", e);
+      //console.log(" e:", e);
       toast.error("There was an error occurred");
     }
   };

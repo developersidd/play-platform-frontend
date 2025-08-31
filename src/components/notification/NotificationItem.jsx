@@ -26,7 +26,7 @@ const NotificationItem = ({ item }) => {
     try {
       const res = await apiClient.delete(`/notifications/${_id}`);
       router.refresh();
-      console.log(" res:", res.data);
+      //console.log(" res:", res.data);
     } catch (error) {
       toast.error("Failed to delete notification");
       setIsHide(false);
@@ -39,7 +39,7 @@ const NotificationItem = ({ item }) => {
       await apiClient.patch(`/subscriptions/off-notification/${channelId}`);
       toast.success("Notification Preference Updated");
     } catch (error) {
-      console.log(" error:", error);
+      //console.log(" error:", error);
       toast.error("Failed to turn off notification");
     }
   };

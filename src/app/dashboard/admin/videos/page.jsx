@@ -12,7 +12,7 @@ const DashboardVideosPage = async ({ searchParams }) => {
     sortBy: sortBy || "createdAt",
     expandQuery: true,
   });
-  console.log(" data:", JSON.stringify(videos[0], null, 2));
+  //console.log(" data:", JSON.stringify(videos[0], null, 2));
   return (
     <section className="px-8  ">
       <DashboardVideosTable totalPages={totalPages} videos={videos} />

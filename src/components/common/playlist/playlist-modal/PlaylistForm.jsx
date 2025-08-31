@@ -71,7 +71,7 @@ const PlaylistForm = ({ playlistId, isEditing }) => {
       try {
         const { data } = await getPlaylistById(playlistId);
         const { name, description, isPrivate, videos } = data;
-        console.log("🚀 ~ data in:", data);
+        //console.log("🚀 ~ data in:", data);
         if (data) {
           reset({
             name,
@@ -89,7 +89,7 @@ const PlaylistForm = ({ playlistId, isEditing }) => {
           );
         }
       } catch (e) {
-        console.log(" e:", e);
+        //console.log(" e:", e);
         toast.error("Error fetching playlist");
       }
     };
@@ -104,7 +104,7 @@ const PlaylistForm = ({ playlistId, isEditing }) => {
     }
     setShowUploadModal(false);
     try {
-      console.log(" form data:", data);
+      //console.log(" form data:", data);
       //return null
       if (isEditing) {
         // edit playlist
@@ -112,7 +112,7 @@ const PlaylistForm = ({ playlistId, isEditing }) => {
           ...data,
           videos: videosToUpdate,
         });
-        console.log(" response:", response);
+        //console.log(" response:", response);
         if (response.status === 200) {
           toast.success("Playlist updated successfully!");
 
@@ -128,7 +128,7 @@ const PlaylistForm = ({ playlistId, isEditing }) => {
         }
       }
     } catch (e) {
-      console.log(" e:", e);
+      //console.log(" e:", e);
       toast.error("There was an error occurred!");
     }
   }

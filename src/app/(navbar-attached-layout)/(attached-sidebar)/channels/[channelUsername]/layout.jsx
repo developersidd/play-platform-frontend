@@ -5,7 +5,7 @@ import ChannelMenu from "./@tabs/_components/ChannelMenu";
 
 const ChannelLayout = async ({ tabs, params }) => {
   const { data: user } = await retrieveCurrentUser();
-  console.log(" user:", user)
+  //console.log(" user:", user)
   const { channelUsername } = await params;
   const { data: channel } = await getChannelByUsername(
     channelUsername,

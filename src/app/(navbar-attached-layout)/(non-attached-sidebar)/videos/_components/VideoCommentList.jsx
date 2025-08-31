@@ -17,7 +17,7 @@ const VideoCommentList = async ({ videoId }) => {
   } else if (comments?.length === 0) {
     content = <p className="text-white">No comments yet</p>;
   } else if (!hasNextPage) {
-    console.log("comments nesxt page false", comments);
+    //console.log("comments nesxt page false", comments);
     content = comments.map((item) => (
       <VideoCommentItem key={item?._id} item={item} />
     ));

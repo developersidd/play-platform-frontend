@@ -13,7 +13,7 @@ const LazyInfiniteVideos = dynamic(() =>
 const ChannelVideosPage = async ({ params }) => {
   const { channelUsername } = await params;
   const { data: user } = await retrieveCurrentUser();
-  const { data: { videos } = {}, error } =
+  const { data, data: { videos } = {}, error } =
     (await getVideos({
       limit: 10,
       username: channelUsername,
@@ -40,7 +40,7 @@ const ChannelVideosPage = async ({ params }) => {
             </UploadVideoModal>
           </div>
         )}
-        <LazyInfiniteVideos />;
+        <LazyInfiniteVideos initialData={data} />
       </>
     );
   } else if (isMyChannel && videos?.length !== 0) {

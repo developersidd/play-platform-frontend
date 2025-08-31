@@ -2,7 +2,7 @@ import { DropdownMenuLabel } from "../ui/dropdown-menu";
 import { ScrollArea } from "../ui/scroll-area";
 import NotificationItem from "./NotificationItem";
 const NotificationContent = ({ notifications, onClose }) => {
-  console.log("NotificationContent rendered with notifications:");
+  //console.log("NotificationContent rendered with notifications:");
   return (
     <div>
       <DropdownMenuLabel className="border-b py-2">

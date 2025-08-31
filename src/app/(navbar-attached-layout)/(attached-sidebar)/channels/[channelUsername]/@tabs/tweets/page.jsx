@@ -12,7 +12,7 @@ const ChannelTweetsPage = async ({ params }) => {
   if (error) {
     throw new Error(error);
   }
-  //console.log("tweets:", JSON.stringify(tweets, null, 2));
+  ////console.log("tweets:", JSON.stringify(tweets, null, 2));
   const isOwner = channelUsername === username;
 
   return (

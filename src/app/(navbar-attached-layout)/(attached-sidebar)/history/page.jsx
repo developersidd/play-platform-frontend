@@ -7,7 +7,7 @@ import HistoryVideoCard from "./_components/HistoryVideoCard";
 const HistoryPage = async ({ searchParams }) => {
   const { search } = await searchParams;
   const userHistory = await getUserHistory(search);
-  console.log(
+  //console.log(
     "🚀 ~ HistoryPage ~ userHistory:",
     JSON.stringify(userHistory, null, 2)
   );

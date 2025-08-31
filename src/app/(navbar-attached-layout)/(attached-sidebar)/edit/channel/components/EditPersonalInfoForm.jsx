@@ -64,7 +64,7 @@ const EditPersonalInfoForm = () => {
     try {
       const response = await apiClient.patch("/users/update-account", data);
       toast.success("Account updated successfully!");
-      console.log("response:", response);
+      //console.log("response:", response);
       router.refresh();
     } catch (e) {
       toast.error("There was an error occurred!");

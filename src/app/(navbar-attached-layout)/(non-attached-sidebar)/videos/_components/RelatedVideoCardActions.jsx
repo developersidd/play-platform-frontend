@@ -29,7 +29,7 @@ const RelatedVideoCardActions = ({ videoId }) => {
         return;
       }
       const res = await apiClient.patch(`/watch-later/v/${videoId}/add`);
-      console.log(" res:", res);
+      //console.log(" res:", res);
     } catch (error) {
       toast.error(
         `Failed to ${
@@ -51,7 +51,7 @@ const RelatedVideoCardActions = ({ videoId }) => {
     setIsModalOpen(true);
     setIsDropdownOpen(false);
   };
-  
+
   return (
     <>
       <div className="absolute flex items-center top-1 right-2">

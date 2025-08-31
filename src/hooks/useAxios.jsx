@@ -6,14 +6,15 @@ import { useEffect } from "react";
 import useUserContext from "./useUserContext";
 
 const useAxios = () => {
-  const {
-    state: { tokens } = {},
-    dispatch,
-  } = useUserContext();
-  const accessToken = tokens?.accessToken || (typeof window !== "undefined" && localStorage.getItem("accessToken"));
-  const refreshToken = tokens?.refreshToken || (typeof window !== "undefined" && localStorage.getItem("refreshToken"));
-  //console.log(" refreshToken:", refreshToken)
-  //console.log(" accessToken from useAxios:", accessToken);
+  const { state: { tokens } = {}, dispatch } = useUserContext();
+  const accessToken =
+    tokens?.accessToken ||
+    (typeof window !== "undefined" && localStorage.getItem("accessToken"));
+  const refreshToken =
+    tokens?.refreshToken ||
+    (typeof window !== "undefined" && localStorage.getItem("refreshToken"));
+  ////console.log(" refreshToken:", refreshToken)
+  ////console.log(" accessToken from useAxios:", accessToken);
   useEffect(() => {
     // request interceptor
     apiClient.interceptors.request.use(
@@ -31,33 +32,30 @@ const useAxios = () => {
     );
     // response interceptor
     apiClient.interceptors.response.use(undefined, async (error) => {
-      console.log("error in response interceptor:", error);
+      //console.log("error in response interceptor:", error);
       const originalRequest = error?.config;
       if (
         refreshToken &&
         error?.response?.status === 401 &&
         !originalRequest._retry
       ) {
-        console.log("Refreshing access token...");
+        //console.log("Refreshing access token...");
         originalRequest._retry = true;
         try {
-          const response = await fetch(
-            `/api/auth/refresh-token`,
-            {
-              method: "POST",
-              credentials: "include",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${accessToken}`,
-              },
-              body: JSON.stringify({ refreshToken, accessToken }),
-            }
-          );
+          const response = await fetch(`/api/auth/refresh-token`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify({ refreshToken, accessToken }),
+          });
           const data = await response.json();
-          console.log("refresh token response:", data);
+          //console.log("refresh token response:", data);
           if (response.status === 200 || response.ok) {
-            console.log("Access Token Refreshed");
-            console.log("response.data refrehstoken", data.data);
+            //console.log("Access Token Refreshed");
+            //console.log("response.data refrehstoken", data.data);
             const newTokens = data?.data || {};
             originalRequest.headers[
               "Authorization"
@@ -70,8 +68,8 @@ const useAxios = () => {
             return Promise.reject(error);
           }
         } catch (error) {
-          console.log("error in refresh token:", error);
-          //console.log("error:", error);
+          //console.log("error in refresh token:", error);
+          ////console.log("error:", error);
           return Promise.reject(error);
         }
       } else {

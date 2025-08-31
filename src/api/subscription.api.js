@@ -37,12 +37,12 @@ const getUserSubscribedChannels = async (channelName, queries) => {
   }
   try {
     const res = await fetchWithAuth(url);
-    console.log("sss res:", res);
+    //console.log("sss res:", res);
     return {
       data: res?.data,
     };
   } catch (error) {
-    console.log("🚀 ~ getUserSubscribedChannels ~ error:", error);
+    //console.log("🚀 ~ getUserSubscribedChannels ~ error:", error);
     return {
       error: error.message,
     };
@@ -53,7 +53,7 @@ const getUserSubscribedChannels = async (channelName, queries) => {
 const checkUserSubscription = async (channelId) => {
   try {
     const res = await fetchWithAuth(`/subscriptions/status/c/${channelId}`);
-    //console.log("res:", res);
+    ////console.log("res:", res);
     return {
       data: res.data,
     };
@@ -68,6 +68,6 @@ const checkUserSubscription = async (channelId) => {
 export {
   checkUserSubscription,
   getChannelSubscribers,
+  getMonthlySubscriptionGrowth,
   getUserSubscribedChannels,
-  getMonthlySubscriptionGrowth
 };

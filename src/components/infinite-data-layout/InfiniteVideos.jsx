@@ -8,8 +8,8 @@ import { useMemo } from "react";
 import { Virtuoso, VirtuosoGrid } from "react-virtuoso";
 import Error from "../common/Error";
 
-const InfiniteVideos = ({ queries, layout = "grid" }) => {
-  const { page: pageNum = 1, limit = 20, ...restQueries } = queries || {};
+const InfiniteVideos = ({ queries, layout = "grid", initialData }) => {
+  const { page: pageNum = initialData ? 2 : 1, limit = 20, ...restQueries } = queries || {};
 
   // TanStack Query infinite query
   const {
@@ -19,7 +19,6 @@ const InfiniteVideos = ({ queries, layout = "grid" }) => {
     isFetchingNextPage,
     isLoading,
     isError,
-    
   } = useInfiniteQuery({
     queryKey: ["videos", { ...restQueries, limit }],
     queryFn: ({ pageParam = pageNum }) =>
@@ -29,15 +28,28 @@ const InfiniteVideos = ({ queries, layout = "grid" }) => {
         ...restQueries,
       }),
     getNextPageParam: (lastPage) => {
-      console.log("🚀 ~ lastPage:", lastPage)
       if (lastPage?.data?.hasNextPage) {
-        return (lastPage?.data?.currentPage || lastPage?.data?.page || pageNum) + 1;
+        return (
+          (lastPage?.data?.currentPage || lastPage?.data?.page || pageNum) + 1
+        );
       }
       return undefined;
     },
     initialPageParam: pageNum,
+    initialData: initialData
+      ? {
+          pages: [
+            {
+              data: {
+                videos: initialData?.videos || [],
+                ...initialData,
+              },
+            },
+          ],
+          pageParams: [1],
+        }
+      : undefined,
   });
-    console.log("🚀 ~ data:", data)
 
   // Flatten all pages data into a single array
   const videos = useMemo(() => {
@@ -75,7 +87,7 @@ const InfiniteVideos = ({ queries, layout = "grid" }) => {
         endReached={endReached}
         itemContent={(_, video) => <layoutConfig.itemComponent video={video} />}
       />
-      
+
       {(isLoading || isFetchingNextPage) && (
         <div className="flex justify-center items-center py-10">
           <Loader size={40} className="animate-spin" />

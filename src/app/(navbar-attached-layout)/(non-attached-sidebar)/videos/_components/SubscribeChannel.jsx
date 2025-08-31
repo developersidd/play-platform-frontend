@@ -19,9 +19,11 @@ const SubscribeChannel = ({ channelId, isSubscribed, animation = false }) => {
     }
     setSubscribed((prev) => !prev);
     try {
-       await apiClient.post(`/subscriptions/c/${channelId}`);
+      const res = await apiClient.post(`/subscriptions/c/${channelId}`);
+      //console.log("🚀 ~ res subscription:", res.data)
       router.refresh();
     } catch (error) {
+      //console.log("🚀 ~ error subscription:", error)
       // Revert the state if the request fails
       setSubscribed(subscribed);
       toast.error("Failed to subscribe to channel");

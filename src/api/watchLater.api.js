@@ -52,7 +52,7 @@ const getWatchLaterVideos = async () => {
 
 // reorder watch later videos
 const reorderWatchLaterVideos = async (updateData) => {
-  console.log(" updateData:", updateData);
+  //console.log(" updateData:", updateData);
   try {
     await fetchWithAuth(`/watch-later/videos/reorder`, {
       method: "PATCH",
@@ -63,7 +63,7 @@ const reorderWatchLaterVideos = async (updateData) => {
       data: "Videos reordered successfully",
     };
   } catch (error) {
-    console.log(" error:", error?.response?.data);
+    //console.log(" error:", error?.response?.data);
     return {
       error: error.message,
     };

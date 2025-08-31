@@ -24,12 +24,9 @@ const LazyNotificationContent = dynamic(() => import("./NotificationContent"), {
 const Notification = () => {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useLocalStorage("unread-count", 0);
-  console.log("Notification component rendered");
+  //console.log("Notification component rendered");
   const { state } = useUserContext() || {};
-  const {
-    tokens: { accessToken } = {},
-    role,
-  } = state || {};
+  const { tokens: { accessToken } = {}, role } = state || {};
   const { apiClient } = useAxios();
   const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);
@@ -62,14 +59,14 @@ const Notification = () => {
     });
     if (accessToken) {
       socket.on("new-notification", (notification) => {
-        console.log("new notification runs", notification);
+        //console.log("new notification runs", notification);
         setNotifications((prev) => [notification, ...prev]);
         setUnreadCount((prev) => prev + 1);
       });
 
       if (role === "ADMIN") {
         socket.on("registration", (report, cb) => {
-          console.log("new registration runs");
+          //console.log("new registration runs");
           setNotifications((prev) => [report, ...prev]);
           setUnreadCount((prev) => prev + 1);
           cb({ success: true });

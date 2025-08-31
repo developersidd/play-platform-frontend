@@ -4,7 +4,7 @@ import { DayPicker } from "react-day-picker";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-console.log("DayPicker:", DayPicker);
+//console.log("DayPicker:", DayPicker);
 function Calendar({ className, classNames, showOutsideDays = true, ...props }) {
   return (
     <DayPicker

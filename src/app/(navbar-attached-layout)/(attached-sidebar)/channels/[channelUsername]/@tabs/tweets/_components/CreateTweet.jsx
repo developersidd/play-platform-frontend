@@ -37,13 +37,13 @@ const CreateTweet = ({ isOwner, tweetToEdit, setTweetToEdit }) => {
         const res = await apiClient.patch(`/tweets/${tweetToEdit.tweetId}`, {
           content: tweet,
         });
-        console.log("res:", res);
+        //console.log("res:", res);
         setTweetToEdit(null);
         toast.success("Tweet updated successfully");
       } else {
         const res = await apiClient.post(`/tweets`, { content: tweet });
         toast.success("Tweet created successfully");
-        console.log("res:", res);
+        //console.log("res:", res);
       }
       setTweet("");
       router.refresh();

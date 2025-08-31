@@ -15,47 +15,35 @@ async function getRefreshToken() {
 const refreshAccessToken = async () => {
   try {
     const cookieStore = await cookies();
+    ////console.log("🚀 ~ cookieStore:", cookieStore);
     const refreshToken = await getRefreshToken();
-    //console.log(" refreshToken:", refreshToken)
+    ////console.log(" refreshToken:", refreshToken)
     const accessToken = await getAccessToken();
+    //console.log("🚀 ~ accessToken:", accessToken)
     if (!refreshToken) {
       return null;
     }
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/refresh-token`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        refreshToken,
-        accessToken,
-      }),
-    });
-    
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/refresh-token`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          refreshToken,
+        }),
+      }
+    );
     const data = await response.json();
-    const {
-      accessToken:newAccessToken,
-      refreshToken:newRefreshToken,
-    } = data?.data || {}
+    const { accessToken: newAccessToken } = data?.data || {};
 
-    cookieStore.set('accessToken', newAccessToken, {
+    cookieStore.set("accessToken", newAccessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 24 * 60 * 60, // 24 hours
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
     });
-
-    cookieStore.set('refreshToken', newRefreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 10 * 24 * 60 * 60, // 10 days
-    });
-
-
     return { data };
   } catch (e) {
     console.error("Failed to refresh access token in auth.api", e);
@@ -68,14 +56,14 @@ const refreshAccessToken = async () => {
 // logout
 async function logout() {
   try {
-    const cookie = await cookies();    
+    const cookie = await cookies();
     const res = await fetchWithAuth("/users/logout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
     });
-    if(!res?.success) {
+    if (!res?.success) {
       throw new Error("Failed to logout");
     }
     cookie.delete("accessToken");

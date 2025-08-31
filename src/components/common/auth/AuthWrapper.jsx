@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 const AuthWrapper = async ({ children }) => {
   const { data: user } = await retrieveCurrentUser();
-  console.log(" user:", user)
+  //console.log(" user:", user)
   const isLoggedIn = !!user?._id;
 
   isLoggedIn ? children : redirect("/login");

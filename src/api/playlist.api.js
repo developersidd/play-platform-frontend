@@ -4,7 +4,7 @@ import { apiClient, fetchWithAuth } from ".";
 const getPlaylistById = async (id) => {
   try {
     const res = await apiClient.get(`/playlists/${id}`);
-    //console.log(" res:", JSON.stringify( res.data, null, 2));
+    ////console.log(" res:", JSON.stringify( res.data, null, 2));
     return {
       data: res.data?.data,
     };
@@ -25,12 +25,12 @@ const getUserPlaylists = async (username, queries = {}) => {
         params: queries,
       }
     );
-    //console.log("playlist:", res.data);
+    ////console.log("playlist:", res.data);
     return {
       data: res.data?.data,
     };
   } catch (e) {
-    console.log(" e:", e);
+    //console.log(" e:", e);
     return {
       error: e.message,
     };
@@ -48,7 +48,7 @@ const getUserCollections = async (queries = {}) => {
       data: res?.data,
     };
   } catch (e) {
-    console.log(" e in collection:", e);
+    //console.log(" e in collection:", e);
     return {
       error: e.message,
     };
@@ -92,4 +92,11 @@ const deleteManyPlaylists = async (playlistIds) => {
   }
 };
 
-export { getPlaylistById, getUserCollections, getUserPlaylists, updatePlaylist, deletePlaylist, deleteManyPlaylists };
+export {
+  deleteManyPlaylists,
+  deletePlaylist,
+  getPlaylistById,
+  getUserCollections,
+  getUserPlaylists,
+  updatePlaylist,
+};

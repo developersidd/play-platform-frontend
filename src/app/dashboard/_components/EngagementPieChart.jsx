@@ -8,8 +8,8 @@ import {
 import { formatCounting } from "@/lib/utils";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
-const EngagementPieChart = ({data}) => {
-  console.log("🚀 ~ data:", data)
+const EngagementPieChart = ({ data }) => {
+  //console.log("🚀 ~ data:", data)
   return (
     <Card className="xl:flex-1 w-full pb-12">
       <CardHeader>

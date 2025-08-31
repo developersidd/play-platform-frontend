@@ -36,14 +36,14 @@ const WatchLaterVideoList = ({ dbVideos }) => {
       videoId: item?.video?._id,
       position: items.findIndex(({ _id }) => _id === item._id),
     }));
-    console.log(" bulkUpdateData:", bulkUpdateData);
+    //console.log(" bulkUpdateData:", bulkUpdateData);
     reorderWatchLaterVideos(bulkUpdateData)
       .then(() => {
         router.refresh();
         toast.success("Videos reordered successfully");
       })
       .catch((e) => {
-        console.log(" e:", e);
+        //console.log(" e:", e);
         toast.error("Error reordering videos");
       });
   };

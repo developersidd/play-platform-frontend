@@ -4,7 +4,7 @@ import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 const HistoryVideoCard = ({ video }) => {
-  console.log(" video:", video);
+  //console.log(" video:", video);
   const {
     thumbnail,
     title,
@@ -18,8 +18,10 @@ const HistoryVideoCard = ({ video }) => {
     <div className="w-full relative transition-colors hover:bg-light-bg p-2 rounded-lg">
       {/* Actions */}
 
-      <VideoActions videoId={_id} dropdownTriggerIconClassName="size-5"
-      dropdownTriggerClassName="top-2"
+      <VideoActions
+        videoId={_id}
+        dropdownTriggerIconClassName="size-5"
+        dropdownTriggerClassName="top-2"
       />
       <div className=" gap-x-4 flex">
         <div className="relative mb-2  md:mb-0 w-2/4 lg:w-1/4 h-[140px]">

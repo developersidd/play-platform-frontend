@@ -6,7 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { redirect } from "next/navigation";
 import PlaylistBoxItem from "./PlaylistBoxItem";
 const PlaylistBox = async ({ playlistId, currentVideoIndex }) => {
-  console.log(" currentVideoIndex:", currentVideoIndex);
+  //console.log(" currentVideoIndex:", currentVideoIndex);
   const [name, id] = playlistId.split("_");
   const { data: { fullName: userFullName } = {} } =
     (await retrieveCurrentUser()) || {};
@@ -29,7 +29,7 @@ const PlaylistBox = async ({ playlistId, currentVideoIndex }) => {
   const {
     data: { name: plName, videos, owner: { fullName } = {} },
   } = res || {};
-  console.log("res", res);
+  //console.log("res", res);
   const playlistOwner = listName === "wl" ? userFullName : fullName;
   let playlistName = listName === "wl" ? "Watch Later" : plName;
   const totalVideos = videos?.length || 0;

@@ -8,7 +8,7 @@ const getUserLoginHistory = async () => {
       data: res.data,
     };
   } catch (e) {
-    console.log(" e:", e);
+    //console.log(" e:", e);
     return {
       error: e.message,
     };

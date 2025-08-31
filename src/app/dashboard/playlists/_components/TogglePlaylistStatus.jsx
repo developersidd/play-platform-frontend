@@ -11,10 +11,10 @@ const ToggleVideoStatus = ({ isPrivate, setIsPrivate, playlistId }) => {
 
   const handleDebouncedToggle = useDebounce(async (value) => {
     try {
-     const res =  await updatePlaylist(playlistId, {
+      const res = await updatePlaylist(playlistId, {
         isPrivate: value,
       });
-      console.log("🚀 ~ res:", res)
+      //console.log("🚀 ~ res:", res)
       router.refresh();
     } catch (error) {
       toast.error("Failed to update playlist status");

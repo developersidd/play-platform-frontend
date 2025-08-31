@@ -7,10 +7,10 @@ const getVideoComments = async (videoId, queries = {}) => {
       url += `?${searchParams.toString()}`;
     }
     const response = await apiClient.get(url);
-    //console.log(" response.data?.data:", response.data?.data)
+    ////console.log(" response.data?.data:", response.data?.data)
     return { data: response.data?.data };
   } catch (e) {
-    console.log(" e:", e);
+    //console.log(" e:", e);
     console.error("Failed to get video comments", e);
     return {
       error: e.message,

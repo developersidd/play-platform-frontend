@@ -40,7 +40,7 @@ const HistoryVideoCardActions = ({ videoId }) => {
       await apiClient.patch(`/watch-later/v/${videoId}/add`);
     } catch (error) {
       setIsVideoInWatchLater((prev) => !prev);
-      console.log(" error:", error);
+      //console.log(" error:", error);
       toast.error("Failed to add video in watch later!");
     }
   };
@@ -55,7 +55,7 @@ const HistoryVideoCardActions = ({ videoId }) => {
     setIsModalOpen(true);
     setIsDropdownOpen(false);
   };
-  
+
   return (
     <>
       <SaveToCollectionModal

@@ -10,7 +10,7 @@ const getVideos = async (queries) => {
   }
   try {
     const res = await apiClient.get(url);
-    //console.log(" url:", url);
+    ////console.log(" url:", url);
     return {
       data: res.data?.data,
     };
@@ -80,7 +80,7 @@ const getLikedVideos = async () => {
     const res = await fetchWithAuth(`/videos/liked`, {
       method: "GET",
     });
-    console.log("data", res);
+    //console.log("data", res);
     return {
       data: res?.data,
     };

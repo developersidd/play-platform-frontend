@@ -18,10 +18,10 @@ import {
 import useAxios from "@/hooks/useAxios";
 import { Edit, Ellipsis, Trash } from "lucide-react";
 import moment from "moment";
+import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
 import TweetLikeDislike from "./TweetLikeDislike";
-import Image from "next/image";
 
 const ChannelTweetItem = ({ tweet, isOwner, setTweetToEdit }) => {
   const {
@@ -36,7 +36,7 @@ const ChannelTweetItem = ({ tweet, isOwner, setTweetToEdit }) => {
   } = tweet || {};
   const [isDeleted, setIsDeleted] = useState(false);
 
-  //console.log("isOwner:", isOwner);
+  ////console.log("isOwner:", isOwner);
   const [showModal, setShowModal] = useState(false);
   const { apiClient } = useAxios();
   //const menuRef = useRef(null);
@@ -47,7 +47,7 @@ const ChannelTweetItem = ({ tweet, isOwner, setTweetToEdit }) => {
     try {
       const res = await apiClient.delete(`/tweets/${_id}`);
       toast.success("Tweet Deleted successfully");
-      console.log("res:", res);
+      //console.log("res:", res);
     } catch (error) {
       toast.error("Failed to Delete comment");
       setIsDeleted(false);

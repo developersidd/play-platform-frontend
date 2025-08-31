@@ -60,13 +60,13 @@ function LoginForm() {
       });
       if (response.ok) {
         await response.json();
-        
+
         localStorage.setItem("loggedIn", true);
-        router.refresh()
+        router.refresh();
         return router.push(redirect);
       }
     } catch (e) {
-      console.log(" e:", e);
+      //console.log(" e:", e);
       toast.error(e.response?.data?.message || e?.message || "Login failed");
     }
   }

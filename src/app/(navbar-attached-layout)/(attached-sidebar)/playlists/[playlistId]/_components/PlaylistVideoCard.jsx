@@ -4,7 +4,7 @@ import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 const PlaylistVideoCard = ({ video, link }) => {
-  //console.log(" video:", video);
+  ////console.log(" video:", video);
   const {
     thumbnail,
     title,

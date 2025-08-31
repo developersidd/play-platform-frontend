@@ -28,7 +28,7 @@ const VideosTableHeader = ({ selectedIds, onCheckboxChange, totalVideos }) => {
   const { setValue, getValue } = useQueryParam();
   const [search, setSearch] = useState(getValue("search") || "");
   const [filterField, setFilterField] = useState(getValue("sortBy") || "title");
-  console.log(" filterField:", filterField);
+  //console.log(" filterField:", filterField);
   const [sortOrder, setSortOrder] = useState(getValue("sortOrder") || "desc");
   const [status, setStatus] = useState(getValue("status"));
   const handleDebounceSearch = useDebounce((value) => {

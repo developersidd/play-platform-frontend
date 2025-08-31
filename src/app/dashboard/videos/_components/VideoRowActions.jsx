@@ -37,7 +37,7 @@ const VideoRowActions = ({ videoId, title, isVideoPublished }) => {
       router.refresh();
       toast.success("Video deleted successfully");
     } catch (e) {
-      console.log(" e:", e);
+      //console.log(" e:", e);
       toast.error("There was an error occurred");
     }
   };

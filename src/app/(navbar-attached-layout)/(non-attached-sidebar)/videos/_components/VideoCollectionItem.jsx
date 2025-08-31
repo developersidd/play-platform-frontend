@@ -12,7 +12,7 @@ const VideoCollectionItem = ({ isSaved, collection, videoId }) => {
 
   // add video in collection using throttling
   const throttleAddRemoveVideoInPlaylist = useThrottle(async (value) => {
-    console.log("throttled", value);
+    //console.log("throttled", value);
     try {
       const res = await apiClient.patch(
         `/playlists/${_id}/v/${videoId}/toggle`,
@@ -20,9 +20,9 @@ const VideoCollectionItem = ({ isSaved, collection, videoId }) => {
           value,
         }
       );
-      console.log(" res:", res);
+      //console.log(" res:", res);
     } catch (error) {
-      console.log(" error:", error)
+      //console.log(" error:", error)
       toast.error("Failed to save or remove video from collection");
     }
   }, 3000);

@@ -1,6 +1,5 @@
-
 import axios from "axios";
-import { getAccessToken, refreshAccessToken } from "./auth.api";
+import { getAccessToken, getRefreshToken, refreshAccessToken } from "./auth.api";
 
 export const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -14,8 +13,8 @@ export const apiClient = axios.create({
 export async function fetchWithAuth(url, options = {}) {
   try {
     const accessToken = await getAccessToken();
-    //console.log(" accessToken in func:", accessToken)
-    if (!accessToken) {
+    const refreshToken = await getRefreshToken()
+    if (!refreshToken) {
       return null
     } 
     const response = await apiClient({
@@ -27,24 +26,26 @@ export async function fetchWithAuth(url, options = {}) {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    //console.log(" response in fethwithAU:", response.data)
+    ////console.log(" response in fethwithAU:", response.data)
     return response.data;
   } catch (error) {
-    console.log(" error in index:", error?.response?.data)
+    //console.log(" error in index:", error?.response?.data)
     const isJwtError = error?.response?.data?.message === "jwt expired";
-    //console.log(" isJwtError:", isJwtError)
+    ////console.log(" isJwtError:", isJwtError)
     if (error.response && error.response.status === 401 && !options._retry && isJwtError) {
       options._retry = true;
       try {
+        //console.log("Calling refreshAccessToken()")
         const { data } = (await refreshAccessToken()) || {};
-        console.log("data from refresh:", data);
-        if(!data?.success) {
-          console.log("Failed to refresh access token");
-          throw new Error("Failed to refresh access token");
-        }
+        //console.log("data from refresh:", data);
+        //if(!data?.success) {
+        //  //console.log("Failed to refresh access token");
+        //  throw new Error("Failed to refresh access token");
+        //}
         const newAccessToken = data?.data?.accessToken;
-        console.log(" newAccessToken:", newAccessToken)
+        //console.log(" newAccessToken:", newAccessToken)
         //// Retry the original request with the new token
+        //console.log("🚀 ~ url:", url)
         //await apiClient({
         //  ...options,
         //  url,
@@ -54,8 +55,8 @@ export async function fetchWithAuth(url, options = {}) {
         //  },
         //});
       } catch (refreshError) {
-        console.log(" refreshError:", refreshError)
-        console.log(
+        //console.log(" refreshError:", refreshError)
+        //console.log(
           "Session expired or there was error refreshing token. Please log in again."
         );
       }

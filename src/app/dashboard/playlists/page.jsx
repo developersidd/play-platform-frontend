@@ -11,7 +11,7 @@ const DashboardPlaylistsPage = async ({ searchParams }) => {
     sortOrder: sortOrder || "desc",
     sortBy: sortBy || "createdAt",
   });
-  console.log("🚀 ~ data:", data);
+  //console.log("🚀 ~ data:", data);
 
   return (
     <section className="px-8 !overflow-x-hidden">

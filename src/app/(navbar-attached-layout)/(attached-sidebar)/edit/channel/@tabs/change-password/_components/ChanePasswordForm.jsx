@@ -81,7 +81,7 @@ const ChangePasswordForm = () => {
       });
       form.reset();
       toast.success("Account updated successfully!");
-      console.log("response:", response);
+      //console.log("response:", response);
       router.refresh();
     } catch (e) {
       const errorMessage = e?.response?.data?.message;

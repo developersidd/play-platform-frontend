@@ -31,7 +31,7 @@ const SaveToCollectionModal = ({ videoId, open, setIsOpen, children }) => {
     fetchData();
   }, []);
   let content;
-  console.log("🚀 ~ collection?.videos:", collections);
+  //console.log("🚀 ~ collection?.videos:", collections);
   if (loading) {
     content = (
       <div className="flex justify-center py-10">

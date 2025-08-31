@@ -13,8 +13,8 @@ const TweetLikeDislike = ({ tweetId, likeData, dislikeData }) => {
   } = useUserContext();
   //  const [isLiked, setIsLiked] = useState(likeData?.isLikedMe);
   const [{ likes, isLiked }, setLikeState] = useState(likeData);
-  //  console.log("isLiked:", isLiked);
-  //  console.log("likes:", likes);
+  //  //console.log("isLiked:", isLiked);
+  //  //console.log("likes:", likes);
   const [{ dislikes, isDisliked }, setDislikeState] = useState(dislikeData);
 
   const { apiClient } = useAxios();
@@ -23,11 +23,11 @@ const TweetLikeDislike = ({ tweetId, likeData, dislikeData }) => {
   const likeApi = async () => {
     try {
       const res = await apiClient.post(`/likes/toggle/t/${tweetId}`);
+      ////console.log("res:", res);
       //console.log("res:", res);
-      console.log("res:", res);
       router.refresh();
     } catch (error) {
-      //console.log("error:", error);
+      ////console.log("error:", error);
       console.error(error);
     }
   };
@@ -37,7 +37,7 @@ const TweetLikeDislike = ({ tweetId, likeData, dislikeData }) => {
     try {
       const res = await apiClient.post(`/dislikes/toggle/t/${tweetId}`);
       router.refresh();
-      console.log("res:", res);
+      //console.log("res:", res);
     } catch (error) {
       console.error(error);
     }

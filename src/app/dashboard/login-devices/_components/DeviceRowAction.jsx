@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const DeviceRowAction = ({ deviceId, currentDevice }) => {
-  console.log(" deviceId:", deviceId);
+  //console.log(" deviceId:", deviceId);
   const { apiClient } = useAxios();
   const { dispatch } = useUserContext();
   const router = useRouter();
@@ -23,7 +23,7 @@ const DeviceRowAction = ({ deviceId, currentDevice }) => {
         dispatch({ type: LOGGED_OUT });
       }
     } catch (error) {
-      console.log(" error:", error);
+      //console.log(" error:", error);
       toast.error("Failed to remove device");
     }
   }

@@ -29,10 +29,10 @@ import { z } from "zod";
 
 const MAX_FILE_SIZE = 5000000; // 5MB
 function checkFileType(file) {
-  //console.log("file:", file);
+  ////console.log("file:", file);
   if (file?.name) {
     const fileType = file?.name?.split(".")?.pop();
-    //console.log("fileType:", fileType);
+    ////console.log("fileType:", fileType);
     const allowedTypes = ["png", "jpg", "jpeg"];
     if (allowedTypes.includes(fileType)) return true;
   }

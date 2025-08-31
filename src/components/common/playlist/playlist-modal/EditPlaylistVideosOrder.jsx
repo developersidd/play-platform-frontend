@@ -13,7 +13,7 @@ const EditPlaylistVideosOrder = ({
   setVideosToUpdate,
   setValue,
 }) => {
-  console.log("🚀 ~ selectedVideos:", selectedVideos);
+  //console.log("🚀 ~ selectedVideos:", selectedVideos);
   const [isMounted, setIsMounted] = useState(false);
   const [items, setItems] = useState(selectedVideos);
   useEffect(() => {

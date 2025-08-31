@@ -25,7 +25,7 @@ const sortingOptions = [
 ];
 
 const UsersTableHeader = ({ selectedIds, onCheckboxChange }) => {
-  console.log(" selectedIds:", selectedIds)
+  //console.log(" selectedIds:", selectedIds)
   const { setValue, getValue } = useQueryParam();
   const [search, setSearch] = useState(getValue("search") || "");
   const [filterField, setFilterField] = useState(
@@ -129,7 +129,7 @@ const UsersTableHeader = ({ selectedIds, onCheckboxChange }) => {
 
           <Select
             onValueChange={(value) => {
-              console.log(" value:", value);
+              //console.log(" value:", value);
               setSortOrder(value);
               setValue("sortOrder", value);
             }}

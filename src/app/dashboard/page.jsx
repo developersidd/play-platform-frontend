@@ -4,8 +4,8 @@ import DashboardCharts from "./_components/DashboardCharts";
 import DashboardStats from "./_components/DashboardStats";
 
 const page = async () => {
-  const { data } = await getUserChannelStats();
-  const { data: subscriptionData } = await getMonthlySubscriptionGrowth();
+  const { data } = await getUserChannelStats() || {};
+  const { data: subscriptionData } = await getMonthlySubscriptionGrowth() || {};
   return (
     <section className="px-8 py-5">
       <DashboardStats stats={data} />
