@@ -49,6 +49,7 @@ export const Navbar = () => {
         toast.success("Logged out successfully");
       }
     } catch (error) {
+      console.log("🚀 ~ error:", error)
       toast.error("Failed to logout");
     }
   }

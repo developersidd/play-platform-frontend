@@ -8,7 +8,8 @@
 
 ## 🚀 Features
 
-- 🔐 User authentication
+- 🔐 Custom User authentication
+- 🔄 PWA support
 - 📤 Video upload & management
 - 🔍 Search functionality
 - 📱 Fully responsive design

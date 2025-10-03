@@ -40,10 +40,12 @@ const getWatchLaterVideos = async () => {
   try {
     //throw new Error("Not implemented yet");
     const { data } = (await fetchWithAuth(`/watch-later/videos`)) || {};
+    console.log("🚀 ~ data watchlatger:", data)
     return {
       data,
     };
   } catch (error) {
+    console.log("🚀 ~ error watchlater:", error)
     return {
       error: error.message,
     };

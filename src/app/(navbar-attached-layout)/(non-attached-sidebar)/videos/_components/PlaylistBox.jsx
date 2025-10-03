@@ -12,7 +12,7 @@ const PlaylistBox = async ({ playlistId, currentVideoIndex }) => {
     (await retrieveCurrentUser()) || {};
   let res;
   const listName = name?.trim()?.toLowerCase() || "";
-
+  
   // if user is not logged in, and trying to access watch later or collection, redirect to home
   if (!userFullName && ["wl", "ct"].includes(listName)) {
     return redirect("/");
@@ -29,10 +29,15 @@ const PlaylistBox = async ({ playlistId, currentVideoIndex }) => {
   const {
     data: { name: plName, videos, owner: { fullName } = {} },
   } = res || {};
+  console.log("🚀 ~ res:", res)
+  let videosToMap = videos || [];
+  if (["wl"].includes(listName)) {
+    videosToMap = res?.data
+  }
   //console.log("res", res);
   const playlistOwner = listName === "wl" ? userFullName : fullName;
   let playlistName = listName === "wl" ? "Watch Later" : plName;
-  const totalVideos = videos?.length || 0;
+  const totalVideos = videosToMap?.length || 0;
   return (
     <Card className="w-[398px]">
       <CardHeader className="p-4 border-b">
@@ -47,7 +52,7 @@ const PlaylistBox = async ({ playlistId, currentVideoIndex }) => {
 
       <ScrollArea className="h-[632px]">
         <CardContent className="p-0">
-          {videos.map((videoItem, index) => {
+          {videosToMap?.map((videoItem, index) => {
             const isActiveVideo = index + 1 === currentVideoIndex;
             return (
               <PlaylistBoxItem

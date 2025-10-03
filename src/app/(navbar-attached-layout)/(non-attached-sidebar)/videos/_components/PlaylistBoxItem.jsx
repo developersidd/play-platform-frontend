@@ -68,9 +68,9 @@ const PlaylistBoxItem = async ({
           />
         </div>
       ) : (
-        <div className="flex  items-center justify-center gap-2 h-full">
+        <div className="flex  items-center justify-center gap-2 h-full py-4">
           <VideoOff className="!size-5 text-secondary" />
-          <p className="text-sm font-semibold">Video not found!</p>
+          <p className="text-sm font-semibold text-gray-600">Video not found or has been deleted!</p>
         </div>
       )}
     </Button>
