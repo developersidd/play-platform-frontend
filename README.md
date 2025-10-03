@@ -9,8 +9,8 @@
 ## 🚀 Features
 
 - 🔐 Custom User authentication
-- 🔄 PWA support
 - 📤 Video upload & management
+- 🔄 PWA support
 - 🔍 Search functionality
 - 📱 Fully responsive design
 - ▶️ Video playback with React Player
