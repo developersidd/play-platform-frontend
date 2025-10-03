@@ -69,11 +69,11 @@ const NonAttachedSidebar = () => {
                     <TooltipTrigger className="w-full">
                       <Link
                         title={label}
-                        href={link}
+                          href={link}
                         className={`${
                           path === pathname
                             ? "bg-secondary border-secondary dark:border-secondary"
-                            : "border-gray-300 dark:border-white"
+                            : "border-gray-300 dark:border-gray-600"
                         } flex  h-[37px] md:h-[40px] items-center  max-md:gap-2  py-1
                       w-full flex-row border hover:bg-secondary 
 

@@ -40,7 +40,7 @@ const AttachedSidebar = () => {
        border-r-0 md:border-r top-0 md:top-[82px] 
        transition-all duration-300 md:duration-[100ms] ease-in-out
        left-0 bg-background min-h-dvh max-h-dvh
-       fixed  inset-x-0  z-50  shrink-0  border-gray-300 dark:border-white  w-[220px] pt-2  md:py-6        ${
+       fixed  inset-x-0  z-50  shrink-0  border-gray-300 dark:border-gray-600  w-[220px] pt-2  md:py-6        ${
          sidebarCollapsed
            ? "max-md:translate-x-0 md:w-[75px]"
            : "max-md:-translate-x-full md:w-[235px] "
@@ -85,7 +85,7 @@ const AttachedSidebar = () => {
                         className={`${
                           path === pathname
                             ? "bg-secondary border-secondary dark:border-secondary"
-                            : "border-gray-300 dark:border-white"
+                            : "border-gray-300 dark:border-gray-600"
                         } flex  h-[37px] md:h-[42px] items-center  gap-2 lg:gap-3  py-1
                       w-full flex-row border hover:bg-secondary 
                       

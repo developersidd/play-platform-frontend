@@ -54,7 +54,7 @@ export const Navbar = () => {
   }
 
   return (
-    <div className="w-full bg-background border-b border-gray-300 dark:border-white  sticky top-0 z-50 ">
+    <div className="w-full bg-background border-b border-gray-300 dark:border-gray-600  sticky top-0 z-50 ">
       <div className="px-3 sm:px-4 md:px-6 lg:px-8 2xl:px-10 py-2  h-full flex w-full items-center  justify-between">
         {/*<MobileSidebar />*/}
         <div className="w-full flex items-center gap-1 sm:gap-2">
