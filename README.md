@@ -39,7 +39,8 @@
 
 ## 🔗 Live Demo
 
-> 🚧 **Coming Soon:** The live version of this project is not deployed yet. Hosting will be available shortly. Stay tuned!
+🚀 **Live Website:** https://play-platform.vercel.app/  
+
 
 ---
 
@@ -54,13 +55,8 @@
 | **Profile Page** | <img src="https://i.ibb.co/N2cBqb7Y/Profile.png" alt="Profile Page" width="100%" /> |
 | **Watch History** | <img src="https://i.ibb.co/jPTjC54t/history.png" alt="Watch History" width="100%" /> |
 | **My Videos** | <img src="https://i.ibb.co/HDS4sKZq/my-videos.png" alt="My Videos" width="100%" /> |
-| **Dashboard (Stats)** | <img src="https://i.ibb.co/LD4fvvwD/dashboard-stats.png" alt="Dashboard" width="100%" /> |
+| **Dashboard (Stats)** | <img src="https://i.ibb.co.com/9mpzYrMF/screencapture-play-platform-vercel-app-dashboard-2026-04-01-01-36-13.png" alt="Dashboard" width="100%" /> |
 | **Watch Later Page** | <img src="https://i.ibb.co/GQqnLg2y/watch-later.png" alt="Watch Later" width="100%" /> |
 | **Profile Info Section** | <img src="https://i.ibb.co/ymyLYyxp/profile-info.png" alt="Profile Info" width="100%" /> |
 
 ---
-
-## 📌 Notes
-
-- This project is currently in development.
-- Deployment is in progress and the demo link will be added soon.
